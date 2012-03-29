@@ -1,6 +1,6 @@
 <?php
 
-require '../src/facebook.php';
+require '..facebook-php-sdk/src/facebook.php';
 
 $facebook = new Facebook(array(
   'appId'  => '344617158898614',
