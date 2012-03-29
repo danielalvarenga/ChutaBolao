@@ -15,26 +15,27 @@
  * under the License.
  */
 
-require '../src/facebook.php';
+require '..facebook-php-sdk/src/facebook.php';
 
-// Create our Application instance (replace this with your appId and secret).
+// Cria o nosso exemplo de aplicação (substituído pelo seu appId e secret).
 $facebook = new Facebook(array(
   'appId'  => '344617158898614',
   'secret' => '6dc8ac871858b34798bc2488200e503d',
 ));
 
-// Get User ID
+// Obter ID do usuário
 $user = $facebook->getUser();
 
-// We may or may not have this data based on whether the user is logged in.
+// Podemos ou não ter esse dado com base em se o usuário estiver conectado.
 //
-// If we have a $user id here, it means we know the user is logged into
-// Facebook, but we don't know if the access token is valid. An access
-// token is invalid if the user logged out of Facebook.
+// Se temos um ID de usuário ($user), isso significa que nós sabemos que o usuário está conectado ao
+// Facebook, mas não sabemos se o token de acesso é válido. Um token de
+// acesso é inválida se o usuário conectado sai do Facebook.
 
 if ($user) {
   try {
     // Proceed knowing you have a logged in user who's authenticated.
+  	// Vá sabendo que você tem um usuário logado que está autenticado.
     $user_profile = $facebook->api('/me');
   } catch (FacebookApiException $e) {
     error_log($e);
@@ -43,6 +44,7 @@ if ($user) {
 }
 
 // Login or logout url will be needed depending on current user state.
+// Login ou sair url serão necessários dependendo do estado atual do usuário.
 if ($user) {
   $logoutUrl = $facebook->getLogoutUrl();
 } else {
@@ -50,6 +52,7 @@ if ($user) {
 }
 
 // This call will always work since we are fetching public data.
+// Esta chamada irá funcionar sempre desde que nós estamos buscando dados públicos.
 $naitik = $facebook->api('/naitik');
 
 ?>
