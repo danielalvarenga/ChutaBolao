@@ -6,11 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /** @Entity */
 class PremiosUsuario {
 	
-	/**
-	 * @Id
-	 * @Column(type="integer")
-	 * @GenerateValue
-	 */
+	/** @Id @Column(type="integer") @GenerateValue */
 	private $codPremiacoes;
 	
 	/** @Column(type="integer", nullable=true) */
@@ -23,44 +19,69 @@ class PremiosUsuario {
 	private $codRodada;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $acertosPlacar = 0;
+	private $acertosPlacar;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $acertosTimeGanhador = 0;
+	private $acertosTimeGanhador;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $acertosPlacarInvertido = 0;
+	private $acertosPlacarInvertido;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $pontosCampeonato = 0;
+	private $pontosCampeonato;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $pontosRodada = 0;
+	private $pontosRodada;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $medalhasOuro = 0;
+	private $medalhasOuro;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $medalhasPrata = 0;
+	private $medalhasPrata;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $medalhasBronze = 0;
+	private $medalhasBronze;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $chuteirasOuro = 0;
+	private $chuteirasOuro;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $chuteirasPrata = 0;
+	private $chuteirasPrata;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $chuteirasBronze = 0;
+	private $chuteirasBronze;
 	
 	/** @Column(type="integer", nullable=false) */
-	private $trofeus = 0;
+	private $trofeus;
 	
-	/**
-	 * @ManyToOne(targetEntity="Usuario", inversedBy="premiacoesUsuario")
-	 * @var Usuario
-	 */
+	/** @ManyToOne(targetEntity="Usuario", inversedBy="premios")
+	 * @var Usuario */
 	protected $usuario;
+	
+	function _construct($codCampeonato, $codRodada, $codTimeFavorito = null){
+		$this->codCampeonato = $codCampeonato;
+		$this->codTimeFavorito = $codTimeFavorito;
+		$this->codRodada = $codRodada;
+		$this->acertosPlacar = 0;
+		$this->acertosTimeGanhador = 0;
+		$this->acertosPlacarInvertido = 0;
+		$this->pontosCampeonato = 0;
+		$this->pontosRodada = 0;
+		$this->medalhasOuro = 0;
+		$this->medalhasPrata = 0;
+		$this->medalhasBronze = 0;
+		$this->chuteirasOuro = 0;
+		$this->chuteirasPrata = 0;
+		$this->chuteirasBronze = 0;
+		$this->trofeus = 0;		
+	}
+	
+	function getAcertosPlacar(){
+		return $acertosPlacar;
+	}
+	
+	function setAcertosPlacar(){
+		$this->acertosPlacar++;
+	}
+
 }
