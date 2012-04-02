@@ -1,45 +1,38 @@
 <?php
-require_once '../Facebook-php-sdk/src/facebook.php';
 
-$App_ID = '233715530059546';
-$App_Secret = '0fa65b36e29b5ba8f774827028f67317';
+use Doctrine\Common\Collections\ArrayCollection;
 
-$facebook = new Facebook(array(
-		'appId' => $App_ID,
-		'appSecret' => $App_Secret
-));
-
-$usuario = $facebook->getUser();
-
-if($usuario == 0)
-{
-	$url = $Facebook->getLogin(array ('scope' => array('email', 'publish_stream')));
-	header("location:".$url);
-}
-else
-{
-	if($_GET['action'] == 'finish')
-	{
-		session_destroy();
-		header('Location: '.$facebook->getLogoutUrl());
-	}
-	else
-	{
-		if($_GET['action'] == 'publish' && strlen($_POST['status']) > 0)
-		{
-			$post = array('message' => $_POST['status']);
-			$feed = $facebook->api('/me/feed');
-		}
-		else
-		{
-			$me = $facebook->api('/me');
-			$nomeUsuario = $me['name'];
-			$primeiroNomeUsuario = $me['first_name'];
-			$segundoNomeUsuario = $me['last_name'];
-			$emailUsuario = $me['email'];
-			
-			
-			
-		}
-	}
+/** @Entity */
+class Usuario implements Transacao {
+	
+	/**
+	 * @Id
+	 * @GenerateValue
+	 */
+	private $idUsuario;
+	
+	/** @Column(type="string", nullable=false) */
+	private $tokenUsuario;
+	
+	/** @Column(type="string", nullable=false) */
+	private $nomeUsuario;
+	
+	/** @Column(type="string", nullable=false) */
+	private $primeiroNomeUsuario;
+	
+	/** @Column(type="string", nullable=false) */
+	private $segundoNomeUsuario;
+	
+	/** @Column(type="string", nullable=false) */
+	private $emailUsuario;
+	
+	/** @Column(type="integer", nullable=false) */
+	private $pontosGeralUsuario = 0;
+	
+	/**
+	 * @OneToMany(targetEntity="PremiosUsuario", mappedBy="usuario")
+	 * @var PremiosUsuario[]
+	 */
+	protected $premiacoesUsuario = null;
+	
 }
