@@ -3,7 +3,7 @@
 use Doctrine\Common\Collections\ArrayCollection;
 
 /** @Entity */
-class Usuario {
+class Usuario extends UsuarioAbstrato {
 
 	/** @Id @Column(type="string", nullable=false, unique=true) */
 	private $idUsuario;

@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class PremiosUsuario {
 	
 	/** @Id @Column(type="integer") @GenerateValue */
-	private $codPremiacoes;
+	private $codPremiosUsuario;
 	
 	/** @Column(type="integer", nullable=true) */
 	private $codCampeonato;
@@ -56,7 +56,7 @@ class PremiosUsuario {
 	
 	/** @ManyToOne(targetEntity="Usuario", inversedBy="premios")
 	 * @var Usuario */
-	protected $usuario;
+	protected $usuario_id;
 	
 	function _construct($codCampeonato, $codRodada, $codTimeFavorito = null){
 		$this->codCampeonato = $codCampeonato;
