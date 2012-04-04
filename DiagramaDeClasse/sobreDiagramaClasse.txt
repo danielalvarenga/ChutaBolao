@@ -1,0 +1,41 @@
+chuta bolão
+
+1. Comentarios sobre a classe Campeonato
+	1.1 campeonato é a classe que vai unir os cadastros de campeonatos realizados. 
+	1.2. A classe campeonato possui dois atributos: codCampeonato (identificador unico a cada campeonato) e nomeCampeonato para nomear cada campeonato;
+	1.3 A classe campeonato possui 2 métodos, são eles: cadastraCampeonato para efetuar o cadastro de um novo campeonato, e um metodo getCampeonato que irá retornar o identificador de um campeonato pesquisado;
+
+2. Comentários sobre a classe Rodada
+	2.1. A classe Rodada vai unir os cadastros de Rodadas realizadas. esta entidade relaciona-se com a entidade Jogo por meio de uma Agregação, pois jogo existe sem rodada, mais rodada não existe sem jogo.
+	2.2. A classe rodada recebe um identificador unico da classe campeonato através do atributo codCampeonato relacionando-os;
+	2.3. A classe rodada possui ainda um atributo chamado numeroRodada para demonstrar as rodadas dos campeonatos, além de dois métodos, que são: getRodada para retornar o id unico de cada rodada de um campeonato específico, e um método cadastraRodada para gerar uma nova rodada e vinculá-la automaticamente a um campeonato. Esse procedimento ocorre através do retorno do método getCampeonato da classe campeonato e enviá-lo ao atributo codCampeonato da classe Rodada (esse procedimento deve ser incluso no método cadastraRodada).
+
+3. Comentários sobre a classe Jogo
+	3.1. A classe jogo vai unir os cadastros de jogos realizadas. Esta classe relaciona-se com a classe aposta por meio de uma Agregação, pois jogo existe sem aposta, mais aposta não existe sem jogo.
+	3.2. A classe jogo possui um método cadastraJogo que irá enviar valores aos atributos dataJogo, codTime1, codTime2, dataInicioapostas e dataFimapostas além de buscar o código da rodada através do método getRodada da classe Rodada e enviá-lo ao atributo codRodada da classe Jogo.
+	3.3. A classe jogo possui ainda os métodos getGolstime1 e getGolstime2 para verificar os gols já foram cadastrados para o jogo e setGolstime1 e setGolstime2 para atualizar o placar real do jogo assim que ocorrer um novo gol (antes de realizar o procedimento de gravação de um novo gol, deve ser verificado os gols já previamente cadastrados através dos métodos getGolstime1 e getGolstime2 para poder incrementá-lo).
+
+4. Comentários sobre a classe Time
+	4.1. A classe Time vai unir os cadastros de times.
+	4.2. A classe Time possui os atributos codTime (id unico para cada time), nomeTime para nomear um time, e alguns atributos de contabilização de vitórias, empates, derrotas, golsContra e golsPro (essa organização implica em uma contabilidade geral, o que deve ser repensado para que se contabilize esse valores agrupados por campeonato. Sugere-se  a criação de uma nova classe cruzada com as classes Time e Campeonato).
+
+5. Comentários sobre a classe aposta
+	5.1 A classe aposta vai unir os cadastros de apostas realizadas, fazendo uma composição com grupo de apostas onde irá armazenar todas as apostas com vários possíveis resultados para um único jogo. Esses possíveis resultados são gravados nos atributos apostaGolstime1 e apostaGolstime2.
+	5.2 A classe aposta possui um método entitulado cadastraAposta que receberá o valor long retornado pelo método getJogo da classe Jogo e gravando no atributo codJogo da classe aposta.
+	5.3. A classe aposta ainda possui um método getPlacarinverso para verificar as apostas nas quais o placar real ocorrer com números de gols inversos ao apostado, o que deve ser também premiado conforme levantamento de requisitos.
+	5.4. A classe aposta também possui um método getAposta que irá retornar o identificador de uma aposta para verificar a existência ou não de uma aposta em específico (por ex.: buscar a aposta Fla 3, Vas 2).
+	5.5. A classe aposta também possui um método getApostavencedora para retornar o id da aposta em que os valores dos atributos apostaGolstime1 coincidir com golsTime1 da classe jogo e apostagolstime2 coincidir com goslTme2 da classe jogo para poder contabilizar os registros da classe grupoaposta que estiverem vinculados a esse id (ou seja, coincidirem com o placar real do jogo).
+
+6. Comentários sobre a classe grupoaposta
+	6.1. A classe grupoaposta deve agrupar as apostas através de uma relação de agregação com a classe usuario com uma composição a classe aposta.
+	6.2. A classe grupoAposta possui um método cadastraPalpite que irá receber o id de um palpite previamente cadastrado na classe aposta através do método getAposta da classe aposta, como procedimento prévio, deve-se verificar a existência do palpite em questão, caso o palpite ainda não tenha sido cadastrado, deve-se realizar o cadastro de uma nova aposta baseada no palpite do usuário através do método cadastraAposta da classe aposta, caso contrário, na existência de uma aposta coincidente com o palpite do usuário, somente receber o id através do método getAposta
+	6.3. No procedimento de cadastro de um novo palpite da classe grupoaposta, deve-se também marcar o atributo situacaoAposta com um valor temporário que deve ser atualizado quando do encerramento do jogo para um valor que demonstre vitoria, derrota ou vitoria inversa.
+	6.4. O id da aposta vencedora deve ser recebido através do método getApostavencedora da classe aposta e utilizado para efetuar as modificações relacionadas aos palpites cadastrados dos usuários.
+	6.5.  A classe grupoaposta possui ainda os métodos contaVitorias, contaVitoriascampeonato e contaPlacarinverso para contabilizar os valores que irão pontuar o usuário no sistema atribuindo medalhas conforme levantamento de requisitos.
+	6.6. A classe grupoaposta possui também o método mudaSituacao para que, quando do encerramento dos jogos, a contabilização dos palpites que estejam relacionados com a classe Apostas e coincidem com os resultados finais dos jogos (comparados através dos retornos dos métodos getPlacarinverso e getApostavencedora. Na ocorrencia de palpites coincidentes com esses valores, o método mudaSituacao deverá modificar o valor do atributo situacaoAposta para "Vitoria" ou "Vitoria inversa" conforme o conforme a solicitação de processamento).
+
+7. Comentários sobre a classe usuário
+	7.1. Vai unir os cadastros de Usuários com a id de acesso a cada usuário e seu token de permissão para acessá-lo;
+	7.2. Possui um array que armazena os objetos da classe Aposta com as informações de cada aposta do usuário;
+	7.3. Possui um array que armazena os objetos da classe Premio com as informações de todas as premiações do usuário durante cada campeonato;
+	
