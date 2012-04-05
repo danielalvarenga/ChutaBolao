@@ -7,7 +7,7 @@ class Usuario extends UsuarioAbstrato {
 	private $primeiroNomeUsuario;
 	private $segundoNomeUsuario;
 	private $emailUsuario;
-	private $pontosGeralUsuario;
+	private $pontosGeral;
 	protected $apostas = null;
 	protected $premiosCampeonato = null;
 	

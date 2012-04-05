@@ -4,7 +4,7 @@ CREATE TABLE Usuario (
 		primeiroNome VARCHAR(255) NOT NULL,
 		segundoNome VARCHAR(255) NOT NULL,
 		emailUsuario VARCHAR(255) NOT NULL,
-		pontosGeralUsuario INT DEFAULT 0,
+		pontosGeral INT DEFAULT 0,
 		PRIMARY KEY(idUsuario))
 		ENGINE = InnoDB;
 CREATE TABLE PremiosUsuario (

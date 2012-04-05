@@ -15,7 +15,7 @@ abstract class UsuarioAbstrato {
 	function __construct();
 	/* Recebe como parâmetros idUsuario, tokenUsuario, primeiroNomeUsuario, segundoNomeUsuario e
 	 * emailUsuario e inicia pontosGeral com 0 */
-	function getIdUsuario();
+	abstract function getIdUsuario();
 	function setIdUsuario();	
 	function getTokenUsuario();
 	function setTokenUsuario();
