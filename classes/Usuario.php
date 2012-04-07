@@ -1,6 +1,6 @@
 <?php
 
-class Usuario extends UsuarioAbstrato {
+class Usuario{
 
 	private $idUsuario;
 	private $tokenUsuario;
@@ -8,16 +8,66 @@ class Usuario extends UsuarioAbstrato {
 	private $segundoNomeUsuario;
 	private $emailUsuario;
 	private $pontosGeral;
-	protected $apostas = null;
-	protected $premiosCampeonato = null;
-	
+	protected $apostas;
+	protected $premiacoes;
+
 	function __construct($idUsuario, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario){
+	$this->idUsuario = $idUsuario;
+	$this->tokenUsuario = $tokenUsuario;
+	$this->primeiroNomeUsuario = $primeiroNomeUsuario;
+	$this->segundoNomeUsuario = $segundoNomeUsuario;
+	$this->emailUsuario = $emailUsuario;
+	$this->pontosGeral = 0;
+	$this->apostas = null;
+	$this->premiacoes = null;
+	}
+	
+	function getIdUsuario(){
+		return $this->idUsuario;
+	}
+
+	function setIdUsuario($idUsuario){
 		$this->idUsuario = $idUsuario;
+	}
+	
+	function getTokenUsuario(){
+		return $this->tokenUsuario;
+	}
+	
+	function setTokenUsuario($tokenUsuario){
 		$this->tokenUsuario = $tokenUsuario;
+	}
+	
+	function getPrimeiroNomeUsuario(){
+		return $this->primeiroNomeUsuario;
+	}
+	
+	function setPrimeiroNomeUsuario($primeiroNomeUsuario){
 		$this->primeiroNomeUsuario = $primeiroNomeUsuario;
+	}
+	
+	function getSegundoNomeUsuario(){
+		return $this->segundoNomeUsuario;
+	}
+	
+	function setSegundoNomeUsuario($segundoNomeUsuario){
 		$this->segundoNomeUsuario = $segundoNomeUsuario;
+	}
+	
+	function getEmailUsuario(){
+		return $this->emailUsuario;
+	}
+	
+	function setEmailUsuario($emailUsuario){
 		$this->emailUsuario = $emailUsuario;
-		$this->pontosGeralUsuario = 0;
+	}
+	
+	function getPontosGeral(){
+		return $this->pontosGeral;
+	}
+	
+	function ganhaPontosGeral($pontos){
+		$this->pontosGeral = $this->pontosGeral + $pontos;
 	}
 	
 	
