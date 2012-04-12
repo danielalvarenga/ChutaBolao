@@ -1,6 +1,6 @@
 <?php
 
-abstract class PremiosCampeonatoAbstrata{
+abstract class PremiosUsuarioAbstrata{
 	
 	/**	private $idUsuario; */ // identifica o usuário
 	/**	private $codCampeonato; */ // Identifica qual Campeonato

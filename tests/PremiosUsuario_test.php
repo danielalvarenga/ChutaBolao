@@ -3,7 +3,7 @@
 require_once('simpletest/autorun.php');
 require_once('../classes/premiosCampeonato.php');
 
-class TestPremiosCampeonato extends UnitTestCase {
+class TestPremiosUsuario extends UnitTestCase {
 	
 	var $p1;
 	
@@ -11,8 +11,8 @@ class TestPremiosCampeonato extends UnitTestCase {
 		$idUsuario = 1;
 		$codCampeonato = 2;
 		$codTimeFavorito = 3;
-		$this->p1 = new PremiosCampeonato($idUsuario, $codCampeonato);
-		$p2 = new PremiosCampeonato($idUsuario, $codCampeonato, $codTimeFavorito);
+		$this->p1 = new PremiosUsuario($idUsuario, $codCampeonato);
+		$p2 = new PremiosUsuario($idUsuario, $codCampeonato, $codTimeFavorito);
 		$this->assertEqual($p2->getCodTimeFavorito(), 3);
 	}
 

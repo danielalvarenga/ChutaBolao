@@ -1,13 +1,28 @@
 <?php
 
+
+/** @Entity */
 class Usuario{
 
+	/** @Id @Column(type="integer")*/
 	private $idUsuario;
+	
+	/** @Column(type="string") */
 	private $tokenUsuario;
+	
+	/** @Column(type="string") */
 	private $primeiroNomeUsuario;
+	
+	/** @Column(type="string") */
 	private $segundoNomeUsuario;
+	
+	/** @Column(type="string") */
 	private $emailUsuario;
+	
+	/** @Column(type="integer") */
 	private $pontosGeral;
+	
+	
 	protected $apostas;
 	protected $premiacoes;
 
@@ -68,6 +83,15 @@ class Usuario{
 	
 	function ganhaPontosGeral($pontos){
 		$this->pontosGeral = $this->pontosGeral + $pontos;
+	}
+	
+	function TestAdicionaAposta(){
+		$codJogo = 12;
+		$apostaGolsTime1 = 2;
+		$apostaGolsTime2 = 1;
+		$a = new Aposta();
+		$this->u1->adicionaAposta($a);
+		
 	}
 	
 	

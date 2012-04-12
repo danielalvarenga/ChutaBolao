@@ -1,9 +1,8 @@
 <?php
 
 use Doctrine\ORM\Tools\Setup;
-
 require_once "classes/Usuario.php";
-require_once "classes/PremiosUsuario.php";
+require_once "classes/PremiosCampeonato.php";
 
 require_once "Doctrine/ORM/Tools/Setup.php";
 Setup::registerAutoloadPEAR();
