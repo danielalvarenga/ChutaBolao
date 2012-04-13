@@ -51,5 +51,13 @@ class TestUsuario extends UnitTestCase {
 		$this->assertEqual($this->u1->getPontosGeral(), 10);
 	}
 	
+	function TestAdicionaAposta(){
+		$codJogo = 12;
+		$apostaGolsTime1 = 2;
+		$apostaGolsTime2 = 1;
+		$a = new Aposta();
+		$this->u1->adicionaAposta($a);
+	}
+	
 }
 ?>

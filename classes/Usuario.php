@@ -5,10 +5,10 @@
 class Usuario{
 
 	/** @Id @Column(type="integer")*/
-	private $idUsuario;
+	private $idUsuario; // Identificador do usuário do Facebook - Direto do Facebook
 	
 	/** @Column(type="string") */
-	private $tokenUsuario;
+	private $tokenUsuario; // Permissão de acesso do usuário - Direto do Facebook
 	
 	/** @Column(type="string") */
 	private $primeiroNomeUsuario;
@@ -20,12 +20,17 @@ class Usuario{
 	private $emailUsuario;
 	
 	/** @Column(type="integer") */
-	private $pontosGeral;
+	private $pontosGeral; // Total de pontos acumulados desde o cadastro do usuário
 	
-	
+	/** @OneToMany(targetEntity="Aposta", mappedBy="usuario") */
 	protected $apostas;
+	
+	/** @OneToMany(targetEntity="PremiosUsuario", mappedBy="usuario") */
 	protected $premiacoes;
-
+		
+	/* Recebe como parâmetros idUsuario, tokenUsuario, primeiroNomeUsuario, segundoNomeUsuario e emailUsuario,
+	 * inicia pontosGeral com 0 e instancia apostas e premiacoes como objeto ArrayCollection */
+	
 	function __construct($idUsuario, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario){
 	$this->idUsuario = $idUsuario;
 	$this->tokenUsuario = $tokenUsuario;
@@ -33,8 +38,8 @@ class Usuario{
 	$this->segundoNomeUsuario = $segundoNomeUsuario;
 	$this->emailUsuario = $emailUsuario;
 	$this->pontosGeral = 0;
-	$this->apostas = null;
-	$this->premiacoes = null;
+	$this->apostas = new ArrayCollection();
+	$this->premiacoes = new ArrayCollection();
 	}
 	
 	function getIdUsuario(){
@@ -81,18 +86,20 @@ class Usuario{
 		return $this->pontosGeral;
 	}
 	
+	/* Recebe a quantidade de pontos ganhos por parâmetro e soma com pontosGeral */
+	
 	function ganhaPontosGeral($pontos){
 		$this->pontosGeral = $this->pontosGeral + $pontos;
 	}
 	
-	function TestAdicionaAposta(){
-		$codJogo = 12;
-		$apostaGolsTime1 = 2;
-		$apostaGolsTime2 = 1;
-		$a = new Aposta();
-		$this->u1->adicionaAposta($a);
-		
-	}
+	/* Recebe o objeto Aposta e adiciona ao array apostas[] */
+	
+	function adicionaAposta($aposta);
+	
+	/* Recebe o objeto PremiosCampeonato e adiciona ao array premiacoes[] */
+	
+	function adicionaPremiacoes($premiosCampeonato);
+	
 	
 	
 }

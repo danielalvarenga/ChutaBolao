@@ -1,21 +1,49 @@
 <?php
 
+/** @Entity */
 class PremiosCampeonato{
-	
-	private $idUsuario;
-	private $codCampeonato;
+
+	/** @Column(type="integer") */
 	private $codTimeFavorito;
+	
+	/** @Column(type="integer") */
 	private $acertosPlacar;
+	
+	/** @Column(type="integer") */
 	private $acertosTimeGanhador;
+	
+	/** @Column(type="integer") */
 	private $acertosPlacarInvertido;
+	
+	/** @Column(type="integer") */
 	private $pontosCampeonato; 
+	
+	/** @Column(type="integer") */
 	private $medalhasOuro;
+	
+	/** @Column(type="integer") */
 	private $medalhasPrata;
+	
+	/** @Column(type="integer") */
 	private $medalhasBronze;
+	
+	/** @Column(type="integer") */
 	private $chuteirasOuro;
+	
+	/** @Column(type="integer") */
 	private $chuteirasPrata;
+	
+	/** @Column(type="integer") */
 	private $chuteirasBronze;
+	
+	/** @Column(type="boolean") */
 	private $trofeu;
+	
+	/** @ManyToOne(targetEntity="Usuario", inversedBy="premiacoes") */
+	private $usuario;
+	
+	/** @ManyToOne(targetEntity="Campeonato", inversedBy="premiacoes") */
+	private $campeonato;
 	
 	function __construct($idUsuario, $codCampeonato, $codTimeFavorito = 0){
 		$this->idUsuario = $idUsuario;

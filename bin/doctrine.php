@@ -17,6 +17,7 @@
  * <http://www.doctrine-project.org>.
  */
 
+
 require_once 'Doctrine/Common/ClassLoader.php';
 
 $classLoader = new \Doctrine\Common\ClassLoader('Doctrine');
