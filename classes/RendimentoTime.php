@@ -1,5 +1,5 @@
 <?php
-class Classicacao{
+class RendimentoTime{
 	
 	private $idCampeonato;
 	private $idTime;
