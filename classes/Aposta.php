@@ -11,9 +11,23 @@ class Aposta{
 	private $pontosAposta;
 
 	function __construct($idUsuario,$codCampeonato,$codJogo){
+		if($idUsuario===null){
+			throw new Exception("ERRO 1 NAO FOI POSSIVEL REALIZAR SUA APOSTA ");
+		}
+		
+		elseif ($codCampeonato===null){
+			throw new Exception("ERRO 2 NAO FOI POSSIVEL REALIZAR SUA APOSTA ");
+		}
+		
+		elseif ($codJogo===null){
+			throw new Exception("ERRO 3 NAO FOI POSSIVEL REALIZAR SUA APOSTA ");
+		}
+		
+		else{
 		$this->idUsuario=$idUsuario;
 		$this->codCampeonato=$codCampeonato;
 		$this->codJogo=$codJogo;
+	}
 	}
 	
 	function getApostaGolsTime1() {
