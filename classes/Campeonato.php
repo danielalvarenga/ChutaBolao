@@ -7,15 +7,16 @@ class Campeonato {
 	
 	private $anoCampeonato;
 	
-	private $rodada = array();
-
+	private $quantidadeRodadas;
 	
+	private $status;
+
 	public function getCodCampeonato(){
 		return $codCampeonato;
 	}
 
 	public function setNomeCampeonato($nomeCampeonato){
-		$this->nomeCampeonato = $nomeCampeonato;
+		$this->nomeCampeonato = toUpper($nomeCampeonato);
 	}
 
 	public function getNomeCampeonato(){
@@ -30,10 +31,41 @@ class Campeonato {
 		return $nomeCampeonato;
 	}
 
-	public function adicionarRodadas($rodada){
-		for ($rodada = 0; $rodada < 38; $variavel++){
-			$this->rodada[] = $rodada; 
-		}
+	public function setStatus($status){
+		$this->status = toUpper($status);
 	}
+	
+	public function getStatus(){
+		return $status;
+	} 
+	
+	public function adicionarQuantidadeRodadas($quantidadeRodadas){
+		if ($quantidadeRodadas <= 0) {
+			throw new Exception("ERRO: QUANTIDADE DE RODADAS INVALIDA");
+		}
+		
+		else
+		if ($quantidadeRodadas===null){
+			throw new Exception("E OBRIGATORIO PREENCHER O CAMPO");
+		}
+		else{
+			$this->quantidadeRodadas = $quantidadeRodadas;
+		}
+	}		 
+		
+	public function adicionarRodadas($rodada){
+		if ($rodada >= $quantidadeRodadas) {
+			throw new Exception("ERRO: NUMERO DE RODADA INVALIDO");
+		}
+		
+		else
+			if ($rodada===null){
+				throw new Exception("E OBRIGATORIO PREENCHER O CAMPO");
+			}
+			else{
+				$this->rodada = $rodada;
+			}
+		}
+	
 }
 ?>
