@@ -11,6 +11,6 @@ class RodaTodosOsTestes extends TestSuite {
 		$this->addFile('campeonato_test.php');
 		$this->addFile('jogo_test.php');
 		$this->addFile('aposta_test.php');
-		$this->addFile('admin_test.php');
+		$this->addFile('rendimentoTime_test.php');
 	}
 }

@@ -1,49 +1,25 @@
 <?php
 
-/** @Entity */
-class PremiosCampeonato{
+class PremiosUsuario{
 
-	/** @Column(type="integer") */
-	private $codTimeFavorito;
+	private $codTimeFavorito; // Time para o qual o usuário torce no campeonato
+	private $acertosPlacar; // Quantidade de vezes que acertou o placar exato
+	private $acertosTimeGanhador; // Quantidade de vezes que acertou o ganhador, mesmo errando o placar
+	private $acertosPlacarInvertido; // Quantidade de vezes que acertou o placar invertido
+	private $pontosCampeonato; // Quantidade de pontos acumulados no campeonato
+	private $medalhasOuro; // Quantidade de medalhas de ouro acumuladas no campeonato
+	private $medalhasPrata; // Quantidade de medalhas de prata acumuladas no campeonato
+	private $medalhasBronze; // Quantidade de medalhas de bronze acumuladas no campeonato
+	private $chuteirasOuro; // Quantidade de chuteiras de ouro acumuladas no campeonato
+	private $chuteirasPrata; // Quantidade de chuteiras de prata acumuladas no campeonato
+	private $chuteirasBronze; // Quantidade de chuteiras de bronze acumuladas no campeonato
+	private $trofeu; // "true" se o usuário ganhou troféu do campeonato. "false" por default.
+	private $usuario; // Objeto da Classe Usuario a quem pertence os prêmios
+	private $campeonato; // Objeto da Classe Campeonato que referência em qual Campeonato foram ganhos os prêmios
 	
-	/** @Column(type="integer") */
-	private $acertosPlacar;
-	
-	/** @Column(type="integer") */
-	private $acertosTimeGanhador;
-	
-	/** @Column(type="integer") */
-	private $acertosPlacarInvertido;
-	
-	/** @Column(type="integer") */
-	private $pontosCampeonato; 
-	
-	/** @Column(type="integer") */
-	private $medalhasOuro;
-	
-	/** @Column(type="integer") */
-	private $medalhasPrata;
-	
-	/** @Column(type="integer") */
-	private $medalhasBronze;
-	
-	/** @Column(type="integer") */
-	private $chuteirasOuro;
-	
-	/** @Column(type="integer") */
-	private $chuteirasPrata;
-	
-	/** @Column(type="integer") */
-	private $chuteirasBronze;
-	
-	/** @Column(type="boolean") */
-	private $trofeu;
-	
-	/** @ManyToOne(targetEntity="Usuario", inversedBy="premiacoes") */
-	private $usuario;
-	
-	/** @ManyToOne(targetEntity="Campeonato", inversedBy="premiacoes") */
-	private $campeonato;
+	/* Recebe como parâmetros a id do usuário, o código de campeonato e código do time favorito.
+	* Se não for escolhido nenhum Time Favorito o valor será "0" por default.
+	* Inicia trofeu com false e inicia as demais variáveis com 0. */
 	
 	function __construct($idUsuario, $codCampeonato, $codTimeFavorito = 0){
 		$this->idUsuario = $idUsuario;
@@ -107,15 +83,48 @@ class PremiosCampeonato{
 	function getTrofeu(){
 		return $this->trofeu;
 	}
+	/* Incrementa em +1 o atributo acertosPlacar */
+	function acertaPlacar(){
+		$this->acertosPlacar++;
+	}
+	/* Incrementa em +1 o atributo acertosTimeGanhador */
+	function acertaTimeGanhador(){
+		$this->acertosTimeGanhador++;
+	}
+	/* Incrementa em +1 o atributo acertosPlacarInvertido */
+	function acertaPlacarInvertido(){
+		$this->acertosPlacarInvertido++;
+	}
+	/* Recebe a quantidade de pontos ganhos por parâmetro e soma com pontosCampeonato */
+	function ganhaPontosCampeonato($pontos){
+		$this->pontosCampeonato = $this->pontosCampeonato + $pontos;
+	}
+	/* Incrementa em +1 o atributo medalhasOuro */
+	function ganhaMedalhaOuro(){
+		$this->medalhasOuro++;
+	}
+	/* Incrementa em +1 o atributo medalhasPrata */
+	function ganhaMedalhaPrata(){
+		$this->medalhasPrata++;
+	}
+	/* Incrementa em +1 o atributo medalhasBronze */
+	function ganhaMedalhaBronze(){
+		$this->medalhasBronze++;
+	}
+	/* Incrementa em +1 o atributo chuteirasOuro */
+	function ganhaChuteiraOuro(){
+		$this->chuteirasOuro++;
+	}
+	/* Incrementa em +1 o atributo chuteirasPrata */
+	function ganhaChuteiraPrata(){
+		$this->chuteirasPrata++;
+	}
+	/* Incrementa em +1 o atributo chuteirasBronze */
+	function ganhaChuteiraBronze(){
+		$this->chuteirasBronze++;
+	}
+	/* Atribue "true" ao atributo trofeu */
 	function ganhaTrofeu(){
 		$this->trofeu = true;
 	}
-	function acertaPlacar(){
-		$this->acertosPlacar++;
-		ganhaPontosCampeonato(10);
-	}
-	function ganhaPontosCampeonato($pontos){
-		$this->ganhaPontosCampeonato = $this->ganhaPontosCampeonato + $pontos;
-	}
-
 }

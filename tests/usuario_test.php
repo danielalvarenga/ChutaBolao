@@ -2,6 +2,8 @@
 
 require_once('simpletest/autorun.php');
 require_once('../classes/Usuario.php');
+require_once('../classes/Aposta.php');
+require_once('../classes/PremiosUsuario.php');
 
 class TestUsuario extends UnitTestCase {
 	
@@ -52,11 +54,15 @@ class TestUsuario extends UnitTestCase {
 	}
 	
 	function TestAdicionaAposta(){
-		$codJogo = 12;
-		$apostaGolsTime1 = 2;
-		$apostaGolsTime2 = 1;
-		$a = new Aposta();
-		$this->u1->adicionaAposta($a);
+		$aposta = new Aposta(123,2012,1);
+		$this->u1->adicionaAposta($aposta);
+		$this->assertEqual($this->u1->apostas[0], $aposta);
+	}
+	
+	function TestAdicionaPremiacoes(){
+		$premiacoes = new PremiosUsuario(123, 1);
+		$this->u1->adicionaPremiacoes($premiacoes);
+		$this->assertEqual($this->u1->premiacoes[0], $premiacoes);
 	}
 	
 }

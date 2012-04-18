@@ -1,7 +1,7 @@
 <?php
 
 require_once('simpletest/autorun.php');
-require_once('../classes/premiosCampeonato.php');
+require_once('../classes/premiosUsuario.php');
 
 class TestPremiosUsuario extends UnitTestCase {
 	
@@ -15,7 +15,6 @@ class TestPremiosUsuario extends UnitTestCase {
 		$p2 = new PremiosUsuario($idUsuario, $codCampeonato, $codTimeFavorito);
 		$this->assertEqual($p2->getCodTimeFavorito(), 3);
 	}
-
 	function TestGetIdUsuario(){
 		$this->assertEqual($this->p1->getIdUsuario(), 1);
 	}
@@ -57,32 +56,54 @@ class TestPremiosUsuario extends UnitTestCase {
 	}
 	function TestGetTrofeu(){
 		$this->assertEqual($this->p1->getTrofeu(), false);
-	}	
+	}
 	function TestGetSetCodTimeFavorito(){
 		$codTimeFavorito = 4;
 		$this->p1->setCodTimeFavorito($codTimeFavorito);
 		$this->assertEqual($this->p1->getCodTimeFavorito(), 4);
 	}
-	function TestAcertaPlacar1(){
+	function TestAcertaPlacar(){
 		$this->p1->acertaPlacar();
 		$this->assertEqual($this->p1->getAcertosPlacar(), 1);
 	}
-	function TestAcertaPlacar2(){
-		$this->assertEqual($this->p1->getPontosCampeonato(), 10);
+	function TestAcertaTimeGanhador(){
+		$this->p1->acertaTimeGanhador();
+		$this->assertEqual($this->p1->getAcertosTimeGanhador(), 1);
+	}
+	function TestAcertaPlacarInvertido(){
+		$this->p1->acertaPlacarInvertido();
+		$this->assertEqual($this->p1->getAcertosPlacarInvertido(), 1);
 	}
 	function TestGanhaPontosCampeonato(){
 		$this->p1->ganhaPontosCampeonato(10);
-		$this->assertEqual($this->p1->getPontosCampeonato(), 20);
+		$this->assertEqual($this->p1->getPontosCampeonato(), 10);
 	}
-	
-	
-	
-	
-	function TestganhaTrofeu(){
+	function TestGanhaMedalhaOuro(){
+		$this->p1->ganhaMedalhaOuro();
+		$this->assertEqual($this->p1->getMedalhasOuro(), 1);
+	}
+	function TestGanhaMedalhaPrata(){
+		$this->p1->ganhaMedalhaPrata();
+		$this->assertEqual($this->p1->getMedalhasPrata(), 1);
+	}
+	function TestGanhaMedalhaBronze(){
+		$this->p1->ganhaMedalhaBronze();
+		$this->assertEqual($this->p1->getMedalhasBronze(), 1);
+	}
+	function TestGanhaChuteiraOuro(){
+		$this->p1->ganhaChuteiraOuro();
+		$this->assertEqual($this->p1->getChuteirasOuro(), 1);
+	}
+	function TestGanhaChuteiraPrata(){
+		$this->p1->ganhaChuteiraPrata();
+		$this->assertEqual($this->p1->getChuteirasPrata(), 1);
+	}
+	function TestGanhaChuteiraBronze(){
+		$this->p1->ganhaChuteiraBronze();
+		$this->assertEqual($this->p1->getChuteirasBronze(), 1);
+	}
+	function TestGanhaTrofeu(){
 		$this->p1->ganhaTrofeu();
 		$this->assertEqual($this->p1->getTrofeu(), true);
 	}
-	
-	
-	
 }

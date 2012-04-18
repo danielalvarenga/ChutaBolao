@@ -1,35 +1,18 @@
 <?php
 
-
-/** @Entity */
 class Usuario{
 
-	/** @Id @Column(type="integer")*/
 	private $idUsuario; // Identificador do usuário do Facebook - Direto do Facebook
-	
-	/** @Column(type="string") */
 	private $tokenUsuario; // Permissão de acesso do usuário - Direto do Facebook
-	
-	/** @Column(type="string") */
 	private $primeiroNomeUsuario;
-	
-	/** @Column(type="string") */
 	private $segundoNomeUsuario;
-	
-	/** @Column(type="string") */
 	private $emailUsuario;
-	
-	/** @Column(type="integer") */
 	private $pontosGeral; // Total de pontos acumulados desde o cadastro do usuário
-	
-	/** @OneToMany(targetEntity="Aposta", mappedBy="usuario") */
-	protected $apostas;
-	
-	/** @OneToMany(targetEntity="PremiosUsuario", mappedBy="usuario") */
-	protected $premiacoes;
+	var $apostas;
+	var $premiacoes;
 		
 	/* Recebe como parâmetros idUsuario, tokenUsuario, primeiroNomeUsuario, segundoNomeUsuario e emailUsuario,
-	 * inicia pontosGeral com 0 e instancia apostas e premiacoes como objeto ArrayCollection */
+	 * inicia pontosGeral com 0 e instancia apostas e premiacoes como null */
 	
 	function __construct($idUsuario, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario){
 	$this->idUsuario = $idUsuario;
@@ -38,8 +21,8 @@ class Usuario{
 	$this->segundoNomeUsuario = $segundoNomeUsuario;
 	$this->emailUsuario = $emailUsuario;
 	$this->pontosGeral = 0;
-	$this->apostas = new ArrayCollection();
-	$this->premiacoes = new ArrayCollection();
+	$this->apostas = null;
+	$this->premiacoes = null;
 	}
 	
 	function getIdUsuario(){
@@ -94,11 +77,15 @@ class Usuario{
 	
 	/* Recebe o objeto Aposta e adiciona ao array apostas[] */
 	
-	function adicionaAposta($aposta);
+	function adicionaAposta($aposta){
+		$this->apostas[] = $aposta;
+	}
 	
 	/* Recebe o objeto PremiosCampeonato e adiciona ao array premiacoes[] */
 	
-	function adicionaPremiacoes($premiosCampeonato);
+	function adicionaPremiacoes($premiosUsuario){
+		$this->premiacoes[] = $premiosUsuario;
+	}
 	
 	
 	
