@@ -1,6 +1,6 @@
 <?php
 class RendimentoTime{
-	
+
 	private $idCampeonato;
 	private $idTime;
 	private $classificacao;
@@ -9,58 +9,60 @@ class RendimentoTime{
 	private $empates;
 	private $golsPro;
 	private $golsContra;
-	
-	function imcrementaVitorias(){
-		$vitorias++;
+
+	function incrementaVitorias(){
+		$this->vitorias++;
 	}
-	
+
 	function getVitorias(){
-		return $vitorias;
+		return $this->vitorias;
 	}
-	
+
 	function incrementaDerrotas(){
-		$derrotas++;
+		$this->derrotas++;
 	}
-	
+
 	function getDerrotas(){
-		return $derrotas;
+		return $this->derrotas;
 	}
-	
+
 	function incrementaEmpates(){
-		$empates++;
+		$this->empates++;
 	}
-	
+
 	function getEmpates(){
-		return $empates;
+		return $this->empates;
 	}
-	
+
 	function insereGolsPro($gols){
-		$golsPro += gols;
+		$this->golsPro += $gols;
 	}
-	
+
 	function retornaGolsPro(){
-		return $golsPro;
+		return $this->golsPro;
 	}
-	
+
 	function insereGolsContra($gols){
-		$golsContra += $gols;
+		$this->golsContra += $gols;
 	}
-	
+
 	function retornaGolsContra(){
-		return $golsContra;
+		return $this->golsContra;
 	}
-	
+
 	function calculaPontos(){
-		return $vitorias * 3 + $empates;
+		$pontos = $this->vitorias * 3 + $this->empates;
+		return $pontos;
 	}
-	
+
 	function calculaSaldoDeGols(){
-		return $golsPro - $golsContra;
+		$saldo = $this->golsPro - $this->golsContra;
+		return $saldo;
 	}
-	
+
 	function calculaClassificacao(){
 		//será implementada somente quando for
 		//utilizar a persistencia.
 	}
-	
+
 }
