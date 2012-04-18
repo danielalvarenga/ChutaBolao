@@ -1,6 +1,7 @@
 <?php
 require_once('simpletest/autorun.php');
 require_once('../classes/Aposta.php');
+require_once ('../classes/BancoDeDadosAposta.php');
 
 class TestOfAposta extends UnitTestCase{
 	var $aposta;
@@ -115,12 +116,15 @@ class TestOfAposta extends UnitTestCase{
 	function TestApostaJogoRepetidaInvalida1(){
 		try {
 			$erro=false;
-			$this->aposta1=new Aposta(123,1,1);
+			$this->aposta2 = new Aposta(123, 1, 2);
+			$this->aposta1 = new BancoDeDadosAposta(123,1,2);
 			$this->aposta->setApostaGolsTime1(3);
 			$this->aposta->setApostaGolsTime2(0);
 			$this->aposta1->setApostaGolsTime1(3);
 			$this->aposta1->setApostaGolsTime2(0);
-		} catch (Exception $e) {
+			$this->aposta1->query($this->aposta2->getIdUsuario(),$this->aposta2->getCodCampeonato(),
+			$this->aposta2->getCodJogo());
+			} catch (Exception $e) {
 			$erro=true;
 		}
 		$this->assertTrue($erro);
@@ -129,11 +133,15 @@ class TestOfAposta extends UnitTestCase{
 	function TestApostaJogoRepetidaInvalida2(){
 		try {
 			$erro=false;
-			$this->aposta1=new Aposta(123,1,1);
+			$this->aposta2 = new Aposta(123, 2, 1);
+			$this->aposta1 = new BancoDeDadosAposta(123,2,1);
 			$this->aposta->setApostaGolsTime1(2);
 			$this->aposta->setApostaGolsTime2(0);
 			$this->aposta1->setApostaGolsTime1(3);
 			$this->aposta1->setApostaGolsTime2(0);
+			$this->aposta1->query($this->aposta2->getIdUsuario(),$this->aposta2->getCodCampeonato(),
+			$this->aposta2->getCodJogo());
+			
 		} catch (Exception $e) {
 			$erro=true;
 		}
@@ -143,13 +151,15 @@ class TestOfAposta extends UnitTestCase{
 	function TestApostaJogoRepetidaInvalida3(){
 		try{
 			$erro=false;
-			$this->aposta1=new Aposta(123,1,1);
+			$this->aposta2 = new Aposta(124, 2, 1);
+			$this->aposta1 = new BancoDeDadosAposta(124,2,1);
 			$this->aposta->setApostaGolsTime1(3);
 			$this->aposta->setApostaGolsTime2(0);
 			$this->aposta1->setApostaGolsTime1(4);
 			$this->aposta1->setApostaGolsTime2(3);
-
-		} catch (Exception $e) {
+			$this->aposta1->query($this->aposta2->getIdUsuario(),$this->aposta2->getCodCampeonato(),
+			$this->aposta2->getCodJogo());
+			} catch (Exception $e) {
 			$erro=true;
 		}
 		$this->assertTrue($erro);
