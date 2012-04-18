@@ -324,7 +324,7 @@ class TestOfCampeonato extends UnitTestCase {
 		}
 	}	
 	
-	function TestStatusInvalido() {
+	function TestStatusInvalido1() {
 		try {
 			$erro=false;
 			$this->c1->setStatus("DESATIVADO");
@@ -334,7 +334,7 @@ class TestOfCampeonato extends UnitTestCase {
 		}
 	}
 	
-	function TestStatusInvalido() {
+	function TestStatusInvalido2() {
 		try {
 			$erro=false;
 			$this->c1->setStatus("ativ0");
@@ -344,7 +344,7 @@ class TestOfCampeonato extends UnitTestCase {
 		}
 	}
 	
-	function TestStatusInvalido() {
+	function TestStatusInvalido3() {
 		try {
 			$erro=false;
 			$this->c1->setStatus("f1naliz4d0");
