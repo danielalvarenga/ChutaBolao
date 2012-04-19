@@ -14,9 +14,17 @@ class Campeonato {
 	public function getCodCampeonato(){
 		return $codCampeonato;
 	}
+	
+	public function setQuantidadeRodadas($quantidadeRodadas){
+		$this->quantidadeRodadas = strtoupper($quantidadeRodadas);
+	}
+	
+	public function getQuantidadeRodadas(){
+		return $this->quantidadeRodadas;
+	}
 
 	public function setNomeCampeonato($nomeCampeonato){
-		$this->nomeCampeonato = toUpper($nomeCampeonato);
+		$this->nomeCampeonato = strtoupper($nomeCampeonato);
 	}
 
 	public function getNomeCampeonato(){
@@ -32,7 +40,7 @@ class Campeonato {
 	}
 
 	public function setStatus($status){
-		$this->status = toUpper($status);
+		$this->status = strtoupper($status);
 	}
 	
 	public function getStatus(){

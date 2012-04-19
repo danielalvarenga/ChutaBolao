@@ -9,7 +9,7 @@ class Time{
 	}
 
 	function setNome($nome){
-		$this->nome = toUpper($nome);
+		$this->nome = strtoupper($nome);
 	}
 
 	function getNome(){

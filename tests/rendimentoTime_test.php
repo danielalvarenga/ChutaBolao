@@ -1,6 +1,6 @@
 <?php
 require_once('simpletest/autorun.php');
-require_once('../ChutaBolao/test/RendimentoTime.php');
+require_once('../classes/RendimentoTime.php');
 
 class TestOfRendimetoTime extends UnitTestCase {
 
