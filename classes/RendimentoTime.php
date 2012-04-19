@@ -9,6 +9,11 @@ class RendimentoTime{
 	private $empates;
 	private $golsPro;
 	private $golsContra;
+	
+	function __construct($idCampeonato, $idTime){
+		$this->idCampeonato = $idCampeonato;
+		$this->idTime = $idTime;
+	}
 
 	function incrementaVitorias(){
 		$this->vitorias++;

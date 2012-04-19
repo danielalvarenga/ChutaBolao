@@ -4,6 +4,10 @@ class Time{
 	private $nome;
 	private $classificacao = array();
 
+	function __construct($nome){
+		$this->nome = $nome;	
+	}
+	
 	function getId(){
 		return $id;
 	}
@@ -15,9 +19,11 @@ class Time{
 	function getNome(){
 		return $nome;
 	}
+	
 	function setClassificacao($classificacao){
 		$this->classificacao[] = $classificacao;
 	}
+	
 	function getClassificacao(){
 		return $classificacao;
 	}
