@@ -78,19 +78,19 @@ class TestOfCampeonato extends UnitTestCase {
 	
 	function testaAnoCampeonato1(){
 		$anoCampeonato = 2012;
-		$this->c1->setAnoCampeonato($AnoCampeonato);
+		$this->c1->setAnoCampeonato($anoCampeonato);
 		$this->assertEqual($this->c1->getAnoCampeonato(), 2012);
 	}
 	
 	function testaAnoCampeonato2(){
 		$anoCampeonato = 2013;
-		$this->c1->setAnoCampeonato($AnoCampeonato);
+		$this->c1->setAnoCampeonato($anoCampeonato);
 		$this->assertEqual($this->c1->getAnoCampeonato(), 2013);
 	}
 	
 	function testaAnoCampeonato3(){
 		$anoCampeonato = 2014;
-		$this->c1->setAnoCampeonato($AnoCampeonato);
+		$this->c1->setAnoCampeonato($anoCampeonato);
 		$this->assertEqual($this->c1->getAnoCampeonato(), 2014);
 	}
 	
@@ -195,32 +195,32 @@ class TestOfCampeonato extends UnitTestCase {
 	}
 	
 	function testaQuantidadeRodadas1(){
-		$QuantidadeRodadas = 10;
-		$this->c1->setQuantidadeRodadas($QuantidadeRodadas);
+		$quantidadeRodadas = 10;
+		$this->c1->setQuantidadeRodadas($quantidadeRodadas);
 		$this->assertEqual($this->c1->getQuantidadeRodadas(), 10);
 	}
 	
 	function testaQuantidadeRodadas2(){
-		$QuantidadeRodadas = 11;
-		$this->c1->setQuantidadeRodadas($QuantidadeRodadas);
+		$quantidadeRodadas = 11;
+		$this->c1->setQuantidadeRodadas($quantidadeRodadas);
 		$this->assertEqual($this->c1->getQuantidadeRodadas(), 11);
 	}
 	
 	function testaQuantidadeRodadas3(){
-		$QuantidadeRodadas = 12;
-		$this->c1->setQuantidadeRodadas($QuantidadeRodadas);
+		$quantidadeRodadas = 12;
+		$this->c1->setQuantidadeRodadas($quantidadeRodadas);
 		$this->assertEqual($this->c1->getQuantidadeRodadas(), 12);
 	}
 	
 	function testaQuantidadeRodadas4(){
-		$QuantidadeRodadas = 37;
-		$this->c1->setQuantidadeRodadas($QuantidadeRodadas);
+		$quantidadeRodadas = 37;
+		$this->c1->setQuantidadeRodadas($quantidadeRodadas);
 		$this->assertEqual($this->c1->getQuantidadeRodadas(), 37);
 	}
 	
 	function testaQuantidadeRodadas5(){
-		$QuantidadeRodadas = 38;
-		$this->c1->setQuantidadeRodadas($QuantidadeRodadas);
+		$quantidadeRodadas = 38;
+		$this->c1->setQuantidadeRodadas($quantidadeRodadas);
 		$this->assertEqual($this->c1->getQuantidadeRodadas(), 38);
 	}
 	
@@ -255,63 +255,63 @@ class TestOfCampeonato extends UnitTestCase {
 	}
 	
 	function testaStatus1(){
-		$nomeCampeonato = "ativo";
+		$status = "ativo";
 		$this->c1->setStatus($status);
 		$this->assertEqual($this->c1->getStatus(), "ATIVO");
 	}	
 	
 	function testaStatus2(){
-		$nomeCampeonato = "ATIVO";
+		$status = "ATIVO";
 		$this->c1->setStatus($status);
 		$this->assertEqual($this->c1->getStatus(), "ATIVO");
 	}
 	
 	function testaStatus3(){
-		$nomeCampeonato = "Ativo";
+		$status = "Ativo";
 		$this->c1->setStatus($status);
 		$this->assertEqual($this->c1->getStatus(), "ATIVO");
 	}
 	
 	function testaStatus4(){
-		$nomeCampeonato = "ATIvo";
+		$status = "ATIvo";
 		$this->c1->setStatus($status);
 		$this->assertEqual($this->c1->getStatus(), "ATIVO");
 	}
 	
 	function testaStatus5(){
-		$nomeCampeonato = "atiVO";
+		$status = "atiVO";
 		$this->c1->setStatus($status);
 		$this->assertEqual($this->c1->getStatus(), "ATIVO");
 	}
 	
 	function testaStatus6(){
-		$nomeCampeonato = "finalizado";
+		$status = "finalizado";
 		$this->c1->setStatus($status);
 		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
 	}
 	
 	function testaStatus7(){
-		$nomeCampeonato = "FINALIZADO";
+		$status = "FINALIZADO";
 		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "fINALIZADO");
+		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
 	}
 	
 	function testaStatus8(){
-		$nomeCampeonato = "fINALIZADO";
+		$status = "fINALIZADO";
 		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "fINALIZADO");
+		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
 	}
 	
 	function testaStatus9(){
-		$nomeCampeonato = "Finalizado";
+		$status = "Finalizado";
 		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "fINALIZADO");
+		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
 	}
 	
 	function testaStatus10(){
-		$nomeCampeonato = "finALIZADO";
+		$status = "finALIZADO";
 		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "fINALIZADO");
+		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
 	}
 	
 	function TestStatusInvalido() {

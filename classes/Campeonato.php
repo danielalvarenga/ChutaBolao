@@ -12,7 +12,7 @@ class Campeonato {
 	private $status;
 
 	public function getCodCampeonato(){
-		return $codCampeonato;
+		return $this->codCampeonato;
 	}
 	
 	public function setQuantidadeRodadas($quantidadeRodadas){
@@ -28,15 +28,15 @@ class Campeonato {
 	}
 
 	public function getNomeCampeonato(){
-		return $nomeCampeonato;
+		return $this->nomeCampeonato;
 	}
 
 	public function setAnoCampeonato($anoCampeonato){
-		$this->nomeCampeonato = $nomeCampeonato;
+		$this->anoCampeonato = $anoCampeonato;
 	}
 	
 	public function getAnoCampeonato(){
-		return $nomeCampeonato;
+		return $this->anoCampeonato;
 	}
 
 	public function setStatus($status){
@@ -44,7 +44,7 @@ class Campeonato {
 	}
 	
 	public function getStatus(){
-		return $status;
+		return $this->status;
 	} 
 	
 	public function adicionarQuantidadeRodadas($quantidadeRodadas){
