@@ -1,15 +1,15 @@
 <?php
 class Time{
-	private $id;
-	private $nome;
-	private $classificacao = array();
+	private $id; //indentificador do time.
+	private $nome;//nome do time.
+	private $classificacao = array(); //recebe o rendimento do time em derterminado campeonato.
 
 	function __construct($nome){
-		$this->nome = $nome;	
+		$this->nome = strtoupper($nome);	
 	}
 	
 	function getId(){
-		return $id;
+		return $this->id;
 	}
 
 	function setNome($nome){
@@ -17,7 +17,7 @@ class Time{
 	}
 
 	function getNome(){
-		return $nome;
+		return $this->nome;
 	}
 	
 	function setClassificacao($classificacao){
@@ -25,6 +25,6 @@ class Time{
 	}
 	
 	function getClassificacao(){
-		return $classificacao;
+		return $this->classificacao;
 	}
 }

@@ -6,14 +6,14 @@ require_once('../classes/Time.php');
 class TestTime extends UnitTestCase {
 
 function TestGetSetNome(){
-		$time = new time();
-		$time->setNome("corinthians paulista");
+		$time = new time("corinthians paulista");
+		//$time->setNome("corinthians paulista");
 		$this->assertEqual($time->getNome(), "CORINTHIANS PAULISTA");
 	}
 	
 	function TestGetSetNome2(){
-		$time = new time();
-		$time->setNome("CORINTHIANS PAULISTA");
+		$time = new time("CORINTHIANS PAULISTA");
+		//$time->setNome();
 		$this->assertEqual($time->getNome(), "CORINTHIANS PAULISTA");
 	}
 }
