@@ -10,6 +10,13 @@ class Campeonato {
 	private $quantidadeRodadas;
 	
 	private $status;
+	
+	public function __construct($nomeCampeonato, $anoCampeonato, $quantidadeRodadas){
+		$this->nomeCampeonato = $nomeCampeonato;
+		$this->anoCampeonato = $anoCampeonato;
+		$this->quantidadeRodadas = $quantidadeRodadas;
+		$this->status = "ativo";
+	}
 
 	public function getCodCampeonato(){
 		return $this->codCampeonato;
@@ -39,8 +46,12 @@ class Campeonato {
 		return $this->anoCampeonato;
 	}
 
-	public function setStatus($status){
-		$this->status = strtoupper($status);
+	public function finalizaStatus(){
+		$this->status = "finalizado";
+	}
+	
+	public function ativaStatus(){
+		$this->status = "ativo";
 	}
 	
 	public function getStatus(){

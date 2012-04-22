@@ -8,13 +8,11 @@ class TestOfCampeonato extends UnitTestCase {
 	var $c2;
 	
 	function setUp(){
-		$codCampeonato = 12345;
 		$nomeCampeonato = "CAMPEONATO";
 		$anoCampeonato = 2012;
 		$quantidadeRodadas = 38;
-		$status = "ATIVO";
-		$this->c1 = new Campeonato($codCampeonato, $nomeCampeonato, $anoCampeonato, $quantidadeRodadas, $status);
-		$this->c2 = new Campeonato($codCampeonato, $nomeCampeonato, $anoCampeonato, $quantidadeRodadas, $status);
+		$this->c1 = new Campeonato($nomeCampeonato, $anoCampeonato, $quantidadeRodadas);
+		$this->c2 = new Campeonato($nomeCampeonato, $anoCampeonato, $quantidadeRodadas);
 	}
 	
 	
@@ -244,7 +242,7 @@ class TestOfCampeonato extends UnitTestCase {
 		}
 	}
 
-	function testaQuantidadeRodadasInvalida3() {
+	function testQuantidadeRodadasInvalida3() {
 		try {
 			$erro=false;
 			$this->c1->setQuantidadeRodadas(-38);
@@ -254,104 +252,17 @@ class TestOfCampeonato extends UnitTestCase {
 		}
 	}
 	
-	function testaStatus1(){
-		$status = "ativo";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "ATIVO");
-	}	
-	
-	function testaStatus2(){
-		$status = "ATIVO";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "ATIVO");
-	}
-	
-	function testaStatus3(){
-		$status = "Ativo";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "ATIVO");
-	}
-	
-	function testaStatus4(){
-		$status = "ATIvo";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "ATIVO");
-	}
-	
-	function testaStatus5(){
-		$status = "atiVO";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "ATIVO");
-	}
-	
-	function testaStatus6(){
+	function testFinalizaStatus(){
 		$status = "finalizado";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
+		$this->c1->finalizaStatus();
+		$this->assertEqual($this->c1->getStatus(), "finalizado");
 	}
 	
-	function testaStatus7(){
-		$status = "FINALIZADO";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
-	}
-	
-	function testaStatus8(){
-		$status = "fINALIZADO";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
-	}
-	
-	function testaStatus9(){
-		$status = "Finalizado";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
-	}
-	
-	function testaStatus10(){
-		$status = "finALIZADO";
-		$this->c1->setStatus($status);
-		$this->assertEqual($this->c1->getStatus(), "FINALIZADO");
-	}
-	
-	function TestStatusInvalido() {
-		try {
-			$erro=false;
-			$this->c1->setStatus("ativado");
-	
-		} catch (Exception $e) {
-			$erro=true;
-		}
-	}	
-	
-	function TestStatusInvalido1() {
-		try {
-			$erro=false;
-			$this->c1->setStatus("DESATIVADO");
-	
-		} catch (Exception $e) {
-			$erro=true;
-		}
-	}
-	
-	function TestStatusInvalido2() {
-		try {
-			$erro=false;
-			$this->c1->setStatus("ativ0");
-	
-		} catch (Exception $e) {
-			$erro=true;
-		}
-	}
-	
-	function TestStatusInvalido3() {
-		try {
-			$erro=false;
-			$this->c1->setStatus("f1naliz4d0");
-	
-		} catch (Exception $e) {
-			$erro=true;
-		}
+	function testAtivaStatus(){
+		$status = "ativo";
+		$this->c1->finalizaStatus();
+		$this->c1->AtivaStatus();
+		$this->assertEqual($this->c1->getStatus(), "ativo");
 	}
 	
 }
