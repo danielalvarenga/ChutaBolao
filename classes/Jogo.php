@@ -2,87 +2,199 @@
 <?php
 
 class Jogo {
-	
-	private $codJogo;
+
+	private $codJogo=1;
 	private $dataJogo;
 	private $rodada;
 	private $codTime1;
 	private $codTime2;
 	private $golsTime1;
 	private $golsTime2;
-	private $dataInicioapostas;
-	private $dataFimapostas;
-	
-	function __construct($codJogo,$dataJogo,$rodada,$codTime1,$codTime2,$dataInicioapostas,$dataFimapostas){
-		$this->codJogo=$codJogo;
-		$this->dataJogo=$dataJogo;
-		$this->rodada=$rodada;
-		$this->codTime1=$codTime1;
-		$this->codTime2=$codTime2;
-		$this->dataInicioapostas=$dataInicioapostas;
-		$this->dataFimapostas=$dataFimapostas;
-	}
-	
-	function setGolstime1($num_gols){
-		if (is_int($num_gols)&&($num_gols>=0)){
-			$this->golsTime1=$num_gols;
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	function setGolstime2($num_gols){
-		if (is_int($num_gols)&&($num_gols>=0)){
-			$this->golsTime2=$num_gols;
-			return true;
-		}
-		else {
-			return false;
-		}
+	private $dataInicioApostas;
+	private $dataFimApostas;
+   
+	function __construct($dataJogo,$rodada,$codTime1,$codTime2){
+		$agora = time();
+ $data=getdate($agora);
+ if($data["mday"]<=9){
+ 	$data["mday"]="0".$data["mday"];
+ }
+ if($data["mon"]<=9){
+ 	$data["mon"]="0".$data["mon"];
+ }
+ if(($data["hours"]-5)<=9){
+ 	$data["hours"]="0".$data["hours"];
+ }
+ if($data["minutes"]<=9){
+ 	$data["minutes"]="0".$data["minutes"];
+ }
+ 
+$dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]-5).
+":".$data["minutes"].":".$data["seconds"];
 		
+		if((!(is_int($codTime1)) || ($codTime1<=0)) || (!(is_int($codTime2)) || ($codTime2<=0))){
+			throw new Exception("ERRO OS PARAMETROS DOS TIMES SAO INVALIDOS ");
+		}
+
+		elseif ($codTime1===$codTime2){
+			throw new Exception("ERRO CODIGO DOS DOIS TIMES SAO IGUAIS");
+		}
+
+		elseif (!((is_int($rodada))&&($rodada>0))){
+			throw new Exception("ERRO CODIGO DA RODADA INVALIDA");
+		}
+		elseif (($dataJogo <= $dataAtual)){
+		throw new Exception("ERRO DATA DO JOGO MENOR QUE DATA ATUAL");
+		}
+		else{
+
+			$this->dataJogo=$dataJogo;
+			$this->rodada=$rodada;
+			$this->codTime1=$codTime1;
+			$this->codTime2=$codTime2;
+		//	$this->codJogo=$codJogo;
+
+		}
 	}
-	
-	function retornaCodcampeonato(){
+	function setCodTime1($codTime1){
+		if(((is_int($codTime1))&&($codTime1>0))){
+			$this->codTime1=$codTime1;
+		}
+
+		else{throw new Exception("ERRO PARAMETROS DO TIME INVALIDO");
+		}
+	}
+	function setCodTime2($codTime2){
+		if(((is_int($codTime2))&&($codTime2>0))){
+			$this->codTime2=$codTime2;
+		}
+
+		else{throw new Exception("ERRO PARAMETROS DO TIME INVALIDO");
+		}
+	}
+	function setGolstime1($num_golsTime1){
+		if (is_int($num_golsTime1)&&($num_golsTime1>=0)){
+			$this->golsTime1=$num_golsTime1;
+		}
+		else {
+			throw new Exception("NUMERO DE GOLS INVALIDO");
+		}
+	}
+
+	function setGolstime2($num_golsTime2){
+		if (is_int($num_golsTime2)&&($num_golsTime2>=0)){
+			$this->golsTime2=$num_golsTime2;
+				
+		}
+		else {
+			throw new Exception("NUMERO DE GOLS INVALIDO");
+				
+		}
+
+	}
+
+	function getCodcampeonato(){
 		return $this->codCampeonato;
 	}
 	
-	function verificaPeriodoapostas($datadaAposta){
-		if (($datadaAposta>=$this->dataInicioapostas)&&($datadaAposta<=$this->dataFimapostas)) {
+	function setDataInicioApostas($dataInicioApostas){
+		$agora = time();
+ $data=getdate($agora);
+ if($data["mday"]<=9){
+ 	$data["mday"]="0".$data["mday"];
+ }
+ if($data["mon"]<=9){
+ 	$data["mon"]="0".$data["mon"];
+ }
+ if(($data["hours"]-5)<=9){
+ 	$data["hours"]="0".$data["hours"];
+ }
+ if($data["minutes"]<=9){
+ 	$data["minutes"]="0".$data["minutes"];
+ }
+ 
+$dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]-5).
+":".$data["minutes"].":".$data["seconds"];
+		
+	if(($dataInicioApostas>=$this->dataJogo)||($dataInicioApostas<$dataAtual))
+		{
+			throw new Exception("ERRO DATA DO INICIO DA APOSTA INVALIDO");
+		}
+		else{
+			$this->dataInicioApostas=$dataInicioApostas;
+		}
+	}
+	function setDataFimApostas($dataFimApostas){
+		$agora = time();
+ $data=getdate($agora);
+ if($data["mday"]<=9){
+ 	$data["mday"]="0".$data["mday"];
+ }
+ if($data["mon"]<=9){
+ 	$data["mon"]="0".$data["mon"];
+ }
+ if(($data["hours"]-5)<=9){
+ 	$data["hours"]="0".$data["hours"];
+ }
+ if($data["minutes"]<=9){
+ 	$data["minutes"]="0".$data["minutes"];
+ }
+ 
+$dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]-5).
+":".$data["minutes"].":".$data["seconds"];
+		
+		if(($dataFimApostas>=$this->dataJogo)||($dataFimApostas<$dataAtual)
+		||($dataFimApostas<=$this->dataInicioApostas))
+		{
+			throw new Exception("ERRO DATA DO FIM DA APOSTA INVALIDO");
+		}
+		else{
+			$this->dataFimApostas=$dataFimApostas;
+		}
+		
+	}
+
+	function verificaPeriodoapostas($dataDaAposta){
+		if (($dataDaAposta>=$this->dataInicioApostas)&&($dataDaAposta<=$this->dataFimApostas)) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-	
+
 	function getCodjogo(){
 		return $this->codJogo;
 	}
-	
+
 	function getDatajogo(){
 		return $this->dataJogo;
 	}
-	
+
 	function getGolstime1(){
 		return $this->golsTime1;
 	}
-	
+
 	function getGolstime2(){
 		return $this->golsTime2;
 	}
-	
+
 	function getCodtime1(){
 		return $this->codTime1;
 	}
-	
+
 	function getCodtime2(){
 		return $this->codTime2;
 	}
-	
+
 	function getRodada(){
 		return $this->rodada;
 	}
-	
+	function getDataInicioApostas(){
+		return $this->dataInicioApostas;
+	}
+	function getDataFimApostas(){
+		return $this->dataFimApostas;
+
+	}
 }
