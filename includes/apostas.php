@@ -1,3 +1,2 @@
-﻿<?php
-
-echo "APOSTAS\n\n";
+﻿
+<h1>Contatos</h1>
