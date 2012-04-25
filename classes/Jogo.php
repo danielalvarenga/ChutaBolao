@@ -1,6 +1,25 @@
 
 <?php
+ function calculaDataAtual(){
+	$agora = time()-18000;
 
+	$data=getdate($agora);
+	if($data["mday"]<=9){ $data["mday"]="0".$data["mday"];	}
+	
+	if($data["mon"]<=9){ $data["mon"]="0".$data["mon"];	    }
+	
+	if(($data["hours"]-5)<=9){ $data["hours"]="0".$data["hours"];	}
+	
+	if($data["minutes"]<=9){ $data["minutes"]="0".$data["minutes"];	}
+	
+	if($data["seconds"]<=9){ $data["seconds"]="0".$data["seconds"];	}
+	
+	$dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".$data["hours"].
+		":".$data["minutes"].":".$data["seconds"];
+	
+	return $dataAtual; }
+?>
+<?php 
 class Jogo {
 
 	private $codJogo=1;
@@ -14,23 +33,7 @@ class Jogo {
 	private $dataFimApostas;
    
 	function __construct($dataJogo,$rodada,$codTime1,$codTime2){
-		$agora = time();
- $data=getdate($agora);
- if($data["mday"]<=9){
- 	$data["mday"]="0".$data["mday"];
- }
- if($data["mon"]<=9){
- 	$data["mon"]="0".$data["mon"];
- }
- if(($data["hours"]-5)<=9){
- 	$data["hours"]="0".$data["hours"];
- }
- if($data["minutes"]<=9){
- 	$data["minutes"]="0".$data["minutes"];
- }
- 
-$dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]-5).
-":".$data["minutes"].":".$data["seconds"];
+		$dataAtual= calculaDataAtual();
 		
 		if((!(is_int($codTime1)) || ($codTime1<=0)) || (!(is_int($codTime2)) || ($codTime2<=0))){
 			throw new Exception("ERRO OS PARAMETROS DOS TIMES SAO INVALIDOS ");
@@ -56,7 +59,8 @@ $dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]
 
 		}
 	}
-	function setCodTime1($codTime1){
+		function setCodTime1($codTime1){
+	
 		if(((is_int($codTime1))&&($codTime1>0))){
 			$this->codTime1=$codTime1;
 		}
@@ -98,24 +102,7 @@ $dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]
 	}
 	
 	function setDataInicioApostas($dataInicioApostas){
-		$agora = time();
- $data=getdate($agora);
- if($data["mday"]<=9){
- 	$data["mday"]="0".$data["mday"];
- }
- if($data["mon"]<=9){
- 	$data["mon"]="0".$data["mon"];
- }
- if(($data["hours"]-5)<=9){
- 	$data["hours"]="0".$data["hours"];
- }
- if($data["minutes"]<=9){
- 	$data["minutes"]="0".$data["minutes"];
- }
- 
-$dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]-5).
-":".$data["minutes"].":".$data["seconds"];
-		
+		$dataAtual= calculaDataAtual();
 	if(($dataInicioApostas>=$this->dataJogo)||($dataInicioApostas<$dataAtual))
 		{
 			throw new Exception("ERRO DATA DO INICIO DA APOSTA INVALIDO");
@@ -125,25 +112,8 @@ $dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]
 		}
 	}
 	function setDataFimApostas($dataFimApostas){
-		$agora = time();
- $data=getdate($agora);
- if($data["mday"]<=9){
- 	$data["mday"]="0".$data["mday"];
- }
- if($data["mon"]<=9){
- 	$data["mon"]="0".$data["mon"];
- }
- if(($data["hours"]-5)<=9){
- 	$data["hours"]="0".$data["hours"];
- }
- if($data["minutes"]<=9){
- 	$data["minutes"]="0".$data["minutes"];
- }
- 
-$dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]-5).
-":".$data["minutes"].":".$data["seconds"];
-		
-		if(($dataFimApostas>=$this->dataJogo)||($dataFimApostas<$dataAtual)
+		$dataAtual= calculaDataAtual();
+				if(($dataFimApostas>=$this->dataJogo)||($dataFimApostas<$dataAtual)
 		||($dataFimApostas<=$this->dataInicioApostas))
 		{
 			throw new Exception("ERRO DATA DO FIM DA APOSTA INVALIDO");
@@ -155,6 +125,7 @@ $dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]
 	}
 
 	function verificaPeriodoapostas($dataDaAposta){
+		
 		if (($dataDaAposta>=$this->dataInicioApostas)&&($dataDaAposta<=$this->dataFimApostas)) {
 			return true;
 		}
@@ -190,11 +161,13 @@ $dataAtual= $data["year"]."-".$data["mon"]."-".$data["mday"]."-".($data["hours"]
 	function getRodada(){
 		return $this->rodada;
 	}
+	
 	function getDataInicioApostas(){
 		return $this->dataInicioApostas;
 	}
+
 	function getDataFimApostas(){
 		return $this->dataFimApostas;
-
 	}
+
 }
