@@ -5,9 +5,23 @@ cadastro de time
 </title>
 </head>
 <body>
+	<script language="JavaScript">
+   		<!--
+   		function teste() {
+      		if (document.upload.arquivo.value=="") {
+         		alert("Arquivo para upload não informado!")
+         		document.upload.arquivo.focus()
+         	return false
+      		}
+   		}
+   		//-->
+	</script>
 	<form action="envia_cadastro_time.php">
-		<p>Nome do time: <input type="text" name="nome" size="20"></p>
+		<p>Nome do time: <input type="text" name="nome" size="60"></p>
+		<p>Escudo:<input type="file" name="arquivo" size="60"></p>
+		
 		<p><input type="submit" value="Salvar" name="salvar"></p>
+		
 		<p><h3>Instruções para inserir</h3></p>
 		<p>1. Não importa se você irá inserir em minúscula ou maiuscula.
 		<br>2.Não inserir nenhum tipo de acento.
