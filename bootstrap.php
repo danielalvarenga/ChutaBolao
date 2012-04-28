@@ -1,8 +1,13 @@
 <?php
 
 use Doctrine\ORM\Tools\Setup;
+
 require_once "classes/Usuario.php";
 require_once "classes/PremiosUsuario.php";
+require_once "classes/Aposta.php";
+require_once "classes/Time.php";
+require_once "classes/Jogo.php";
+require_once "classes/Campeonato.php";
 
 require_once "Doctrine/ORM/Tools/Setup.php";
 Setup::registerAutoloadPEAR();
@@ -14,9 +19,9 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/classes")
 // Configuracao de acesso ao banco de dados
 $conn = array(
     'driver' => 'pdo_mysql',
-    'user' => 'root',
-    'password' => '',
-    'dbname' => 'chutabolao'
+    'user' => 'chutabol_admin',
+    'password' => 'corporativa10',
+    'dbname' => 'chutabol_facebook'
 );
 
 // Obtendo uma instancia do Entity Manager

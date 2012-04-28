@@ -43,7 +43,7 @@ ob_end_flush();
 
 <body>
 
-<?php 
+<?php require "bootstrap.php";
 if($user_id){
 	try{
 		$user_profile = $facebook->api('/me', 'GET');
@@ -52,6 +52,8 @@ if($user_id){
 		$emailUsuario = $user_profile['email'];
 		$tokenUsuario = $facebook->getAccessToken();
 		$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
+		$entityManager->persist($usuario);
+		$entityManager->flush();
 
 		$link = 'http://apps.facebook.com/chutabolao';
 		$message = $nomeUsuario . 'agora faz parte do Clube Chuta Bolão, e pode mostrar suas abilidades de técnico apostando qual será o resultado dos melhores jogos de futebol do Campeonato. Quem será melhor? Ele ou você?';

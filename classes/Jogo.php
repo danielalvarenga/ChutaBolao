@@ -19,18 +19,50 @@
 	
 	return $dataAtual; }
 ?>
-<?php 
-class Jogo {
+<?php
 
-	private $codJogo=1;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/** @Entity */
+class Jogo {
+	
+	/** @Id @Column(type="integer") @GeneratedValue */
+	private $codJogo;
+	
+	/** @Column(type="datetime")*/
 	private $dataJogo;
+	
+	/** @Column(type="integer")*/
 	private $rodada;
+	
+	/** @Column(type="integer")*/
 	private $codTime1;
+	
+	/** @Column(type="integer")*/
 	private $codTime2;
+	
+	/** @Column(type="integer")*/
 	private $golsTime1;
+	
+	/** @Column(type="integer")*/
 	private $golsTime2;
+	
+	/** @Column(type="datetime")*/
 	private $dataInicioApostas;
+	
+	/** @Column(type="datetime")*/
 	private $dataFimApostas;
+	
+	/**
+	* @OneToMany(targetEntity="Aposta", mappedBy="jogo")
+	* @var Aposta[]
+	*/
+	protected $apostasJogo = null;
+	
+	/**
+	* @ManyToOne(targetEntity="Campeonato", inversedBy="apostasCampeonato")
+	*/
+	protected $campeonato;
    
 	function __construct($dataJogo,$rodada,$codTime1,$codTime2){
 		$dataAtual= calculaDataAtual();
@@ -55,7 +87,7 @@ class Jogo {
 			$this->rodada=$rodada;
 			$this->codTime1=$codTime1;
 			$this->codTime2=$codTime2;
-		//	$this->codJogo=$codJogo;
+			$this->apostasJogo = new ArrayCollection();
 
 		}
 	}
@@ -96,10 +128,6 @@ class Jogo {
 		}
 
 	}
-
-	function getCodcampeonato(){
-		return $this->codCampeonato;
-	}
 	
 	function setDataInicioApostas($dataInicioApostas){
 		$dataAtual= calculaDataAtual();
@@ -134,10 +162,6 @@ class Jogo {
 		}
 	}
 
-	function getCodjogo(){
-		return $this->codJogo;
-	}
-
 	function getDatajogo(){
 		return $this->dataJogo;
 	}
@@ -168,6 +192,20 @@ class Jogo {
 
 	function getDataFimApostas(){
 		return $this->dataFimApostas;
+	}
+	
+	function getCampeonato(){
+		return $this->campeonato;
+	}
+	
+	function setCampeonato($campeonato){
+		$this->campeonato = $campeonato;
+	}
+	
+	/* Recebe o objeto Aposta e adiciona ao array apostasJogo[] */
+	
+	function adicionaApostasJogo($aposta){
+		$this->apostasJogo[] = $aposta;
 	}
 
 }

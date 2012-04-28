@@ -1,29 +1,58 @@
 <?php
-
+/** @Entity */
 class PremiosUsuario{
-
+	
+	/** @Column(type="integer") */
 	private $codTimeFavorito; // Time para o qual o usuário torce no campeonato
+	
+	/** @Column(type="integer") */
 	private $acertosPlacar; // Quantidade de vezes que acertou o placar exato
+	
+	/** @Column(type="integer") */
 	private $acertosTimeGanhador; // Quantidade de vezes que acertou o ganhador, mesmo errando o placar
+	
+	/** @Column(type="integer") */
 	private $acertosPlacarInvertido; // Quantidade de vezes que acertou o placar invertido
+	
+	/** @Column(type="integer") */
 	private $pontosCampeonato; // Quantidade de pontos acumulados no campeonato
+	
+	/** @Column(type="integer") */
 	private $medalhasOuro; // Quantidade de medalhas de ouro acumuladas no campeonato
+	
+	/** @Column(type="integer") */
 	private $medalhasPrata; // Quantidade de medalhas de prata acumuladas no campeonato
+	
+	/** @Column(type="integer") */
 	private $medalhasBronze; // Quantidade de medalhas de bronze acumuladas no campeonato
+	
+	/** @Column(type="integer") */
 	private $chuteirasOuro; // Quantidade de chuteiras de ouro acumuladas no campeonato
+	
+	/** @Column(type="integer") */
 	private $chuteirasPrata; // Quantidade de chuteiras de prata acumuladas no campeonato
+	
+	/** @Column(type="integer") */
 	private $chuteirasBronze; // Quantidade de chuteiras de bronze acumuladas no campeonato
+	
+	/** @Column(type="boolean") */
 	private $trofeu; // "true" se o usuário ganhou troféu do campeonato. "false" por default.
+	
+	/**
+	* @ManyToOne(targetEntity="Usuario", inversedBy="premiacoes")
+	*/
 	private $usuario; // Objeto da Classe Usuario a quem pertence os prêmios
+	
+	/**
+	* @ManyToOne(targetEntity="Campeonato", inversedBy="premiacoesCampeonato")
+	*/
 	private $campeonato; // Objeto da Classe Campeonato que referência em qual Campeonato foram ganhos os prêmios
 	
 	/* Recebe como parâmetros a id do usuário, o código de campeonato e código do time favorito.
 	* Se não for escolhido nenhum Time Favorito o valor será "0" por default.
 	* Inicia trofeu com false e inicia as demais variáveis com 0. */
 	
-	function __construct($idUsuario, $codCampeonato, $codTimeFavorito = 0){
-		$this->idUsuario = $idUsuario;
-		$this->codCampeonato = $codCampeonato;
+	function __construct($usuario, $campeonato, $codTimeFavorito = 0){
 		$this->codTimeFavorito = $codTimeFavorito;
 		$this->acertosPlacar = 0;
 		$this->acertosTimeGanhador = 0;
@@ -36,13 +65,15 @@ class PremiosUsuario{
 		$this->chuteirasPrata = 0;
 		$this->chuteirasBronze = 0;
 		$this->trofeu = false;
+		$this->usuario = $usuario;
+		$this->campeonato = $campeonato;
 	}
 	
-	function getIdUsuario(){
-		return $this->idUsuario;
+	function getUsuario(){
+		return $this->usuario;
 	}
-	function getCodCampeonato(){
-		return $this->codCampeonato;
+	function getCampeonato(){
+		return $this->campeonato;
 	}
 	function getCodTimeFavorito(){
 		return $this->codTimeFavorito;

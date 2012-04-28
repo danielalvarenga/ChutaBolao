@@ -1,14 +1,30 @@
-
 <?php
-
+/** @Entity */
 class Aposta{
-
-	private $codJogo;
-	private $idUsuario;
-	private $codCampeonato;
+	
+	/** @Column(type="integer") */
 	private $apostaGolsTime1;
+	
+	/** @Column(type="integer") */
 	private $apostaGolsTime2;
+	
+	/** @Column(type="integer") */
 	private $pontosAposta;
+	
+	/**
+	* @ManyToOne(targetEntity="Jogo", inversedBy="apostasJogo")
+	*/
+	private $jogo;
+	
+	/**
+	* @ManyToOne(targetEntity="Usuario", inversedBy="apostasUsuario")
+	*/
+	private $usuario;
+	
+	/**
+	* @ManyToOne(targetEntity="Campeonato", inversedBy="apostasCampeonato")
+	*/
+	private $campeonato;
 
 	function __construct($idUsuario,$codCampeonato,$codJogo){
 		if($idUsuario===null){
