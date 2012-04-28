@@ -8,10 +8,10 @@ cadastro de time
 
 	<h1>Inserir time</h1>
 	
-	<form action="envia_cadastrotime.php" method="post" enctype="multipart/form-data">
+	<form action="../envia_cadastrotime.php" method="POST" enctype="multipart/form-data">
 			
 			<p>Nome:<input type="text" name="nome" size="60"></p>
-            Escudo:<input type="file" name="arquivo" class="width233" />
+           <!--  Escudo:<input type="file" name="arquivo" class="width233" />  -->
             <p><input type="submit" name="salvar" value="Salvar" /></p>
     </form>
     

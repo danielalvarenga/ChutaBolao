@@ -1,4 +1,5 @@
 <?php
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /** @Entity */
@@ -21,7 +22,7 @@ class time{
 		$this->nomeTime = strtoupper($nomeTime);
 	}
 	
-	function getNome(){
+	function getNomeTime(){
 		return $this->nomeTime;
 	}
 		

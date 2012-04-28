@@ -45,8 +45,8 @@ class Usuario{
 	$this->segundoNomeUsuario = $segundoNomeUsuario;
 	$this->emailUsuario = $emailUsuario;
 	$this->pontosGeral = 0;
-	$this->apostas = new ArrayCollection();
-	$this->premiacoes = new ArrayCollection();
+	$this->apostas = new ArrayCollection() ;
+	$this->premiacoes = new ArrayCollection() ;
 	}
 	
 	function getIdUsuario(){
