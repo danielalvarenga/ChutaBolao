@@ -1,6 +1,8 @@
 <?php
 require "bootstrap.php";
 
+// Para Usuario --------------------------------------------------------
+
 $user_id = 12345679;
 $primeiroNomeUsuario = 'abc';
 $segundoNomeUsuario = 'def';
@@ -10,6 +12,8 @@ $usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNo
 
 $entityManager->persist($usuario);
 $entityManager->flush();
+
+// Para Time --------------------------------------------------------
 
 $nome = 'Flamengo';
 $time = new Time($nome);
