@@ -1,40 +1,29 @@
 <?php
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
-* @Entity @Table(name="time")
-*/
+/** @Entity */
 class time{
 	/** @Id @Column(type="integer") @GeneratedValue */
-	private $id;
+	private $codTime;
+	
 	/** @Column(type="string") */
-	private $nome;
-	/**
-	* @OneToMany(targetEntity="RendimentoTime", mappedBy="time")
-	* @var RendimentoTime[]
-	*/
-	//private $rendimento = new ArreyCollection();
+	private $nomeTime;
 	
-	function __construct($nome){
-		$this->nome = strtoupper($nome);
+	function __construct($nomeTime){
+		$this->nomeTime = strtoupper($nomeTime);
 	}
 	
-	function getId(){
-		return $id;
+	function getCodTime(){
+		return $codTime;
 	}
 	
-	function setNome($nome){
-		$this->nome = strtoupper($nome);
+	function setNomeTime($nomeTime){
+		$this->nomeTime = strtoupper($nomeTime);
 	}
 	
 	function getNome(){
-		return $this->nome;
+		return $this->nomeTime;
 	}
-	function setClassificacao($rendimento){
-		$this->rendimento[] = $rendimento;
-	}
-	function getClassificacao(){
-		return $classificacao;
-	}
+		
 }
 ?>
