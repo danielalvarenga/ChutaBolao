@@ -5,24 +5,14 @@ cadastro de time
 </title>
 </head>
 <body>
-	<script language="JavaScript">
-   		<!--
-   		function teste() {
-      		if (document.upload.arquivo.value=="") {
-         		alert("Arquivo para upload não informado!")
-         		document.upload.arquivo.focus()
-         	return false
-      		}
-   		}
-   		//-->
-	</script>
-	<form action="envia_cadastro_time.php">
-		<p>Nome do time: <input type="text" name="nome" size="60"></p>
-		<p>Escudo:<input type="file" name="arquivo" size="60"></p>
-		
-		<p><input type="submit" value="Salvar" name="salvar"></p>
-		
-		<p><h3>Instruções para inserir</h3></p>
+	<h1>Inserir time</h1>
+	<form action="envia_cadastrotime.php" method="post" enctype="multipart/form-data">
+			<p>Nome:<input type="text" name="nome" size="60"></p>
+            Escudo:<input type="file" name="arquivo" class="width233" />
+            <p><input type="submit" name="salvar" value="Salvar" /></p>
+    </form>
+    
+		<h3><p>Instruções para inserir </p></h3>
 		<p>1. Não importa se você irá inserir em minúscula ou maiuscula.
 		<br>2.Não inserir nenhum tipo de acento.
 		<br>2. Insira o nome do time seguido de traço e sigla do estado do time.
@@ -30,7 +20,6 @@ cadastro de time
 		<p>5. Exemplo de inserção:</p>
 		<p>Time do Brasil: "comercial-pi"
 		<br>Time extrageiro: "milan-ita"</p>
-		<?php echo "xyz"?>
-	</form>
+	
 </body>
 </html>
