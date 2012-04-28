@@ -1,6 +1,6 @@
 <?php
 //require 'bootstrap.php';
-require 'Time.php';
+require 'C:\xampp\htdocs\workspace\ChutaBolao\includes\Time.php';
 //try{
 
 $arquivo = $_FILES['arquivo'];

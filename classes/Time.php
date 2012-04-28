@@ -9,10 +9,10 @@ class time{
 	private $id;
 	/** @Column(type="string") */
 	private $nome;
-	///**
-	//* @OneToMany(targetEntity="RendimentoTime", mappedBy="time")
-	//* @var RendimentoTime[]
-	//*/
+	/**
+	* @OneToMany(targetEntity="RendimentoTime", mappedBy="time")
+	* @var RendimentoTime[]
+	*/
 	//private $rendimento = new ArreyCollection();
 	
 	function __construct($nome){
