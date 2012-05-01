@@ -1,4 +1,14 @@
-﻿  <div id="Mural">
+﻿ <?php 
+ require "../bootstrap.php";
+ 
+ $premiosUsuario = $entityManager->find("PremiosUsuario", $user_id);
+ 
+ 
+ ?>
+ 
+ 
+ 
+  <div id="Mural">
     <div id="pontos">
       <div class="texto">
         <img border="0" class="icon" src="imagens/premios/pontos.png" />
