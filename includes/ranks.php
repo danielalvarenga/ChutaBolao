@@ -1,13 +1,48 @@
-﻿<?php
-require "bootstrap.php";
+﻿<div id="conteudo">
 
-$dql = "SELECT c FROM Cidade c ORDER BY c.nome ASC";
+	
 
-$query = $entityManager->createQuery($dql);
-$query->setMaxResults(30);
+    <div id="meio" class="meio" >
 
-$cidades = $query->getResult();
+    	<div id="meiogrande">
 
-foreach($cidades as $cidade) {
-    echo $cidade->getId() . " - " . $cidade->getNome() . " - " . $cidade->getUf() . "<br/ >";
-}
+        </div>
+
+
+
+	</div>
+
+
+
+	<div class="meio">
+
+    	<div id="meiopeq" class="maeiopeq">
+
+        </div>
+
+		
+
+        <div class="maeiopeq" >
+
+        </div>    
+
+    
+
+    	<div class="maeiopeq">
+
+        </div>
+
+        
+
+        <div class="maeiopeq">
+
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+
