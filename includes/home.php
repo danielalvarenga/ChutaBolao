@@ -1,7 +1,7 @@
-﻿ <?php 
+﻿ <?php
  require "bootstrap.php";
  
- $dql = "SELECT c FROM PremiosUsuario c WHERE c.idUsuario = ".$user_id;
+ $dql = "SELECT p FROM PremiosUsuario p WHERE p.idUsuario = ".$user_id;
  $query = $entityManager->createQuery($dql);
  if($query != NULL){
  	$premios = $query->getResult();
@@ -90,7 +90,7 @@
 		      </div>
 		    </div>
 		    <br/>
-<?php
+<?php 
  		} else{
 
  		echo $cidade->getId() . " - " . $cidade->getNome() . " - " . $cidade->getUf() . "<br/ >";

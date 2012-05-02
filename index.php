@@ -66,15 +66,6 @@ if($user_id){
 												'message' => $message
 				));
 		}
-?>
-		
-
-
-
-
-
-
-<?php 
 	} catch(FacebookApiException $e) {
 		$login_url = $facebook->getLoginUrl(array(
 							'scope' => 'publish_action'
