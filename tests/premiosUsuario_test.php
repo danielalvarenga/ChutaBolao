@@ -15,11 +15,11 @@ class TestPremiosUsuario extends UnitTestCase {
 		$p2 = new PremiosUsuario($idUsuario, $codCampeonato, $codTimeFavorito);
 		$this->assertEqual($p2->getCodTimeFavorito(), 3);
 	}
-	function TestGetIdUsuario(){
-		$this->assertEqual($this->p1->getIdUsuario(), 1);
+	function TestGetUsuario(){
+		$this->assertEqual($this->p1->getUsuario(), 1);
 	}
-	function TestGetCodCampeonato(){
-		$this->assertEqual($this->p1->getCodCampeonato(), 2);
+	function TestGetCampeonato(){
+		$this->assertEqual($this->p1->getCampeonato(), 2);
 	}
 	function TestGetCodTimeFavorito(){
 		$this->assertEqual($this->p1->getCodTimeFavorito(), 0);
