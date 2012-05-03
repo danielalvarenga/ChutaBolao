@@ -1,4 +1,4 @@
-﻿ <?php
+﻿<?php/*
  require "bootstrap.php";
  
  $dql = "SELECT p FROM PremiosUsuario p WHERE p.idUsuario = ".$user_id;
@@ -28,7 +28,7 @@
  		$chuteirasPrataGeral = $chuteirasPrataGeral + $premios->getChuteirasPrata();
  		$chuteirasBronzeGeral = $chuteirasBronzeGeral + $premios->getChuteirasBronze();
  		if($premios->getCampeonato()->getSatus() == "ativo"){
- ?>
+ */?>
  
  			<div id="Mural">
 		    <div id="pontos">
@@ -90,14 +90,14 @@
 		      </div>
 		    </div>
 		    <br/>
-<?php 
+<?php /*
  		} else{
 
  		echo $cidade->getId() . " - " . $cidade->getNome() . " - " . $cidade->getUf() . "<br/ >";
  	}
  } 
  
-?>
+*/?>
   
 
     

@@ -47,28 +47,29 @@ ob_end_flush();
 <?php require "bootstrap.php";
 if($user_id){
 	try{
-		$usuario = $entityManager->find("Usuario", $user_id);
-		if($usuario == NULL){
-				$user_profile = $facebook->api('/me', 'GET');
-				$primeiroNomeUsuario = $user_profile['first_name'];
-				$segundoNomeUsuario = $user_profile['last_name'];
-				$emailUsuario = $user_profile['email'];
-				$tokenUsuario = $facebook->getAccessToken();
-				$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-				$entityManager->persist($usuario);
-				$entityManager->flush();
-		
-				$link = 'http://apps.facebook.com/chutabolao';
-				$message = $nomeUsuario . 'agora faz parte do Clube Chuta Bolão, e pode mostrar suas habilidades de técnico apostando qual será o resultado dos melhores jogos de futebol do Campeonato. Quem será melhor? Ele ou você?';
-				$ret_obj = $facebook->api('/me/feed', 'POST',
-				array(
-												'link' => $link,
-												'message' => $message
-				));
-		}
+		$user_id_string = "" . $user_id . "";
+		$usuario = $entityManager->find("Usuario", $facebook->getUser());
+		print 'Nome: ' . $usuario->getPrimeiroNomeUsuario() . '<br />';
+		print 'ID: ' . $usuario->getIdUsuario();
+		$user_profile = $facebook->api('/me', 'GET');
+		$primeiroNomeUsuario = $user_profile['first_name'];
+		$segundoNomeUsuario = $user_profile['last_name'];
+		$emailUsuario = $user_profile['email'];
+		$tokenUsuario = $facebook->getAccessToken();
+		$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
+//		$entityManager->persist($usuario);
+		$entityManager->flush();
+
+		$link = 'http://apps.facebook.com/chutabolao';
+		$message = $nomeUsuario . 'agora faz parte do Clube Chuta Bolão, e pode mostrar suas habilidades de técnico apostando qual será o resultado dos melhores jogos de futebol do Campeonato. Quem será melhor? Ele ou você?';
+		$ret_obj = $facebook->api('/me/feed', 'POST',
+		array(
+										'link' => $link,
+										'message' => $message
+		));
 	} catch(FacebookApiException $e) {
 		$login_url = $facebook->getLoginUrl(array(
-							'scope' => 'publish_action'
+							'scope' => 'publish_stream'
 		));
 		echo 'Por Favor <ahref="' . $login_url . '">login.</a>';
 		error_log($e->getType());
@@ -76,7 +77,7 @@ if($user_id){
 	}
 } else {
 	$login_url = $facebook->getLoginUrl(array(
-							'scope' => 'publish_action'
+							'scope' => 'publish_stream'
 	));
 }
 ?>

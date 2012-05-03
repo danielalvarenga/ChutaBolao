@@ -12,17 +12,17 @@ class Aposta{
 	private $pontosAposta;
 	
 	/**
-	* @ManyToOne(targetEntity="Jogo", inversedBy="apostasJogo")
+	* @Id @ManyToOne(targetEntity="Jogo", inversedBy="apostasJogo")
 	*/
 	private $jogo;
 	
 	/**
-	* @ManyToOne(targetEntity="Usuario", inversedBy="apostasUsuario")
+	* @Id @ManyToOne(targetEntity="Usuario", inversedBy="apostasUsuario")
 	*/
 	private $usuario;
 	
 	/**
-	* @ManyToOne(targetEntity="Campeonato", inversedBy="apostasCampeonato")
+	* @Id @ManyToOne(targetEntity="Campeonato", inversedBy="apostasCampeonato")
 	*/
 	private $campeonato;
 
