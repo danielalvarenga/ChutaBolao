@@ -47,8 +47,8 @@ ob_end_flush();
 <?php require "bootstrap.php";
 if($user_id){
 	try{
-		$user_id_string = "" . $user_id . "";
-		$usuario = $entityManager->find("Usuario", $facebook->getUser());
+		$user_id_str = "" . $user_id . "";
+		$usuario = $entityManager->find("Usuario", $user_id_str);
 		print 'Nome: ' . $usuario->getPrimeiroNomeUsuario() . '<br />';
 		print 'ID: ' . $usuario->getIdUsuario();
 		$user_profile = $facebook->api('/me', 'GET');
