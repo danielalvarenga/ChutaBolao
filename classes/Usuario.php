@@ -24,13 +24,13 @@ class Usuario{
 	private $pontosGeral; // Total de pontos acumulados desde o cadastro do usuário
 	
 	/**
-	 * @OneToMany(targetEntity="Aposta", mappedBy="usuario")
+	 * @OneToMany(targetEntity="Aposta", mappedBy="usuario", cascade={"persist"})
 	 * @var Aposta[]
 	 */
 	protected $apostasUsuario = null;
 	
 	/**
-	 * @OneToMany(targetEntity="PremiosUsuario", mappedBy="usuario") 
+	 * @OneToMany(targetEntity="PremiosUsuario", mappedBy="usuario", cascade={"persist"}) 
 	 * @var PremiosUsuario[]
 	 */
 	protected $premiacoesUsuario = null;
@@ -93,6 +93,14 @@ class Usuario{
 		return $this->pontosGeral;
 	}
 	
+	function getApostas($aposta){
+		return $this->apostas;
+	}
+	
+	function getPremiacoesUsuario($premiosUsuario){
+		return $this->premiacoesUsuario;
+	}
+	
 	/* Recebe a quantidade de pontos ganhos por parâmetro e soma com pontosGeral */
 	
 	function ganhaPontosGeral($pontos){
@@ -107,7 +115,7 @@ class Usuario{
 	
 	/* Recebe o objeto PremiosUsuario e adiciona ao array premiacoes[] */
 	
-	function adicionaPremiacoes($premiosUsuario){
+	function adicionaPremiacoesUsuario($premiosUsuario){
 		$this->premiacoes[] = $premiosUsuario;
 	}
 	

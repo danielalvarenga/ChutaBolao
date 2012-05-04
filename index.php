@@ -1,5 +1,5 @@
 <?php ob_start();
-require_once 'classes/Usuario.php';
+require "bootstrap.php";
 require_once 'FacebookApi/facebook.php';
 
 $app_Id = '233715530059546';
@@ -13,10 +13,30 @@ $config = array(
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
 
-ob_end_flush();
-?>
+$usuario_id = "100000885523518";
+$usuario = $entityManager->find("Usuario", $usuario_id);
+/*
+if($usuario->getIdUsuario() != $user_id){
+	$user_profile = $facebook->api('/me', 'GET');
+	$primeiroNomeUsuario = $user_profile['first_name'];
+	$segundoNomeUsuario = $user_profile['last_name'];
+	$emailUsuario = $user_profile['email'];
+	$tokenUsuario = $facebook->getAccessToken();
+	$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
+	$entityManager->persist($usuario);
+	$entityManager->flush();
 
-<?php require"links_index.php" ?>
+	$link = 'http://apps.facebook.com/chutabolao';
+//	$message = 'Massa!'; //$nomeUsuario . 'agora faz parte do Clube Chuta Bolão, e pode mostrar suas habilidades de técnico apostando qual será o resultado dos melhores jogos de futebol do Campeonato. Quem será melhor? Ele ou você?';
+	$ret_obj = $facebook->api('/me/feed', 'POST',
+	array(
+											'link' => $link,
+//											'message' => $message
+	));
+}
+
+ob_end_flush(); */
+require"links_index.php"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -44,29 +64,51 @@ ob_end_flush();
 
 <body>
 
-<?php require "bootstrap.php";
+<?php /*
 if($user_id){
 	try{
-		$user_id_str = "" . $user_id . "";
-		$usuario = $entityManager->find("Usuario", $user_id_str);
-		print 'Nome: ' . $usuario->getPrimeiroNomeUsuario() . '<br />';
-		print 'ID: ' . $usuario->getIdUsuario();
-		$user_profile = $facebook->api('/me', 'GET');
-		$primeiroNomeUsuario = $user_profile['first_name'];
-		$segundoNomeUsuario = $user_profile['last_name'];
-		$emailUsuario = $user_profile['email'];
-		$tokenUsuario = $facebook->getAccessToken();
-		$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-//		$entityManager->persist($usuario);
-		$entityManager->flush();
-
-		$link = 'http://apps.facebook.com/chutabolao';
-		$message = $nomeUsuario . 'agora faz parte do Clube Chuta Bolão, e pode mostrar suas habilidades de técnico apostando qual será o resultado dos melhores jogos de futebol do Campeonato. Quem será melhor? Ele ou você?';
-		$ret_obj = $facebook->api('/me/feed', 'POST',
-		array(
-										'link' => $link,
-										'message' => $message
-		));
+*/?>
+		
+		<!-- logo-->
+		
+		<div id="principal">
+				
+		<div id="top">
+				 
+		<div id="topleft">
+				</div>
+		
+		<div id="topright">
+				<h2 align="center"> <br /><br />Banner</h2>
+		</div>
+		
+		</div>
+		<!-- Menu   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+		
+		<div id="areamenu">
+		<ul id="menu">
+		<li><a href="index.php?conteudo=home" title="Home">Home</a></li>
+				<li><a href="index.php?conteudo=apostas" title="Apostas">Apostas</a></li>
+				<li><a href="index.php?conteudo=classificacao" title="Classificação">Classificação</a></li>
+		<li><a href="index.php?conteudo=convites" title="Convites">Convites</a></li>
+				<li><a href="index.php?conteudo=placares" title="placares">Placares</a></li>
+				<li><a href="index.php?conteudo=ranks" title="Ranks">Ranks</a></li>
+				</ul>
+		</div>
+		
+		<!-- pagina principal   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+		
+		<div id="content"><?php include $page; ?></div>
+				
+				<!-- rodapé    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				
+					<div id="footer"><p>Copyright © 2012</p></div>
+				    
+				<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				
+				</div>
+		
+<?php	/*
 	} catch(FacebookApiException $e) {
 		$login_url = $facebook->getLoginUrl(array(
 							'scope' => 'publish_stream'
@@ -80,47 +122,6 @@ if($user_id){
 							'scope' => 'publish_stream'
 	));
 }
-?>
-
-
-<!-- logo-->
-		
-		<div id="principal">
-		
-		<div id="top">
-		 
-		<div id="topleft">
-		</div>
-		
-		<div id="topright">
-		<h2 align="center"> <br /><br />Banner</h2>
-		</div>
-		
-		</div>
-		<!-- Menu   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-		
-		<div id="areamenu">
-		<ul id="menu">
-		<li><a href="index.php?conteudo=home" title="Home">Home</a></li>
-		<li><a href="index.php?conteudo=apostas" title="Apostas">Apostas</a></li>
-		<li><a href="index.php?conteudo=classificacao" title="Classificação">Classificação</a></li>
-		<li><a href="index.php?conteudo=convites" title="Convites">Convites</a></li>
-		<li><a href="index.php?conteudo=placares" title="placares">Placares</a></li>
-		<li><a href="index.php?conteudo=ranks" title="Ranks">Ranks</a></li>
-		</ul>
-		</div>
-		
-		<!-- pagina principal   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-		
-		<div id="content"><?php include $page; ?></div>
-		
-		<!-- rodapé    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-		
-			<div id="footer"><p>Copyright © 2012</p></div>
-		    
-		<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-		
-		</div>
-
+*/?>
 </body>
 </html>

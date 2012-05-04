@@ -1,5 +1,5 @@
 CREATE TABLE Usuario (
-		idUsuario VARCHAR(255) NOT NULL,
+		idUsuario VARCHAR(255) NOT NULL UNIQUE,
 		tokenUsuario VARCHAR(255) NOT NULL,
 		primeiroNomeUsuario VARCHAR(255) NOT NULL,
 		segundoNomeUsuario VARCHAR(255) NOT NULL,
@@ -9,6 +9,7 @@ CREATE TABLE Usuario (
 		ENGINE = InnoDB;
 		
 CREATE TABLE PremiosUsuario (
+		codPremiosUsuario INT AUTO_INCREMENT NOT NULL,
 		codTimeFavorito INT,
 		acertosPlacar INT,
 		acertosTimeGanhador INT,
@@ -21,15 +22,12 @@ CREATE TABLE PremiosUsuario (
 		chuteirasPrata INT,
 		chuteirasBronze INT,
 		trofeu BOOLEAN,
-		idUsuario VARCHAR(255) NOT NULL,
-		INDEX IDX_1CDFAB829586CC8 (cidade_id),
-		codCampeonato INT NOT NULL,
-		INDEX IDX_1CDFAB829586CC8 (idUsuario),
-		INDEX IDX_1CDFAB829586CC8 (codCampeonato),
-		PRIMARY KEY(idUsuario, codCampeonato))
+		usuario_id VARCHAR(255) NOT NULL PRIMARY KEY,
+		campeonato_cod INT NOT NULL PRIMARY KEY,
+		PRIMARY KEY(codPremiosUsuario))
 		ENGINE = InnoDB;
-	ALTER TABLE PremiosUsuario ADD CONSTRAINT FK_1CDFAB829586CC8 FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario)
-	ALTER TABLE PremiosUsuario ADD CONSTRAINT FK_1CDFAB829586CC8 FOREIGN KEY (codCampeonato) REFERENCES Campeonato (codCampeonato)
+	ALTER TABLE PremiosUsuario FOREIGN KEY (usuario_id) REFERENCES Usuario (idUsuario)
+	ALTER TABLE PremiosUsuario FOREIGN KEY (campeonato_cod) REFERENCES Campeonato (codCampeonato)
 		
 CREATE TABLE Time (
 		codTime INT AUTO_INCREMENT NOT NULL,

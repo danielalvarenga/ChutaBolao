@@ -2,11 +2,11 @@
 require "bootstrap.php";
 
 $user_id = 100000885523518;
-//echo $user_id .  ' é um ' . gettype($user_id_str) ;
-$usuario = $entityManager->find("Usuario", "100000885523518");
 
-print 'Nome: ' . $usuario->getPrimeiroNomeUsuario() . '<br />';
-print 'ID: ' . $usuario->getIdUsuario();
+$usuario = $entityManager->find("Usuario", $user_id);
+
+echo 'Nome: ' . $usuario->getPrimeiroNomeUsuario() . '<br />';
+echo 'e-mail: ' . $usuario->getEmailUsuario();
 /*
 // Para Usuario --------------------------------------------------------
 
