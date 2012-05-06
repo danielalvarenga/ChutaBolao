@@ -5,7 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /** @Entity */
 class Usuario{
 	
-	/** @Id @Column(type="string") */
+	/** @Id @Column(type="bigint", name="id") */
 	private $idUsuario; // Identificador do usuário do Facebook - Direto do Facebook
 	
 	/** @Column(type="string")*/

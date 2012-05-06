@@ -55,7 +55,7 @@ class PremiosUsuario{
 	* Se não for escolhido nenhum Time Favorito o valor será "0" por default.
 	* Inicia trofeu com false e inicia as demais variáveis com 0. */
 	
-	function __construct($usuario, $campeonato, $codTimeFavorito = 0){
+	function __construct($usuario, $campeonato, $codTimeFavorito = NULL){
 		$this->codTimeFavorito = $codTimeFavorito;
 		$this->acertosPlacar = 0;
 		$this->acertosTimeGanhador = 0;

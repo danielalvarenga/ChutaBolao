@@ -5,7 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /** @Entity */
 class Campeonato {
 	
-	/** @Id @Column(type="integer") @GeneratedValue */
+	/** @Id @Column(type="integer", name="id") @GeneratedValue */
 	private $codCampeonato;
 	
 	/** @Column(type="string")*/
@@ -21,7 +21,7 @@ class Campeonato {
 	private $status;
 	
 	/**
-	* @OneToMany(targetEntity="Aposta", mappedBy="campeonato")
+	* @OneToMany(targetEntity="Aposta", mappedBy="campeonato", cascade={"persist"})
 	* @var Aposta[]
 	*/
 	protected $apostasCampeonato;

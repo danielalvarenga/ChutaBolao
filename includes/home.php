@@ -1,7 +1,7 @@
 ﻿<?php
  require "bootstrap.php";
  
- $premiacoes = $entityManager->find('PremiosUsuario', $usuario_id);
+ $premiacoes = $entityManager->find('PremiosUsuario', $user_id);
  $user->getGroups()->add($group);
  $premiacoes = $usuario->getPremiacoesUsuario();
  if($premiacoes != NULL){

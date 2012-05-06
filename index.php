@@ -13,10 +13,10 @@ $config = array(
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
 
-$usuario_id = "100000885523518";
-$usuario = $entityManager->find("Usuario", $usuario_id);
+$user_id = 100000885523518;
+$usuario = $entityManager->find("Usuario", $user_id);
 /*
-if($usuario->getIdUsuario() != $user_id){
+if(!($usuario instanceof Usuario)){
 	$user_profile = $facebook->api('/me', 'GET');
 	$primeiroNomeUsuario = $user_profile['first_name'];
 	$segundoNomeUsuario = $user_profile['last_name'];

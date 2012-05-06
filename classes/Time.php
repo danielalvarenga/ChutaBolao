@@ -4,7 +4,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /** @Entity */
 class time{
-	/** @Id @Column(type="integer") @GeneratedValue */
+	/** @Id @Column(type="integer", name="id") @GeneratedValue */
 	private $codTime;
 
 	/** @Column(type="string") */

@@ -26,7 +26,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /** @Entity */
 class Jogo {
 	
-	/** @Id @Column(type="integer") @GeneratedValue */
+	/** @Id @Column(type="integer", name="id") @GeneratedValue */
 	private $codJogo;
 	
 	/** @Column(type="datetime")*/
@@ -54,7 +54,7 @@ class Jogo {
 	private $dataFimApostas;
 	
 	/**
-	* @OneToMany(targetEntity="Aposta", mappedBy="jogo")
+	* @OneToMany(targetEntity="Aposta", mappedBy="jogo", cascade={"persist"})
 	* @var Aposta[]
 	*/
 	protected $apostasJogo = null;

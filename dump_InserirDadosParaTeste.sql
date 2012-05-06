@@ -1,20 +1,28 @@
-
 INSERT INTO Usuario (`idUsuario`, `primeiroNomeUsuario`, `segundoNomeUsuario`, `emailUsuario`, `pontosGeral`, `tokenUsuario`) VALUES
-	(100000885523518, 'Daniel', 'Alvarenga Lima', 'alvarenga_daniel@hotmail.com', 0, 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl'),
-	(2, 'Brasileirão', '2010', 23, 'Finalizado'),
-	(3, 'Brasileirão', '2012', 23, 'Ativo'),
-	(4, 'Copa do Brasil', '2012', 23, 'Ativo'),
-	(5, 'Campeonato Maranhense', '2012', 23, 'Ativo');
+	(100000885523518, 'Daniel', 'Alvarenga Lima', 'alvarenga_daniel@hotmail.com', 0, 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl');
 
+
+INSERT INTO Time (`codTime`, `nomeTime`) VALUES
+					(1, 'Flamengo'),
+					(2, 'Vasco'),
+					(3, 'Botafogo'),
+					(4, 'Fluminense'),
+					(5, 'Corinthians'),
+					(6, 'Corinthians'),
+					(7, 'Gremio');
 
 INSERT INTO Campeonato (`codCampeonato`, `nomeCampeonato`, `anoCampeonato`, `quantidadeRodadas`, `status`) VALUES
-							(1, 'Brasileirão', '2011', 23, 'Finalizado'),
-							(2, 'Brasileirão', '2010', 23, 'Finalizado'),
-							(3, 'Brasileirão', '2012', 23, 'Ativo'),
-							(4, 'Copa do Brasil', '2012', 23, 'Ativo'),
-							(5, 'Campeonato Maranhense', '2012', 23, 'Ativo');
+			(1, 'Brasileirão', '2011', 23, 'Finalizado'),
+			(2, 'Brasileirão', '2010', 23, 'Finalizado'),
+			(3, 'Brasileirão', '2012', 23, 'Ativo'),
+			(4, 'Copa do Brasil', '2012', 23, 'Ativo'),
+			(5, 'Campeonato Maranhense', '2012', 23, 'Ativo');
 
-
+INSERT INTO `premiosusuario`(`codTimeFavorito`, `acertosPlacar`, `acertosTimeGanhador`, `acertosPlacarInvertido`, `$pontosCampeonato`, `medalhasOuro`, `medalhasPrata`, `medalhasBronze`, `chuteirasOuro`, `chuteirasPrata`, `chuteirasBronze`, `trofeu`, `usuario_id`, `campeonato_id`) VALUES
+			(NULL,0,0,0,0,0,0,0,0,0,0,false,100000885523518,5),
+			(5, 10, 15, 20, 300, 5, 6, 7, 2, 3, 4, false, 100000885523518, 3),
+			(7, 2, 4, 6, 150, 7, 8, 9, 1, 2, 3, false, 100000885523518, 4),
+			(1, 20, 30, 40, 500, 25, 50, 75, 40, 60, 80, true, 100000885523518, 1);
 	
 INSERT INTO Jogo (`codJogo`, `dataJogo`, `rodada`, `codTime1`, `codTime2`, `golsTime1`, `golsTime2`, `campeonato_id`, `dataInicioApostas`, `dataFimApostas`, `apostasJogo`) VALUES
 					(1, '2012-04-30', 1, 1, 2, NULL, NULL, 1, '2012-04-30 00:00:00', '2012-04-30 00:00:00', NULL),

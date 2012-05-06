@@ -1,4 +1,5 @@
 <?php
+
 /** @Entity */
 class Aposta{
 	
