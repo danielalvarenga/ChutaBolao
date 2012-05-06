@@ -97,7 +97,7 @@ class Usuario{
 		return $this->apostas;
 	}
 	
-	function getPremiacoesUsuario($premiosUsuario){
+	function getPremiacoesUsuario(){
 		return $this->premiacoesUsuario;
 	}
 	

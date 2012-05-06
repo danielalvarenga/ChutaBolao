@@ -2,9 +2,6 @@
 /** @Entity */
 class PremiosUsuario{
 	
-	/** @Id @GeneratedValue @Column(type="integer") */
-	private $codPremiosUsuario;
-	
 	/** @Column(type="integer") */
 	private $codTimeFavorito; // Time para o qual o usuário torce no campeonato
 	
@@ -42,12 +39,12 @@ class PremiosUsuario{
 	private $trofeu; // "true" se o usuário ganhou troféu do campeonato. "false" por default.
 	
 	/**
-	* @ManyToOne(targetEntity="Usuario", inversedBy="premiacoes")
+	* @Id @ManyToOne(targetEntity="Usuario", inversedBy="premiacoes")
 	*/
 	private $usuario; // Objeto da Classe Usuario a quem pertence os prêmios
 	
 	/**
-	 * @ManyToOne(targetEntity="Campeonato", inversedBy="premiacoesCampeonato")
+	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="premiacoesCampeonato")
 	 */
 	private $campeonato; // Objeto da Classe Campeonato que referência em qual Campeonato foram ganhos os prêmios
 	

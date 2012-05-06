@@ -1,37 +1,41 @@
 ﻿<?php
  require "bootstrap.php";
  
- $premiacoes = $entityManager->find('PremiosUsuario', $user_id);
- $user->getGroups()->add($group);
- $premiacoes = $usuario->getPremiacoesUsuario();
- if($premiacoes != NULL){
- 	
- 	$pontosGeral = 0;
- 	$acertosPlacarGeral = 0;
- 	$acertosTimeGanhadorGeral = 0;
- 	$acertosPlacarInvertidoGeral = 0;
- 	$medalhasOuroGeral = 0;
- 	$medalhasPrataGeral = 0;
- 	$medalhasBronzeGeral = 0;
- 	$chuteirasOuroGeral = 0;
- 	$chuteirasPrataGeral = 0;
- 	$chuteirasBronzeGeral = 0;
- 	foreach($premiacoes as $premiacoes) {
- 		$pontosGeral = $pontosGeral + $premios->getPontosCampeonato();
- 		$acertosPlacarGeral = $acertosPlacarGeral + $premios->getAcertosPlacar();
- 		$acertosTimeGanhadorGeral = $acertosTimeGanhadorGeral + $premios->getAcertosTimeGanhador();
- 		$acertosPlacarInvertidoGeral = $acertosPlacarInvertidoGeral + $premios->getAcertosPlacarInvertido();
- 		$medalhasOuroGeral = $medalhasOuroGeral + $premios->getMedalhasOuro();
- 		$medalhasPrataGeral = $medalhasPrataGeral + $premios->getMedalhasPrata();
- 		$medalhasBronzeGeral = $medalhasBronzeGeral + $premios->getMedalhasBronze();
- 		$chuteirasOuroGeral = $chuteirasOuroGeral + $premios->getChuteirasOuro();
- 		$chuteirasPrataGeral = $chuteirasPrataGeral + $premios->getChuteirasPrata();
- 		$chuteirasBronzeGeral = $chuteirasBronzeGeral + $premios->getChuteirasBronze();
- 		if($premiacoes->getCampeonato()->getSatus() == "ativo"){
- 			
- 		}
- 	}
+ $dql = 'SELECT p FROM PremiosUsuario p WHERE p.usuario ='.$user_id;
+ $query = $entityManager->createQuery($dql);
+ $premiacoes = $query->getResult();
+ 
+ $pontosGeral = 0;
+ $acertosPlacarGeral = 0;
+ $acertosTimeGanhadorGeral = 0;
+ $acertosPlacarInvertidoGeral = 0;
+ $medalhasOuroGeral = 0;
+ $medalhasPrataGeral = 0;
+ $medalhasBronzeGeral = 0;
+ $chuteirasOuroGeral = 0;
+ $chuteirasPrataGeral = 0;
+ $chuteirasBronzeGeral = 0;
+ $trofeus = 0;
+ 
+ foreach($premiacoes as $premiacoes) {
+	if($premiacoes instanceof PremiosUsuario){
+		$pontosGeral += $premiacoes->getPontosCampeonato();
+		$acertosPlacarGeral += $premiacoes->getAcertosPlacar();
+		$acertosTimeGanhadorGeral += $premiacoes->getAcertosTimeGanhador();
+		$acertosPlacarInvertidoGeral += $premiacoes->getAcertosPlacarInvertido();
+		$medalhasOuroGeral += $premiacoes->getMedalhasOuro();
+		$medalhasPrataGeral += $premiacoes->getMedalhasPrata();
+		$medalhasBronzeGeral += $premiacoes->getMedalhasBronze();
+		$chuteirasOuroGeral += $premiacoes->getChuteirasOuro();
+		$chuteirasPrataGeral += $premiacoes->getChuteirasPrata();
+		$chuteirasBronzeGeral += $premiacoes->getChuteirasBronze();
+		if($premiacoes->getTrofeu()){
+			$trofeus += 1;
+		}
+	}
  }
+ 
+
  ?>
  
  			<div id="Mural">
@@ -39,8 +43,8 @@
 		      <div class="texto">
 		        <img border="0" class="icon" src="imagens/premios/pontos.png" />
 		        <span id="pontos">
-		          Total de Pontos de Apostas: 
-		            <span class="contador_regressivo">852</span>
+		          Total de Pontos de Conquista: 
+		            <span class="total_pontos"><?php echo $pontosGeral; ?></span>
 		          
 		        </span>
 		      </div>
@@ -51,11 +55,11 @@
 		        <img border="0" class="icon" src="imagens/premios/medalha-ouro.png" />  
 		        <table border="0" celpadding="0" celspacing="0" style="display:inline-block; *display:inline; _display:inline;" height="58">
 		          <tr height="25">
-								<td id="de"><span>Prata 12</span></td>
-								<td id="de"><span>Bronze 05</span></td>
+								<td id="prata"><span><?php echo 'Prata '.$medalhasPrataGeral; ?></span></td>
+								<td id="bronze"><span><?php echo 'Bronze '.$medalhasBronzeGeral; ?></span></td>
 							</tr>
 		          <tr height="30">
-								<td id="por"><span>Ouro 07</span></td>
+								<td id="ouro"><span><?php echo 'Ouro '.$medalhasOuroGeral; ?></span></td>
 							</tr>
 		        </table>
 		      </div>
@@ -66,11 +70,11 @@
 		        <img border="0" class="icon" src="imagens/premios/chuteira-ouro.png" />  
 		        <table border="0" celpadding="0" celspacing="0" style="display:inline-block; *display:inline; _display:inline;" height="58">
 		          <tr height="25">
-								<td id="de"><span>Prata 12</span></td>
-								<td id="de"><span>Bronze 05</span></td>
+								<td id="prata"><span><?php echo 'Prata '.$chuteirasPrataGeral; ?></span></td>
+								<td id="bronze"><span><?php echo 'Bronze '.$chuteirasBronzeGeral; ?></span></td>
 							</tr>
 		          <tr height="30">
-								<td id="por"><span>Ouro 07</span></td>
+								<td id="ouro"><span><?php echo 'Ouro '.$chuteirasOuroGeral; ?></span></td>
 							</tr>
 		        </table>
 		      </div>
@@ -80,8 +84,15 @@
 		      <div class="texto">
 		        <img border="0" class="icon" src="imagens/premios/trofeu.png" />
 		        <span>
-		        
-		          Troféus: 01
+		        <?php
+					if ($trofeus == 0){
+					 	echo 'Conquiste seu primeiro troféu sendo o melhor do Campeonato!';
+					 } else if ($trofeus == 1){
+					 	echo $trofeus.' Troféu Conquistado';
+					 } else{
+					 	echo $trofeus.' Troféus Conquistados';
+					 }
+				?>
 		        
 		        </span>
 		      </div>
@@ -95,14 +106,10 @@
 		      </div>
 		    </div>
 		    <br/>
-<?php /*
- 		} else{
-
- 		echo $cidade->getId() . " - " . $cidade->getNome() . " - " . $cidade->getUf() . "<br/ >";
- 	}
- } 
  
-*/?>
+<?php 
+
+?>
   
 
     

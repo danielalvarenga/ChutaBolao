@@ -23,9 +23,9 @@ ENGINE=InnoDB;
 
 
 CREATE TABLE `Time` (
-	`codTime` INT AUTO_INCREMENT,
+	`id` INT AUTO_INCREMENT,
 	`nomeTime` VARCHAR(255),
-	PRIMARY KEY (`codTime`)
+	PRIMARY KEY (`id`)
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB;

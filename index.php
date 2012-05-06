@@ -13,7 +13,7 @@ $config = array(
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
 
-$user_id = 100000885523518;
+$user_id = '100000885523518';
 $usuario = $entityManager->find("Usuario", $user_id);
 /*
 if(!($usuario instanceof Usuario)){

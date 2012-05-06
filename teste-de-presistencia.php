@@ -2,7 +2,9 @@
 require "bootstrap.php";
 
 $user_id = 100000885523518;
-$usuario = $entityManager->find("Usuario", 100000885523518);
+$usuario = $entityManager->find("Usuario", $user_id);
+$premiacoes = $usuario->getPremiacoesUsuario();
+
 
 if($usuario instanceof Usuario){
 	echo 'Nome: ' . $usuario->getPrimeiroNomeUsuario() . '<br />';
@@ -14,7 +16,9 @@ if($usuario instanceof Usuario){
 	$emailUsuario = 'alvarenga_daniel@hotmail.com';
 	$tokenUsuario = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
 	$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-	
+	$entityManager->persist($usuario);
+	$entityManager->flush();
+	echo 'Usuário cadastrado.<br />';
 	
 	$nomeCampeonato = "Brasileirão";
 	$anoCampeonato = 2012;
@@ -24,18 +28,19 @@ if($usuario instanceof Usuario){
 	$entityManager->flush();
 	echo 'Campeonato persistido.<br />';
 	
-	$entityManager->persist($usuario);
-	$entityManager->flush();
-	echo 'Usuário cadastrado.<br />';
-	
 	$premiacoes = new PremiosUsuario($usuario, $campeonato);
 	$entityManager->persist($premiacoes);
 	$entityManager->flush();
 	echo 'premios persistido.<br />';
+}
+	
+	$premiacoes = $entityManager->find("PremiosUsuario", array("usuario" => 100000885523518, "campeonato" => 1));
 	
 	$usuario->adicionaPremiacoesUsuario($premiacoes);
-	echo 'Adicionado a coleção do usuario.<br />';
-}
+	echo 'Premios adicionados a coleção do usuario.<br />';
+
+	$entityManager->merge($usuario);
+	$entityManager->flush();
 
 
 
