@@ -1,6 +1,6 @@
 <?php ob_start();
 require "bootstrap.php";
-require_once 'FacebookApi/facebook.php';
+/*require_once 'FacebookApi/facebook.php';
 
 $app_Id = '233715530059546';
 $app_Secret = '0fa65b36e29b5ba8f774827028f67317';
@@ -12,7 +12,7 @@ $config = array(
 
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
-
+*/
 $user_id = '100000885523518';
 $usuario = $entityManager->find("Usuario", $user_id);
 /*

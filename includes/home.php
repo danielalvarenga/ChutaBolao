@@ -34,25 +34,25 @@
 		}
 	}
  }
- 
-
  ?>
- 
  			<div id="Mural">
+
+	 			<span class="titulo">Premiação Geral</span></td>
+				<a href="" target="_blank"><img align="right" height="25" width="150"; border="0" src="" /></a>
+		        
 		    <div id="pontos">
 		      <div class="texto">
-		        <img border="0" class="icon" src="imagens/premios/pontos.png" />
+		        <img align="left" border="0" class="icon" src="imagens/premios/pontos.png" />
 		        <span id="pontos">
-		          Total de Pontos de Conquista: 
 		            <span class="total_pontos"><?php echo $pontosGeral; ?></span>
-		          
+		            Pontos
 		        </span>
 		      </div>
 		    </div>
-		
+
 		    <div id="medalhas">
 		      <div class="texto">
-		        <img border="0" class="icon" src="imagens/premios/medalha-ouro.png" />  
+		        <img align="left" border="0" class="icon" src="imagens/premios/medalha-ouro.png" />  
 		        <table border="0" celpadding="0" celspacing="0" style="display:inline-block; *display:inline; _display:inline;" height="58">
 		          <tr height="25">
 								<td id="prata"><span><?php echo 'Prata '.$medalhasPrataGeral; ?></span></td>
@@ -67,7 +67,7 @@
 		    
 		    <div id="chuteiras">
 		      <div class="texto">
-		        <img border="0" class="icon" src="imagens/premios/chuteira-ouro.png" />  
+		        <img align="left" border="0" class="icon" src="imagens/premios/chuteira-ouro.png" />  
 		        <table border="0" celpadding="0" celspacing="0" style="display:inline-block; *display:inline; _display:inline;" height="58">
 		          <tr height="25">
 								<td id="prata"><span><?php echo 'Prata '.$chuteirasPrataGeral; ?></span></td>
@@ -82,30 +82,36 @@
 		    
 		    <div id="trofeu">
 		      <div class="texto">
-		        <img border="0" class="icon" src="imagens/premios/trofeu.png" />
-		        <span>
-		        <?php
+		        <img align="left" border="0" class="icon" src="imagens/premios/trofeu.png" />  
+		        <table border="0" celpadding="0" celspacing="0" style="display:inline-block; *display:inline; _display:inline;" height="58">
+		        <tr height="55">
+					<td id="ouro">
+					<span>
+					<?php
 					if ($trofeus == 0){
-					 	echo 'Conquiste seu primeiro troféu sendo o melhor do Campeonato!';
+					 	echo 'Conquiste troféus sendo o melhor do Campeonato!';
 					 } else if ($trofeus == 1){
 					 	echo $trofeus.' Troféu Conquistado';
 					 } else{
 					 	echo $trofeus.' Troféus Conquistados';
 					 }
-				?>
-		        
-		        </span>
+					?>
+					</span>
+					</td>
+				</tr>
+		        </table>
 		      </div>
 		    </div>
 		
 		    <div id="divulgar">
 		      <div class="texto">
-		        <img border="0" class="icon" src="/images/compartilhe.jpg?1298213892" />
-		        <a href="" target="_blank"><img border="0" class="divulge" id="twitter" src="/images/divulgar_twitter.png?1289390536" /></a>
-		        <a href="" target="_blank"><img border="0" class="divulge" id="facebook" src="/images/divulgar_facebook.png?1289390536" /></a>
+		        <img align="left" border="0" class="icon" src="" />
+		        <a href="" target="_blank"><img border="0" class="divulge" id="twitter" src="" /></a>
+		        <a href="" target="_blank"><img border="0" class="divulge" id="facebook" src="" /></a>
 		      </div>
 		    </div>
-		    <br/>
+			</div>
+			<br/>
  
 <?php 
 
