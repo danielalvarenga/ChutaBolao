@@ -1,6 +1,6 @@
 <?php
 
-require "../bootstrap.php";
+require "bootstrap.php";
 
 $data = date("Y-m-d");
 
@@ -27,7 +27,16 @@ if (isset($_POST[campeonato])) {
 else {
 
 ?>
+<html>
+<head>
+<title>
+cadastro de time
+</title>
+</head>
+<body>
 
+	<h1>Inserir Jogo</h1>
+	
 <p>
 
 <form method="POST" action="">
@@ -64,3 +73,5 @@ else {
 <?php
 }
 ?>
+</body>
+</html>

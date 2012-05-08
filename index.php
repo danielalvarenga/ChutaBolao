@@ -1,6 +1,6 @@
 <?php ob_start();
-require "bootstrap.php";
-/*require_once 'FacebookApi/facebook.php';
+require "bootstrap.php"; 
+require_once 'FacebookApi/facebook.php';
 
 $app_Id = '233715530059546';
 $app_Secret = '0fa65b36e29b5ba8f774827028f67317';
@@ -12,10 +12,10 @@ $config = array(
 
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
-*/
-$user_id = '100000885523518';
+
+$user_id = "100000885523518";
 $usuario = $entityManager->find("Usuario", $user_id);
-/*
+
 if(!($usuario instanceof Usuario)){
 	$user_profile = $facebook->api('/me', 'GET');
 	$primeiroNomeUsuario = $user_profile['first_name'];
@@ -35,7 +35,7 @@ if(!($usuario instanceof Usuario)){
 	));
 }
 
-ob_end_flush(); */
+ob_end_flush();
 require"links_index.php"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

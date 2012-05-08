@@ -1,3 +1,30 @@
+<?php
+
+require "bootstrap.php";
+
+
+if(isset($_POST['nome'])){
+	//try{
+	
+	//$arquivo = $_FILES['arquivo'];
+	//if ($arqError == 0) {
+	//	$pasta = '/uploads/';
+	//	$upload = move_uploaded_file($arqTemp, $pasta . $arqName);
+	//}
+	$nome = $_POST['nome'];
+	$time = new Time($nome);
+	$entityManager->persist($time);
+	$entityManager->flush();
+	//}
+	//catch (Exception $e){
+	//	echo ($e->getMensage());
+	//}
+	echo "Inserido time com o nome {$time->getNomeTime()}<br><br>";
+	//print_r($arquivo);
+}
+
+?>
+
 <html>
 <head>
 <title>
@@ -8,7 +35,7 @@ cadastro de time
 
 	<h1>Inserir time</h1>
 	
-	<form action="../envia_cadastrotime.php" method="POST" enctype="multipart/form-data">
+	<form action="" method="POST" enctype="multipart/form-data">
 			
 			<p>Nome:<input type="text" name="nome" size="60"></p>
            <!--  Escudo:<input type="file" name="arquivo" class="width233" />  -->

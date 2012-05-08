@@ -35,6 +35,8 @@ if($usuario instanceof Usuario){
 }
 	
 	$premiacoes = $entityManager->find("PremiosUsuario", array("usuario" => 100000885523518, "campeonato" => 1));
+	$aposta = $entityManager->find("Aposta", array("jogo" => 123, "usuario" => $user_id));
+	
 	
 	$usuario->adicionaPremiacoesUsuario($premiacoes);
 	echo 'Premios adicionados a coleção do usuario.<br />';

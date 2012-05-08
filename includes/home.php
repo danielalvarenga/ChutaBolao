@@ -1,7 +1,7 @@
 ﻿<?php
  require "bootstrap.php";
  
- $dql = 'SELECT p FROM PremiosUsuario p WHERE p.usuario ='.$user_id;
+ $dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario = $user_id";
  $query = $entityManager->createQuery($dql);
  $premiacoes = $query->getResult();
  
