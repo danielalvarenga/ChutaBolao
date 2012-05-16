@@ -1,166 +1,0 @@
-@charset "utf-8";
- *{margin:0; padding:0;} 
-
-#principal {
-	width: 760px;
-	\width: 780px;
-	w\idth: 760px;
-	margin-top: 10px;
-	margin-left:auto;
-	margin-right:auto;
-	padding:10px;
-	background-color: #F8F8F8;
-}
-
-
-h1 {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	color: #25D7FC; text-shadow: black 0.1em 0.1em 0.2em;
-}
-h2 {
-	font-family:Arial, Helvetica, sans-serif,;
-	color: #25D7FC; text-shadow: black 0.1em 0.1em 0.2em;
-}
-p {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	font-size: 13px;
-}
-
-#top{
-	height:160px;
-	width:740px;
-	margin-left:auto;
-	margin-right:auto;
-	
-}
-
-
-#topleft{ background:url(../imagens/logo.png)  ; 
-height:150px;
-width:200px;
-float:left;
-margin-right:2px;
-	
-}
-
-
-#topright{ 
-height:150px;
-width:538px;
-float:right;
-background-color:#CCC;
--webkit-border-top-right-radius: 8px;
--webkit-border-bottom-right-radius: 8px;
--moz-border-radius-topright: 8px;
--moz-border-radius-bottomright: 8px;
-border-top-right-radius: 8px;
-border-bottom-right-radius: 8px;	
-	
-}
-
-
-
-#content {
-	float:left;
-	width:760px;
-	float:left;
-	background-color: #fff;
-}
-#meiopeq {
-	margin: 1%;
-	float: left;
-	height: 48%;
-	width: 48%;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	background-color: #666;
-}
-
-li {
-	list-style-type: none;
-	text-indent: -5px;
-}
-
-
-#footer {
-	clear:both;
-	padding: 5px;
-	margin-top:5px;
-	background-color: #E4E4E4;
-	height: 30px;
-	margin-top: 0px;
-	font-size:8px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	color: #fff; text-shadow: 0.1em 0.1em 0.05em #333;
-	text-align:center;
-}
-
-#areamenu {
-	height:30px;
-	width:100%;
-	float:left;
-	margin-bottom:1px;
-	
-}
-
-#menu {
-        FONT-SIZE: 93%; BACKGROUND: url(../imagens/bg.gif)  repeat-x 50% bottom; FLOAT: left; WIDTH: 100%; LINE-HEIGHT: normal
-}
-#menu UL {
-        PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 10px; LIST-STYLE-TYPE: none
-}
-#menu LI {
-        PADDING-RIGHT: 0px; PADDING-LEFT: 9px; BACKGROUND: url(../imagens/left.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
-}
-#menu A {
-        PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 6px; FONT-WEIGHT: bold; BACKGROUND: url(../imagens/right.gif) no-repeat right top; FLOAT: left; PADDING-BOTTOM: 4px; COLOR: #3d3d3d; PADDING-TOP: 5px; TEXT-DECORATION: none
-}
-#menu A {
-        FLOAT: none
-}
-#menu A:hover {
-        COLOR: #fefefe;
-}
-#menu #current {
-        BACKGROUND-IMAGE: url(../imagens/left_on.gif)
-}
-#menu #current A {
-        BACKGROUND-IMAGE: url(../imagens/right_on.gif); PADDING-BOTTOM: 5px; COLOR: #fff
-}
-#conteudo {
-	width: 100%;
-	float: left;
-}
-#meio {
-	float: left;
-	width: 49%;
-	height: 500px;
-}
-.meio{
-	margin-left: 1%;
-}
-.maeiopeq{
-		margin: 1%;
-	float: left;
-	height: 48%;
-	width: 48%;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	background-color: #666;
-}
-#meiogrande {
-	background-color: #E4E4E4;
-	height: 97%;
-	width: 95%;
-	padding-right: 5px;
-	padding-left: 5px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}/* MURAL */#Mural {	width: 300px;	background-color: #E4E4E4;	border: 1px solid #17541f;	border-radius: 0px;	-webkit-border-radius: 0px;	-moz-border-radius: 0px;	margin: 0px 10px !important;	*margin: 10px !important;	_margin: 10px !important;	padding: 5px 5px;	*padding: 0px;	_padding: 0px;	margin-right: auto;	margin-left: auto;	margin-top: 5px;	margin-bottom: 5px;}#Mural .texto {	margin: 0px 1px !important;	*margin: 1px !important;	_margin: 1px !important;		font-family: Helvetica;	font-size: 18px !important;	vertical-align: middle;	color: #FFFFFF;	border: 1px solid #FFFFFF;}#Mural .texto a {	vertical-align: middle;	margin: 0px 5px;}#Mural img.icon {	display: inline-block; zoom: 1; *display: inline; _display: inline;	margin: 3px 0px;	height: 56px;	width: 56px;}#Mural .titulo {	font-size: 18px;	vertical-align: middle;	color: #17541f;}#Mural #pontos, #Mural #medalhas, #Mural #chuteiras, #Mural #trofeu, #Mural #divulgar {	height: 64px; *height: 66px; _height: 59px;	margin-top: 10px;	padding: 1px 0px;	*padding: 0px;	_padding: 0px;	-moz-border-radius: 2px;	-webkit-border-radius: 2px;}/* PONTOS */#Mural #pontos {	margin-top: 8px !important;	background: #56a102;}#Mural span#pontos {  font-size: 14px !important;  line-height: 60px;}#Mural .total_pontos {	font-size: 24px;	vertical-align: middle;	color: #FFFFFF;}.total_pontos span {	display: inline-block; zoom:1; *display:inline; _display:inline;	font-family: Helvetica;	font-size: 24px !important;	color: #FFFFFF;	text-align: center;	vertical-align: middle;	height: 54px;	line-height: 54px;	margin: 5px 2px 0px !important;}/* MEDALHAS */#Mural #medalhas {	/*background: url(../images/degrade_laranja2.jpg) repeat-y;*/	background: #a63fbf;}#Mural #medalhas .texto span {	font-size: 13px !important;	vertical-align: middle;	line-height: 5px;}#Mural #medalhas .texto span.cortado {	/*text-decoration: line-through;*/}#Mural #medalhas .texto img {	display: inline-block; zoom: 1; *display: inline; _display: inline;}#Mural #medalhas .texto ul {	display: inline-block; zoom: 1; *display: inline; _display: inline;	margin: 1px 0px !important;	padding: 0px !important;}#Mural #medalhas .texto li {	list-style: none outside none !important;	font-family: Helvetica;	font-size: 18px !important;	vertical-align: top;	color: #FFFFFF !important;		height: 25px;	line-height: 25px;	width: 180px;}#Mural #medalhas .texto #prata {	vertical-align: middle;}#Mural #medalhas .texto #bronze {	vertical-align: middle;}#Mural #medalhas .texto #ouro {	height: 28px;	text-align: left;}#Mural #medalhas .texto #ouro span {	font-size: 24px !important;	vertical-align: middle;}/* CHUTEIRAS */#Mural #chuteiras {	/*background: url(../images/degrade_laranja2.jpg) repeat-y;*/	background: #FFA500;}#Mural #chuteiras .texto span {	font-size: 13px !important;	vertical-align: middle;	line-height: 5px;}#Mural #chuteiras .texto span.cortado {	/*text-decoration: line-through;*/}#Mural #chuteiras .texto img {	display: inline-block; zoom: 1; *display: inline; _display: inline;}#Mural #chuteiras .texto ul {	display: inline-block; zoom: 1; *display: inline; _display: inline;	margin: 1px 0px !important;	padding: 0px !important;}#Mural #chuteiras .texto li {	list-style: none outside none !important;	font-family: Helvetica;	font-size: 18px !important;	vertical-align: top;	color: #FFFFFF !important;		height: 25px;	line-height: 25px;	width: 180px;}#Mural #chuteiras .texto #prata {	vertical-align: middle;}#Mural #chuteiras .texto #bronze {	vertical-align: middle;}#Mural #chuteiras .texto #ouro {	height: 28px;	text-align: left;}#Mural #chuteiras .texto #ouro span {	font-size: 24px !important;	vertical-align: middle;}/* TROFEU */#Mural #trofeu {	/*background: url(../images/degrade_verde2.jpg) repeat-y;*/	background: #DC143C;}#Mural #trofeu .texto span {	font-size: 18px !important;	vertical-align: middle;	line-height: 5px;}#Mural #trofeu .texto span.cortado {	/*text-decoration: line-through;*/}/* DIVULGAR */#Mural #divulgar {	/*background: url(../images/degrade_preto.jpg) repeat-y;*/	background: #3B5998;}#Mural #divulgar a img {	margin-left: 2px;	vertical-align: middle;	height: 32px;	width: 26px;}/* DETALHE */#content #moldura #oferta #detalhe {	display: inline-block; zoom:1; *display:inline; _display:inline;	width: 480px;	margin: 0px 8px 10px 8px;	background: #F9F3E4;	clear: both;}#content #moldura #oferta #detalhe p#descricao {	margin: 10px 20px;	line-height: 20px;}/* MURAL DIREITA*/#MuralDireita {	width: 300px;	background-color: #E4E4E4;	border: 1px solid #17541f;	border-radius: 0px;	-webkit-border-radius: 0px;	-moz-border-radius: 0px;	margin: 0px 400px !important;	*margin: 400px !important;	_margin: 400px !important;	padding: 5px 5px;	*padding: 0px;	_padding: 0px;	margin-right: auto;	margin-left: auto;	margin-top: 5px;	margin-bottom: 5px;}#MuralDireita .texto {	margin: 0px 1px !important;	*margin: 1px !important;	_margin: 1px !important;		font-family: Helvetica;	font-size: 18px !important;	vertical-align: middle;	color: #FFFFFF;	border: 1px solid #FFFFFF;}#MuralDireita .texto a {	vertical-align: middle;	margin: 0px 5px;}#MuralDireita img.icon {	display: inline-block; zoom: 1; *display: inline; _display: inline;	margin: 3px 0px;	height: 56px;	width: 56px;}#MuralDireita .titulo {	font-size: 18px;	vertical-align: middle;	color: #17541f;}#MuralDireita #pontos, #MuralDireita #medalhas, #MuralDireita #chuteiras, #MuralDireita #trofeu, #MuralDireita #divulgar {	height: 64px; *height: 66px; _height: 59px;	margin-top: 10px;	padding: 1px 0px;	*padding: 0px;	_padding: 0px;	-moz-border-radius: 2px;	-webkit-border-radius: 2px;}/* PONTOS */#MuralDireita #pontos {	margin-top: 8px !important;	background: #56a102;}#MuralDireita span#pontos {  font-size: 14px !important;  line-height: 60px;}#MuralDireita .total_pontos {	font-size: 24px;	vertical-align: middle;	color: #FFFFFF;}.total_pontos span {	display: inline-block; zoom:1; *display:inline; _display:inline;	font-family: Helvetica;	font-size: 24px !important;	color: #FFFFFF;	text-align: center;	vertical-align: middle;	height: 54px;	line-height: 54px;	margin: 5px 2px 0px !important;}/* MEDALHAS */#MuralDireita #medalhas {	/*background: url(../images/degrade_laranja2.jpg) repeat-y;*/	background: #a63fbf;}#MuralDireita #medalhas .texto span {	font-size: 13px !important;	vertical-align: middle;	line-height: 5px;}#MuralDireita #medalhas .texto span.cortado {	/*text-decoration: line-through;*/}#MuralDireita #medalhas .texto img {	display: inline-block; zoom: 1; *display: inline; _display: inline;}#MuralDireita #medalhas .texto ul {	display: inline-block; zoom: 1; *display: inline; _display: inline;	margin: 1px 0px !important;	padding: 0px !important;}#MuralDireita #medalhas .texto li {	list-style: none outside none !important;	font-family: Helvetica;	font-size: 18px !important;	vertical-align: top;	color: #FFFFFF !important;		height: 25px;	line-height: 25px;	width: 180px;}#MuralDireita #medalhas .texto #prata {	vertical-align: middle;}#MuralDireita #medalhas .texto #bronze {	vertical-align: middle;}#MuralDireita #medalhas .texto #ouro {	height: 28px;	text-align: left;}#MuralDireita #medalhas .texto #ouro span {	font-size: 24px !important;	vertical-align: middle;}/* CHUTEIRAS */#MuralDireita #chuteiras {	/*background: url(../images/degrade_laranja2.jpg) repeat-y;*/	background: #FFA500;}#MuralDireita #chuteiras .texto span {	font-size: 13px !important;	vertical-align: middle;	line-height: 5px;}#MuralDireita #chuteiras .texto span.cortado {	/*text-decoration: line-through;*/}#MuralDireita #chuteiras .texto img {	display: inline-block; zoom: 1; *display: inline; _display: inline;}#MuralDireita #chuteiras .texto ul {	display: inline-block; zoom: 1; *display: inline; _display: inline;	margin: 1px 0px !important;	padding: 0px !important;}#MuralDireita #chuteiras .texto li {	list-style: none outside none !important;	font-family: Helvetica;	font-size: 18px !important;	vertical-align: top;	color: #FFFFFF !important;		height: 25px;	line-height: 25px;	width: 180px;}#MuralDireita #chuteiras .texto #prata {	vertical-align: middle;}#MuralDireita #chuteiras .texto #bronze {	vertical-align: middle;}#MuralDireita #chuteiras .texto #ouro {	height: 28px;	text-align: left;}#MuralDireita #chuteiras .texto #ouro span {	font-size: 24px !important;	vertical-align: middle;}/* TROFEU */#MuralDireita #trofeu {	/*background: url(../images/degrade_verde2.jpg) repeat-y;*/	background: #DC143C;}#MuralDireita #trofeu .texto span {	font-size: 18px !important;	vertical-align: middle;	line-height: 5px;}#MuralDireita #trofeu .texto span.cortado {	/*text-decoration: line-through;*/}/* DIVULGAR */#MuralDireita #divulgar {	/*background: url(../images/degrade_preto.jpg) repeat-y;*/	background: #3B5998;}#MuralDireita #divulgar a img {	margin-left: 2px;	vertical-align: middle;	height: 32px;	width: 26px;}/* DETALHE */#content #moldura #oferta #detalhe {	display: inline-block; zoom:1; *display:inline; _display:inline;	width: 480px;	margin: 0px 8px 10px 8px;	background: #F9F3E4;	clear: both;}#content #moldura #oferta #detalhe p#descricao {	margin: 10px 20px;	line-height: 20px;}
