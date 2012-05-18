@@ -1,18 +1,18 @@
 <?php
 class RendimentoTime{
 
-	private $codCampeonato; //identificador do campeonato que o rendimento referencia
-	private $codTime; // identificador do time que rendimento refencia (forma a chave primaria junto com $idCampeonato)
-	private $classificacao; //recebe a posicao de classificacao do time em determinado campeonato
-	private $vitorias;//vitorias do time no campeonato
-	private $derrotas;//-------- -- ---- -- ---------
+	private $campeonato;
+	private $time;
+	private $classificacao;
+	private $vitorias;
+	private $derrotas;
 	private $empates;
 	private $golsPro;
 	private $golsContra;
 	
-	function __construct($codCampeonato, $codTime){
-		$this->codCampeonato = $codCampeonato;
-		$this->codTime = $codTime;
+	function __construct($campeonato, $time){
+		$this->campeonato = $campeonato;
+		$this->time = $time;
 	}
 	//para cada vitoria obtida no campeonato o numero de vitorias é incrementado
 	function incrementaVitorias(){
