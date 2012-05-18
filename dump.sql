@@ -97,12 +97,34 @@ COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB;
 
 
+CREATE TABLE `RendimentoTime` (
+	`campeonato_id` INT,
+	`time_id` INT,
+	`vitorias` INT,
+	`derrotas` INT,
+	`empates` INT,
+	`golsPro` INT,
+	`golContra` INT,
+	`pontos` INT,
+	`saldoGols` INT,
+	`classificacao` INT,
+	PRIMARY KEY (`campeonato_id`, `time_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB;
+
 
 ALTER TABLE `PremiosUsuario`
 	ADD INDEX `usuario_id` (`usuario_id`),
 	ADD INDEX `campeonato_id` (`campeonato_id`),
 	ADD CONSTRAINT `FK_premiosusuario_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `Usuario` (`id`),
 	ADD CONSTRAINT `FK_premiosusuario_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `Campeonato` (`id`);
+	
+ALTER TABLE `RendimentoTime`
+	ADD INDEX `time_id` (`time_id`),
+	ADD INDEX `campeonato_id` (`campeonato_id`),
+	ADD CONSTRAINT `FK_rendimentotime_time` FOREIGN KEY (`time_id`) REFERENCES `Time` (`id`),
+	ADD CONSTRAINT `FK_rendimentotime_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `Campeonato` (`id`);
 
 ALTER TABLE `Jogo`
 	ADD INDEX `campeonato_id` (`campeonato_id`),

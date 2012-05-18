@@ -9,6 +9,7 @@ require_once "classes/Aposta.php";
 require_once "classes/Time.php";
 require_once "classes/Jogo.php";
 require_once "classes/Campeonato.php";
+require_once "classes/RendimentoTime.php";
 
 //require_once "Doctrine/ORM/Tools/Setup.php";
 //Setup::registerAutoloadPEAR();

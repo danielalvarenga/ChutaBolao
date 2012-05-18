@@ -27,24 +27,63 @@ if($contador == 1){
 		}
 	}
 	if($contador == 2){
-
-		
 		
 		if (isset($_POST['campeonato'])) {
 			
+			$codTime1 = $_POST['codtime1'];
+			$codTime2 = $_POST['codtime2'];
+			$codCampeonato = $_POST['campeonato'];
+			
 			$data = $_POST['ano'].'-'.$_POST['mes'].'-'.$_POST['dia'].' '.$_POST['hora'].':'.$_POST['minuto'].':00';
 			$dataJogo = new DateTime(''.$data.'', new DateTimeZone('America/Sao_Paulo'));
+			$dataJogoString = $dataJogo->format( "Y-m-d H:i:s" );
 			
-			$objCampeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
-			
-			$jogo = new Jogo($data,$_POST['rodada'],$_POST['codtime1'],$_POST['codtime2'], $objCampeonato);
-			if(isset($_POST['datainiapostas'])){
-			}
-			$entityManager->persist($jogo);
-			$entityManager->flush();
-			
-		
+			$dqlJogo = "SELECT j FROM Jogo j WHERE
+						j.codTime1 = '$codTime1' AND
+						j.codTime2 = '$codTime2' AND
+						j.campeonato = '$codCampeonato' AND
+						j.dataJogo ='$dataJogoString'";
+			$queryJ = $entityManager->createQuery($dqlJogo);
+			$jogos = $queryJ->getResult();
+
+			if($jogos <> NULL){
+					echo "Este jogo já existe.<br/>";
+			} else{
+					$objCampeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
+						
+					// ----------------------- Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato --------------------------
+						
+					$rendimentoTime1 = $entityManager->find("RendimentoTime", array(
+							"campeonato" => $_POST['campeonato'],
+							"time" => $_POST['codtime1']
+							));
+					$rendimentoTime2 = $entityManager->find("RendimentoTime", array(
+							"campeonato" => $_POST['campeonato'],
+							"time" => $_POST['codtime2']
+							));
+						
+					if(!$rendimentoTime1 instanceof RendimentoTime){
+						$time1 = $entityManager->find("Time", $_POST['codtime1']);
+						$rendimentoTime1 = new RendimentoTime($objCampeonato, $time1);
+						$entityManager->persist($rendimentoTime1);
+						$entityManager->flush();
+					}
+					if(!$rendimentoTime2 instanceof RendimentoTime){
+						$time2 = $entityManager->find("Time", $_POST['codtime2']);
+						$rendimentoTime2 = new RendimentoTime($objCampeonato, $time2);
+						$entityManager->persist($rendimentoTime2);
+						$entityManager->flush();
+					}
+					// -------------------------------------------------------------------------------------------------------------------
+						
+					$jogo = new Jogo($data,$_POST['rodada'],$_POST['codtime1'],$_POST['codtime2'], $objCampeonato);
+					if(isset($_POST['datainiapostas'])){
+					}
+					$entityManager->persist($jogo);
+					$entityManager->flush();
+				}
 		}
+			
 		
 		?>
 		<html>

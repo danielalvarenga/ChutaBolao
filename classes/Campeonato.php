@@ -27,28 +27,25 @@ class Campeonato {
 	protected $apostasCampeonato;
 	
 	/**
-	* @OneToMany(targetEntity="Jogo", mappedBy="campeonato")
+	* @OneToMany(targetEntity="Jogo", mappedBy="campeonato", cascade={"persist"})
 	* @var Jogo[]
 	*/
 	protected $jogosCampeonato;
 	
 	/**
-	* @OneToMany(targetEntity="PremiosUsuario", mappedBy="campeonato")
+	* @OneToMany(targetEntity="PremiosUsuario", mappedBy="campeonato", cascade={"persist"})
 	* @var PremiosUsuario[]
 	*/
 	protected $premiacoesCampeonato;
 	
+	/**
+	 * @OneToMany(targetEntity="RendimentoTime", mappedBy="campeonato", cascade={"persist"})
+	 * @var RendimentoTime[]
+	 */
+	protected $rendimentosTimes;
 	
-	public function __construct($nomeCampeonato, $anoCampeonato, $quantidadeRodadas){
-		if ($quantidadeRodadas <= 0) {
-			throw new Exception("ERRO: QUANTIDADE DE RODADAS INVALIDA");
-		}
-		
-		else
-		if ($quantidadeRodadas===null){
-			throw new Exception("É OBRIGATÓRIO PREENCHER O CAMPO RODADAS");
-		}
-		else{
+	
+	function __construct($nomeCampeonato, $anoCampeonato, $quantidadeRodadas){
 			$this->nomeCampeonato = $nomeCampeonato;
 			$this->anoCampeonato = $anoCampeonato;
 			$this->status = "ativo";
@@ -56,50 +53,50 @@ class Campeonato {
 			$this->apostasCampeonato = new ArrayCollection();
 			$this->jogosCampeonato = new ArrayCollection();
 			$this->premiacoesCampeonato = new ArrayCollection();
-		}
+			$this->rendimentosTimes = new ArrayCollection();
 	}
 
-	public function getCodCampeonato(){
+	function getCodCampeonato(){
 		return $this->codCampeonato;
 	}
 	
-	public function setQuantidadeRodadas($quantidadeRodadas){
+	function setQuantidadeRodadas($quantidadeRodadas){
 		$this->quantidadeRodadas = strtoupper($quantidadeRodadas);
 	}
 	
-	public function getQuantidadeRodadas(){
+	function getQuantidadeRodadas(){
 		return $this->quantidadeRodadas;
 	}
 
-	public function setNomeCampeonato($nomeCampeonato){
+	function setNomeCampeonato($nomeCampeonato){
 		$this->nomeCampeonato = strtoupper($nomeCampeonato);
 	}
 
-	public function getNomeCampeonato(){
+	function getNomeCampeonato(){
 		return $this->nomeCampeonato;
 	}
 
-	public function setAnoCampeonato($anoCampeonato){
+	function setAnoCampeonato($anoCampeonato){
 		$this->anoCampeonato = $anoCampeonato;
 	}
 	
-	public function getAnoCampeonato(){
+	function getAnoCampeonato(){
 		return $this->anoCampeonato;
 	}
 
-	public function finalizaStatus(){
+	function finalizaStatus(){
 		$this->status = "finalizado";
 	}
 	
-	public function ativaStatus(){
+	function ativaStatus(){
 		$this->status = "ativo";
 	}
 	
-	public function getStatus(){
+	function getStatus(){
 		return $this->status;
 	} 
 	
-	public function adicionarQuantidadeRodadas($quantidadeRodadas){
+	function adicionarQuantidadeRodadas($quantidadeRodadas){
 		if ($quantidadeRodadas <= 0) {
 			throw new Exception("ERRO: QUANTIDADE DE RODADAS INVALIDA");
 		}
@@ -125,22 +122,26 @@ class Campeonato {
 		return $this->premiacoesCampeonato;
 	}
 	
-	/* Recebe o objeto PremiosUsuario e adiciona ao array premiacoesCampeonato[] */
+	function getRendimentosTimes(){
+		return $this->rendimentosTimes;
+	}
 	
+	/* Recebe o objeto PremiosUsuario e adiciona ao array premiacoesCampeonato[] */
 	function adicionaPremiacoesCampeonato($premiosUsuario){
 		$this->premiacoesCampeonato[] = $premiosUsuario;
 	}
 	
 	/* Recebe o objeto Aposta e adiciona ao array apostasCampeonato[] */
-	
 	function adicionaApostasCampeonato($aposta){
 		$this->apostasCampeonato[] = $aposta;
 	}
 	
 	/* Recebe o objeto Jogo e adiciona ao array jogosCampeonato[] */
-
 	function adicionaJogosCampeonato($jogo){
 		$this->jogosCampeonato[] = $jogo;
+	}
+	function adicionaRendimentosTimes($rendimentoTime){
+		$this->rendimentosTimes[] = $rendimentoTime;
 	}
 	
 }
