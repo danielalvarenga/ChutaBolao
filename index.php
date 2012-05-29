@@ -1,5 +1,5 @@
 <?php ob_start();
-require "bootstrap.php";/*
+require "bootstrap.php";
 require_once 'FacebookApi/facebook.php';
 
 $app_Id = '233715530059546';
@@ -12,10 +12,10 @@ $config = array(
 
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
-*/
-$user_id = "100000885523518";
+
+//$user_id = "100000885523518";
 $usuario = $entityManager->find("Usuario", $user_id);
-/*
+
 if(!($usuario instanceof Usuario)){
 	$user_profile = $facebook->api('/me', 'GET');
 	$primeiroNomeUsuario = $user_profile['first_name'];
@@ -35,8 +35,9 @@ if(!($usuario instanceof Usuario)){
 	));
 }
 
-ob_end_flush();*/
-require"links_index.php"?>
+ob_end_flush();
+?>
+<?php require"links_index.php"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -64,10 +65,10 @@ require"links_index.php"?>
 
 <body>
 
-<?php /*
+<?php 
 if($user_id){
 	try{
-*/?>
+?>
 		
 		<!-- logo-->
 		
@@ -108,7 +109,7 @@ if($user_id){
 				
 				</div>
 		
-<?php	/*
+<?php	
 	} catch(FacebookApiException $e) {
 		$login_url = $facebook->getLoginUrl(array(
 							'scope' => 'publish_stream'
@@ -122,6 +123,6 @@ if($user_id){
 							'scope' => 'publish_stream'
 	));
 }
-*/?>
+?>
 </body>
 </html>
