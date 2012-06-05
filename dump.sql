@@ -112,7 +112,7 @@ CREATE TABLE `RendimentoTime` (
 	`derrotas` INT,
 	`empates` INT,
 	`golsPro` INT,
-	`golContra` INT,
+	`golsContra` INT,
 	`pontos` INT,
 	`saldoGols` INT,
 	`classificacao` INT,

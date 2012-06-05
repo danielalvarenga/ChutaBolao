@@ -55,7 +55,7 @@ if($contador == 1){
 							"campeonato" => $_POST['campeonato']
 							));
 						
-					// ----------------------- Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato --------------------------
+			// Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato
 						
 					$rendimentoTime1 = $entityManager->find("RendimentoTime", array(
 							"campeonato" => $_POST['campeonato'],
@@ -78,7 +78,7 @@ if($contador == 1){
 						$entityManager->persist($rendimentoTime2);
 						$entityManager->flush();
 					}
-					// -------------------------------------------------------------------------------------------------------------------
+			// -------------------------------------------------------------------------------------------------------------------
 					
 					$jogo = new Jogo($data,$ObjRodada,$_POST['codtime1'],$_POST['codtime2'], $objCampeonato);
 					$entityManager->persist($jogo);
@@ -96,13 +96,13 @@ if($contador == 1){
 		</head>
 		<body>
 		
-			<h1>Inserir Jogo</h1>
+			<h1>Cadastrar novo Jogo</h1>
 		
 		<p>
 		
 		<form method="POST" action="">
 		
-		<p>Campeonato: <select size="1" name="campeonato">
+		<p>Escolha o Campeonato: <select size="1" name="campeonato">
 		<?php
 			$camp = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.nomeCampeonato DESC";
 			$queryc = $entityManager->createQuery($camp);
@@ -128,7 +128,7 @@ if($contador == 1){
 							$querytR = $entityManager->createQuery($dqlR);
 							$rodadas = $querytR->getResult();
 					?>
-					<p>Rodada: 
+					<p>Escolha a Rodada: 
 						<select name="rodada">
 						<?php 
 							foreach($rodadas as $rodada) {

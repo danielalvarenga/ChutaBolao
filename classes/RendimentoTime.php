@@ -6,21 +6,28 @@ class RendimentoTime{
 	/**
 	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rendimentosTimes")
 	 */
-	private $campeonato;
+	protected $campeonato;
 	
 	/**
 	 * @Id @ManyToOne(targetEntity="Time", inversedBy="rendimentosCampeonatos")
 	 */
-	private $time;
+	protected $time;
 	
-	/** @Column(type="string") */
+	/** @Column(type="integer") */
 	private $classificacao;
+	/** @Column(type="integer") */
 	private $vitorias;
+	/** @Column(type="integer") */
 	private $derrotas;
+	/** @Column(type="integer") */
 	private $empates;
+	/** @Column(type="integer") */
 	private $golsPro;
+	/** @Column(type="integer") */
 	private $golsContra;
+	/** @Column(type="integer") */
 	private $pontos;
+	/** @Column(type="integer") */
 	private $saldoGols;
 	
 	function __construct($campeonato, $time){

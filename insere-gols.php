@@ -14,8 +14,10 @@ if (isset($_POST['jogo'])) {
 	$time2 = $entityManager->find("Time", $codTime2);
 	
 	
-	if($_POST['golsTime1']){
+	if(isset($_POST['golsTime1'])){
 		
+	// Atualiza resultado do jogo com os gols
+	
 		$golsTime1 = $_POST['golsTime1'];
 		$golsTime2 = $_POST['golsTime2'];
 		$jogo->setResultado($golsTime1, $golsTime2);
@@ -24,6 +26,35 @@ if (isset($_POST['jogo'])) {
 		$entityManager->flush();
 		
 		$jogo = $entityManager->find("Jogo", $_POST['jogo']);
+		
+	//Atualização do rendimento dos times --------------------------------
+	
+		//Time1
+		$rendimentoTime1 = $entityManager->find("RendimentoTime", array(
+				"time" => $codTime1,
+				"campeonato" => $jogo->getCampeonato()->getCodCampeonato()
+				));
+		$golsPro1 = $golsTime1;
+		$golsContra1 = $golsTime2;
+		$rendimentoTime1->calculaRendimentoTime($golsPro1, $golsContra1);
+		
+		$entityManager->merge($rendimentoTime1);
+		$entityManager->flush();
+		
+		//Time2
+		$rendimentoTime2 = $entityManager->find("RendimentoTime", array(
+				"time" => $codTime2,
+				"campeonato" => $jogo->getCampeonato()->getCodCampeonato()
+		));
+		$golsPro2 = $golsTime2;
+		$golsContra2 = $golsTime1;
+		$rendimentoTime2->calculaRendimentoTime($golsPro2, $golsContra2);
+		
+		$entityManager->merge($rendimentoTime2);
+		$entityManager->flush();
+		
+	//--------------------------------------------------------------------
+		
 		
 		$codJogo = $jogo->getCodjogo();
 		$dqlApostas = "SELECT a FROM Aposta a WHERE a.jogo = $codJogo";
@@ -77,7 +108,7 @@ inserir gols
 			<tr vertical-align="middle" align="center">
 				<td>'.$jogo->getDatajogo().'</td>
 				<td>'.$jogo->getCampeonato()->getNomeCampeonato().' '.$jogo->getCampeonato()->getAnoCampeonato().'</td>
-				<td>'.$jogo->getRodada().'</td>
+				<td>'.$jogo->getRodada()->getNumRodada().'</td>
 				<td>'.$time1->getNomeTime().'</td>
 				<td>'.$time2->getNomeTime().'</td>
 				<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
