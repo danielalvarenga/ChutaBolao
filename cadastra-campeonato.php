@@ -1,5 +1,9 @@
 <?php
 
+use Doctrine\DBAL\Types\ArrayType;
+
+use Doctrine\ORM\Query\AST\Functions\LengthFunction;
+
 require "bootstrap.php";
 
 if(isset($_POST['campeonato'])){
@@ -16,10 +20,16 @@ if(isset($_POST['nome'])){
 	$nome = $_POST['nome'];
 	$ano = $_POST['ano'];
 	$quant = $_POST['quant'];
-	$campeonato = new Campeonato($nome, $ano, $quant);
+	$campeonato = new Campeonato($nome, $ano, $quant);	
 	
 	$entityManager->persist($campeonato);
 	$entityManager->flush();
+	
+	for($i = 1; $i <= $quant; $i++){
+		$rodada = new Rodada($i, $campeonato);
+		$entityManager->persist($rodada);
+		$entityManager->flush();
+	}
 	
 	echo "Campeonato criado com: ";
 	echo "Codigo: ".$campeonato->getCodCampeonato()."\n";
@@ -56,7 +66,7 @@ cadastro de time
 		<p>4. Exemplo de inserção:</p>
 		<p>Nome do campeonato: "campeonato_brasileiro"</p>
 		
-			<h2>Times Cadastrados</h2>
+			<h2>Campeonatos Cadastrados</h2>
 <table border="1">
 	<tr vertical-align="middle" align="center">
 		<td>Código</td>

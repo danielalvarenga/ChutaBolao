@@ -12,9 +12,6 @@ class Jogo {
 	private $dataJogo;
 	
 	/** @Column(type="integer")*/
-	private $rodada;
-	
-	/** @Column(type="integer")*/
 	private $codTime1;
 	
 	/** @Column(type="integer")*/
@@ -33,6 +30,11 @@ class Jogo {
 	private $dataFimApostas;
 	
 	/**
+	 * @ManyToOne(targetEntity="Rodada", inversedBy="jogosRodada")
+	 */
+	protected $rodada;
+	
+	/**
 	* @OneToMany(targetEntity="Aposta", mappedBy="jogo", cascade={"persist"})
 	* @var Aposta[]
 	*/
@@ -49,17 +51,13 @@ class Jogo {
 		if ($codTime1===$codTime2){
 			throw new Exception("ERRO CODIGO DOS DOIS TIMES SAO IGUAIS");
 		}
-
-		elseif (!($rodada>0)){
-			throw new Exception("ERRO CODIGO DA RODADA INVALIDA");
-		}
 		elseif (($dataJogo <= $dataAtual)){
 		throw new Exception("ERRO DATA DO JOGO MENOR QUE DATA ATUAL");
 		}
 		else{
 
 			$this->dataJogo=$dataJogo;
-			$this->rodada=$rodada;
+			$this->rodada = $rodada;
 			$this->codTime1=$codTime1;
 			$this->codTime2=$codTime2;
 			$this->apostasJogo = new ArrayCollection();
@@ -168,14 +166,17 @@ class Jogo {
 	function getCodtime2(){
 		return $this->codTime2;
 	}
-	function getRodada(){
-		return $this->rodada;
-	}
 	function getDataInicioApostas(){
 		return $this->dataInicioApostas;
 	}
 	function getDataFimApostas(){
 		return $this->dataFimApostas;
+	}
+	function getRodada(){
+		return $this->rodada;
+	}
+	function setRodada($rodada){
+		$this->rodada = $rodada;
 	}
 	function getCampeonato(){
 		return $this->campeonato;

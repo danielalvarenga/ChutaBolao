@@ -8,6 +8,7 @@ require_once "classes/PremiosUsuario.php";
 require_once "classes/Aposta.php";
 require_once "classes/Time.php";
 require_once "classes/Jogo.php";
+require_once "classes/Rodada.php";
 require_once "classes/Campeonato.php";
 require_once "classes/RendimentoTime.php";
 

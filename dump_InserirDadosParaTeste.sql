@@ -20,9 +20,9 @@ INSERT INTO Campeonato (`id`, `nomeCampeonato`, `anoCampeonato`, `quantidadeRoda
 
 INSERT INTO PremiosUsuario (`codTimeFavorito`, `acertosPlacar`, `acertosTimeGanhador`, `acertosPlacarInvertido`, `pontosCampeonato`, `medalhasOuro`, `medalhasPrata`, `medalhasBronze`, `chuteirasOuro`, `chuteirasPrata`, `chuteirasBronze`, `trofeu`, `usuario_id`, `campeonato_id`) VALUES
 			(1,0,0,0,0,0,0,0,0,0,0,false,100000885523518, 1),
-			(2, 20, 30, 40, 500, 25, 50, 75, 40, 60, 80, true, 100000885523519, 2),
-			(3, 10, 15, 20, 300, 5, 6, 7, 2, 3, 4, false, 100000885523519, 3),
-			(NULL, 2, 4, 6, 150, 7, 8, 9, 1, 2, 3, false, 100000885523519, 4);
+			(2, 20, 30, 40, 500, 25, 50, 75, 40, 60, 80, true, 100000885523518, 2),
+			(3, 10, 15, 20, 300, 5, 6, 7, 2, 3, 4, false, 100000885523518, 3),
+			(NULL, 2, 4, 6, 150, 7, 8, 9, 1, 2, 3, false, 100000885523518, 4);
 	
 INSERT INTO Jogo (`id`, `dataJogo`, `rodada`, `codTime1`, `codTime2`, `golsTime1`, `golsTime2`, `campeonato_id`, `dataInicioApostas`, `dataFimApostas`) VALUES
 					(1, '2012-05-30 00:00:00', 1, 1, 2, NULL, NULL, 1, '2012-04-30 00:00:00', '2012-04-30 00:00:00'),

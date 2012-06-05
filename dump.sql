@@ -35,8 +35,8 @@ ENGINE=InnoDB;
 CREATE TABLE `Jogo` (
 	`id` INT AUTO_INCREMENT,
 	`campeonato_id` INT,
+	`rodada_id` INT,
 	`dataJogo` VARCHAR(50),
-	`rodada` INT,
 	`codTime1` INT,
 	`codTime2` INT,
 	`golsTime1` INT NULL DEFAULT NULL,
@@ -48,6 +48,14 @@ CREATE TABLE `Jogo` (
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB;
 
+
+CREATE TABLE `Rodada` (
+	`id` INT,
+	`campeonato_id` INT,
+	PRIMARY KEY (`id`, `campeonato_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB;
 
 
 CREATE TABLE `Aposta` (
@@ -126,10 +134,16 @@ ALTER TABLE `RendimentoTime`
 	ADD CONSTRAINT `FK_rendimentotime_time` FOREIGN KEY (`time_id`) REFERENCES `Time` (`id`),
 	ADD CONSTRAINT `FK_rendimentotime_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `Campeonato` (`id`);
 
+ALTER TABLE `Rodada`
+	ADD INDEX `campeonato_id` (`campeonato_id`),
+	ADD CONSTRAINT `FK_rodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `Campeonato` (`id`);
+
 ALTER TABLE `Jogo`
 	ADD INDEX `campeonato_id` (`campeonato_id`),
-	ADD CONSTRAINT `FK_jogo_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `Campeonato` (`id`);
-
+	ADD INDEX `rodada_id` (`rodada_id`),
+	ADD CONSTRAINT `FK_jogo_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `Campeonato` (`id`),
+	ADD CONSTRAINT `FK_jogo_rodada` FOREIGN KEY (`rodada_id`) REFERENCES `Rodada` (`id`);
+	
 ALTER TABLE `Aposta`
 	ADD INDEX `usuario_id` (`usuario_id`),
 	ADD INDEX `campeonato_id` (`campeonato_id`),

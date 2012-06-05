@@ -14,11 +14,17 @@ class Campeonato {
 	/** @Column(type="integer")*/
 	private $anoCampeonato;
 	
+	/** @Column(type="string")*/
+	private $status;
+	
 	/** @Column(type="integer")*/
 	private $quantidadeRodadas;
 	
-	/** @Column(type="string")*/
-	private $status;
+	/**
+	* @OneToMany(targetEntity="Rodada", mappedBy="campeonato", cascade={"persist"})
+	* @var Rodada[]
+	*/
+	private $rodadas;
 	
 	/**
 	* @OneToMany(targetEntity="Aposta", mappedBy="campeonato", cascade={"persist"})
@@ -45,11 +51,11 @@ class Campeonato {
 	protected $rendimentosTimes;
 	
 	
-	function __construct($nomeCampeonato, $anoCampeonato, $quantidadeRodadas){
+	function __construct($nomeCampeonato, $anoCampeonato, $qtdRodadas){
 			$this->nomeCampeonato = $nomeCampeonato;
 			$this->anoCampeonato = $anoCampeonato;
 			$this->status = "ativo";
-			$this->quantidadeRodadas = $quantidadeRodadas;
+			$this->setQuantidadeRodadas($qtdRodadas);
 			$this->apostasCampeonato = new ArrayCollection();
 			$this->jogosCampeonato = new ArrayCollection();
 			$this->premiacoesCampeonato = new ArrayCollection();
@@ -58,14 +64,6 @@ class Campeonato {
 
 	function getCodCampeonato(){
 		return $this->codCampeonato;
-	}
-	
-	function setQuantidadeRodadas($quantidadeRodadas){
-		$this->quantidadeRodadas = strtoupper($quantidadeRodadas);
-	}
-	
-	function getQuantidadeRodadas(){
-		return $this->quantidadeRodadas;
 	}
 
 	function setNomeCampeonato($nomeCampeonato){
@@ -109,6 +107,17 @@ class Campeonato {
 			$this->quantidadeRodadas = $quantidadeRodadas;
 		}
 	}
+	function setQuantidadeRodadas($qtdRodadas){
+		$this->quantidadeRodadas = $qtdRodadas;
+	}
+	
+	function getQuantidadeRodadas(){
+		return $this->quantidadeRodadas;
+	}
+	
+	function getRodadas(){
+		return $this->rodadas;
+	}
 	
 	function getApostasCampeonato(){
 		return $this->apostasCampeonato;
@@ -124,6 +133,10 @@ class Campeonato {
 	
 	function getRendimentosTimes(){
 		return $this->rendimentosTimes;
+	}
+	
+	function adicionaRodada($rodada){
+		$this->rodadas[] = $rodada;
 	}
 	
 	/* Recebe o objeto PremiosUsuario e adiciona ao array premiacoesCampeonato[] */
