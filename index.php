@@ -1,5 +1,5 @@
 <?php ob_start();
-require "bootstrap.php";
+require "bootstrap.php";/*
 require_once 'FacebookApi/facebook.php';
 
 $app_Id = '233715530059546';
@@ -12,10 +12,10 @@ $config = array(
 
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
-
-//$user_id = "100000885523518";
+*/
+$user_id = "100000885523518";
 $usuario = $entityManager->find("Usuario", $user_id);
-
+/*
 if(!($usuario instanceof Usuario)){
 	$user_profile = $facebook->api('/me', 'GET');
 	$primeiroNomeUsuario = $user_profile['first_name'];
@@ -34,7 +34,7 @@ if(!($usuario instanceof Usuario)){
 //											'message' => $message
 	));
 }
-
+*/
 ob_end_flush();
 ?>
 <?php require"links_index.php"?>
@@ -70,7 +70,7 @@ if($user_id){
 	try{
 ?>
 		
-		<!-- logo-->
+		<!-- Cabeçalho -->
 		
 		<div id="principal">
 				
@@ -84,6 +84,7 @@ if($user_id){
 		</div>
 		
 		</div>
+		
 		<!-- Menu   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
 		
 		<div id="areamenu">
