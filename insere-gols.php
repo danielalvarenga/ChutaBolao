@@ -27,6 +27,27 @@ if (isset($_POST['jogo'])) {
 		
 		$jogo = $entityManager->find("Jogo", $_POST['jogo']);
 		
+	//Dá medalhas aos ao final da rodada --------------------------------
+		//Verifica a rodada acabou
+		$dqlJog = 'SELECT j FROM Jogo j WHERE j.rodada = '.$jogo->getRodada()->getNumRodada().
+					' AND j.golsTime1 = NULL';
+		$queryJog = $entityManager->createQuery($dqlJog);
+		$queryJog->getMaxResult(1);
+		$jogs = $queryJog->getResult();
+		$contador = 0;
+		foreach($jogs as $jog) {
+			if($jog instanceof Jogo){
+				$contador++;
+			}
+		}
+		
+		//Atribui medalhas
+		if($contador == 0){
+			$dqlP = "SELECT p FROM Aposta a WHERE a.jogo = $codJogo";
+			$queryApostas = $entityManager->createQuery($dqlApostas);
+			$apostas = $queryApostas->getResult();
+		}
+		
 	//Atualização do rendimento dos times --------------------------------
 	
 		//Time1
