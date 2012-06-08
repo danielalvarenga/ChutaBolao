@@ -12,14 +12,18 @@ class time{
 	/** @Column(type="string") */
 	private $nomeTime;
 	
+	/** @Column(type="string") */
+	private $escudo;
+	
 	/**
 	 * @OneToMany(targetEntity="RendimentoTime", mappedBy="time", cascade={"persist"})
 	 * @var RendimentoTime[]
 	 */
 	protected $rendimentosCampeonatos;
 
-	function __construct($nomeTime){
-		$this->nomeTime = strtoupper($nomeTime);
+	function __construct($nomeTime, $escudo){
+		$this->setNomeTime($nomeTime);
+		$this->setEscudo($escudo);
 		$this->rendimentosCampeonatos = new ArrayCollection();
 	}
 
@@ -28,11 +32,23 @@ class time{
 	}
 
 	function setNomeTime($nomeTime){
-		$this->nomeTime = strtoupper($nomeTime);
+		$this->nomeTime =
+				str_replace(' De ', ' de ',
+				str_replace(' Do ', ' do ',
+				str_replace(' Da ', ' da ',
+				ucwords(strtolower(trim($nomeTime))))));
 	}
 
 	function getNomeTime(){
 		return $this->nomeTime;
+	}
+	
+	function setEscudo($urlEscudo){
+		$this->escudo = $urlEscudo;
+	}
+	
+	function getEscudo(){
+		return $this->escudo;
 	}
 	
 	function getRendimentosCampeonatos(){

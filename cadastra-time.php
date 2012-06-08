@@ -4,33 +4,120 @@ require "bootstrap.php";
 
 if(isset($_POST['time'])){
 	$time = $entityManager->find("Time", $_POST['time']);
+	$escudo = $time->getEscudo();
 	$nomeTime = $time->getNomeTime();
 	$codTime = $time->getCodTime();
 	$entityManager->remove($time);
 	$entityManager->flush();
+	unlink("$escudo");
 	echo "Excluído time com o nome $nomeTime com código $codTime<br><br>";
 }
 
 if(isset($_POST['nome'])){
-	//try{
 	
-	//$arquivo = $_FILES['arquivo'];
-	//if ($arqError == 0) {
-	//	$pasta = '/uploads/';
-	//	$upload = move_uploaded_file($arqTemp, $pasta . $arqName);
-	//}
-	$nome = $_POST['nome'];
-	$time = new Time($nome);
-	$entityManager->persist($time);
-	$entityManager->flush();
-	//}
-	//catch (Exception $e){
-	//	echo ($e->getMensage());
-	//}
-	echo "Inserido time com o nome {$time->getNomeTime()}<br><br>";
-	//print_r($arquivo);
+	
+	if(empty($_POST['nome'])){
+		echo "<script> alert('Campo \"nome\" obrigatorio!')
+		location = ('form.htm');
+		</script>";
+	}
+	else{
+		$imagem = $_FILES["escudo"];
+		// Se a foto estiver sido selecionada
+		if (!empty($imagem["name"])) {
+		
+			// Largura máxima em pixels
+			$largura = 47;
+			// Altura máxima em pixels
+			$altura = 47;
+			// Tamanho máximo do arquivo em bytes
+			//$tamanho = 1000;
+			
+		/*
+			// Verifica se o arquivo é uma imagem
+			if(!preg_match('/^image\/(jpg|jpeg|png|gif|bmp)$/', $imagem["type"])){
+				$error[1] = "Isso não é uma imagem.";
+			}
+		*/
+			// Pega as dimensões da imagem
+			$dimensoes = getimagesize($imagem["tmp_name"]);
+		/*
+			// Verifica se a largura da imagem é maior que a largura permitida
+			if($dimensoes[0] > $largura) {
+				$error[2] = "A largura da imagem não deve ultrapassar ".$largura." pixels";
+			}
+		
+			// Verifica se a altura da imagem é maior que a altura permitida
+			if($dimensoes[1] > $altura) {
+				$error[3] = "Altura da imagem não deve ultrapassar ".$altura." pixels";
+			}
+		
+			/* Verifica se o tamanho da imagem é maior que o tamanho permitido
+			if($foto["size"] > $tamanho) {
+				$error[4] = "A imagem deve ter no máximo ".$tamanho." bytes";
+			}
+		
+			// Se não houver nenhum erro
+			if (count($error) == 0) {
+		*/
+			if($dimensoes[0] <= $largura && $dimensoes[1] <= $altura){
+				$nome = $_POST['nome'];
+				$dqlTime = "SELECT t FROM Time t WHERE t.nomeTime = '$nome'";
+				$queryT = $entityManager->createQuery($dqlTime);
+				$queryT->setMaxResults(1);
+				$times = $queryT->getResult();
+				$contador = 0;
+				foreach($times as $time) {
+					if($time instanceof Time){
+						$contador++;
+					}
+				}
+				if($contador == 0){
+					// Pega extensão da imagem
+					preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $imagem["name"], $ext);
+					
+					$nomeUrlEscudo = strtolower(trim(
+									str_replace('é', 'e',
+									str_replace('ó', 'o',
+									str_replace('á', 'a', 
+									str_replace('í', 'i', 
+									str_replace('ú', 'u', 
+									str_replace('ê', 'e', 
+									str_replace('ô', 'o', 
+									str_replace('â', 'a', 
+									str_replace(' ', '-', $nome)
+											)))))))))).$largura.'x'.$altura;
+					
+					// Gera um nome único para a imagem
+					$nome_imagem = $nomeUrlEscudo."." . $ext[1];
+			
+					// Caminho de onde ficará a imagem
+					$caminho_imagem = "imagens/escudos/" . $nome_imagem;
+			
+					// Faz o upload da imagem para seu respectivo caminho
+					move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
+					
+						$time = new Time($nome, $caminho_imagem);
+						$entityManager->persist($time);
+						$entityManager->flush();
+				}
+				else{
+					echo "<font color='red'><b>Este time já existe.</b></font>";
+				}
+			}
+		}
+		/*
+		
+			// Se houver mensagens de erro, exibe-as
+			if (count($error) != 0) {
+				foreach ($error as $erro) {
+					echo $erro . "<br />";
+				}
+			}
+		}
+	*/
+	}
 }
-
 ?>
 
 <html>
@@ -45,8 +132,8 @@ cadastro de time
 	
 	<form action="" method="POST" enctype="multipart/form-data">
 			
-			<p>Nome:<input type="text" name="nome" size="60"></p>
-           <!--  Escudo:<input type="file" name="arquivo" class="width233" />  -->
+			<p>Nome: <input type="text" name="nome" size="60"></p>
+           	<p>Escudo: <input type="file" name="escudo"/></p>
             <p><input type="submit" name="salvar" value="Salvar" /></p>
     </form>
     
@@ -66,11 +153,12 @@ cadastro de time
 	<tr vertical-align="middle" align="center">
 		<td>Código</td>
 		<td>Time</td>
+		<td>Escudo</td>
 		<td></td>
 	</tr>
 
 <?php
-	$dqlTimes = "SELECT t FROM Time t ORDER BY t.codTime ASC";
+	$dqlTimes = "SELECT t FROM Time t ORDER BY t.nomeTime ASC";
 	$queryTimes = $entityManager->createQuery($dqlTimes);
 	$times = $queryTimes->getResult();
 	foreach($times as $time) {
@@ -78,6 +166,7 @@ cadastro de time
 			echo '<tr vertical-align="middle" align="center">
 					<td>'.$time->getCodtime().'</td>
 					<td>'.$time->getNometime().'</td>
+					<td><img src="'.$time->getEscudo().'"></td>
 					<td>
 						<form method="POST" action="">
 						<input type="hidden" name="time" value='.$time->getCodTime().'>

@@ -25,6 +25,7 @@ ENGINE=InnoDB;
 CREATE TABLE `Time` (
 	`id` INT AUTO_INCREMENT,
 	`nomeTime` VARCHAR(255),
+	`escudo` TEXT,
 	PRIMARY KEY (`id`)
 )
 COLLATE='latin1_swedish_ci'
