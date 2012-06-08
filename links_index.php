@@ -10,7 +10,7 @@ switch ($pagina){
 	break;
 	
 	case "apostas":
-	$page = "includes/apostas.php";
+	$page = "apostas.php";
 	$title = "Apostas";
 	$author = "";
 	break;
