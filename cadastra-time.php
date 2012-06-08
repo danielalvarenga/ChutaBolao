@@ -18,7 +18,7 @@ if(isset($_POST['nome'])){
 	
 	if(empty($_POST['nome'])){
 		echo "<script> alert('Campo \"nome\" obrigatorio!')
-		location = ('form.htm');
+		location = ('cadastra-time.php');
 		</script>";
 	}
 	else{
