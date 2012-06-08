@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+#aposta{
+	border-width:medium;
+	border-color:silver;
+	font-style:oblique;
+	font-size: 27pt;
+	color:red;
+	vertical-align: baseline;
+	margin-right: 5px;
+	margin-left: 5px; 
+	background-color: green;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+#jogo{
+	font-family:Arial,serif,sans-serif;
+	font-size: 18pt;
+	color:red;
+	vertical-align:middle;
+	align: center;
+	margin-top:20px;
+	margin-right: 5px;
+	margin-left: 5px; 
+	background-color: lime;
+}
+
+#teste{
+	vertical-align:center; 
+	
+}
+
+ h1{
+	
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: olive; text-shadow: black 0.1em 0.1em 0.2em;
+	
+}
+
+table {
+	width: 720px ;
+	border-width:medium;
+	border-color:olive;
+
+	background-color:rgb(120,130,130);
+	font-family:"Arial", "Helvetica", sans-serif;
+	font-size:18pt;
+	color: blue; text-shadow: black 0.1em 0.1em 0.2em;
+    z-index: auto;
+}
+
+td{
+	table-layout:auto;
+	font-weight:18pt;
+	font-style:italic;
+	font-family:"Arial black","Lucida Grande", sans-serif; 
+	
+}
+
+
+p{
+	
+	color:yellow;
+	vertical-align:middle;
+	font-size: 27pt;
+	font-style:italic;
+	font-family:"Arial black","Lucida Grande", sans-serif;
+}
+
+#painel{
+	color:yellow;
+	background-color:black;
+	
+	
+}
+
