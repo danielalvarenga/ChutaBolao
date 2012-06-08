@@ -26,7 +26,7 @@ if(isset($_POST)){
 		$palpite_time2_jogo= $_POST[$i * 4 + 3 ];
     	
 		$dql = "SELECT a FROM Aposta a WHERE a.jogo='$jogo_numero' AND 
-		a.usuario=$user_id AND a.campeonato='$jogo_campeonato'";
+		a.usuario='100000885523518' AND a.campeonato='$jogo_campeonato'";
 		
 		$query = $entityManager->createQuery($dql);
 		$apostasCadastrada = $query->getResult();
@@ -37,7 +37,7 @@ if(isset($_POST)){
 
 		$campeonato= $entityManager->find("Campeonato", $jogo_campeonato);
 
-		$usuario = $entityManager->find("Usuario",$user_id);
+		$usuario = $entityManager->find("Usuario",'100000885523518');
 		if ($apostasCadastrada<>NULL){
 			foreach ($apostasCadastrada as $apostaCadastrada){
 			
@@ -139,7 +139,7 @@ if(isset($_POST)){
 			// Essa parte do codigo busca aposta do usuario de acordo com o numero do
 			//jogo cadastradas dentro do banco de dados.
 
-			$dql = "SELECT a FROM Aposta a WHERE a.jogo=".$jogo->getCodJogo()." AND a.usuario=$user_id 
+			$dql = "SELECT a FROM Aposta a WHERE a.jogo=".$jogo->getCodJogo()." AND a.usuario=100000885523518 
 			AND a.campeonato=".$campeonato->getCodCampeonato();
 			$query = $entityManager->createQuery($dql);
 			$apostas = $query->getResult();
