@@ -5,19 +5,19 @@ $pagina = @$_GET["conteudo"];
 switch ($pagina){
 	case "home":
 	$page = "includes/home.php";
-	$title = "Chuta Bol√£o";
+	$title = "Chuta Bol„o";
 	$author = "";
 	break;
 	
 	case "apostas":
-	$page = "apostas.php";
+	$page = "includes/apostas.php";
 	$title = "Apostas";
 	$author = "";
 	break;
 	
 	case "classificacao":
 	$page = "includes/classificacao.php";
-	$title = "Classifica√ß√£o";
+	$title = "ClassificaÁ„o";
 	$author = "";
 	break;
 	
