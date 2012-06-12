@@ -1,7 +1,7 @@
 <?php
 use Doctrine\Common\Collections\ArrayCollection;
 
-/** @Entity */
+/** @Entity @Table(name="rodada")*/
 Class Rodada{
 	
 	/** @Id @Column(type="integer", name="id") */

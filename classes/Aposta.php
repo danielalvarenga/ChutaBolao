@@ -1,6 +1,6 @@
 <?php
 
-/** @Entity */
+/** @Entity @Table(name="aposta")*/
 class Aposta{
 	
 	/** @Column(type="integer") */

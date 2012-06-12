@@ -3,7 +3,7 @@
 use Doctrine\Common\Collections\ArrayCollection;
 
 
-/** @Entity */
+/** @Entity @Table(name="time")*/
 class time{
 	
 	/** @Id @Column(type="integer", name="id") @GeneratedValue */

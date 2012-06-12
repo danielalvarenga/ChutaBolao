@@ -1,5 +1,5 @@
 <?php
-/** @Entity */
+/** @Entity @Table(name="premiosusuario")*/
 class PremiosUsuario{
 	
 	/** @Column(type="integer") */

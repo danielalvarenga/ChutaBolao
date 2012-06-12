@@ -6,7 +6,7 @@ use Doctrine\ORM\Query\AST\Functions\LengthFunction;
 
 require "bootstrap.php";
 
-if(isset($_POST['campeonato'])){
+if(isset($_POST['excluir'])){
 	$campeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
 	$nomeCampeonato = $campeonato->getNomeCampeonato();
 	$anoCampeonato = $campeonato->getAnoCampeonato();
@@ -84,7 +84,7 @@ cadastro de time
 	foreach($campeonatos as $campeonato) {
 		if($campeonato instanceof Campeonato){
 			echo '<tr vertical-align="middle" align="center">
-					<td>'.$campeonato->getcodCampeonato().'</td>
+					<td>'.$campeonato->getCodCampeonato().'</td>
 					<td>'.$campeonato->getNomeCampeonato().'</td>
 					<td>'.$campeonato->getAnoCampeonato().'</td>
 					<td>'.$campeonato->getQuantidadeRodadas().'</td>

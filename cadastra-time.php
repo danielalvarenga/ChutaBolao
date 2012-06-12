@@ -22,6 +22,7 @@ if(isset($_POST['nome'])){
 		</script>";
 	}
 	else{
+		$nome = $_POST['nome'];
 		$imagem = $_FILES["escudo"];
 		// Se a foto estiver sido selecionada
 		if (!empty($imagem["name"])) {
@@ -30,38 +31,10 @@ if(isset($_POST['nome'])){
 			$largura = 47;
 			// Altura máxima em pixels
 			$altura = 47;
-			// Tamanho máximo do arquivo em bytes
-			//$tamanho = 1000;
-			
-		/*
-			// Verifica se o arquivo é uma imagem
-			if(!preg_match('/^image\/(jpg|jpeg|png|gif|bmp)$/', $imagem["type"])){
-				$error[1] = "Isso não é uma imagem.";
-			}
-		*/
-			// Pega as dimensões da imagem
+
 			$dimensoes = getimagesize($imagem["tmp_name"]);
-		/*
-			// Verifica se a largura da imagem é maior que a largura permitida
-			if($dimensoes[0] > $largura) {
-				$error[2] = "A largura da imagem não deve ultrapassar ".$largura." pixels";
-			}
-		
-			// Verifica se a altura da imagem é maior que a altura permitida
-			if($dimensoes[1] > $altura) {
-				$error[3] = "Altura da imagem não deve ultrapassar ".$altura." pixels";
-			}
-		
-			/* Verifica se o tamanho da imagem é maior que o tamanho permitido
-			if($foto["size"] > $tamanho) {
-				$error[4] = "A imagem deve ter no máximo ".$tamanho." bytes";
-			}
-		
-			// Se não houver nenhum erro
-			if (count($error) == 0) {
-		*/
+
 			if($dimensoes[0] <= $largura && $dimensoes[1] <= $altura){
-				$nome = $_POST['nome'];
 				$dqlTime = "SELECT t FROM Time t WHERE t.nomeTime = '$nome'";
 				$queryT = $entityManager->createQuery($dqlTime);
 				$queryT->setMaxResults(1);
@@ -85,8 +58,10 @@ if(isset($_POST['nome'])){
 									str_replace('ê', 'e', 
 									str_replace('ô', 'o', 
 									str_replace('â', 'a', 
+									str_replace('õ', 'o',
+									str_replace('ã', 'a',
 									str_replace(' ', '-', $nome)
-											)))))))))).$largura.'x'.$altura;
+											)))))))))))).$largura.'x'.$altura;
 					
 					// Gera um nome único para a imagem
 					$nome_imagem = $nomeUrlEscudo."." . $ext[1];
@@ -97,25 +72,15 @@ if(isset($_POST['nome'])){
 					// Faz o upload da imagem para seu respectivo caminho
 					move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
 					
-						$time = new Time($nome, $caminho_imagem);
-						$entityManager->persist($time);
-						$entityManager->flush();
+					$time = new Time($nome, $caminho_imagem);
+					$entityManager->persist($time);
+					$entityManager->flush();
 				}
 				else{
 					echo "<font color='red'><b>Este time já existe.</b></font>";
 				}
 			}
 		}
-		/*
-		
-			// Se houver mensagens de erro, exibe-as
-			if (count($error) != 0) {
-				foreach ($error as $erro) {
-					echo $erro . "<br />";
-				}
-			}
-		}
-	*/
 	}
 }
 ?>

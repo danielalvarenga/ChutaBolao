@@ -2,7 +2,7 @@
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-/** @Entity */
+/** @Entity @Table(name="jogo")*/
 class Jogo {
 	
 	/** @Id @Column(type="integer", name="id") @GeneratedValue */

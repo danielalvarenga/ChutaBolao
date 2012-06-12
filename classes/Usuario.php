@@ -2,7 +2,7 @@
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-/** @Entity */
+/** @Entity @Table(name="usuario")*/
 class Usuario{
 	
 	/** @Id @Column(type="bigint", name="id") */
