@@ -1,15 +1,17 @@
 @charset "utf-8";
 
 #aposta{
-	border-width:medium;
-	border-color:silver;
+	border: 1px solid #666;
 	font-style:oblique;
-	font-size: 27pt;
-	color:red;
+	font-size: 20pt;
+	color:#ffffff;
 	vertical-align: baseline;
 	margin-right: 5px;
 	margin-left: 5px; 
-	background-color: green;
+	background-color: #56a102;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
 	text-shadow: black 0.1em 0.1em 0.2em;
 }
 
@@ -38,28 +40,47 @@
 }
 
 table {
-	width: 720px ;
-	border-width:medium;
-	border-color:olive;
-
-	background-color:rgb(120,130,130);
-	font-family:"Arial", "Helvetica", sans-serif;
-	font-size:18pt;
-	color: blue; text-shadow: black 0.1em 0.1em 0.2em;
+	width: 95% ;
+	border: 1px solid #666;
+	align:center;
+	background-color:#E4E4E4;
+	font-size: 18px;
+	font-family: Helvetica;
+	vertical-align: middle;	
+	color: #17541f;
     z-index: auto;
+    margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
+}
+
+img {
+	width: 30px ;
+	height: 30px;
+}
+
+tr{
+	table-layout:auto;
+	font-weight:bold;
+	font-style:italic;
+	font-family: Helvetica;
+	background:#E4E4E4;
 }
 
 td{
 	table-layout:auto;
-	font-weight:18pt;
+	border: 0px solid #666;
+	font-weight:bold;
 	font-style:italic;
-	font-family:"Arial black","Lucida Grande", sans-serif; 
-	
+	font-family: Helvetica;
 }
 
 
 p{
-	
+	align:center;
 	color:yellow;
 	vertical-align:middle;
 	font-size: 27pt;

@@ -76,11 +76,11 @@ if(isset($_POST)){
 		}
 	}
 	if($contador>0){
-	echo"<table align='center' id='painel' border='1'><tr><td><br><p >
+	echo"<p align='center'><table align='center' id='painel' border='1'><tr><td><br><p >
 	Aposta realizada com sucesso</p><br></td></tr></table><br>";	
 	}
 	if($contador1>0){
-		echo"<table align='center' id='painel' border='1'><tr><td><br><p >
+		echo"<p align='center'><table align='center' id='painel' border='1'><tr><td><br><p >
 		Aposta atualizada com sucesso</p><br></td></tr></table><br>";	
 	}
 }
@@ -123,7 +123,8 @@ if(isset($_POST)){
 		echo '<html ><body><head >
 	<link rel="stylesheet" type="text/css" href="estilos/folha_aposta.css"/>
 </head >	
-		<table  align="center" border="1"><td id="aposta" align="center" colspan="7">'
+		<table  align="center" border="1">
+		<td id="aposta" align="center" colspan="7">'
 		.$campeonato->getNomeCampeonato().'</td>
 		<form action="" method="POST" >';
 

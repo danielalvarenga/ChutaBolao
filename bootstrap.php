@@ -11,6 +11,7 @@ require_once "classes/Jogo.php";
 require_once "classes/Rodada.php";
 require_once "classes/Campeonato.php";
 require_once "classes/RendimentoTime.php";
+require_once "classes/PontuacaoRodada.php";
 
 //require_once "Doctrine/ORM/Tools/Setup.php";
 //Setup::registerAutoloadPEAR();

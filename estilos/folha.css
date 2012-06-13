@@ -9,7 +9,7 @@
 	margin-left:auto;
 	margin-right:auto;
 	padding:10px;
-	background-color: #F8F8F8;
+	background-color: #F8F8F8;	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);		-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);		box-shadow: 0 0 7px rgba(0, 0, 0, .8);
 }
 
 
@@ -237,11 +237,7 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 	*padding: 5px;
 	_padding: 5px;
 	/*sombra na borda*/
-border: 1px solid #666;
--moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
--webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
--goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	border: 1px solid #666;
 }
 	
 #Mural .titulo {
@@ -266,7 +262,7 @@ box-shadow: 0 0 7px rgba(0, 0, 0, .8);
 	font-size: 18px;
 	vertical-align: middle;
 	color: #FFFFFF;
-	}
+}
 
 #Mural .texto a {	
 	vertical-align: middle;
