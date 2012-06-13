@@ -18,6 +18,15 @@ class PremiosUsuario{
 	private $pontosCampeonato; // Quantidade de pontos acumulados no campeonato
 	
 	/** @Column(type="integer") */
+	private $pontosMedalhas; // Quantidade de pontos acumulados no campeonato de acordo com as medalhas conquistadas
+	
+	/** @Column(type="integer") */
+	private $classificacaoCampeonato;//classificacao no ranking do campeonato
+	
+	/** @Column(type="integer") */
+	private $classificacaoMedalhas;//classificacao no ranking de medalhas no campeonato
+	
+	/** @Column(type="integer") */
 	private $medalhasOuro; // Quantidade de medalhas de ouro acumuladas no campeonato
 	
 	/** @Column(type="integer") */
@@ -48,16 +57,15 @@ class PremiosUsuario{
 	 */
 	private $campeonato; // Objeto da Classe Campeonato que referência em qual Campeonato foram ganhos os prêmios
 	
-	/* Recebe como parâmetros a id do usuário, o código de campeonato e código do time favorito.
-	* Se não for escolhido nenhum Time Favorito o valor será "0" por default.
-	* Inicia trofeu com false e inicia as demais variáveis com 0. */
-	
 	function __construct($usuario, $campeonato, $codTimeFavorito = NULL){
 		$this->codTimeFavorito = $codTimeFavorito;
 		$this->acertosPlacar = 0;
 		$this->acertosTimeGanhador = 0;
 		$this->acertosPlacarInvertido = 0;
 		$this->pontosCampeonato = 0;
+		$this->pontosMedalhas = NULL;
+		$this->classificacaoCampeonato = NULL;
+		$this->classificacaoMedalhas = NULL;
 		$this->medalhasOuro = 0;
 		$this->medalhasPrata = 0;
 		$this->medalhasBronze = 0;
@@ -67,6 +75,7 @@ class PremiosUsuario{
 		$this->trofeu = false;
 		$this->usuario = $usuario;
 		$this->campeonato = $campeonato;
+		
 	}
 	
 	function getUsuario(){
@@ -74,6 +83,15 @@ class PremiosUsuario{
 	}
 	function getCampeonato(){
 		return $this->campeonato;
+	}
+	function getClassificacaoCampeonato(){
+		return $this->classificacaoCampeonato;
+	}
+	function getClassificacaoMedalhas(){
+		return $this->classificacaoMedalhas;
+	}
+	function getPontosMedalhas(){
+		return $this->pontosMedalhas;
 	}
 	function getCodTimeFavorito(){
 		return $this->codTimeFavorito;
@@ -133,14 +151,17 @@ class PremiosUsuario{
 	/* Incrementa em +1 o atributo medalhasOuro */
 	function ganhaMedalhaOuro(){
 		$this->medalhasOuro++;
+		$this->calculaPontosMedalhas();
 	}
 	/* Incrementa em +1 o atributo medalhasPrata */
 	function ganhaMedalhaPrata(){
 		$this->medalhasPrata++;
+		$this->calculaPontosMedalhas();
 	}
 	/* Incrementa em +1 o atributo medalhasBronze */
 	function ganhaMedalhaBronze(){
 		$this->medalhasBronze++;
+		$this->calculaPontosMedalhas();
 	}
 	/* Incrementa em +1 o atributo chuteirasOuro */
 	function ganhaChuteiraOuro(){
@@ -169,7 +190,7 @@ class PremiosUsuario{
 				$this->acertosTimeGanhador++;
 				break;
 			}
-			case 5 : {
+			case 2 : {
 				$this->acertosPlacarInvertido++;
 				break;
 			}
@@ -177,3 +198,13 @@ class PremiosUsuario{
 		$this->pontosCampeonato += $pontosAposta;
 	}
 }
+function calculaPontosMedalhas(){
+	$this->pontosMedalhas=($this->medalhasOuro <<13) +($this->medalhasPrata<<7)+($this->medalhasBronze<<1) ;
+}
+function setClassificacaoCampeonato($classificacaoCampeonato){
+	$this->classificacaoCampeonato=$classificacaoCampeonato;
+}
+function setClassificacaoMedalhas($classificacaoMedalhas){
+	$this->classificacaoMedalhas=$classificacaoMedalhas;
+}
+?>

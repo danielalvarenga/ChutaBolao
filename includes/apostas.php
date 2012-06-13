@@ -16,17 +16,17 @@ if(isset($_POST)){
 	$contador=0;
 	$contador1=0;
 	for ($i=0;$i<sizeof($_POST)/4;$i++){
+		$aux=$i <<2;
+		$jogo_campeonato=$_POST[$aux];
 		
-		$jogo_campeonato=$_POST[$i * 4 ];
-		
-		$jogo_numero= $_POST[$i * 4 + 1 ];
+		$jogo_numero= $_POST[$aux + 1 ];
 
-		$palpite_time1_jogo= $_POST[$i * 4 + 2 ];
+		$palpite_time1_jogo= $_POST[$aux + 2 ];
 
-		$palpite_time2_jogo= $_POST[$i * 4 + 3 ];
+		$palpite_time2_jogo= $_POST[$aux + 3 ];
     	
 		$dql = "SELECT a FROM Aposta a WHERE a.jogo='$jogo_numero' AND 
-		a.usuario='100000885523518' AND a.campeonato='$jogo_campeonato'";
+		a.usuario='100000885523520' AND a.campeonato='$jogo_campeonato'";
 		
 		$query = $entityManager->createQuery($dql);
 		$apostasCadastrada = $query->getResult();
@@ -37,7 +37,7 @@ if(isset($_POST)){
 
 		$campeonato= $entityManager->find("Campeonato", $jogo_campeonato);
 
-		$usuario = $entityManager->find("Usuario",'100000885523518');
+		$usuario = $entityManager->find("Usuario",'100000885523520');
 		if ($apostasCadastrada<>NULL){
 			foreach ($apostasCadastrada as $apostaCadastrada){
 			
@@ -86,13 +86,13 @@ if(isset($_POST)){
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
 
 <?php
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	require "bootstrap.php";
 
@@ -130,16 +130,16 @@ if(isset($_POST)){
 				$contadorArray=0;
 
     		foreach ($jogos as $jogo){
-
-			$numero_campeonato= $contadorArray * 4 ;
-			$numeroJogo= ($contadorArray *4)+1;
-			$apostaGolsUsuarioTime1=($contadorArray * 4)+2;
-			$apostaGolsUsuarioTime2=($contadorArray * 4)+3;
+            $aux=$contadorArray << 2;
+			$numero_campeonato= $aux ;
+			$numeroJogo= $aux+1;
+			$apostaGolsUsuarioTime1=$aux+2;
+			$apostaGolsUsuarioTime2=$aux+3;
 				
 			// Essa parte do codigo busca aposta do usuario de acordo com o numero do
 			//jogo cadastradas dentro do banco de dados.
 
-			$dql = "SELECT a FROM Aposta a WHERE a.jogo=".$jogo->getCodJogo()." AND a.usuario=100000885523518 
+			$dql = "SELECT a FROM Aposta a WHERE a.jogo=".$jogo->getCodJogo()." AND a.usuario=100000885523520 
 			AND a.campeonato=".$campeonato->getCodCampeonato();
 			$query = $entityManager->createQuery($dql);
 			$apostas = $query->getResult();
@@ -152,6 +152,7 @@ if(isset($_POST)){
 			$times = $query->getResult();
 			foreach ($times as $time){
 				$time1=$time->getNomeTime();
+				$escudo1=$time->getEscudo();
 			}
 			//Aqui esta buscando os nomes dos times do jogo
 
@@ -161,6 +162,7 @@ if(isset($_POST)){
 			$times = $query->getResult();
 			foreach ($times as $time){
 				$time2=$time->getNomeTime();
+				$escudo2=$time->getEscudo();
 			}
 			//Aqui esta testando se a busca voltou com alguma aposta ou nao
 
@@ -170,7 +172,7 @@ if(isset($_POST)){
 				$apostaGolsTime2=$aposta->getApostaGolsTime2();
 
 				}
-		echo "<tr align='center'><td>$time1</td><td><img src='../ChutaBolao/imagens/escudos/atl_go_45x.png'>
+		echo "<tr align='center'><td>$time1</td><td><img src='../ChutaBolao/$escudo1'>
 		</td><td>
 	    <INPUT type='hidden' name='$numero_campeonato' value=".$campeonato->getCodCampeonato().">
 	    <INPUT type='hidden' name='$numeroJogo' value=".$jogo->getCodJogo().">
@@ -183,7 +185,7 @@ if(isset($_POST)){
 			  <OPTION VALUE=$apostaGolsTime2>$apostaGolsTime2</OPTION>";
 
 				opcaoUsuario();
-		echo "</SELECT></td><td><img src='../ChutaBolao/imagens/escudos/atl_go_45x.png'>
+		echo "</SELECT></td><td><img src='../ChutaBolao/$escudo2'>
 		</td><td>$time2</td></tr><br> ";
 
 			}
@@ -191,7 +193,7 @@ if(isset($_POST)){
 			else {
 				// Esse for serve para imprimir todo os jogos corrente da rodada.
 
-				echo "<tr align='center'><td>$time1</td><td><img src='../ChutaBolao/imagens/escudos/atl_go_45x.png'></td><td>
+				echo "<tr align='center'><td>$time1</td><td><img src='../ChutaBolao/$escudo1'></td><td>
 			    <INPUT type='hidden' name='$numero_campeonato' value=".$campeonato->getCodCampeonato().">	
 			    <INPUT type='hidden' name='$numeroJogo' value=".$jogo->getCodJogo().">
 		        <SELECT name=$apostaGolsUsuarioTime1>
@@ -204,7 +206,7 @@ if(isset($_POST)){
 		    	 <OPTION VALUE=$opcaoVazia>$opcaoVazia</OPTION>";
 				
 			 	opcaoUsuario();
-			 	echo "</SELECT></td><td><img src='../ChutaBolao/imagens/escudos/atl_go_45x.png'>
+			 	echo "</SELECT></td><td><img src='../ChutaBolao/$escudo2'>
 			 	</td><td> $time2 </td></tr><br>";
 
 			}
@@ -219,5 +221,5 @@ if(isset($_POST)){
 		
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
