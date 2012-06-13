@@ -18,10 +18,17 @@ Class Rodada{
 	 */
 	protected $jogosRodada;
 	
+	/**
+	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="rodada", cascade={"persist"})
+	 * @var PontuacaoRodada[]
+	 */
+	protected $pontuacaoRodadas;
+	
 	function __construct($numRodada, $campeonato){
 		$this->setNumRodada($numRodada);
 		$this->setCampeonato($campeonato);
 		$this->jogosRodada = new ArrayCollection();
+		$this->pontuacaoRodadas = new ArrayCollection();
 	}
 	
 	function getNumRodada(){
@@ -42,6 +49,14 @@ Class Rodada{
 	
 	function getJogosRodada(){
 		return $this->jogosRodada;
+	}
+	
+	function getPontuacaoRodadas(){
+		return $this->pontuacaoRodadas;
+	}
+	
+	function adicionaPontuacaoRodada($pontuacaoRodada){
+		$this->pontuacaoRodadas[] = $pontuacaoRodada;
 	}
 	
 	function adicionaJogoRodada($jogo){

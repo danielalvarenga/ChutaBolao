@@ -47,13 +47,13 @@ class PremiosUsuario{
 	/** @Column(type="boolean") */
 	private $trofeu; // "true" se o usuário ganhou troféu do campeonato. "false" por default.
 	
-	/**
-	* @Id @ManyToOne(targetEntity="Usuario", inversedBy="premiacoes")
+	/** @Id @ManyToOne(targetEntity="Usuario", inversedBy="premiacoes")
+	* @var Usuario
 	*/
 	private $usuario; // Objeto da Classe Usuario a quem pertence os prêmios
 	
-	/**
-	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="premiacoesCampeonato")
+	/** @Id @ManyToOne(targetEntity="Campeonato", inversedBy="premiacoesCampeonato")
+	 * @var Campeonato
 	 */
 	private $campeonato; // Objeto da Classe Campeonato que referência em qual Campeonato foram ganhos os prêmios
 	
@@ -132,6 +132,12 @@ class PremiosUsuario{
 	function getTrofeu(){
 		return $this->trofeu;
 	}
+	function setClassificacaoCampeonato($classificacaoCampeonato){
+		$this->classificacaoCampeonato=$classificacaoCampeonato;
+	}
+	function setClassificacaoMedalhas($classificacaoMedalhas){
+		$this->classificacaoMedalhas=$classificacaoMedalhas;
+	}
 	/* Incrementa em +1 o atributo acertosPlacar */
 	function acertaPlacar(){
 		$this->acertosPlacar++;
@@ -146,7 +152,7 @@ class PremiosUsuario{
 	}
 	/* Recebe a quantidade de pontos ganhos por parâmetro e soma com pontosCampeonato */
 	function ganhaPontosCampeonato($pontos){
-		$this->pontosCampeonato = $this->pontosCampeonato + $pontos;
+		$this->pontosCampeonato += $pontos;
 	}
 	/* Incrementa em +1 o atributo medalhasOuro */
 	function ganhaMedalhaOuro(){
@@ -179,7 +185,6 @@ class PremiosUsuario{
 	function ganhaTrofeu(){
 		$this->trofeu = true;
 	}
-	
 	function calculaPontos($pontosAposta){
 		switch($pontosAposta){
 			case 10 : {
@@ -195,16 +200,10 @@ class PremiosUsuario{
 				break;
 			}
 		}
-		$this->pontosCampeonato += $pontosAposta;
+		$this->ganhaPontosCampeonato($pontosAposta);
 	}
-}
-function calculaPontosMedalhas(){
-	$this->pontosMedalhas=($this->medalhasOuro <<13) +($this->medalhasPrata<<7)+($this->medalhasBronze<<1) ;
-}
-function setClassificacaoCampeonato($classificacaoCampeonato){
-	$this->classificacaoCampeonato=$classificacaoCampeonato;
-}
-function setClassificacaoMedalhas($classificacaoMedalhas){
-	$this->classificacaoMedalhas=$classificacaoMedalhas;
+	function calculaPontosMedalhas(){
+		$this->pontosMedalhas=($this->medalhasOuro <<13) +($this->medalhasPrata<<7)+($this->medalhasBronze<<1) ;
+	}
 }
 ?>

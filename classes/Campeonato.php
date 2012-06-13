@@ -27,6 +27,12 @@ class Campeonato {
 	private $rodadas;
 	
 	/**
+	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="rodada", cascade={"persist"})
+	 * @var PontuacaoRodada[]
+	 */
+	protected $pontuacaoRodadas;
+	
+	/**
 	* @OneToMany(targetEntity="Aposta", mappedBy="campeonato", cascade={"persist"})
 	* @var Aposta[]
 	*/
@@ -60,6 +66,7 @@ class Campeonato {
 			$this->jogosCampeonato = new ArrayCollection();
 			$this->premiacoesCampeonato = new ArrayCollection();
 			$this->rendimentosTimes = new ArrayCollection();
+			$this->pontuacaoRodadas = new ArrayCollection();
 	}
 
 	function getCodCampeonato(){
@@ -133,6 +140,14 @@ class Campeonato {
 	
 	function getRendimentosTimes(){
 		return $this->rendimentosTimes;
+	}
+	
+	function getPontuacaoRodadas(){
+		return $this->pontuacaoRodadas;
+	}
+	
+	function adicionaPontuacaoRodada($pontuacaoRodada){
+		$this->pontuacaoRodadas[] = $pontuacaoRodada;
 	}
 	
 	function adicionaRodada($rodada){

@@ -24,6 +24,12 @@ class Usuario{
 	private $pontosGeral; // Total de pontos acumulados desde o cadastro do usuário
 	
 	/**
+	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="usuario", cascade={"persist"})
+	 * @var PontuacaoRodada[]
+	 */
+	protected $pontuacaoRodadas;
+	
+	/**
 	 * @OneToMany(targetEntity="Aposta", mappedBy="usuario", cascade={"persist"})
 	 * @var Aposta[]
 	 */
@@ -47,6 +53,7 @@ class Usuario{
 	$this->pontosGeral = 0;
 	$this->apostas = new ArrayCollection() ;
 	$this->premiacoes = new ArrayCollection() ;
+	$this->pontuacaoRodadas = new ArrayCollection();
 	}
 	
 	function getIdUsuario(){
@@ -119,6 +126,12 @@ class Usuario{
 		$this->premiacoes[] = $premiosUsuario;
 	}
 	
+	function getPontuacaoRodadas(){
+		return $this->pontuacaoRodadas;
+	}
 	
+	function adicionaPontuacaoRodada($pontuacaoRodada){
+		$this->pontuacaoRodadas[] = $pontuacaoRodada;
+	}
 	
 }

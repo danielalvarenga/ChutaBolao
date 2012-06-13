@@ -70,6 +70,23 @@ CREATE TABLE IF NOT EXISTS `jogo` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `pontuacaoRodada`
+--
+
+CREATE TABLE IF NOT EXISTS `pontuacaorodada` (
+  `usuario_id` bigint(20) NOT NULL DEFAULT '0',
+  `campeonato_id` int(11) NOT NULL DEFAULT '0',
+  `rodada_id` int(11) NOT NULL DEFAULT '0',
+  `pontosRodada` int(11) DEFAULT NULL,
+  `classificacaoRodada` int(11) DEFAULT NULL,
+  PRIMARY KEY (`usuario_id`,`campeonato_id`,`rodada_id`),
+  KEY `usuario_id` (`usuario_id`),
+  KEY `campeonato_id` (`campeonato_id`)
+  KEY `rodada_id` (`rodada_id`),
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+--
 -- Estrutura da tabela `premiosusuario`
 --
 
@@ -179,6 +196,14 @@ ALTER TABLE `jogo`
   ADD CONSTRAINT `FK_jogo_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_jogo_rodada` FOREIGN KEY (`rodada_id`) REFERENCES `rodada` (`id`) ON DELETE CASCADE;
 
+--
+-- Restrições para a tabela `pontuacaoRodada`
+--
+ALTER TABLE `pontuacaoRodada`
+  ADD CONSTRAINT `FK_pontuacaoRodada_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_pontuacaoRodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_pontuacaoRodada_rodada` FOREIGN KEY (`rodada_id`) REFERENCES `rodada` (`id`) ON DELETE CASCADE,
+  
 --
 -- Restrições para a tabela `premiosusuario`
 --
