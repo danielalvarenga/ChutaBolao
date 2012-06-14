@@ -81,17 +81,25 @@ td{
 
 p{
 	align:center;
-	color:yellow;
 	vertical-align:middle;
-	font-size: 27pt;
 	font-style:italic;
 	font-family:"Arial black","Lucida Grande", sans-serif;
 }
 
 #painel{
-	color:yellow;
-	background-color:black;
-	
-	
+	border: 1px solid #666;
+	align:center;
+	background-color:#E4E4E4;
+	font-size: 18px;
+	font-family: Helvetica;
+	vertical-align: middle;	
+	color: #17541f;
+    z-index: auto;
+    margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
 }
 

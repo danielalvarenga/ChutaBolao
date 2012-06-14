@@ -33,13 +33,13 @@ class Usuario{
 	 * @OneToMany(targetEntity="Aposta", mappedBy="usuario", cascade={"persist"})
 	 * @var Aposta[]
 	 */
-	protected $apostasUsuario = null;
+	protected $apostasUsuario;
 	
 	/**
 	 * @OneToMany(targetEntity="PremiosUsuario", mappedBy="usuario", cascade={"persist"}) 
 	 * @var PremiosUsuario[]
 	 */
-	protected $premiacoesUsuario = null;
+	protected $premiacoesUsuario;
 		
 	/* Recebe como parâmetros idUsuario, tokenUsuario, primeiroNomeUsuario, segundoNomeUsuario e emailUsuario,
 	 * inicia pontosGeral com 0 e instancia apostas e premiacoes como null */

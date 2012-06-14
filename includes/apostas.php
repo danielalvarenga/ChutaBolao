@@ -1,16 +1,11 @@
-﻿<?php 
-function opcaoUsuario(){
-	
-for($indiceEscolhaUsuario = 0 ; $indiceEscolhaUsuario < 100 ; $indiceEscolhaUsuario++ ){
-	echo "<OPTION VALUE=$indiceEscolhaUsuario>$indiceEscolhaUsuario</OPTION>";
-}
-
-}
-?>
-
-<?php
-
+﻿<?php
 require ("bootstrap.php");
+
+function opcaoUsuario(){
+	for($indiceEscolhaUsuario = 0 ; $indiceEscolhaUsuario < 100 ; $indiceEscolhaUsuario++ ){
+		echo "<OPTION VALUE=$indiceEscolhaUsuario>$indiceEscolhaUsuario</OPTION>";
+	}
+}
 
 if(isset($_POST)){
 	$contador=0;
@@ -36,8 +31,32 @@ if(isset($_POST)){
 		$jogos = $query->getResult();
 
 		$campeonato= $entityManager->find("Campeonato", $jogo_campeonato);
+		$usuario = $entityManager->find("Usuario",$user_id);
+		
+	//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda não existir		
+		$premiosUsuario = $entityManager->find("PremiosUsuario", array(
+				"campeonato" =>	$jogo_campeonato,
+				"usuario" => $user_id
+		));
+		if(!$premiosUsuario instanceof PremiosUsuario){
+			$premiosUsuario = new PremiosUsuario($usuario, $campeonato);
+			$entityManager->persist($premiosUsuario);
+			$entityManager->flush();
+		}
+		
+	//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda não existir
+		$objJogo = $entityManager->find("Jogo", $jogo_numero);
+		$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
+				"campeonato" =>	$jogo_campeonato,
+				"rodada" => $objJogo->getRodada()->getNumRodada(),
+				"usuario" => $user_id
+		));
+		if(!$pontuacaoRodada instanceof PontuacaoRodada){
+			$pontuacaoRodada = new PontuacaoRodada($objJogo->getRodada(), $campeonato, $usuario);
+			$entityManager->persist($pontuacaoRodada);
+			$entityManager->flush();
+		}
 
-		$usuario = $entityManager->find("Usuario",'100000885523520');
 		if ($apostasCadastrada<>NULL){
 			foreach ($apostasCadastrada as $apostaCadastrada){
 			
@@ -63,7 +82,7 @@ if(isset($_POST)){
 		else{
 			if (($palpite_time1_jogo<>'') && ($palpite_time2_jogo<>'')){
 				foreach ($jogos as $jogo){
-					$apostaNova=new Aposta($usuario, $campeonato, $jogo);
+					$apostaNova = new Aposta($usuario, $campeonato, $jogo);
 					$apostaNova->setApostaGolsTime1($palpite_time1_jogo);
 					$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
 					$entityManager->persist($apostaNova);
@@ -76,12 +95,24 @@ if(isset($_POST)){
 		}
 	}
 	if($contador>0){
-	echo"<p align='center'><table align='center' id='painel' border='1'><tr><td><br><p >
-	Aposta realizada com sucesso</p><br></td></tr></table><br>";	
+	echo"<p align='center'>
+	<table id='painel'>
+		<tr>
+			<td>
+				<p align='center'>Aposta realizada com sucesso</p>
+			</td>
+		</tr>
+	</table>";	
 	}
 	if($contador1>0){
-		echo"<p align='center'><table align='center' id='painel' border='1'><tr><td><br><p >
-		Aposta atualizada com sucesso</p><br></td></tr></table><br>";	
+		echo"<p align='center'>
+		<table id='painel'>
+			<tr>
+				<td>
+					<p align='center'>Aposta atualizada com sucesso</p>
+				</td>
+			</tr>
+		</table>";	
 	}
 }
 
@@ -140,7 +171,7 @@ if(isset($_POST)){
 			// Essa parte do codigo busca aposta do usuario de acordo com o numero do
 			//jogo cadastradas dentro do banco de dados.
 
-			$dql = "SELECT a FROM Aposta a WHERE a.jogo=".$jogo->getCodJogo()." AND a.usuario=100000885523520 
+			$dql = "SELECT a FROM Aposta a WHERE a.jogo=".$jogo->getCodJogo()." AND a.usuario=".$user_id." 
 			AND a.campeonato=".$campeonato->getCodCampeonato();
 			$query = $entityManager->createQuery($dql);
 			$apostas = $query->getResult();

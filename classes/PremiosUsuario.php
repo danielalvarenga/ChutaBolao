@@ -47,7 +47,7 @@ class PremiosUsuario{
 	/** @Column(type="boolean") */
 	private $trofeu; // "true" se o usuário ganhou troféu do campeonato. "false" por default.
 	
-	/** @Id @ManyToOne(targetEntity="Usuario", inversedBy="premiacoes")
+	/** @Id @ManyToOne(targetEntity="Usuario", inversedBy="premiacoesUsuario")
 	* @var Usuario
 	*/
 	private $usuario; // Objeto da Classe Usuario a quem pertence os prêmios
@@ -83,6 +83,12 @@ class PremiosUsuario{
 	}
 	function getCampeonato(){
 		return $this->campeonato;
+	}
+	function setUsuario($usuario){
+		$this->usuario = $usuario;
+	}
+	function setCampeonato($campeonato){
+		$this->campeonato = $campeonato;
 	}
 	function getClassificacaoCampeonato(){
 		return $this->classificacaoCampeonato;
