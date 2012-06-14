@@ -174,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `segundoNomeUsuario` varchar(255) DEFAULT NULL,
   `emailUsuario` varchar(255) DEFAULT NULL,
   `pontosGeral` int(11) DEFAULT NULL,
+  `classificacaoGeral` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

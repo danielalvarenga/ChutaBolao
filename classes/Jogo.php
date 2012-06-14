@@ -209,6 +209,12 @@ class Jogo {
 		$dataAtual = $this->criarDatetime($agora);
 		return $dataAtual->format( "Y-m-d H:i:s" );
 	}
+	function getDataLogica(){
+		$dataLogica = $this->criarDatetime($this->dataJogo);
+		$dataLogicaFimApostas = $this->criarDatetime($this->getDataFimApostas());
+		return "Em ".$dataLogica->format( "d/m/Y" )." às ".$dataLogica->format( "H:i" )." - 
+				Chute até ".$dataLogicaFimApostas->format( "d/m/Y" )." às ".$dataLogicaFimApostas->format( "H:i" );
+	}
 	
 
 }

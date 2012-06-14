@@ -15,36 +15,25 @@ class Aposta{
 	/**
 	* @Id @ManyToOne(targetEntity="Jogo", inversedBy="apostasJogo")
 	*/
-	private $jogo;
+	protected $jogo;
 	
 	/**
 	* @Id @ManyToOne(targetEntity="Usuario", inversedBy="apostasUsuario")
 	*/
-	private $usuario;
+	protected $usuario;
 	
 	/**
 	* @Id @ManyToOne(targetEntity="Campeonato", inversedBy="apostasCampeonato")
 	*/
-	private $campeonato;
+	protected $campeonato;
 
-	function __construct($idUsuario,$codCampeonato,$codJogo){
-		if($idUsuario===null){
-			throw new Exception("ERRO 1 NAO FOI POSSIVEL REALIZAR SUA APOSTA ");
-		}
-		
-		elseif ($codCampeonato===null){
-			throw new Exception("ERRO 2 NAO FOI POSSIVEL REALIZAR SUA APOSTA ");
-		}
-		
-		elseif ($codJogo===null){
-			throw new Exception("ERRO 3 NAO FOI POSSIVEL REALIZAR SUA APOSTA ");
-		}
-		
-		else{
-		$this->usuario=$idUsuario;
-		$this->campeonato=$codCampeonato;
-		$this->jogo=$codJogo;
-	}
+	function __construct($usuario,$campeonato,$jogo){
+		$this->apostaGolsTime1 = NULL;
+		$this->apostaGolsTime2 = NULL;
+		$this->pontosAposta = 0;
+		$this->usuario=$usuario;
+		$this->campeonato=$campeonato;
+		$this->jogo=$jogo;
 	}
 	
 	function getApostaGolsTime1() {
@@ -56,41 +45,33 @@ class Aposta{
 	}
 
 	function setApostaGolsTime1($apostaGolsTime1){
-		if ($apostaGolsTime1<0){throw new Exception("ERRO NUMERO DE GOLS NEGATIVO");
-		}
-		elseif ($apostaGolsTime1===null){throw new Exception("E OBRIGATORIO PREENCHER OS DOIS CAMPOS ");
-		}
-		else{
 		$this->apostaGolsTime1=$apostaGolsTime1;
-	}
 	}
 	 
 	function setApostaGolsTime2($apostaGolsTime2){
-		if ($apostaGolsTime2<0){
-			throw new Exception("ERRO NUMERO DE GOLS NEGATIVO");
-		}
-		elseif ($apostaGolsTime2===null){
-			throw new Exception("E OBRIGATORIO PREENCHER OS DOIS CAMPOS ");
-		}
-		else{
-		
 		$this->apostaGolsTime2=$apostaGolsTime2;
-	}
 	}
 	function getUsuario(){
 		return $this->usuario;
 	}
 	
-	function getCodCampeonato(){
-		return $this->codCampeonato;
+	function getCampeonato(){
+		return $this->campeonato;
 	}
 	
-	function getcodRodada(){
-		return $this->codRodada;
+	function getJogo(){
+		return $this->jogo;
+	}
+	function setUsuario($usuario){
+		$this->usuario = $usuario;
 	}
 	
-	function getCodJogo(){
-		return $this->codJogo;
+	function setCampeonato($campeonato){
+		$this->campeonato = $campeonato;
+	}
+	
+	function setJogo($jogo){
+		$this->jogo = $jogo;
 	}
 	
 	function calculaPontosAposta($golsTime1,$golsTime2){

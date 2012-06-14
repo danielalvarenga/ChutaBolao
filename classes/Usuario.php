@@ -23,6 +23,9 @@ class Usuario{
 	/** @Column(type="integer")*/
 	private $pontosGeral; // Total de pontos acumulados desde o cadastro do usuário
 	
+	/** @Column(type="integer")*/
+	private $classificacaoGeral; // Total de pontos acumulados desde o cadastro do usuário
+	
 	/**
 	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="usuario", cascade={"persist"})
 	 * @var PontuacaoRodada[]
@@ -40,9 +43,6 @@ class Usuario{
 	 * @var PremiosUsuario[]
 	 */
 	protected $premiacoesUsuario;
-		
-	/* Recebe como parâmetros idUsuario, tokenUsuario, primeiroNomeUsuario, segundoNomeUsuario e emailUsuario,
-	 * inicia pontosGeral com 0 e instancia apostas e premiacoes como null */
 	
 	function __construct($idUsuario, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario){
 	$this->idUsuario = $idUsuario;
@@ -51,8 +51,9 @@ class Usuario{
 	$this->segundoNomeUsuario = $segundoNomeUsuario;
 	$this->emailUsuario = $emailUsuario;
 	$this->pontosGeral = 0;
-	$this->apostas = new ArrayCollection() ;
-	$this->premiacoes = new ArrayCollection() ;
+	$this->classificacaoGeral = NULL;
+	$this->apostasUsuario = new ArrayCollection() ;
+	$this->premiacoesUsuario = new ArrayCollection() ;
 	$this->pontuacaoRodadas = new ArrayCollection();
 	}
 	
@@ -100,6 +101,13 @@ class Usuario{
 		return $this->pontosGeral;
 	}
 	
+	function getClassificacaoGeral(){
+		return $this->classificacaoGeral;
+	}
+	function setClassificacaoGeral($classificacaoGeral){
+		$this->classificacaoGeral = $classificacaoGeral;
+	}
+	
 	function getApostas($aposta){
 		return $this->apostas;
 	}
@@ -108,22 +116,16 @@ class Usuario{
 		return $this->premiacoesUsuario;
 	}
 	
-	/* Recebe a quantidade de pontos ganhos por parâmetro e soma com pontosGeral */
-	
 	function ganhaPontosGeral($pontos){
 		$this->pontosGeral = $this->pontosGeral + $pontos;
 	}
 	
-	/* Recebe o objeto Aposta e adiciona ao array apostas[] */
-	
 	function adicionaAposta($aposta){
-		$this->apostas[] = $aposta;
+		$this->apostasUsuario[] = $aposta;
 	}
 	
-	/* Recebe o objeto PremiosUsuario e adiciona ao array premiacoes[] */
-	
 	function adicionaPremiacoesUsuario($premiosUsuario){
-		$this->premiacoes[] = $premiosUsuario;
+		$this->premiacoesUsuario[] = $premiosUsuario;
 	}
 	
 	function getPontuacaoRodadas(){

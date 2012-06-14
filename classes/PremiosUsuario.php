@@ -50,12 +50,12 @@ class PremiosUsuario{
 	/** @Id @ManyToOne(targetEntity="Usuario", inversedBy="premiacoesUsuario")
 	* @var Usuario
 	*/
-	private $usuario; // Objeto da Classe Usuario a quem pertence os prêmios
+	protected $usuario; // Objeto da Classe Usuario a quem pertence os prêmios
 	
 	/** @Id @ManyToOne(targetEntity="Campeonato", inversedBy="premiacoesCampeonato")
 	 * @var Campeonato
 	 */
-	private $campeonato; // Objeto da Classe Campeonato que referência em qual Campeonato foram ganhos os prêmios
+	protected $campeonato; // Objeto da Classe Campeonato que referência em qual Campeonato foram ganhos os prêmios
 	
 	function __construct($usuario, $campeonato, $codTimeFavorito = NULL){
 		$this->codTimeFavorito = $codTimeFavorito;
