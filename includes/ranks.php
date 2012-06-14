@@ -1,25 +1,30 @@
 ﻿<?php 
-$dql = "SELECT u FROM Usuario u  GROUP BY u.pontosGeral ORDER BY u.pontosGeral DESC";
+$dql = "SELECT u FROM Usuario u  ORDER BY u.pontosGeral DESC";
 $query= $entityManager->createQuery($dql);
 $usuarios= $query->getResult();
-if($usuarios<>NULL){
-echo '<div id="Mural">
-				
-	 			<span class="titulo">Classificacao Geral</span>
-	 			<span id="compartilharMural">
+    if($usuarios<>NULL){
+       echo '<div id="Mural">
+		    	<span class="titulo">Classificacao Geral</span>
+	 		    	<span id="compartilharMural">
 					<a class="compartilhar" href="" target="_blank">compartilhar</a>
-		        </span><br>';
+		    </span>';
+
 		    foreach ($usuarios as $usuario){
 		    	if ($user_id==$usuario->getIdUsuario()) {
-		    		echo "<table border='0' celpadding='0' celspacing='0' style='display:inline-block; *display:inline; _display:inline;' height='58'>
-		    				        <tr><td><span id='pontos' >".$usuario->getIdUsuario()." pontuacao de medalhas ".$usuario->getPontosGeral()."</span></td ></tr></table><br>";
+		    		echo "<table border='0' celpadding='0' celspacing='0' style='display:inline-block;
+		    		         *display:inline; _display:inline;' height='58'><tr><td class='texto'>
+		    		         <span id='pontos' >Sua Posicao: ".$usuario->getPrimeiroNomeUsuario().
+		    		     " pontuacao de medalhas ".$usuario->getPontosGeral()."</span></td ></tr></table><br>";
 		    	}
 		    	else{
-		    echo "<br> ".$usuario->getIdUsuario()." pontucao geral ".$usuario->getPontosGeral()."<br>";	
+		            echo "<table border='0' celpadding='0' celspacing='0' style='display:inline-block;
+		                     *display:inline; _display:inline;' height='58'><tr><td class='texto'>
+		                     <span id='chuteiras' >".$usuario->getPrimeiroNomeUsuario().
+		                 " pontuacao de medalhas ".$usuario->getPontosGeral()."</span></td ></tr></table><br>";
+		    	}
 		    }
-		    }
-	echo '</div>';
-}
+	  echo '</div>';
+  }
 	$dql = "SELECT p FROM PremiosUsuario p  GROUP BY p.pontosMedalhas ORDER BY
 	 p.pontosMedalhas  DESC";
 	$query= $entityManager->createQuery($dql);
@@ -29,25 +34,25 @@ echo '<div id="Mural">
 		echo '<div id="Mural">
 					
 		 			<span class="titulo">Classificacao Geral Medalhas</span>
-		 			<span id="compartilharMural">
+		 			    <span id="compartilharMural">
 						<a class="compartilhar" href="" target="_blank">compartilhar</a>
 			        </span><br>';
 		foreach ($premios as $premio){
 			$contador++;
 			if ($user_id==$premio->getUsuario()->getIdUsuario()) {
 				echo "<table border='0' celpadding='0' celspacing='0' style='display:inline-block; *display:inline; _display:inline;' height='58'>
-			           <tr><td><span id='pontos' >classificacao".$contador." ".$premio->getUsuario()->getIdUsuario().
-			           "<br> pontos medalhas ".$premio->getPontosMedalhas()."<br> medalhas de ouro ".$premio->getMedalhasOuro().
-			           "<br> medalhas de prata".$premio->getMedalhasPrata().
-			           "<br>medalhas de bronze".$premio->getMedalhasBronze().
-				"</span></td ></tr></table><br>";
+			             <tr><td><span id='pontos' >classificacao".$contador." ".$premio->getUsuario()->getIdUsuario().
+			                "<br> pontos medalhas ".$premio->getPontosMedalhas()."<br> medalhas de ouro ".$premio->getMedalhasOuro().
+			                "<br> medalhas de prata".$premio->getMedalhasPrata().
+			             "<br>medalhas de bronze".$premio->getMedalhasBronze().
+				     "</span></td ></tr></table><br>";
 			}
 			else{
 				echo "<br> classificacao".$contador." ".$premio->getUsuario()->getIdUsuario().
-				"<br> pontos medalhas ".$premio->getPontosMedalhas().
-			           "<br> medalhas de ouro ".$premio->getMedalhasOuro().
-			           "<br> medalhas de prata".$premio->getMedalhasPrata().
-			           "<br>medalhas de bronze".$premio->getMedalhasBronze()."<br>";
+				        "<br> pontos medalhas ".$premio->getPontosMedalhas().
+			                "<br> medalhas de ouro ".$premio->getMedalhasOuro().
+			                "<br> medalhas de prata".$premio->getMedalhasPrata().
+			            "<br>medalhas de bronze".$premio->getMedalhasBronze()."<br>";
 			}
 		}
 	}
