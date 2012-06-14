@@ -1,6 +1,6 @@
 <?php
 
-/** @Entity @Table(name="pontuacaoRodada")*/
+/** @Entity @Table(name="pontuacaorodada")*/
 Class PontuacaoRodada {
 	
 	/** @Column(type="integer") */

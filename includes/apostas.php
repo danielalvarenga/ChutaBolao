@@ -29,6 +29,19 @@ if(isset($_POST)){
 				"jogo" => $jogo_numero
 		));
 		
+		//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda não existir
+		
+		$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
+				"campeonato" =>	$jogo_campeonato,
+				"rodada" => $jogo->getRodada()->getNumRodada(),
+				"usuario" => $user_id
+		));
+		if(!$pontuacaoRodada instanceof PontuacaoRodada){
+			$pontuacaoRodada = new PontuacaoRodada($jogo->getRodada(), $campeonato, $usuario);
+			$entityManager->persist($pontuacaoRodada);
+			$entityManager->flush();
+		}
+		
 		//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda não existir
 			
 		$premiosUsuario = $entityManager->find("PremiosUsuario", array(
@@ -38,19 +51,6 @@ if(isset($_POST)){
 		if(!$premiosUsuario instanceof PremiosUsuario){
 			$premiosUsuario = new PremiosUsuario($usuario, $campeonato);
 			$entityManager->persist($premiosUsuario);
-			$entityManager->flush();
-		}
-		
-		//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda não existir
-		
-		$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
-				"campeonato" =>	$jogo_campeonato,
-				"rodada" => $jogo->getRodada()->getNumRodada(),
-				"usuario" => $user_id
-		));
-		if(!$pontuacaoRodada instanceof PontuacaoRodada){
-			$pontuacaoRodada = new PontuacaoRodada($objJogo->getRodada(), $campeonato, $usuario);
-			$entityManager->persist($pontuacaoRodada);
 			$entityManager->flush();
 		}
 		
@@ -117,7 +117,7 @@ if(isset($_POST)){
 	if($campeonatos<>NULL){
  
 		$opcaoVazia=' ';
-		$imprimeLetraX= " X ";
+		$imprimeLetraX= "X";
 	    
 		foreach ($campeonatos as $campeonato){
 			
@@ -182,7 +182,7 @@ if(isset($_POST)){
 									$time1
 								</td>
 								<td class=\"coluna\">
-									<img class=\"escudo\" src='../ChutaBolao/$escudo1'>
+									<img class=\"escudo\" src='$escudo1'>
 								</td>
 								<td class=\"coluna\">
 									<INPUT type='hidden' name='$numero_campeonato' value=".$campeonato->getCodCampeonato().">
@@ -204,7 +204,7 @@ if(isset($_POST)){
 									</SELECT>
 								</td>
 								<td class=\"coluna\">
-									<img class=\"escudo\" src='../ChutaBolao/$escudo2'>
+									<img class=\"escudo\" src='$escudo2'>
 								</td>
 								<td class=\"coluna\" align=\"left\">
 									$time2
@@ -225,7 +225,7 @@ if(isset($_POST)){
 									$time1
 								</td>
 								<td class=\"coluna\">
-									<img class=\"escudo\" src='../ChutaBolao/$escudo1'>
+									<img class=\"escudo\" src='$escudo1'>
 								</td>
 								<td class=\"coluna\">
 									<INPUT type='hidden' name='$numero_campeonato' value=".$campeonato->getCodCampeonato().">	
@@ -248,7 +248,7 @@ if(isset($_POST)){
 									</SELECT>
 								</td>
 								<td class=\"coluna\">
-									<img class=\"escudo\" src='../ChutaBolao/$escudo2'>
+									<img class=\"escudo\" src='$escudo2'>
 								</td>
 								<td class=\"coluna\"  align=\"left\">
 									$time2

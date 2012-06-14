@@ -200,7 +200,7 @@ ALTER TABLE `jogo`
 --
 -- Restrições para a tabela `pontuacaoRodada`
 --
-ALTER TABLE `pontuacaoRodada`
+ALTER TABLE `pontuacaorodada`
   ADD CONSTRAINT `FK_pontuacaoRodada_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_pontuacaoRodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_pontuacaoRodada_rodada` FOREIGN KEY (`rodada_id`) REFERENCES `rodada` (`id`) ON DELETE CASCADE;
