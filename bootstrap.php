@@ -21,7 +21,7 @@ $loader = new \Doctrine\Common\ClassLoader("Doctrine");
 $loader->register();
 
 // Configuracao de acesso ao banco de dados
-$dbParams = array(
+$conn = array(
     'driver' => 'pdo_mysql',
     'user' => 'chutabol_admin',
     'password' => 'corporativa10',
@@ -33,4 +33,4 @@ $path = array(__DIR__."/classes");
 $config = Setup::createAnnotationMetadataConfiguration($path, $debug);
 
 // Obtendo uma instancia do Entity Manager
-$entityManager = \Doctrine\ORM\EntityManager::create($dbParams, $config);
+$entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);

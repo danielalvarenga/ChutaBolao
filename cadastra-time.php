@@ -3,85 +3,105 @@
 require "bootstrap.php";
 
 if(isset($_POST['time'])){
-	$time = $entityManager->find("Time", $_POST['time']);
-	$escudo = $time->getEscudo();
-	$nomeTime = $time->getNomeTime();
-	$codTime = $time->getCodTime();
-	$entityManager->remove($time);
-	$entityManager->flush();
-	unlink("$escudo");
-	echo "Excluído time com o nome $nomeTime com código $codTime<br><br>";
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		
+		$time = $entityManager->find("Time", $_POST['time']);
+		$escudo = $time->getEscudo();
+		$nomeTime = $time->getNomeTime();
+		$codTime = $time->getCodTime();
+		$entityManager->remove($time);
+		$entityManager->flush();
+		unlink("$escudo");
+		echo "Excluído time com o nome $nomeTime com código $codTime<br><br>";
+		
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Não foi possível gravar os dados. Verifique o Banco de Dados.</font><br/>";
+	}
+	$conn->close();
 }
 
 if(isset($_POST['nome'])){
-	
-	
-	if(empty($_POST['nome'])){
-		echo "<script> alert('Campo \"nome\" obrigatorio!')
-		location = ('cadastra-time.php');
-		</script>";
-	}
-	else{
-		$nome = $_POST['nome'];
-		$imagem = $_FILES["escudo"];
-		// Se a foto estiver sido selecionada
-		if (!empty($imagem["name"])) {
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
 		
-			// Largura máxima em pixels
-			$largura = 47;
-			// Altura máxima em pixels
-			$altura = 47;
-
-			$dimensoes = getimagesize($imagem["tmp_name"]);
-
-			if($dimensoes[0] <= $largura && $dimensoes[1] <= $altura){
-				$dqlTime = "SELECT t FROM Time t WHERE t.nomeTime = '$nome'";
-				$queryT = $entityManager->createQuery($dqlTime);
-				$queryT->setMaxResults(1);
-				$times = $queryT->getResult();
-				$contador = 0;
-				foreach($times as $time) {
-					if($time instanceof Time){
-						$contador++;
+		if(empty($_POST['nome'])){
+			echo "<script> alert('Campo \"nome\" obrigatorio!')
+			location = ('cadastra-time.php');
+			</script>";
+		}
+		else{
+			$nome = $_POST['nome'];
+			$imagem = $_FILES["escudo"];
+			// Se a foto estiver sido selecionada
+			if (!empty($imagem["name"])) {
+			
+				// Largura máxima em pixels
+				$largura = 47;
+				// Altura máxima em pixels
+				$altura = 47;
+	
+				$dimensoes = getimagesize($imagem["tmp_name"]);
+	
+				if($dimensoes[0] <= $largura && $dimensoes[1] <= $altura){
+					$dqlTime = "SELECT t FROM Time t WHERE t.nomeTime = '$nome'";
+					$queryT = $entityManager->createQuery($dqlTime);
+					$queryT->setMaxResults(1);
+					$times = $queryT->getResult();
+					$contador = 0;
+					foreach($times as $time) {
+						if($time instanceof Time){
+							$contador++;
+						}
 					}
-				}
-				if($contador == 0){
-					// Pega extensão da imagem
-					preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $imagem["name"], $ext);
-					
-					$nomeUrlEscudo = strtolower(trim(
-									str_replace('é', 'e',
-									str_replace('ó', 'o',
-									str_replace('á', 'a', 
-									str_replace('í', 'i', 
-									str_replace('ú', 'u', 
-									str_replace('ê', 'e', 
-									str_replace('ô', 'o', 
-									str_replace('â', 'a', 
-									str_replace('õ', 'o',
-									str_replace('ã', 'a',
-									str_replace(' ', '-', $nome)
-											)))))))))))).$largura.'x'.$altura;
-					
-					// Gera um nome único para a imagem
-					$nome_imagem = $nomeUrlEscudo."." . $ext[1];
-			
-					// Caminho de onde ficará a imagem
-					$caminho_imagem = "imagens/escudos/" . $nome_imagem;
-			
-					// Faz o upload da imagem para seu respectivo caminho
-					move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
-					
-					$time = new Time($nome, $caminho_imagem);
-					$entityManager->persist($time);
-					$entityManager->flush();
-				}
-				else{
-					echo "<font color='red'><b>Este time já existe.</b></font>";
+					if($contador == 0){
+						// Pega extensão da imagem
+						preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $imagem["name"], $ext);
+						
+						$nomeUrlEscudo = strtolower(trim(
+										str_replace('é', 'e',
+										str_replace('ó', 'o',
+										str_replace('á', 'a', 
+										str_replace('í', 'i', 
+										str_replace('ú', 'u', 
+										str_replace('ê', 'e', 
+										str_replace('ô', 'o', 
+										str_replace('â', 'a', 
+										str_replace('õ', 'o',
+										str_replace('ã', 'a',
+										str_replace(' ', '-', $nome)
+												)))))))))))).$largura.'x'.$altura;
+						
+						// Gera um nome único para a imagem
+						$nome_imagem = $nomeUrlEscudo."." . $ext[1];
+				
+						// Caminho de onde ficará a imagem
+						$caminho_imagem = "imagens/escudos/" . $nome_imagem;
+				
+						// Faz o upload da imagem para seu respectivo caminho
+						move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
+						
+						$time = new Time($nome, $caminho_imagem);
+						$entityManager->persist($time);
+						$entityManager->flush();
+					}
+					else{
+						echo "<font color='red'><b>Este time já existe.</b></font>";
+					}
 				}
 			}
 		}
+		
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Não foi possível gravar os dados. Verifique o Banco de Dados.</font><br/>";
 	}
+	$conn->close();
 }
 ?>
 

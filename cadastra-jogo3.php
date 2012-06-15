@@ -15,56 +15,64 @@ else{
 }
 		
 if (isset($_POST['codtime1'])) {
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		$codTime1 = $_POST['codtime1'];
+		$codTime2 = $_POST['codtime2'];
+		$codCampeonato = $_POST['campeonato'];
+		
+		$data = $_POST['ano'].'-'.$_POST['mes'].'-'.$_POST['dia'].' '.$_POST['hora'].':'.$_POST['minuto'].':00';
+		$dataJogo = new DateTime(''.$data.'', new DateTimeZone('America/Sao_Paulo'));
+		$dataJogoString = $dataJogo->format( "Y-m-d H:i:s" );
+		
+		$dqlJogo = "SELECT j FROM Jogo j WHERE
+					j.codTime1 = '$codTime1' AND
+					j.codTime2 = '$codTime2' AND
+					j.campeonato = '$codCampeonato' AND
+					j.dataJogo ='$dataJogoString'";
+		$queryJ = $entityManager->createQuery($dqlJogo);
+		$jogos = $queryJ->getResult();
 	
-	$codTime1 = $_POST['codtime1'];
-	$codTime2 = $_POST['codtime2'];
-	$codCampeonato = $_POST['campeonato'];
-	
-	$data = $_POST['ano'].'-'.$_POST['mes'].'-'.$_POST['dia'].' '.$_POST['hora'].':'.$_POST['minuto'].':00';
-	$dataJogo = new DateTime(''.$data.'', new DateTimeZone('America/Sao_Paulo'));
-	$dataJogoString = $dataJogo->format( "Y-m-d H:i:s" );
-	
-	$dqlJogo = "SELECT j FROM Jogo j WHERE
-				j.codTime1 = '$codTime1' AND
-				j.codTime2 = '$codTime2' AND
-				j.campeonato = '$codCampeonato' AND
-				j.dataJogo ='$dataJogoString'";
-	$queryJ = $entityManager->createQuery($dqlJogo);
-	$jogos = $queryJ->getResult();
-
-	if($jogos <> NULL){
-			echo '<font color="red"><b>Este jogo já existe.</b></font><br/>';
-	} else{
+		if($jogos <> NULL){
+				echo '<font color="red"><b>Este jogo já existe.</b></font><br/>';
+		} else{
+					
+		// Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato
+					
+				$rendimentoTime1 = $entityManager->find("RendimentoTime", array(
+						"campeonato" => $_POST['campeonato'],
+						"time" => $_POST['codtime1']
+						));
+				$rendimentoTime2 = $entityManager->find("RendimentoTime", array(
+						"campeonato" => $_POST['campeonato'],
+						"time" => $_POST['codtime2']
+						));
+					
+				if(!$rendimentoTime1 instanceof RendimentoTime){
+					$time1 = $entityManager->find("Time", $_POST['codtime1']);
+					$rendimentoTime1 = new RendimentoTime($objCampeonato, $time1);
+					$entityManager->persist($rendimentoTime1);
+					$entityManager->flush();
+				}
+				if(!$rendimentoTime2 instanceof RendimentoTime){
+					$time2 = $entityManager->find("Time", $_POST['codtime2']);
+					$rendimentoTime2 = new RendimentoTime($objCampeonato, $time2);
+					$entityManager->persist($rendimentoTime2);
+					$entityManager->flush();
+				}
+		// -------------------------------------------------------------------------------------------------------------------
 				
-	// Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato
-				
-			$rendimentoTime1 = $entityManager->find("RendimentoTime", array(
-					"campeonato" => $_POST['campeonato'],
-					"time" => $_POST['codtime1']
-					));
-			$rendimentoTime2 = $entityManager->find("RendimentoTime", array(
-					"campeonato" => $_POST['campeonato'],
-					"time" => $_POST['codtime2']
-					));
-				
-			if(!$rendimentoTime1 instanceof RendimentoTime){
-				$time1 = $entityManager->find("Time", $_POST['codtime1']);
-				$rendimentoTime1 = new RendimentoTime($objCampeonato, $time1);
-				$entityManager->persist($rendimentoTime1);
+				$jogo = new Jogo($data,$objRodada,$_POST['codtime1'],$_POST['codtime2'], $objCampeonato);
+				$entityManager->persist($jogo);
 				$entityManager->flush();
-			}
-			if(!$rendimentoTime2 instanceof RendimentoTime){
-				$time2 = $entityManager->find("Time", $_POST['codtime2']);
-				$rendimentoTime2 = new RendimentoTime($objCampeonato, $time2);
-				$entityManager->persist($rendimentoTime2);
-				$entityManager->flush();
-			}
-	// -------------------------------------------------------------------------------------------------------------------
-			
-			$jogo = new Jogo($data,$objRodada,$_POST['codtime1'],$_POST['codtime2'], $objCampeonato);
-			$entityManager->persist($jogo);
-			$entityManager->flush();
+		}
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Não foi possível gravar os dados. Verifique o Banco de Dados.</font><br/>";
 	}
+	$conn->close();
 }
 	
 
@@ -204,42 +212,51 @@ cadastro de jogo
 	</tr>
 
 <?php
-$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.campeonato ASC";
-
-$queryJogo = $entityManager->createQuery($dqlJogo);
-
-$jogos = $queryJogo->getResult();
-	
-foreach($jogos as $jogo) {
-
-	if($jogo instanceof Jogo){
-	
-		$codTime1 = $jogo->getCodtime1();
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.campeonato DESC";
 		
-		$codTime2 = $jogo->getCodtime2();
+		$queryJogo = $entityManager->createQuery($dqlJogo);
 		
-		$time1 = $entityManager->find("Time", $codTime1);
+		$jogos = $queryJogo->getResult();
+			
+		foreach($jogos as $jogo) {
 		
-		$time2 = $entityManager->find("Time", $codTime2);
-		
-		echo '<tr vertical-align="middle" align="center">
-				<td>'.$jogo->getDatajogo().'</td>
-				<td>'.$jogo->getCampeonato()->getNomeCampeonato().' '.$jogo->getCampeonato()->getAnoCampeonato().'</td>
-				<td>'.$jogo->getRodada()->getNumRodada().'</td>
-				<td>'.$time1->getNomeTime().'</td>
-				<td>'.$time2->getNomeTime().'</td>
-				<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
-				<td>'.$jogo->getDataInicioApostas().'</td>
-				<td>'.$jogo->getDataFimApostas().'</td>
-				<td>
-					<form method="POST" action="insere-gols.php">
-					<input type="hidden" name="jogo" value='.$jogo->getCodjogo().'>
-					<input type="submit" name="insere-gols" value="Inserir Gols"><br/>
-					</form>
-				</td>
-			</tr>';
+			if($jogo instanceof Jogo){
+			
+				$codTime1 = $jogo->getCodtime1();
+				
+				$codTime2 = $jogo->getCodtime2();
+				
+				$time1 = $entityManager->find("Time", $codTime1);
+				
+				$time2 = $entityManager->find("Time", $codTime2);
+				
+				echo '<tr vertical-align="middle" align="center">
+						<td>'.$jogo->getDatajogo().'</td>
+						<td>'.$jogo->getCampeonato()->getNomeCampeonato().' '.$jogo->getCampeonato()->getAnoCampeonato().'</td>
+						<td>'.$jogo->getRodada()->getNumRodada().'</td>
+						<td>'.$time1->getNomeTime().'</td>
+						<td>'.$time2->getNomeTime().'</td>
+						<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
+						<td>'.$jogo->getDataInicioApostas().'</td>
+						<td>'.$jogo->getDataFimApostas().'</td>
+						<td>
+							<form method="POST" action="insere-gols.php">
+							<input type="hidden" name="jogo" value='.$jogo->getCodjogo().'>
+							<input type="submit" name="insere-gols" value="Inserir Gols"><br/>
+							</form>
+						</td>
+					</tr>';
+			}
+		}
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Dados não encontrados. Verifique o Banco de Dados.</font><br/>";
 	}
-}
+	$conn->close();
 ?>
 </table>
 

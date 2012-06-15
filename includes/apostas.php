@@ -8,105 +8,124 @@ function opcaoUsuario(){
 }
 
 if(isset($_POST)){
-	$contador=0;
-	$contador1=0;
-	for ($i=0;$i<sizeof($_POST)/4;$i++){
-		
-		$aux=$i <<2;
-		$jogo_campeonato=$_POST[$aux];
-		$jogo_numero= $_POST[$aux + 1 ];
-		$palpite_time1_jogo= $_POST[$aux + 2 ];
-		$palpite_time2_jogo= $_POST[$aux + 3 ];
-		
-		//Busca objeto Jogo, Campeonato e Aposta
-		
-		$usuario = $entityManager->find("Usuario", $user_id);
-		$jogo = $entityManager->find("Jogo", $jogo_numero);
-		$campeonato= $entityManager->find("Campeonato", $jogo_campeonato);
-		$apostaCadastrada = $entityManager->find("Aposta", array(
-				"campeonato" =>	$jogo_campeonato,
-				"usuario" => $user_id,
-				"jogo" => $jogo_numero
-		));
-		
-		//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda não existir
-		
-		$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
-				"campeonato" =>	$jogo_campeonato,
-				"rodada" => $jogo->getRodada()->getNumRodada(),
-				"usuario" => $user_id
-		));
-		if(!$pontuacaoRodada instanceof PontuacaoRodada){
-			$pontuacaoRodada = new PontuacaoRodada($jogo->getRodada(), $campeonato, $usuario);
-			$entityManager->persist($pontuacaoRodada);
-			$entityManager->flush();
-		}
-		
-		//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda não existir
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		$contador=0;
+		$contador1=0;
+		for ($i=0;$i<sizeof($_POST)/4;$i++){
 			
-		$premiosUsuario = $entityManager->find("PremiosUsuario", array(
-				"campeonato" =>	$jogo_campeonato,
-				"usuario" => $user_id
-		));
-		if(!$premiosUsuario instanceof PremiosUsuario){
-			$premiosUsuario = new PremiosUsuario($usuario, $campeonato);
-			$entityManager->persist($premiosUsuario);
-			$entityManager->flush();
-		}
-		
-		//Cria nova aposta se ainda não existir
-
-		if ($apostaCadastrada instanceof Aposta){
-			if ($apostaCadastrada->getApostaGolsTime1()<>$palpite_time1_jogo) {
-				$apostaCadastrada->setApostaGolsTime1($palpite_time1_jogo);
-				$entityManager->merge($apostaCadastrada);
+			$aux=$i <<2;
+			$jogo_campeonato=$_POST[$aux];
+			$jogo_numero= $_POST[$aux + 1 ];
+			$palpite_time1_jogo= $_POST[$aux + 2 ];
+			$palpite_time2_jogo= $_POST[$aux + 3 ];
+			
+			//Busca objeto Jogo, Campeonato e Aposta
+			
+			$usuario = $entityManager->find("Usuario", $user_id);
+			$jogo = $entityManager->find("Jogo", $jogo_numero);
+			$campeonato= $entityManager->find("Campeonato", $jogo_campeonato);
+			$apostaCadastrada = $entityManager->find("Aposta", array(
+					"campeonato" =>	$jogo_campeonato,
+					"usuario" => $user_id,
+					"jogo" => $jogo_numero
+			));
+			
+			//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda não existir
+			
+			$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
+					"campeonato" =>	$jogo_campeonato,
+					"rodada" => $jogo->getRodada()->getNumRodada(),
+					"usuario" => $user_id
+			));
+			if(!$pontuacaoRodada instanceof PontuacaoRodada){
+				$pontuacaoRodada = new PontuacaoRodada($jogo->getRodada(), $campeonato, $usuario);
+				$entityManager->persist($pontuacaoRodada);
 				$entityManager->flush();
-				$contador1++;
 			}
-			if($apostaCadastrada->getApostaGolsTime2()<>$palpite_time2_jogo){
-				$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
-				$entityManager->merge($apostaCadastrada);
+			
+			//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda não existir
+				
+			$premiosUsuario = $entityManager->find("PremiosUsuario", array(
+					"campeonato" =>	$jogo_campeonato,
+					"usuario" => $user_id
+			));
+			if(!$premiosUsuario instanceof PremiosUsuario){
+				$premiosUsuario = new PremiosUsuario($usuario, $campeonato);
+				$entityManager->persist($premiosUsuario);
 				$entityManager->flush();
-				$contador1++;
+			}
+			
+			//Cria nova aposta se ainda não existir
+	
+			if ($apostaCadastrada instanceof Aposta){
+				if ($apostaCadastrada->getApostaGolsTime1()<>$palpite_time1_jogo) {
+					$apostaCadastrada->setApostaGolsTime1($palpite_time1_jogo);
+					$entityManager->merge($apostaCadastrada);
+					$entityManager->flush();
+					$contador1++;
+				}
+				if($apostaCadastrada->getApostaGolsTime2()<>$palpite_time2_jogo){
+					$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
+					$entityManager->merge($apostaCadastrada);
+					$entityManager->flush();
+					$contador1++;
+				}
+			}
+			else{
+				if (($palpite_time1_jogo<>'') && ($palpite_time2_jogo<>'')){
+					$apostaNova = new Aposta($usuario, $campeonato, $jogo);
+					$apostaNova->setApostaGolsTime1($palpite_time1_jogo);
+					$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
+					$entityManager->persist($apostaNova);
+					$entityManager->flush();
+					$contador++;
+				}
 			}
 		}
-		else{
-			if (($palpite_time1_jogo<>'') && ($palpite_time2_jogo<>'')){
-				$apostaNova = new Aposta($usuario, $campeonato, $jogo);
-				$apostaNova->setApostaGolsTime1($palpite_time1_jogo);
-				$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
-				$entityManager->persist($apostaNova);
-				$entityManager->flush();
-				$contador++;
-			}
+		if($contador>0){
+			echo"<p align='center'>
+			<table id='tabela'>
+				<tr class=\"linha\">
+					<td class=\"coluna\">
+						<p align='center'>Aposta realizada com sucesso</p>
+					</td>
+				</tr>
+			</table>";	
 		}
+		if($contador1>0){
+			echo"<p align='center'>
+			<table id='tabela'>
+				<tr class=\"linha\">
+					<td class=\"coluna\">
+						<p align='center'>Aposta atualizada com sucesso</p>
+					</td>
+				</tr>
+			</table>";	
+		}
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo
+		"<p align='center'>
+			<table id='tabela'>
+				<tr class=\"linha\">
+					<td class=\"coluna\">
+						<p align='center'>Não foi possível gravar seu Chute. Tente outra vez mais tarde.</p>
+					</td>
+				</tr>
+			</table>";
 	}
-	if($contador>0){
-		echo"<p align='center'>
-		<table id='tabela'>
-			<tr class=\"linha\">
-				<td class=\"coluna\">
-					<p align='center'>Aposta realizada com sucesso</p>
-				</td>
-			</tr>
-		</table>";	
-	}
-	if($contador1>0){
-		echo"<p align='center'>
-		<table id='tabela'>
-			<tr class=\"linha\">
-				<td class=\"coluna\">
-					<p align='center'>Aposta atualizada com sucesso</p>
-				</td>
-			</tr>
-		</table>";	
-	}
+	$conn->close();
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+$conn = $entityManager->getConnection();
+$conn->beginTransaction();
+try{
 	$dataAgora = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 	$dataAtual = $dataAgora->format( "Y-m-d H:i:s" );
 	
@@ -268,5 +287,19 @@ if(isset($_POST)){
 			}
 		}			
 	}
+	$conn->commit();
+} catch(Exception $e) {
+	$conn->rollback();
+	echo
+	"<p align='center'>
+	<table id='tabela'>
+	<tr class=\"linha\">
+	<td class=\"coluna\">
+	<p align='center'>Não existem apostas abertas. Volte amanhã para conferir.</p>
+	</td>
+	</tr>
+	</table>";
+}
+$conn->close();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>

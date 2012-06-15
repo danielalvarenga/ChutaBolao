@@ -5,18 +5,29 @@ require_once 'FacebookApi/facebook.php';$app_Id = '233715530059546';$app_Secret 
 $facebook = new Facebook($config);$user_id = $facebook->getUser();
 */
 $user_id = "100000885523518";
-$usuario = $entityManager->find("Usuario", $user_id);
-/*
-if(!($usuario instanceof Usuario)){	$user_profile = $facebook->api('/me', 'GET');
-	$primeiroNomeUsuario = $user_profile['first_name'];
-	$segundoNomeUsuario = $user_profile['last_name'];
-	$emailUsuario = $user_profile['email'];
-	$tokenUsuario = $facebook->getAccessToken();
-	$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-	$entityManager->persist($usuario);
-	$entityManager->flush();
-	$link = 'http://apps.facebook.com/chutabolao';//	$message = 'Massa!'; //$nomeUsuario . 'agora faz parte do Clube Chuta Bol�o, e pode mostrar suas habilidades de t�cnico apostando qual ser� o resultado dos melhores jogos de futebol do Campeonato. Quem ser� melhor? Ele ou voc�?';	$ret_obj = $facebook->api('/me/feed', 'POST',	array(											'link' => $link,//											'message' => $message	));}
-*/
+
+$conn = $entityManager->getConnection();
+$conn->beginTransaction();
+try{
+	$usuario = $entityManager->find("Usuario", $user_id);
+	/*
+	if(!($usuario instanceof Usuario)){	$user_profile = $facebook->api('/me', 'GET');
+		$primeiroNomeUsuario = $user_profile['first_name'];
+		$segundoNomeUsuario = $user_profile['last_name'];
+		$emailUsuario = $user_profile['email'];
+		$tokenUsuario = $facebook->getAccessToken();
+		$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
+		$entityManager->persist($usuario);
+		$entityManager->flush();
+		$link = 'http://apps.facebook.com/chutabolao';//	$message = 'Massa!'; //$nomeUsuario . 'agora faz parte do Clube Chuta Bol�o, e pode mostrar suas habilidades de t�cnico apostando qual ser� o resultado dos melhores jogos de futebol do Campeonato. Quem ser� melhor? Ele ou voc�?';	$ret_obj = $facebook->api('/me/feed', 'POST',	array(											'link' => $link,//											'message' => $message	));}
+	*/
+	$conn->commit();
+} catch(Exception $e) {
+	$conn->rollback();
+	echo $e->getMessage() . "<br/><font color=red>Não foi possível gravar os dados de Usuário.
+							Verifique o Banco de Dados.</font><br/>";
+}
+$conn->close();
 ob_end_flush();
 ?>
 <?php require"links_index.php"?>

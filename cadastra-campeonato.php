@@ -7,35 +7,52 @@ use Doctrine\ORM\Query\AST\Functions\LengthFunction;
 require "bootstrap.php";
 
 if(isset($_POST['excluir'])){
-	$campeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
-	$nomeCampeonato = $campeonato->getNomeCampeonato();
-	$anoCampeonato = $campeonato->getAnoCampeonato();
-	$entityManager->remove($campeonato);
-	$entityManager->flush();
-	echo "Excluído Campeonato $nomeCampeonato $anoCampeonato<br><br>";
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		$campeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
+		$nomeCampeonato = $campeonato->getNomeCampeonato();
+		$anoCampeonato = $campeonato->getAnoCampeonato();
+		$entityManager->remove($campeonato);
+		$entityManager->flush();
+		echo "Excluído Campeonato $nomeCampeonato $anoCampeonato<br><br>";
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Não foi possível gravar os dados. Verifique o Banco de Dados.</font><br/>";
+	}
+	$conn->close();
 }
 
 if(isset($_POST['nome'])){
-	
-	$nome = $_POST['nome'];
-	$ano = $_POST['ano'];
-	$quant = $_POST['quant'];
-	$campeonato = new Campeonato($nome, $ano, $quant);	
-	
-	$entityManager->persist($campeonato);
-	$entityManager->flush();
-	
-	for($i = 1; $i <= $quant; $i++){
-		$rodada = new Rodada($i, $campeonato);
-		$entityManager->persist($rodada);
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		$nome = $_POST['nome'];
+		$ano = $_POST['ano'];
+		$quant = $_POST['quant'];
+		$campeonato = new Campeonato($nome, $ano, $quant);	
+		
+		$entityManager->persist($campeonato);
 		$entityManager->flush();
+		
+		for($i = 1; $i <= $quant; $i++){
+			$rodada = new Rodada($i, $campeonato);
+			$entityManager->persist($rodada);
+			$entityManager->flush();
+		}
+		
+		echo "Campeonato criado com: ";
+		echo "Codigo: ".$campeonato->getCodCampeonato()."\n";
+		echo "Nome: ".$campeonato->getNomeCampeonato()."\n";
+		echo "Ano: ".$campeonato->getAnoCampeonato()."\n";
+		echo "Quantidade de rodadas: ".$campeonato->getQuantidadeRodadas()."\n";
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Não foi possível gravar os dados. Verifique o Banco de Dados.</font><br/>";
 	}
-	
-	echo "Campeonato criado com: ";
-	echo "Codigo: ".$campeonato->getCodCampeonato()."\n";
-	echo "Nome: ".$campeonato->getNomeCampeonato()."\n";
-	echo "Ano: ".$campeonato->getAnoCampeonato()."\n";
-	echo "Quantidade de rodadas: ".$campeonato->getQuantidadeRodadas()."\n";
+	$conn->close();
 }
 
 ?>
@@ -78,26 +95,35 @@ cadastro de time
 	</tr>
 
 <?php
-	$dqlCampeonatos = "SELECT c FROM Campeonato c ORDER BY c.codCampeonato ASC";
-	$queryCampeonatos = $entityManager->createQuery($dqlCampeonatos);
-	$campeonatos = $queryCampeonatos->getResult();
-	foreach($campeonatos as $campeonato) {
-		if($campeonato instanceof Campeonato){
-			echo '<tr vertical-align="middle" align="center">
-					<td>'.$campeonato->getCodCampeonato().'</td>
-					<td>'.$campeonato->getNomeCampeonato().'</td>
-					<td>'.$campeonato->getAnoCampeonato().'</td>
-					<td>'.$campeonato->getQuantidadeRodadas().'</td>
-					<td>'.$campeonato->getStatus().'</td>
-					<td>
-						<form method="POST" action="">
-						<input type="hidden" name="campeonato" value='.$campeonato->getCodCampeonato().'>
-						<input type="submit" name="excluir" value="Excluir"><br/>
-						</form>
-					</td>
-				</tr>';
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		$dqlCampeonatos = "SELECT c FROM Campeonato c ORDER BY c.codCampeonato ASC";
+		$queryCampeonatos = $entityManager->createQuery($dqlCampeonatos);
+		$campeonatos = $queryCampeonatos->getResult();
+		foreach($campeonatos as $campeonato) {
+			if($campeonato instanceof Campeonato){
+				echo '<tr vertical-align="middle" align="center">
+						<td>'.$campeonato->getCodCampeonato().'</td>
+						<td>'.$campeonato->getNomeCampeonato().'</td>
+						<td>'.$campeonato->getAnoCampeonato().'</td>
+						<td>'.$campeonato->getQuantidadeRodadas().'</td>
+						<td>'.$campeonato->getStatus().'</td>
+						<td>
+							<form method="POST" action="">
+							<input type="hidden" name="campeonato" value='.$campeonato->getCodCampeonato().'>
+							<input type="submit" name="excluir" value="Excluir"><br/>
+							</form>
+						</td>
+					</tr>';
+			}
 		}
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Dados não encontrados. Verifique o Banco de Dados.</font><br/>";
 	}
+	$conn->close();
 ?>
 </table>
 		<p align="center"><a href="cadastra-time.php">Cadastrar Time</a></p>
