@@ -136,7 +136,8 @@ if (isset($_POST['jogo'])) {
 		//Atualiza Classificação dos Usuários no Campeonato
 		
 		$dql = "SELECT p FROM PremiosUsuario p WHERE
-				p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()." ORDER BY p.pontosCampeonato DESC";
+				p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+				ORDER BY p.pontosCampeonato DESC";
 		$query = $entityManager->createQuery($dql);
 		$premiosUsuarios = $query->getResult();
 		$classificacaoCampeonato = 1;
@@ -170,8 +171,10 @@ if (isset($_POST['jogo'])) {
 		
 		//Atualiza Classificação dos Usuários na Rodada
 		
-		$dql = 'SELECT p FROM PontuacaoRodada p WHERE p.rodada = '.$numRodada.
-		' AND j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().' ORDER BY p.pontosRodada DESC';
+		$dql = 'SELECT p FROM PontuacaoRodada p WHERE
+				p.rodada = '.$numRodada.'
+				AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
+				ORDER BY p.pontosRodada DESC';
 		$query = $entityManager->createQuery($dql);
 		$pontuacoesRodada = $query->getResult();
 		$classificacaoRodada = 1;
@@ -204,9 +207,11 @@ if (isset($_POST['jogo'])) {
 		}
 		
 		//Dá medalhas ao final da rodada --------------------------------
+		
 		//Verifica se a rodada acabou
-		$dql = 'SELECT j FROM Jogo j WHERE j.rodada = '.$numRodada.
-		' AND j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato();
+		$dql = 'SELECT j FROM Jogo j WHERE j.rodada = '.$numRodada.'
+				AND j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
+				ORDER BY j.dataJogo DESC';
 		$query = $entityManager->createQuery($dql);
 		$jogs = $query->getResult();
 		$fimRodada = true;
@@ -221,7 +226,8 @@ if (isset($_POST['jogo'])) {
 		
 		//Atribui medalhas
 		if($fimRodada){
-			$dql = "SELECT p FROM PontuacaoRodada p WHERE p.classificacaoRodada >= 1 AND p.classificacaoRodada <= 3";
+			$dql = "SELECT p FROM PontuacaoRodada p WHERE
+					p.classificacaoRodada >= 1 AND p.classificacaoRodada <= 3";
 			$query = $entityManager->createQuery($dql);
 			$pontuacoesRodada = $query->getResult();
 			foreach ($pontuacoesRodada as $pontuacaoRodada){
@@ -248,7 +254,8 @@ if (isset($_POST['jogo'])) {
 			//Atualiza Classificação de Medalhas dos Usuários no Campeonato
 			
 			$dql = "SELECT p FROM PremiosUsuario p WHERE
-			p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()." ORDER BY p.pontosMedalhas DESC";
+					p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+					ORDER BY p.pontosMedalhas DESC";
 			$query = $entityManager->createQuery($dql);
 			$premiosUsuarios = $query->getResult();
 			$classificacaoMedalhas = 1;
@@ -279,6 +286,96 @@ if (isset($_POST['jogo'])) {
 					}
 				}
 			}
+		}
+		
+		//Dá chuteiras ao final do Campeonato --------------------------------
+		
+		//Verifica se o Campeonato acabou
+		$dql = 'SELECT j FROM Jogo j WHERE
+				j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
+				ORDER BY j.dataJogo DESC';
+		$query = $entityManager->createQuery($dql);
+		$jogs = $query->getResult();
+		$fimCampeonato = true;
+		foreach($jogs as $jog) {
+			if($jog instanceof Jogo){
+				if($jog->getGolstime1() == NULL){
+					$fimCampeonato = false;
+					break;
+				}
+			}
+		}
+		
+		if($fimCampeonato){
+			
+			//Atribui as Chuteiras
+			$dql = 'SELECT p FROM PremiosUsuario p WHERE
+					p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
+					AND p.classificacaoMedalhas >= 1 AND p.classificacaoMedalhas <= 3';
+			$query = $entityManager->createQuery($dql);
+			$premiosUsuarios = $query->getResult();
+			foreach ($premiosUsuarios as $premiosUsuario){
+				if($premiosUsuario instanceof PremiosUsuario){
+						
+					if($premiosUsuario->getClassificacaoMedalhas() == 1){
+						$premiosUsuario->ganhaChuteiraOuro();
+					}
+					elseif ($premiosUsuario->getClassificacaoMedalhas() == 2){
+						$premiosUsuario->ganhaChuteiraPrata();
+					}
+					elseif ($premiosUsuario->getClassificacaoMedalhas() == 3){
+						$premiosUsuario->ganhaChuteiraBronze();
+					}
+					$entityManager->merge($premiosUsuario);
+					$entityManager->flush();
+				}
+			}
+			
+			// Atribui o troféu
+			$dql = 'SELECT p FROM PremiosUsuario p WHERE
+					p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
+					AND p.chuteirasOuro = 1';
+			$query = $entityManager->createQuery($dql);
+			$premiosUsuarios = $query->getResult();
+			$primeiro = true;
+			$premiosUsuarioGanhador = NULL;
+			foreach ($premiosUsuarios as $premiosUsuario){
+				if($premiosUsuario instanceof PremiosUsuario){
+					if($primeiro){
+						$premiosUsuarioGanhador = $premiosUsuario;
+						$primeiro = false;
+					}
+					else{
+						if($premiosUsuario->getAcertosPlacar() > $premiosUsuarioGanhador->getAcertosPlacar()){
+							$premiosUsuarioGanhador = $premiosUsuario;
+						}
+						elseif($premiosUsuario->getAcertosPlacar() == $premiosUsuarioGanhador->getAcertosPlacar()){
+							if($premiosUsuario->getAcertosTimeGanhador() > $premiosUsuarioGanhador->getAcertosTimeGanhador()){
+								$premiosUsuarioGanhador = $premiosUsuario;
+							}
+							elseif($premiosUsuario->getAcertosTimeGanhador() == $premiosUsuarioGanhador->getAcertosTimeGanhador()){
+								if($premiosUsuario->getAcertosPlacarInvertido() > $premiosUsuarioGanhador->getAcertosPlacarInvertido()){
+									$premiosUsuarioGanhador = $premiosUsuario;
+								}
+								elseif($premiosUsuario->getAcertosPlacarInvertido() == $premiosUsuarioGanhador->getAcertosPlacarInvertido()){
+									if($premiosUsuario->getErrosPlacar() < $premiosUsuarioGanhador->getErrosPlacar()){
+										$premiosUsuarioGanhador = $premiosUsuario;
+									}
+									elseif($premiosUsuario->getErrosPlacar() == $premiosUsuarioGanhador->getErrosPlacar()){
+										$sorteio = rand(1,2);
+										if($sorteiro == 2){
+											$premiosUsuarioGanhador = $premiosUsuario;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			$premiosUsuarioGanhador->ganhaTrofeu();
+			$entityManager->merge($premiosUsuarioGanhador);
+			$entityManager->flush();
 		}
 	}
 

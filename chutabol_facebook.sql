@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `premiosusuario` (
   `acertosPlacar` int(11) DEFAULT NULL,
   `acertosTimeGanhador` int(11) DEFAULT NULL,
   `acertosPlacarInvertido` int(11) DEFAULT NULL,
+  `errosPlacar` int(11) DEFAULT NULL,
   `pontosCampeonato` int(11) DEFAULT NULL,
   `pontosMedalhas` int(11) DEFAULT NULL,
   `classificacaoCampeonato` int(11) DEFAULT NULL,

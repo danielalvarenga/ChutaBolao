@@ -15,6 +15,9 @@ class PremiosUsuario{
 	private $acertosPlacarInvertido; // Quantidade de vezes que acertou o placar invertido
 	
 	/** @Column(type="integer") */
+	private $errosPlacar; // Quantidade de vezes que errou o placar completamente
+	
+	/** @Column(type="integer") */
 	private $pontosCampeonato; // Quantidade de pontos acumulados no campeonato
 	
 	/** @Column(type="integer") */
@@ -62,6 +65,7 @@ class PremiosUsuario{
 		$this->acertosPlacar = 0;
 		$this->acertosTimeGanhador = 0;
 		$this->acertosPlacarInvertido = 0;
+		$this->errosPlacar = 0;
 		$this->pontosCampeonato = 0;
 		$this->pontosMedalhas = NULL;
 		$this->classificacaoCampeonato = NULL;
@@ -113,6 +117,9 @@ class PremiosUsuario{
 	}
 	function getAcertosPlacarInvertido(){
 		return $this->acertosPlacarInvertido;
+	}
+	function getErrosPlacar(){
+		return $this->errosPlacar;
 	}
 	function getPontosCampeonato(){
 		return $this->pontosCampeonato;;
@@ -203,6 +210,10 @@ class PremiosUsuario{
 			}
 			case 2 : {
 				$this->acertosPlacarInvertido++;
+				break;
+			}
+			case 0 : {
+				$this->errosPlacar++;
 				break;
 			}
 		}
