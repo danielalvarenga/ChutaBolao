@@ -116,8 +116,8 @@ class Usuario{
 		return $this->premiacoesUsuario;
 	}
 	
-	function ganhaPontosGeral($pontos){
-		$this->pontosGeral = $this->pontosGeral + $pontos;
+	function calculaPontosGeral($pontosAposta){
+		$this->pontosGeral += $pontosAposta;
 	}
 	
 	function adicionaAposta($aposta){

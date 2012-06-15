@@ -60,6 +60,8 @@ class Jogo {
 			$this->rodada = $rodada;
 			$this->codTime1=$codTime1;
 			$this->codTime2=$codTime2;
+			$this->golsTime1 = NULL;
+			$this->golsTime2 = NULL;
 			$this->apostasJogo = new ArrayCollection();
 			$this->campeonato = $campeonato;
 			$this->dataInicioApostas = $this->calculaDataInicioAposta($dataJogo);
