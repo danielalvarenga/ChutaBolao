@@ -1,4 +1,4 @@
-INSERT INTO Usuario (`id`, `primeiroNomeUsuario`, `segundoNomeUsuario`, `emailUsuario`, `pontosGeral`, `tokenUsuario`) VALUES
+INSERT INTO `usuario` (`id`, `primeiroNomeUsuario`, `segundoNomeUsuario`, `emailUsuario`, `pontosGeral`, `tokenUsuario`) VALUES
 	(100000885523518, 'Daniel', 'Alvarenga Lima', 'alvarenga_daniel@hotmail.com', 0, 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl');
 	
 	
