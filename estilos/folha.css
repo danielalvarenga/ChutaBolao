@@ -62,7 +62,7 @@ border-bottom-right-radius: 8px;
 
 #content {
 	float:left;
-	width:780px;
+	width:780px;		height: 500px;
 	background-color: #fff;
 	
 }
