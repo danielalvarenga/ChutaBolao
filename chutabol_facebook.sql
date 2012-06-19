@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `jogo` (
   `golsTime2` int(11) DEFAULT NULL,
   `dataInicioApostas` datetime DEFAULT NULL,
   `dataFimApostas` datetime DEFAULT NULL,
+  `escudosJogo` text,
   PRIMARY KEY (`id`),
   KEY `campeonato_id` (`campeonato_id`),
   KEY `rodada_id` (`rodada_id`)
