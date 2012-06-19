@@ -51,7 +51,7 @@ class Usuario{
 	$this->segundoNomeUsuario = $segundoNomeUsuario;
 	$this->emailUsuario = $emailUsuario;
 	$this->pontosGeral = 0;
-	$this->classificacaoGeral = NULL;
+	$this->classificacaoGeral = 0;
 	$this->apostasUsuario = new ArrayCollection() ;
 	$this->premiacoesUsuario = new ArrayCollection() ;
 	$this->pontuacaoRodadas = new ArrayCollection();

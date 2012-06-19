@@ -1,7 +1,6 @@
-<?php ob_start();
+<?php
 header('Content-type: text/html; charset=utf-8');
 require "bootstrap.php";
-/*
 require_once 'FacebookApi/facebook.php';
 
 $app_id = '233715530059546';
@@ -11,50 +10,67 @@ $config = array(
 		'secret' => $app_secret,);
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
-*/
-$user_id = "100000885523518";
 
-$conn = $entityManager->getConnection();
-$conn->beginTransaction();
-try{
-	$usuario = $entityManager->find("Usuario", $user_id);
-	/*
-	if(($usuario instanceof Usuario) == false){
+if ($user_id) {
+	try {
+		$user_profile = $facebook->api('/me');
 		
-		$user_profile = $facebook->api('/me', 'GET');
-		$primeiroNomeUsuario = $user_profile['first_name'];
-		$segundoNomeUsuario = $user_profile['last_name'];
-		$emailUsuario = $user_profile['email'];
-		$tokenUsuario = $facebook->getAccessToken();
-		$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-		$entityManager->persist($usuario);
-		$entityManager->flush();
+		$conn = $entityManager->getConnection();
+		$conn->beginTransaction();
+		try{
 		
-		$message = 'Agora vou mostrar quem entende de futebol! =D';
-		$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/logo.png';
-		$link = 'http://apps.facebook.com/chutabolao';
-		$name = $primeiroNomeUsuario.' agora "Chuta Bol„o"';
-		$caption = 'Seu time vai ganhar esse Campeonato?';		
-		$description = 'FaÁa seus Chutes e acerte o placar dos melhores jogos do Campeonato.';
-		$ret_obj = $facebook->api('/me/feed', 'POST',	array(
-				'link' => $link,
-				'message' => $message,
-				'name' => $name,
-				'picture' => $picture,
-				'caption' => $caption,
-				'description' => $description
-				));
+			$usuario = $entityManager->find("Usuario", $user_id);
+			
+			$conn->commit();
+		} catch(Exception $e) {
+			$conn->rollback();
+			echo $e->getMessage() . "<br/><font color=red>N„o localizado usu·rio no Banco de Dados.</font><br/>";
+		}
+		$conn->close();
+			
+		if(($usuario instanceof Usuario) == false){
+			
+			$conn = $entityManager->getConnection();
+			$conn->beginTransaction();
+			try{
+			
+				$primeiroNomeUsuario = $user_profile['first_name'];
+				$segundoNomeUsuario = $user_profile['last_name'];
+				$emailUsuario = $user_profile['email'];
+				$tokenUsuario = $facebook->getAccessToken();
+				$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
+				$entityManager->persist($usuario);
+				$entityManager->flush();
+			
+			$conn->commit();
+			} catch(Exception $e) {
+				$conn->rollback();
+				echo $e->getMessage() . "<br/><font color=red>N„o localizado usu·rio no Banco de Dados.</font><br/>";
+			}
+			$conn->close();
+			
+			$message = 'Agora vou mostrar quem entende de futebol! =D';
+			$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/logo.png';
+			$link = 'http://apps.facebook.com/chutabolao';
+			$name = $primeiroNomeUsuario.' agora "Chuta Bol„o"';
+			$caption = 'Seu time vai ganhar esse Campeonato?';
+			$description = 'FaÁa seus Chutes e acerte o placar dos melhores jogos do Campeonato.';
+			$ret_obj = $facebook->api('/me/feed', 'POST',	array(
+					'link' => $link,
+					'message' => $message,
+					'name' => $name,
+					'picture' => $picture,
+					'caption' => $caption,
+					'description' => $description
+			));
 		
 		}
-	*/
-	$conn->commit();
-} catch(Exception $e) {
-	$conn->rollback();
-	echo $e->getMessage() . "<br/><font color=red>N√£o foi poss√≠vel gravar os dados de Usu√°rio.
-							Verifique o Banco de Dados.</font><br/>";
+		
+	} catch (FacebookApiException $e) {
+		echo '<pre>'.htmlspecialchars(print_r($e, true)).'</pre>';
+		$user = null;
+	}
 }
-$conn->close();
-ob_end_flush();
 ?>
 <?php require"links_index.php"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -83,11 +99,6 @@ ob_end_flush();
 </head>
 
 <body>
-
-<?php 
-if($user_id){
-	try{
-?>
 		
 		<!-- Cabe√ßalho -->
 		
@@ -136,20 +147,29 @@ if($user_id){
 				
 				</div>
 		
-<?php
-	} catch(FacebookApiException $e) {
-		$login_url = $facebook->getLoginUrl(array(
-							'scope' => 'publish_stream'
-		));
-		echo 'Por Favor <ahref="' . $login_url . '">login.</a>';
-		error_log($e->getType());
-		error_log($e->getMessage());
-	}
-} else {
-	$login_url = $facebook->getLoginUrl(array(
-							'scope' => 'publish_stream'
-	));
-}
-?>
+<script>               
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '<?php echo $facebook->getAppID() ?>', 
+          cookie: true, 
+          xfbml: true,
+          oauth: true
+        });
+        FB.Event.subscribe('auth.login', function(response) {
+          window.location.reload();
+        });
+        FB.Event.subscribe('auth.logout', function(response) {
+          window.location.reload();
+        });
+      };
+      (function() {
+        var e = document.createElement('script'); e.async = true;
+        e.src = document.location.protocol +
+          '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+      }());
+</script>
+		
 </body>
 </html>
+
