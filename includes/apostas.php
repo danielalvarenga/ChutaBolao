@@ -58,18 +58,20 @@ if(isset($_POST)){
 			}
 			
 			//Cria nova aposta se ainda não existir
-	
+			$publica = false;
 			if ($apostaCadastrada instanceof Aposta){
 				if ($apostaCadastrada->getApostaGolsTime1()<>$palpite_time1_jogo) {
 					$apostaCadastrada->setApostaGolsTime1($palpite_time1_jogo);
 					$entityManager->merge($apostaCadastrada);
 					$entityManager->flush();
+					$publica = true;
 					$contador1++;
 				}
 				if($apostaCadastrada->getApostaGolsTime2()<>$palpite_time2_jogo){
 					$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
 					$entityManager->merge($apostaCadastrada);
 					$entityManager->flush();
+					$publica = true;
 					$contador1++;
 				}
 			}
@@ -80,8 +82,50 @@ if(isset($_POST)){
 					$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
 					$entityManager->persist($apostaNova);
 					$entityManager->flush();
+					$publica = true;
 					$contador++;
 				}
+			}
+			if($publica){
+				if($palpite_time1_jogo > $palpite_time2_jogo){
+					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
+					$name = $usuario->getPrimeiroNomeUsuario().' 
+					chuta '.$palpite_time1_jogo.' 
+					à '.$palpite_time2_jogo.' 
+					para o '.$time1->getNomeTime();
+				}
+				elseif($palpite_time1_jogo < $palpite_time2_jogo){
+					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
+					$name = $usuario->getPrimeiroNomeUsuario().'
+					chuta '.$palpite_time2_jogo.'
+					à '.$palpite_time1_jogo.'
+					para o '.$time2->getNomeTime();
+				}
+				elseif($palpite_time1_jogo == $palpite_time2_jogo){
+					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
+					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
+					$name = $usuario->getPrimeiroNomeUsuario().'
+					chuta '.$palpite_time1_jogo.'
+					à '.$palpite_time2_jogo.'
+					para '.$time1->getNomeTime().' 
+					e '.$time2->getNomeTime();
+				}
+				
+				$message = 'Alguém chuta melhor que eu!? =D';
+				$picture = 'http://www.chutabolao.com.br/facebook/'.$jogo->getEscudosJogo();
+				$link = 'http://apps.facebook.com/chutabolao';
+				$caption = 'Mostre que você sabe mais!';
+				$description = "Jogo em ".$jogo->getDataLogica().". Faça seu chute até ".$jogo->getDataLogicaFimApostas();
+				/*
+				$ret_obj = $facebook->api('/me/feed', 'POST',	array(
+						'link' => $link,
+						'message' => $message,
+						'name' => $name,
+						'picture' => $picture,
+						'caption' => $caption,
+						'description' => $description
+				));
+				*/
 			}
 		}
 		if($contador>0){
@@ -193,7 +237,8 @@ try{
 							echo "
 							<tr>
 								<td class=\"data\" align='center' colspan='7' >
-									".$jogo->getDataLogica()."
+									Em ".$jogo->getDataLogica()." - 
+									Chute até ".$jogo->getDataLogicaFimApostas().";
 								</td>
 							</tr>
 							<tr class=\"linha\" align='center'>
@@ -236,7 +281,8 @@ try{
 							echo "
 							<tr>
 								<td class=\"data\" align='center' colspan='7' >
-									".$jogo->getDataLogica()."
+									Em ".$jogo->getDataLogica()." - 
+									Chute até ".$jogo->getDataLogicaFimApostas().";
 								</td>
 							</tr>
 							<tr class=\"linha\" align='center'>

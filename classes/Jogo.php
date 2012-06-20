@@ -223,9 +223,11 @@ class Jogo {
 	}
 	function getDataLogica(){
 		$dataLogica = $this->criarDatetime($this->dataJogo);
+		return $dataLogica->format( "d/m/Y" )." às ".$dataLogica->format( "H:i" );
+	}
+	function getDataLogicaFimApostas(){
 		$dataLogicaFimApostas = $this->criarDatetime($this->getDataFimApostas());
-		return "Em ".$dataLogica->format( "d/m/Y" )." às ".$dataLogica->format( "H:i" )." - 
-				Chute até ".$dataLogicaFimApostas->format( "d/m/Y" )." às ".$dataLogicaFimApostas->format( "H:i" );
+		return $dataLogicaFimApostas->format( "d/m/Y" )." às ".$dataLogicaFimApostas->format( "H:i" );
 	}
 	
 
