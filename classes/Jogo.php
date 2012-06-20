@@ -29,6 +29,9 @@ class Jogo {
 	/** @Column(type="string")*/
 	private $dataFimApostas;
 	
+	/** @Column(type="string")*/
+	private $escudosJogo;
+	
 	/**
 	 * @ManyToOne(targetEntity="Rodada", inversedBy="jogosRodada")
 	 */
@@ -45,7 +48,7 @@ class Jogo {
 	*/
 	protected $campeonato;
    
-	function __construct($dataJogo,$rodada,$codTime1,$codTime2, $campeonato){
+	function __construct($dataJogo,$rodada,$codTime1,$codTime2, $campeonato, $urlEscudosJogo){
 		$dataAtual= $this->calculaDataAtual();
 		
 		if ($codTime1===$codTime2){
@@ -66,6 +69,7 @@ class Jogo {
 			$this->campeonato = $campeonato;
 			$this->dataInicioApostas = $this->calculaDataInicioAposta($dataJogo);
 			$this->dataFimApostas = $this->calculaDataFimAposta($dataJogo);
+			$this->setEscudosJogo($urlEscudosJogo);
 
 		}
 	}
@@ -180,6 +184,12 @@ class Jogo {
 	function setRodada($rodada){
 		$this->rodada = $rodada;
 	}
+	function getEscudosJogo(){
+		return $this->escudosJogo;
+	}
+	function setEscudosJogo($urlEscudosJogo){
+		$this->escudosJogo = $urlEscudosJogo;
+	}
 	function getCampeonato(){
 		return $this->campeonato;
 	}
@@ -213,9 +223,11 @@ class Jogo {
 	}
 	function getDataLogica(){
 		$dataLogica = $this->criarDatetime($this->dataJogo);
+		return $dataLogica->format( "d/m/Y" )." às ".$dataLogica->format( "H:i" );
+	}
+	function getDataLogicaFimApostas(){
 		$dataLogicaFimApostas = $this->criarDatetime($this->getDataFimApostas());
-		return "Em ".$dataLogica->format( "d/m/Y" )." às ".$dataLogica->format( "H:i" )." - 
-				Chute até ".$dataLogicaFimApostas->format( "d/m/Y" )." às ".$dataLogicaFimApostas->format( "H:i" );
+		return $dataLogicaFimApostas->format( "d/m/Y" )." às ".$dataLogicaFimApostas->format( "H:i" );
 	}
 	
 

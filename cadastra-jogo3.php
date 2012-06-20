@@ -1,6 +1,7 @@
 <?php
 
 require "bootstrap.php";
+require_once "lib/WideImage.php";
 
 if(isset($_POST['rodada']) && isset($_POST['campeonato'])){
 	$objCampeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
@@ -33,6 +34,58 @@ if (isset($_POST['codtime1'])) {
 					j.dataJogo ='$dataJogoString'";
 		$queryJ = $entityManager->createQuery($dqlJogo);
 		$jogos = $queryJ->getResult();
+		
+		$time1 = $entityManager->find("Time", $_POST['codtime1']);
+		$time2 = $entityManager->find("Time", $_POST['codtime2']);
+		
+		// Cria a imagem de publicação do jogo
+		$urlEscudosJogo = 'imagens/jogos/'.
+					strtolower(trim(
+					str_replace('é', 'e',
+					str_replace('ó', 'o',
+					str_replace('á', 'a', 
+					str_replace('í', 'i', 
+					str_replace('ú', 'u', 
+					str_replace('ê', 'e', 
+					str_replace('ô', 'o', 
+					str_replace('â', 'a', 
+					str_replace('õ', 'o',
+					str_replace('ã', 'a',
+					str_replace(' ', '-', $time1->getNomeTime()
+							)))))))))))))
+					.'x'.
+					strtolower(trim(
+					str_replace('é', 'e',
+					str_replace('ó', 'o',
+					str_replace('á', 'a', 
+					str_replace('í', 'i', 
+					str_replace('ú', 'u', 
+					str_replace('ê', 'e', 
+					str_replace('ô', 'o', 
+					str_replace('â', 'a', 
+					str_replace('õ', 'o',
+					str_replace('ã', 'a',
+					str_replace(' ', '-', $time2->getNomeTime()
+							)))))))))))))
+					.'.png';
+		$escudo1 = WideImage::load($time1->getEscudo());
+		$escudo2 = WideImage::load($time2->getEscudo());
+		$letraX = WideImage::load('imagens/jogos/x.png');
+			
+		$escudo1->resizeCanvas( 90, 90, 0, 'top', null, 'any', false);
+		$escudo2->resizeCanvas( 90, 90, 'right', 'botton', null, 'any', false);
+			
+		$escudosJogo = $escudo1->resizeCanvas( 90, 90, 0, 'top', null, 'any', false)
+		->merge($escudo2, "right", "bottom", 100)->merge($letraX);
+		
+		// Salva a imagem em um novo arquivo com 80% de qualidade
+		$escudosJogo->saveToFile($urlEscudosJogo, null, 80);
+		// Limpa a imagem da memória
+		$escudo1->destroy();
+		$escudo2->destroy();
+		$letraX->destroy();
+		
+		//---------------------------------------------------------------------------------
 	
 		if($jogos <> NULL){
 				echo '<font color="red"><b>Este jogo já existe.</b></font><br/>';
@@ -50,20 +103,18 @@ if (isset($_POST['codtime1'])) {
 						));
 					
 				if(!$rendimentoTime1 instanceof RendimentoTime){
-					$time1 = $entityManager->find("Time", $_POST['codtime1']);
 					$rendimentoTime1 = new RendimentoTime($objCampeonato, $time1);
 					$entityManager->persist($rendimentoTime1);
 					$entityManager->flush();
 				}
 				if(!$rendimentoTime2 instanceof RendimentoTime){
-					$time2 = $entityManager->find("Time", $_POST['codtime2']);
 					$rendimentoTime2 = new RendimentoTime($objCampeonato, $time2);
 					$entityManager->persist($rendimentoTime2);
 					$entityManager->flush();
 				}
 		// -------------------------------------------------------------------------------------------------------------------
 				
-				$jogo = new Jogo($data,$objRodada,$_POST['codtime1'],$_POST['codtime2'], $objCampeonato);
+				$jogo = new Jogo($data,$objRodada,$_POST['codtime1'],$_POST['codtime2'], $objCampeonato, $urlEscudosJogo);
 				$entityManager->persist($jogo);
 				$entityManager->flush();
 		}
@@ -205,6 +256,7 @@ cadastro de jogo
 		<td>Rodada</td>
 		<td>Time1</td>
 		<td>Time2</td>
+		<td>Escudos</td>
 		<td>Resultado</td>
 		<td>Início de Apostas</td>
 		<td>Fim de Apostas</td>
@@ -239,6 +291,9 @@ cadastro de jogo
 						<td>'.$jogo->getRodada()->getNumRodada().'</td>
 						<td>'.$time1->getNomeTime().'</td>
 						<td>'.$time2->getNomeTime().'</td>
+						<td>
+								<img src="'.$jogo->getEscudosJogo().'">
+						</td>
 						<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
 						<td>'.$jogo->getDataInicioApostas().'</td>
 						<td>'.$jogo->getDataFimApostas().'</td>

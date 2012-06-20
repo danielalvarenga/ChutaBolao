@@ -88,6 +88,7 @@ try{
 						<td>Rodada</td>
 						<td>Time1</td>
 						<td>Time2</td>
+						<td>Escudos</td>
 						<td>Resultado</td>
 						<td>Início de Apostas</td>
 						<td>Fim de Apostas</td>
@@ -122,6 +123,9 @@ try{
 								<td>'.$jogo->getRodada()->getNumRodada().'</td>
 								<td>'.$time1->getNomeTime().'</td>
 								<td>'.$time2->getNomeTime().'</td>
+								<td>
+										<img src="'.$jogo->getEscudosJogo().'">
+								</td>
 								<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
 								<td>'.$jogo->getDataInicioApostas().'</td>
 								<td>'.$jogo->getDataFimApostas().'</td>
