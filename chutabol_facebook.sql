@@ -175,10 +175,29 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `primeiroNomeUsuario` varchar(255) DEFAULT NULL,
   `segundoNomeUsuario` varchar(255) DEFAULT NULL,
   `emailUsuario` varchar(255) DEFAULT NULL,
-  `pontosGeral` int(11) DEFAULT NULL,
-  `classificacaoGeral` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pontuacaogeral`
+--
+
+CREATE TABLE IF NOT EXISTS `pontuacaogeral` (
+  `usuario_id` bigint(20) NOT NULL DEFAULT '0',
+  `pontosGeral` int(11) DEFAULT NULL,
+  `classificacaoGeral` int(11) DEFAULT NULL,
+  `pontosMedalhasGeral` int(11) DEFAULT NULL,
+  `classificacaoMedalhasGeral` int(11) DEFAULT NULL,
+  `medalhasOuroGeral` int(11) DEFAULT NULL,
+  `medalhasPrataGeral` int(11) DEFAULT NULL,
+  `medalhasBronzeGeral` int(11) DEFAULT NULL,
+  PRIMARY KEY (`usuario_id`),
+  KEY `usuario_id` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Restrições para as tabelas dumpadas
@@ -214,6 +233,12 @@ ALTER TABLE `premiosusuario`
   ADD CONSTRAINT `FK_premiosusuario_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_premiosusuario_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
 
+--
+-- Restrições para a tabela `pontuacaogeral`
+--
+ALTER TABLE `pontuacaogeral`
+  ADD CONSTRAINT `FK_pontuacaogeral_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
+ 
 --
 -- Restrições para a tabela `rendimentotime`
 --

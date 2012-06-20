@@ -20,11 +20,11 @@ class Usuario{
 	/** @Column(type="string")*/
 	private $emailUsuario;
 	
-	/** @Column(type="integer")*/
-	private $pontosGeral; // Total de pontos acumulados desde o cadastro do usuário
-	
-	/** @Column(type="integer")*/
-	private $classificacaoGeral; // Total de pontos acumulados desde o cadastro do usuário
+	/**
+	 * @OneToOne(targetEntity="PontuacaoGeral", mappedBy="usuario", cascade={"persist"})
+	 * @var PontuacaoGeral
+	 */
+	protected $pontuacaoGeral;
 	
 	/**
 	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="usuario", cascade={"persist"})
@@ -50,8 +50,6 @@ class Usuario{
 	$this->primeiroNomeUsuario = $primeiroNomeUsuario;
 	$this->segundoNomeUsuario = $segundoNomeUsuario;
 	$this->emailUsuario = $emailUsuario;
-	$this->pontosGeral = 0;
-	$this->classificacaoGeral = 0;
 	$this->apostasUsuario = new ArrayCollection() ;
 	$this->premiacoesUsuario = new ArrayCollection() ;
 	$this->pontuacaoRodadas = new ArrayCollection();
@@ -97,15 +95,12 @@ class Usuario{
 		$this->emailUsuario = $emailUsuario;
 	}
 	
-	function getPontosGeral(){
-		return $this->pontosGeral;
+	function getPontuacaoGeral(){
+		return $this->pontuacaoGeral;
 	}
 	
-	function getClassificacaoGeral(){
-		return $this->classificacaoGeral;
-	}
-	function setClassificacaoGeral($classificacaoGeral){
-		$this->classificacaoGeral = $classificacaoGeral;
+	function setPontuacaoGeral($pontuaçãoGeral){
+		$this->pontuacaoGeral = $pontuaçãoGeral;
 	}
 	
 	function getApostas($aposta){
@@ -114,10 +109,6 @@ class Usuario{
 	
 	function getPremiacoesUsuario(){
 		return $this->premiacoesUsuario;
-	}
-	
-	function calculaPontosGeral($pontosAposta){
-		$this->pontosGeral += $pontosAposta;
 	}
 	
 	function adicionaAposta($aposta){
