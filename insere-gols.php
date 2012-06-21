@@ -93,9 +93,9 @@ if (isset($_POST['jogo'])) {
 					
 					//Atualiza PontosGeral de cada Usuário
 					
-					$usuario = $entityManager->find("Usuario", $aposta->getUsuario()->getIdUsuario());
-					$usuario->calculaPontosGeral($aposta->getPontosAposta());
-					$entityManager->merge($usuario);
+					$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $aposta->getUsuario()->getIdUsuario());
+					$pontuacaoGeral->calculaPontosGeral($aposta->getPontosAposta());
+					$entityManager->merge($pontuacaoGeral);
 					$entityManager->flush();
 					
 				} else {
@@ -105,32 +105,32 @@ if (isset($_POST['jogo'])) {
 			
 			//Atualiza Classificação Geral dos Usuários
 			
-			$dql = "SELECT u FROM Usuario u ORDER BY u.pontosGeral DESC";
+			$dql = "SELECT p FROM PontuacaGeral p ORDER BY p.pontosGeral DESC";
 			$query = $entityManager->createQuery($dql);
-			$usuarios = $query->getResult();
+			$pontuacoesGerais = $query->getResult();
 			$classificacaoGeral = 1;
 			$primeiro = true;
 			$pontosGeralAnterior = NULL;
-			foreach ($usuarios as $usuario){
-				if($usuario instanceof Usuario){
+			foreach ($pontuacoesGerais as $pontuacaoGeral){
+				if($pontuacaoGeral instanceof PontuacaoGeral){
 					if($primeiro){
-						$usuario->setClassificacaoGeral($classificacaoGeral);
-						$pontosGeralAnterior = $usuario->getPontosGeral();
+						$pontuacaoGeral->setClassificacaoGeral($classificacaoGeral);
+						$pontosGeralAnterior = $pontuacaoGeral->getPontosGeral();
 						$primeiro = false;
-						$entityManager->merge($usuario);
+						$entityManager->merge($pontuacaoGeral);
 						$entityManager->flush();
 					}
 					else{
-						if($usuario->getPontosGeral() == $pontosGeralAnterior){
-							$usuario->setClassificacaoGeral($classificacaoGeral);
-							$entityManager->merge($usuario);
+						if($pontuacaoGeral->getPontosGeral() == $pontosGeralAnterior){
+							$pontuacaoGeral->setClassificacaoGeral($classificacaoGeral);
+							$entityManager->merge($pontuacaoGeral);
 							$entityManager->flush();
 						}
 						else{
 							$classificacaoGeral++;
-							$usuario->setClassificacaoGeral($classificacaoGeral);
-							$pontosGeralAnterior = $usuario->getPontosGeral();
-							$entityManager->merge($usuario);
+							$pontuacaoGeral->setClassificacaoGeral($classificacaoGeral);
+							$pontosGeralAnterior = $pontuacaoGeral->getPontosGeral();
+							$entityManager->merge($pontuacaoGeral);
 							$entityManager->flush();
 						}
 					}
@@ -241,16 +241,23 @@ if (isset($_POST['jogo'])) {
 								"campeonato" =>	$pontuacaoRodada->getCampeonato()->getCodCampeonato(),
 								"usuario" => $pontuacaoRodada->getUsuario()->getIdUsuario()
 						));
+						$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $pontuacaoRodada->getUsuario()->getIdUsuario());
+												
 						if($pontuacaoRodada->getClassificacaoRodada() == 1){
 							$premiosUsuario->ganhaMedalhaOuro();
+							$pontuacaoGeral->ganhaMedalhaOuroGeral();
 						}
 						elseif ($pontuacaoRodada->getClassificacaoRodada() == 2){
 							$premiosUsuario->ganhaMedalhaPrata();
+							$pontuacaoGeral->ganhaMedalhaPrataGeral();
 						}
 						elseif ($pontuacaoRodada->getClassificacaoRodada() == 3){
 							$premiosUsuario->ganhaMedalhaBronze();
+							$pontuacaoGeral->ganhaMedalhaBronzeGeral();
 						}
 						$entityManager->merge($premiosUsuario);
+						$entityManager->flush();
+						$entityManager->merge($pontuacaoGeral);
 						$entityManager->flush();
 					}
 				}
@@ -285,6 +292,40 @@ if (isset($_POST['jogo'])) {
 								$premiosUsuario->setClassificacaoMedalhas($classificacaoMedalhas);
 								$pontosMedalhasAnterior = $premiosUsuario->getPontosMedalhas();
 								$entityManager->merge($premiosUsuario);
+								$entityManager->flush();
+							}
+						}
+					}
+				}
+				
+				//Atualiza Classificação de Medalhas Geral
+				
+				$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.pontosMedalhasGeral DESC";
+				$query = $entityManager->createQuery($dql);
+				$pontuacoesGerais = $query->getResult();
+				$classificacaoMedalhasGeral = 1;
+				$primeiro = true;
+				$pontosMedalhasGeralAnterior = NULL;
+				foreach ($pontuacoesGerais as $pontuacaoGeral){
+					if($pontuacaoGeral instanceof PontuacaoGeral){
+						if($primeiro){
+							$pontuacaoGeral->setClassificacaoMedalhasGeral($classificacaoMedalhasGeral);
+							$pontosMedalhasAnteriorGeral = $pontuacaoGeral->getPontosMedalhasGeral();
+							$primeiro = false;
+							$entityManager->merge($pontuacaoGeral);
+							$entityManager->flush();
+						}
+						else{
+							if($pontuacaoGeral->getPontosMedalhasGeral() == $pontosMedalhasAnteriorGeral){
+								$pontuacaoGeral->setClassificacaoMedalhasGeral($classificacaoMedalhasGeral);
+								$entityManager->merge($pontuacaoGeral);
+								$entityManager->flush();
+							}
+							else{
+								$classificacaoMedalhasGeral++;
+								$pontuacaoGeral->setClassificacaoMedalhasGeral($classificacaoMedalhasGeral);
+								$pontosMedalhasAnteriorGeral = $pontuacaoGeral->getPontosMedalhasGeral();
+								$entityManager->merge($pontuacaoGeral);
 								$entityManager->flush();
 							}
 						}
@@ -379,6 +420,10 @@ if (isset($_POST['jogo'])) {
 				}
 				$premiosUsuarioGanhador->ganhaTrofeu();
 				$entityManager->merge($premiosUsuarioGanhador);
+				$entityManager->flush();
+				$pontuacaoGeral = $premiosUsuarioGanhador->getUsuario()->getPontuacaoGeral();
+				$pontuacaoGeral->ganhaTrofeu();
+				$entityManager->merge($pontuacaoGeral);
 				$entityManager->flush();
 			}
 			

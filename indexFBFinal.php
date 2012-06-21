@@ -41,11 +41,14 @@ if ($user_id) {
 				$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
 				$entityManager->persist($usuario);
 				$entityManager->flush();
+				$pontuacaoGeral = new PontuacaoGeral($usuario);
+				$entityManager->persist($pontuacaoGeral);
+				$entityManager->flush();
 			
 			$conn->commit();
 			} catch(Exception $e) {
 				$conn->rollback();
-				echo $e->getMessage() . "<br/><font color=red>Não localizado usuário no Banco de Dados.</font><br/>";
+				echo $e->getMessage() . "<br/><font color=red>Não gravado usuário no Banco de Dados.</font><br/>";
 			}
 			$conn->close();
 			

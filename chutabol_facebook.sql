@@ -186,6 +186,10 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 CREATE TABLE IF NOT EXISTS `pontuacaogeral` (
   `usuario_id` bigint(20) NOT NULL DEFAULT '0',
+  `acertosPlacarGeral` int(11) DEFAULT NULL,
+  `acertosTimeGanhadorGeral` int(11) DEFAULT NULL,
+  `acertosPlacarInvertidoGeral` int(11) DEFAULT NULL,
+  `errosPlacarGeral` int(11) DEFAULT NULL,
   `pontosGeral` int(11) DEFAULT NULL,
   `classificacaoGeral` int(11) DEFAULT NULL,
   `pontosMedalhasGeral` int(11) DEFAULT NULL,
@@ -193,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `pontuacaogeral` (
   `medalhasOuroGeral` int(11) DEFAULT NULL,
   `medalhasPrataGeral` int(11) DEFAULT NULL,
   `medalhasBronzeGeral` int(11) DEFAULT NULL,
+  `trofeus` int(11) DEFAULT NULL,
   PRIMARY KEY (`usuario_id`),
   KEY `usuario_id` (`usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

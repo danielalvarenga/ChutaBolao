@@ -1,5 +1,15 @@
-INSERT INTO `usuario` (`id`, `primeiroNomeUsuario`, `segundoNomeUsuario`, `emailUsuario`, `pontosGeral`, `tokenUsuario`) VALUES
-	(100000885523518, 'Daniel', 'Alvarenga Lima', 'alvarenga_daniel@hotmail.com', 0, 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl');
+INSERT INTO `usuario` (`id`,
+			`primeiroNomeUsuario`,
+			`segundoNomeUsuario`,
+			`emailUsuario`,
+			`tokenUsuario`)
+	VALUES	(
+	100000885523518,
+	'Daniel',
+	'Alvarenga Lima',
+	'alvarenga_daniel@hotmail.com',
+	'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl'
+	);
 	
 	
 INSERT INTO `time` (`id`, `nomeTime`, `escudo`) VALUES
@@ -26,4 +36,17 @@ INSERT INTO `time` (`id`, `nomeTime`, `escudo`) VALUES
 
 
 
-
+INSERT INTO `pontuacaogeral`(`usuario_id`,
+			`acertosPlacarGeral`,
+			`acertosTimeGanhadorGeral`,
+			`acertosPlacarInvertidoGeral`,
+			`errosPlacarGeral`,
+			`pontosGeral`,
+			`classificacaoGeral`,
+			`pontosMedalhasGeral`,
+			`classificacaoMedalhasGeral`,
+			`medalhasOuroGeral`,
+			`medalhasPrataGeral`,
+			`medalhasBronzeGeral`,
+			`trofeus`)
+	VALUES (0,0,0,0,0,0,0,0,0,0,0,0,0);
