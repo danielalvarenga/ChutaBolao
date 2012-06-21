@@ -18,6 +18,9 @@ $conn = $entityManager->getConnection();
 $conn->beginTransaction();
 try{
 	$usuario = $entityManager->find("Usuario", $user_id);
+/*	$pontuacaoGeral = new PontuacaoGeral($usuario);
+	$entityManager->persist($pontuacaoGeral);
+	$entityManager->flush();
 	/*
 	if(($usuario instanceof Usuario) == false){
 		

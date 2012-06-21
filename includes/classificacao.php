@@ -1,114 +1,22 @@
 ﻿<?php
-require 'bootstrap.php';
-$conn = $entityManager->getConnection();
-$conn->beginTransaction();
+require 'importa-classificacao.php';
 try{
-
-$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo' ";
-$query= $entityManager->createQuery($dql);
-$campeonatos= $query->getResult();
-
-if($campeonatos<>NULL){
-	foreach ($campeonatos as $campeonato)	{
-			$dql = "SELECT r FROM RendimentoTime r WHERE r.campeonato=".$campeonato->getCodCampeonato()."ORDER BY r.classificacao" ;
-			$query= $entityManager->createQuery($dql);
-			$rendimentosTimes= $query->getResult();
-				
-if ($rendimentosTimes<>NULL) {
-	  	
-	echo "<table id='tabela' align='center' cellspacing=0 >
-				<td id='aposta'align='center' colspan='11'>
-					Ranking ".$campeonato->getNomeCampeonato()." ".$campeonato->getAnoCampeonato()."
-				</td class=\"coluna\">
-			<tr align='center'class=\"linha\" >
-					<td >
-						Classificacao 
-					</td class=\"coluna\">
-					<td>
-						Time
-					</td class=\"coluna\">
-					<td >
-						
-					</td class=\"coluna\">
-			
-					<td >
-						PG
-					</td class=\"coluna\">
-					<td>
-						Jg
-					</td class=\"coluna\">
-					<td >
-						Vt
-					</td class=\"coluna\">
-					<td >
-						Ep
-					</td class=\"coluna\">
-                    <td >
-						De
-					</td class=\"coluna\">
-			 		<td >
-						GP
-					</td class=\"coluna\">
-				    <td >
-						GC
-					</td class=\"coluna\">
-					<td >
-						SG
-					</td class=\"coluna\">
-						
-			</tr>	";
-
-	    foreach($rendimentosTimes as $rendimentoTimes){	   
-	    	
-	    		    	
-		echo "	<tr class=\"linha\" align='center'>
-			   		<td class=\"coluna\">"
-			    		.$rendimentoTimes->getClassificacao()."
-			    	</td>
-			    	<td class=\"coluna\">"
-			    		.$rendimentoTimes->getTime()->getNomeTime()."
-			    	</td>
-			    	<td class=\"coluna\">	
-			    		<img class=\"escudo\" src=".$rendimentoTimes->getTime()->getEscudo().">
-			    	</td>
-			    	<td class=\"coluna\">"
-						.$rendimentoTimes->getPontos()."
-			    	</td>
-			    	<td class=\"coluna\">"
-			    		.$rendimentoTimes->getQuantidadeJogos()."			    	
-					</td>
-			    	<td class=\"coluna\">"
-						.$rendimentoTimes->getVitorias()."
-			    	</td>
-			    	<td class=\"coluna\">"
-						.$rendimentoTimes->getEmpates()."
-			    	</td>
-			    	<td class=\"coluna\">"
-						.$rendimentoTimes->getDerrotas()."
-			    	</td>
-			    	<td class=\"coluna\">"
-						.$rendimentoTimes->getGolsPro()."
-			    	</td>
-			    	<td class=\"coluna\">"
-						.$rendimentoTimes->getGolsContra()."
-			    	</td>
-			    	<td class=\"coluna\">"
-						.$rendimentoTimes->getSaldoDeGols()."
-			    	</td>			    	
-			    </tr>";
-	
-	    }	
-
-					echo "</table><br>";
+	echo "<table width=\"90%\" border=\"1px\" align='center' cellspacing=3 cellspadding=5>
+	<td height=\"40px\" align='center' colspan='11' bgcolor=\"#56a102\">
+	Ranking Campeonato Brasileiro 2012 - Série A
+	</td>";
+	for($i = 0; $i <= 230; $i += 11){
+		echo "<tr align='center' >";
+		for($j = $i; $j < $i + 11; $j++){
+			echo
+			"<td>".
+			$str[$j].
+			"</td>";
+		}
+		echo "</tr>	";
 	}
-					}
-		
-}
-
-$conn->commit();
+	echo "</table><br>";
 } catch(Exception $e) {
-	$conn->rollback();
-
 	echo
 		"<p align='center'>
 		<table id='tabela'>
@@ -118,10 +26,6 @@ $conn->commit();
 		</td>
 		</tr>
 		</table>";
-	}
-	$conn->close();
-
+}
 	
-
-
-       ?>
+	?>
