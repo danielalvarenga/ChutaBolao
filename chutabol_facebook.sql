@@ -248,7 +248,7 @@ ALTER TABLE `pontuacaogeral`
 -- Restrições para a tabela `rendimentotime`
 --
 ALTER TABLE `rendimentotime`
-  ADD CONSTRAINT `FK_rendimentotime_time` FOREIGN KEY (`time_id`) REFERENCES `time` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_rendimentotime_timex` FOREIGN KEY (`time_id`) REFERENCES `time` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_rendimentotime_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
 
 --

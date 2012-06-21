@@ -57,14 +57,17 @@ class RendimentoTime{
 	function getEmpates(){
 		return $this->empates;
 	}
+	function getQuantidadeJogos(){
+		return $this->vitorias+$this->empates+$this->derrotas;
+	}
 	function getGolsPro(){
 		return $this->golsPro;
 	}
 	function getGolsContra(){
 		return $this->golsContra;
 	}
-	function getClassificacao($classificacao){
-		$this->classificacao = $classificacao;
+	function getClassificacao(){
+		return $this->classificacao ;
 	}
 	function getPontos(){
 		return $this->pontos;

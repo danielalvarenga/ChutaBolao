@@ -15,6 +15,12 @@ switch ($pagina){
 	$author = "";
 	break;
 	
+	case "apostas_antigas":
+		$page = "includes/apostas_antigas.php";
+		$title = "Apostas Ja Realizadas";
+		$author = "";
+		break;
+	
 	case "classificacao":
 	$page = "includes/classificacao.php";
 	$title = "Classificação";
