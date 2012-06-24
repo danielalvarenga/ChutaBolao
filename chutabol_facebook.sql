@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `aposta` (
   `jogo_id` int(11) NOT NULL DEFAULT '0',
   `apostaGolsTime1` int(11) DEFAULT NULL,
   `apostaGolsTime2` int(11) DEFAULT NULL,
+   `opcaoCadastrada` varchar(255) DEFAULT NULL,
   `pontosAposta` int(11) DEFAULT NULL,
   PRIMARY KEY (`usuario_id`,`campeonato_id`,`jogo_id`),
   KEY `usuario_id` (`usuario_id`),
