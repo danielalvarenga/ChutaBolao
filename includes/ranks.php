@@ -37,79 +37,78 @@ echo "<table id='tabela' align='center' cellspacing=0>
 		    		Sua Classificacao
 		    	</td>
 		    	<td>"
-		    		.$usuario->getClassificacaoGeral()."
+		    		.$usuario->getPontuacaoGeral()->getClassificacaoGeral()."
 		    	</td>
-		    	<td>	
-		    		Teste
-		    	</td>
-		    	<td>"
-		    		.$usuario->getPontosGeral()."
+		    	<td>"	
+		    		.$usuario->getPontuacaoGeral()->getClassificacaoMedalhasGeral()."
 		    	</td>
 		    	<td>"
-		    		.$usuario->getPrimeiroNomeUsuario()."
+		    		.$usuario->getPontuacaoGeral()->getMedalhasOuroGeral()."
 		    	</td>
 		    	<td>"
-		    		.$usuario->getSegundoNomeUsuario()."
+		    		.$usuario->getPontuacaoGeral()->getMedalhasPrataGeral()."
+		    	</td>
+		    	<td>"
+		    		.$usuario->getPontuacaoGeral()->getMedalhasBronzeGeral()."
 		    	</td>
 		    </font>
 		</tr>";
- 
-$dql = "SELECT u FROM Usuario u ORDER BY u.classificacaoGeral ";
+$dql = "SELECT pg FROM PontuacaoGeral pg GROUP BY pg.classificacaoGeral ORDER BY pg.classificacaoGeral ASC ";
 $query= $entityManager->createQuery($dql);
 $query->setMaxResults(10);
-$usuarios= $query->getResult();
+$pontuacoesGerais= $query->getResult();
     
        
-       if($usuarios<>NULL){	
-		    foreach ($usuarios as $usuario){
-		    	if ($user_id==$usuario->getIdUsuario()) {
-		    	echo "<tr align='center'  bgcolor='lime'>
-		    				<font size='4'>
-		    					<td>"
-		    						.$usuario->getIdUsuario()."
-		    					</td>
-		    					<td>"
-		    						.$usuario->getClassificacaoGeral()."
-		    					</td>
-		    					<td>
-		    						Teste
-		    					</td>
-		    					<td>"
-		    						.$usuario->getPontosGeral()."
-		    					</td>
-		    					<td>"
-		    						.$usuario->getPrimeiroNomeUsuario()."
-		    					</td>
-		    					<td>"
-		    						.$usuario->getSegundoNomeUsuario()."
-		    					</td>
-		    				</font>
-		    		</tr>";
+       if($pontuacoesGerais<>NULL){
+       		foreach ($pontuacoesGerais as $pontuacaoGeral){
+		    	if ($user_id==$pontuacaoGeral->getUsuario()->getIdUsuario()) {
+		    	echo "<tr align='center' bgcolor='blue'>
+					   	<font size='4'>
+		    				<td>"
+		    					.$pontuacaoGeral->getUsuario()->getIdUsuario()."
+		    				</td>
+		    				<td>"
+		    					.$pontuacaoGeral->getClassificacaoGeral()."
+		    				</td>
+		    				<td>"	
+		    					.$pontuacaoGeral->getClassificacaoMedalhasGeral()."
+		    				</td>
+		    				<td>"
+		    					.$pontuacaoGeral->getMedalhasOuroGeral()."
+		    				</td>
+		    				<td>"
+		    					.$pontuacaoGeral->getMedalhasPrataGeral()."
+		    				</td>
+		    				<td>"
+		    					.$pontuacaoGeral->getMedalhasBronzeGeral()."
+		    				</td>
+		    			</font>
+					</tr>";
+ 
 		    	}
 		    	else{
 		    		echo "<tr align='center' bgcolor='#FFA500'>
-							<font size='4'>		    		
+							<font size='4'>
 		    					<td>"
-		    						.$usuario->getIdUsuario()."
+		    						.$pontuacaoGeral->getUsuario()->getIdUsuario()."
 		    					</td>
 		    					<td>"
-		    						.$usuario->getClassificacaoGeral()."
+		    						.$pontuacaoGeral->getClassificacaoGeral()."
 		    					</td>
-		    					<td>
-		    						Teste
-		    					</td>
-		    					<td>"
-		    						.$usuario->getPontosGeral()."
+		    					<td>"	
+		    						.$pontuacaoGeral->getClassificacaoMedalhasGeral()."
 		    					</td>
 		    					<td>"
-		    						.$usuario->getPrimeiroNomeUsuario()."
+		    						.$pontuacaoGeral->getMedalhasOuroGeral()."
 		    					</td>
 		    					<td>"
-		    						.$usuario->getSegundoNomeUsuario()."
+		    						.$pontuacaoGeral->getMedalhasPrataGeral()."
+		    					</td>
+		    					<td>"
+		    						.$pontuacaoGeral->getMedalhasBronzeGeral()."
 		    					</td>
 		    				</font>
-		    			</tr>";
-		    		 
+					</tr>";
 			        }
 		    }
 echo "</table>";  
