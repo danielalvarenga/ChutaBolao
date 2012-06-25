@@ -85,7 +85,7 @@ ob_end_flush();
 
 </head>
 
-<body>
+<body background="imagens/campo-futebol.png">
 
 <?php 
 if($user_id){

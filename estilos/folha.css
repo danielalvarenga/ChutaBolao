@@ -14,13 +14,12 @@
 
 
 h1 {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	color: #25D7FC; text-shadow: black 0.1em 0.1em 0.2em;
+	font-family:Helvetica, Arial, sans-serif;	color: #ffffff; text-shadow: black 0.1em 0.1em 0.2em;
 }
 h2 {
-	font-family:Arial, Helvetica, sans-serif;
-	color: #25D7FC; text-shadow: black 0.1em 0.1em 0.2em;
-}
+	font-family:Helvetica, Arial, sans-serif;
+	color: #ffffff; text-shadow: black 0.1em 0.1em 0.2em;
+}h3 {	font-family:Helvetica, Arial, sans-serif;	color: #ffffff; text-shadow: black 0.1em 0.1em 0.2em;}
 p {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	font-size: 13px;
@@ -62,7 +61,7 @@ border-bottom-right-radius: 8px;
 
 #content {
 	float:left;
-	width:780px;		height: 500px;
+	width:780px;		height: 100%;
 	background-color: #fff;
 	
 }
@@ -226,17 +225,15 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 /* MURAL */
 	
 #Mural {
-	width: 350px;
-	float: left;
+	width: 90%;
 	background-color: #E4E4E4;
-	margin-right: 10px;
-	margin-left: 15px;
+	margin-right: auto;
+	margin-left: 5px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 5px 5px;
 	*padding: 5px;
 	_padding: 5px;
-	/*sombra na borda*/
 	border: 1px solid #666;
 }
 	
@@ -359,7 +356,7 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 	
 /* PONTOS */
 	
-#Mural #pontos {
+#pontos {
 	width:336px;
 	float:left;
 	background: #56a102;
@@ -373,7 +370,7 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 	_padding: 1px;
 }
 	
-#Mural #pontos .total_pontos {		
+#pontos .total_pontos {		
 	font-family: Helvetica;	
 	font-size: 36px;	
 	color: #FFFFFF;
@@ -385,7 +382,7 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 	
 	/* MEDALHAS */
 	
-#Mural #medalhas {	
+#medalhas {	
 	width:336px;
 	background: #a63fbf;
 	border: 1px solid #17541f;
@@ -401,7 +398,7 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 
 /* CHUTEIRAS */
 	
-#Mural #chuteiras {	
+#chuteiras {	
 	width:336px;
 	background: #FFA500;
 	border: 1px solid #17541f;
@@ -417,7 +414,7 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 
 /* TROFÉUS */
 	
-#Mural #trofeus {
+#trofeus {
 	width:336px;
 	background: #DC143C;
 	border: 1px solid #17541f;
@@ -439,7 +436,7 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 
 /* ACERTOS */
 
-#Mural #acertos {	
+#acertos {	
 	width:336px;
 	background: #3B5998;
 	border: 1px solid #17541f;
@@ -470,4 +467,5 @@ background-position: right bottom; /* we show the right bottom part of the tabs 
 	font-size: 15px;	
 	color: #FFFFFF;
 }
-	/* PÁGINA APOSTAS.PHP */#aposta{	border: 1px solid #666;	font-style:oblique;	font-size: 20pt;	color:#ffffff;	vertical-align: baseline;	margin-right: 5px;	margin-left: 5px;	margin-bottom: 5px;	background-color: #56a102;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;	text-shadow: black 0.1em 0.1em 0.2em;}#jogo{	font-family:Arial,serif,sans-serif;	font-size: 18pt;	color:red;	vertical-align:middle;	align: center;	margin-top:20px;	margin-right: 5px;	margin-left: 5px; 	background-color: lime;}#tabela {	width: 95% ;	border: 1px solid #666;	align:center;	background-color:#E4E4E4;	font-size: 18px;	font-family: Helvetica;	vertical-align: middle;		color: #17541f;    z-index: auto;    margin-right: 10px;	margin-bottom: 10px;	margin-left: 20px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;}img.escudo {	width: 30px ;	height: 30px;}tr.linha{	border: 0;	table-layout:auto;	font-weight:bold;	font-style:italic;	font-family: Helvetica;	background:#E4E4E4;}td.coluna{	border: 0;	background:#ffffff;	table-layout:auto;	border: 0px solid #666;	font-weight:bold;	font-style:italic;	font-family: Helvetica;	padding: 3px 0px;	*padding: 3px;	_padding: 3px;}td.data{	border: 0px solid #666;	vertical-align: middle;	font-size: 8pt;	font-style:italic;	font-family: Helvetica;}#painel{	border: 1px solid #666;	align:center;	background-color:#E4E4E4;	font-size: 18px;	font-family: Helvetica;	vertical-align: middle;		color: #17541f;    z-index: auto;    margin-right: 10px;	margin-bottom: 10px;	margin-left: 20px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;}
+	/* PÁGINA APOSTAS.PHP */#aposta{	border: 1px solid #666;	vertical-align: baseline;	margin-right: 5px;	margin-left: 5px;	margin-bottom: 5px;	background-color: #56a102;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;	text-shadow: black 0.1em 0.1em 0.2em;}#jogo{	font-family:Arial,serif,sans-serif;	font-size: 18pt;	color:red;	vertical-align:middle;	align: center;	margin-top:20px;	margin-right: 5px;	margin-left: 5px; 	background-color: lime;}#tabela {	width: 95% ;	border: 1px solid #666;	align:center;	background-color:#E4E4E4;	font-size: 18px;	font-family: Helvetica;	vertical-align: middle;		color: #17541f;    z-index: auto;    margin-right: 10px;	margin-bottom: 10px;	margin-left: 20px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;}img.escudo {	width: 30px ;	height: 30px;}tr.linha{	border: 0;	table-layout:auto;	font-weight:bold;	font-style:italic;	font-family: Helvetica;	background:#E4E4E4;}td.coluna{	border: 0;	background:#ffffff;	table-layout:auto;	border: 0px solid #666;	font-weight:bold;	font-style:italic;	font-family: Helvetica;	padding: 3px 0px;	*padding: 3px;	_padding: 3px;}td.data{	border: 0px solid #666;	vertical-align: middle;	font-size: 8pt;	font-style:italic;	font-family: Helvetica;}#painel{	border: 1px solid #666;	align:center;	background-color:#E4E4E4;	font-size: 18px;	font-family: Helvetica;	vertical-align: middle;		color: #17541f;    z-index: auto;    margin-right: 10px;	margin-bottom: 10px;	margin-left: 20px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;}
+/*PÁGINA HOME */#tabelaHome{	border: 1px solid #666;	margin-right: 10px;	margin-bottom: 10px;	margin-left: 20px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;}tr.linhaHome {	height: 30px;	border: 0;	table-layout:auto;	font-weight:bold;	font-style:italic;	font-family: Helvetica;	background:#E4E4E4;}td.colunaHome {	width: 30px ;	border: 0;	background:#ffffff;	table-layout:auto;	border: 0px solid #666;	font-weight:bold;	font-style:italic;	font-family: Helvetica;	padding: 3px 0px;	*padding: 3px;	_padding: 3px;}

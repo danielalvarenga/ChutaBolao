@@ -30,8 +30,8 @@ try{
 					echo 
 					'<br>
 				<table id="tabela" cellspacing=0>
-					<td id="aposta" align="center" colspan="7">'
-						.$campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato().'
+					<td id="aposta" align="center" colspan="7">
+					<h3>'.$campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato().'</h3>
 					</td>';
 					
 						// Essa parte do codigo busca aposta do usuario de acordo com o numero do

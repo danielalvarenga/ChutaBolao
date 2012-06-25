@@ -101,7 +101,7 @@ if ($user_id) {
 
 </head>
 
-<body>
+<body background="imagens/campo-futebol.png">
 		
 		<!-- Cabeçalho -->
 		
