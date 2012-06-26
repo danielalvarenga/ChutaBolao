@@ -1,15 +1,4 @@
-INSERT INTO `usuario` (`id`,
-			`primeiroNomeUsuario`,
-			`segundoNomeUsuario`,
-			`emailUsuario`,
-			`tokenUsuario`)
-	VALUES	(
-	100000885523518,
-	'Daniel',
-	'Alvarenga Lima',
-	'alvarenga_daniel@hotmail.com',
-	'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl'
-	);
+/*Quando executar o index ele já coloca o usuário de teste no banco com seu objeto geral*/
 	
 	
 INSERT INTO `time` (`id`, `nomeTime`, `escudo`) VALUES
@@ -33,20 +22,3 @@ INSERT INTO `time` (`id`, `nomeTime`, `escudo`) VALUES
 (19, 'São Paulo', 'imagens/escudos/sao-paulo47x47.png'),
 (20, 'Sport', 'imagens/escudos/sport47x47.png'),
 (21, 'Vasco', 'imagens/escudos/vasco47x47.png');
-
-
-
-INSERT INTO `pontuacaogeral`(`usuario_id`,
-			`acertosPlacarGeral`,
-			`acertosTimeGanhadorGeral`,
-			`acertosPlacarInvertidoGeral`,
-			`errosPlacarGeral`,
-			`pontosGeral`,
-			`classificacaoGeral`,
-			`pontosMedalhasGeral`,
-			`classificacaoMedalhasGeral`,
-			`medalhasOuroGeral`,
-			`medalhasPrataGeral`,
-			`medalhasBronzeGeral`,
-			`trofeus`)
-	VALUES (0,0,0,0,0,0,0,0,0,0,0,0,0);

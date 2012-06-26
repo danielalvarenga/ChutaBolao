@@ -12,28 +12,27 @@ $config = array(
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
 */
-$user_id = "100000885523520";
+$user_id = "100000885523518";
+$primeiroNomeUsuario = 'Daniel';
+$segundoNomeUsuario = 'Alvarenga Lima';
+$emailUsuario = 'alvarenga_daniel@hotmail.com';
+$tokenUsuario = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
+
 
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
 try{
 	$usuario = $entityManager->find("Usuario", $user_id);
-/*	$pontuacaoGeral = new PontuacaoGeral($usuario);
-	$entityManager->persist($pontuacaoGeral);
-	$entityManager->flush();
-	/*
 	if(($usuario instanceof Usuario) == false){
-		
-		$user_profile = $facebook->api('/me', 'GET');
-		$primeiroNomeUsuario = $user_profile['first_name'];
-		$segundoNomeUsuario = $user_profile['last_name'];
-		$emailUsuario = $user_profile['email'];
-		$tokenUsuario = $facebook->getAccessToken();
 		$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
 		$entityManager->persist($usuario);
 		$entityManager->flush();
 		
-		$message = 'Agora vou mostrar quem entende de futebol! =D';
+		$pontuacaoGeral = new PontuacaoGeral($usuario);
+		$entityManager->persist($pontuacaoGeral);
+		$entityManager->flush();
+		
+/*		$message = 'Agora vou mostrar quem entende de futebol! =D';
 		$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/logo.png';
 		$link = 'http://apps.facebook.com/chutabolao';
 		$name = $primeiroNomeUsuario.' agora "Chuta Bolão"';
@@ -47,9 +46,8 @@ try{
 				'caption' => $caption,
 				'description' => $description
 				));
-		
+*/		
 		}
-	*/
 	$conn->commit();
 } catch(Exception $e) {
 	$conn->rollback();

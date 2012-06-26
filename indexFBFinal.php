@@ -53,7 +53,7 @@ if ($user_id) {
 			$conn->close();
 			
 			$message = 'Agora vou mostrar quem entende de futebol! =D';
-			$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/logo.png';
+			$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/chuta-bolao-logo.png';
 			$link = 'http://apps.facebook.com/chutabolao';
 			$name = $primeiroNomeUsuario.' agora "Chuta Bolão"';
 			$caption = 'Seu time vai ganhar esse Campeonato?';

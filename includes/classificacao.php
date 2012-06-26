@@ -1,6 +1,6 @@
 ﻿<?php
 require 'importa-classificacao.php';
-try{
+/*try{
 	echo "<center>
 	<table width=\"90%\" border=\"1px\" align='center' cellspacing=3 cellspadding=5>
 	<tr>
@@ -30,6 +30,6 @@ try{
 		</tr>
 		</table>
 		</center>";
-}
+}*/
 	
 	?>

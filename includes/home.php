@@ -14,13 +14,13 @@ try{
 	$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $user_id);
 ?>	
 	<center>
-	<table id="tabelaHome" style ="border-style: solid; border-width: 1; color: #FFFFFF" width="90%" bgcolor="#E4E4E4" cellspacing="5" cellpadding="5">
+	<table id="tabelaHome" cellspacing="5" cellpadding="5">
 		<tr>
 			<td>
-				<table  width="100%" cellspacing="0" cellpadding="0">
+				<table class="tabelaInterna" cellspacing="0" cellpadding="0">
 				<tr align="center" bottom="middle" style ="border-style: solid; border-width: 1">
-					<td style="color: #FFFFFF" colspan=11 bgcolor="#56a102" height="40px">
-						<h3>PODIUM GERAL</h3>
+					<td class="tituloHome" colspan=11>
+						PODIUM GERAL
 					</td>
 				</tr>
 				<tr>
@@ -59,9 +59,10 @@ try{
 					<td>
 						<img src="<?php echo $imgAcertoTimeGanhador;?>" />   
 					</td>
-					<td bgcolor="#3B5998" width=80px height=60px>
-						<span class="total_pontos">
+					<td class="topoPodium" bgcolor="#3B5998" rowspan="2">
+						<span class="descricaoPodium">ACERTOS<br/><br/></span>
 							<?php echo $pontuacaoGeral->getAcertosPlacarGeral();?>
+							<span class="descricaoPodium"><br/>Placar Completo</span>
 						</span>
 					</td>
 					<td>
@@ -72,64 +73,56 @@ try{
 					<td>
 						<img src="<?php echo $imgMedalhaPrata;?>" /> 
 					</td>
-					<td bgcolor="#FFA500" width=80px height=60px>
+					<td class="topoPodium" bgcolor="#FFA500" rowspan="2">
+						<span class="descricaoPodium">MEDALHAS<br/><br/></span>
 						<?php echo $pontuacaoGeral->getMedalhasOuroGeral();?>
+						<span class="descricaoPodium"><br/>Ouro</span>
 					</td>
 					<td>
 						<img src="<?php echo $imgMedalhaBronze;?>" /> 
 					</td>
 					<td>
 					</td>
-					<td bgcolor="#56a102" width=80px height=60px>
+					<td class="topoPodium" bgcolor="#56a102" rowspan="2">
+						<span class="descricaoPodium">PONTOS<br/><br/></span>
 						<?php echo $pontuacaoGeral->getPontosGeral();?>
 					</td>
-					<td>
+					<td width=15px rowspan="2">
 					</td>
-					<td bgcolor="#dc143c" width=80px height=60px>
+					<td class="topoPodium" bgcolor="#dc143c" rowspan="2">
+						<span class="descricaoPodium">TROFÉUS<br/><br/></span>
 						<?php echo $pontuacaoGeral->getTrofeus();?>
 					</td>
 				</tr>
 				<tr align="center" bottom="middle">
-					<td bgcolor="#3B5998" width=80px height=60px>
+					<td class="podiumEsquerdo" bgcolor="#3B5998">
 						<?php echo $pontuacaoGeral->getAcertosTimeGanhadorGeral();?>
-						Time Ganhador
+						<br/><span class="descricaoPodium">Time Ganhador</span>
 					</td>
-					<td bgcolor="#3B5998" width=80px height=60px>
-						Placar Completo
-					</td>
-					<td bgcolor="#3B5998" width=80px height=60px>
+					<td class="podiumDireito" bgcolor="#3B5998">
 						<?php echo $pontuacaoGeral->getAcertosPLacarInvertidoGeral();?>
-						Placar Invertido
+						<br/><span class="descricaoPodium">Placar Invertido</span>
 					</td>
 					<td width=15px>
 					</td>
-					<td bgcolor="#FFA500" width=80px height=60px>
+					<td class="podiumEsquerdo" bgcolor="#FFA500">
 						<?php echo $pontuacaoGeral->getMedalhasPrataGeral();?>
-						Prata
+						<br/><span class="descricaoPodium">Prata</span>
 					</td>
-					<td bgcolor="#FFA500" width=80px height=60px>
-						Ouro
-					</td>
-					<td bgcolor="#FFA500" width=80px height=60px>
+					<td class="podiumDireito" bgcolor="#FFA500">
 						<?php echo $pontuacaoGeral->getMedalhasBronzeGeral();?>
-						Bronze
+						<br/><span class="descricaoPodium">Bronze</span>
 					</td>
 					<td width=15px>
 					</td>
-					<td bgcolor="#56a102" width=80px height=60px>
-						Pontos
-					</td>
-					<td width=15px>
-					</td>
-					<td  bgcolor="#dc143c" width=80px height=60px>
-						Troféus
+				</tr>
+				<tr>
+					<td id="prateleira" colspan=11>
 					</td>
 				</tr>
 				</table>
  			</td>
  		</tr>
- 	</table>
- 	</center>
 	<?php 
 	
 	$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario = $user_id";
@@ -140,14 +133,16 @@ try{
 			$statusCampeonato = $premiacoes->getCampeonato()->getStatus();
 			if($statusCampeonato == "ativo"){
 	?>
-				<center>
-				<table id="tabelaHome" style ="border-style: solid; border-width: 1; color: #FFFFFF" width="90%" bgcolor="#E4E4E4" cellspacing="5" cellpadding="5">
 					<tr>
 						<td>
 							<table width="100%" cellspacing="0" cellpadding="0">
+							<tr>
+								<td height="10px">
+								</td>
+							</tr>
 							<tr align="center" bottom="middle" style ="border-style: solid; border-width: 1">
-								<td style="color: #FFFFFF" colspan=9 bgcolor="#56a102" height="40px">
-									<h3><?php echo $premiacoes->getCampeonato()->getNomeCampeonato();?></h3>
+								<td class="tituloHome" colspan=11>
+									<?php echo $premiacoes->getCampeonato()->getNomeCampeonato();?>
 								</td>
 							</tr>
 							<tr>
@@ -181,8 +176,11 @@ try{
 								<td>
 									<img src="<?php echo $imgAcertoTimeGanhador;?>" />   
 								</td>
-								<td bgcolor="#3B5998" width=80px height=60px>
-									<?php echo $premiacoes->getAcertosPlacar();?>
+								<td class="topoPodium" bgcolor="#3B5998" rowspan="2">
+									<span class="descricaoPodium">ACERTOS<br/><br/></span>
+										<?php echo $premiacoes->getAcertosPlacar();?>
+										<span class="descricaoPodium"><br/>Placar Completo</span>
+									</span>
 								</td>
 								<td>
 									<img src="<?php echo $imgAcertoPlacarInvertido;?>" />   
@@ -192,59 +190,56 @@ try{
 								<td>
 									<img src="<?php echo $imgMedalhaPrata;?>" /> 
 								</td>
-								<td bgcolor="#FFA500" width=80px height=60px>
+								<td class="topoPodium" bgcolor="#FFA500" rowspan="2">
+									<span class="descricaoPodium">MEDALHAS<br/><br/></span>
 									<?php echo $premiacoes->getMedalhasOuro();?>
+									<span class="descricaoPodium"><br/>Ouro</span>
 								</td>
 								<td>
 									<img src="<?php echo $imgMedalhaBronze;?>" /> 
 								</td>
 								<td>
 								</td>
-								<td bgcolor="#56a102" width=80px height=60px>
+								<td class="topoPodium" bgcolor="#56a102" rowspan="2">
+									<span class="descricaoPodium">PONTOS<br/><br/></span>
 									<?php echo $premiacoes->getPontosCampeonato();?>
 								</td>
 							</tr>
 							<tr align="center" bottom="middle">
-								<td bgcolor="#3B5998" width=80px height=60px>
+								<td class="podiumEsquerdo" bgcolor="#3B5998">
 									<?php echo $premiacoes->getAcertosTimeGanhador();?>
-									Time Ganhador
+									<br/><span class="descricaoPodium">Time Ganhador</span>
 								</td>
-								<td bgcolor="#3B5998" width=80px height=60px>
-									Placar Completo
-								</td>
-								<td bgcolor="#3B5998" width=80px height=60px>
+								<td class="podiumDireito" bgcolor="#3B5998">
 									<?php echo $premiacoes->getAcertosPlacarInvertido();?>
-									Placar Invertido
+									<br/><span class="descricaoPodium">Placar Invertido</span>
 								</td>
 								<td width=15px>
 								</td>
-								<td bgcolor="#FFA500" width=80px height=60px>
+								<td class="podiumEsquerdo" bgcolor="#FFA500">
 									<?php echo $premiacoes->getMedalhasPrata();?>
-									Prata
+									<br/><span class="descricaoPodium">Prata</span>
 								</td>
-								<td bgcolor="#FFA500" width=80px height=60px>
-									Ouro
-								</td>
-								<td bgcolor="#FFA500" width=80px height=60px>
+								<td class="podiumDireito" bgcolor="#FFA500">
 									<?php echo $premiacoes->getMedalhasBronze();?>
-									Bronze
+									<br/><span class="descricaoPodium">Bronze</span>
 								</td>
 								<td width=15px>
 								</td>
-								<td bgcolor="#56a102" width=80px height=60px>
-									Pontos
+							</tr>
+							<tr>
+								<td id="prateleira" colspan=11>
 								</td>
 							</tr>
 							</table>
 			 			</td>
 			 		</tr>
-			 	</table>
-			 	</center>
 			      
 	<?php
 			}
 		}
 	}
+	echo '</table></center>';
 	$conn->commit();
 } catch(Exception $e) {
 	$conn->rollback();
