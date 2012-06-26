@@ -44,6 +44,12 @@ class Jogo {
 	protected $apostasJogo = null;
 	
 	/**
+	* @OneToMany(targetEntity="ContadorAposta", mappedBy="jogo", cascade={"persist"})
+	* @var ContadorAposta[]
+	*/
+	protected $contadorJogo ;
+	
+	/**
 	* @ManyToOne(targetEntity="Campeonato", inversedBy="apostasCampeonato")
 	*/
 	protected $campeonato;
@@ -66,6 +72,7 @@ class Jogo {
 			$this->golsTime1 = NULL;
 			$this->golsTime2 = NULL;
 			$this->apostasJogo = new ArrayCollection();
+			$this->contadorJogo= new ArrayCollection();
 			$this->campeonato = $campeonato;
 			$this->dataInicioApostas = $this->calculaDataInicioAposta($dataJogo);
 			$this->dataFimApostas = $this->calculaDataFimAposta($dataJogo);

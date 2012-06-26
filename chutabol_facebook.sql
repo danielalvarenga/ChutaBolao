@@ -23,8 +23,7 @@ CREATE TABLE IF NOT EXISTS `aposta` (
   `jogo_id` int(11) NOT NULL DEFAULT '0',
   `apostaGolsTime1` int(11) DEFAULT NULL,
   `apostaGolsTime2` int(11) DEFAULT NULL,
-   `opcaoCadastrada` varchar(255) DEFAULT NULL,
-  `pontosAposta` int(11) DEFAULT NULL,
+   `pontosAposta` int(11) DEFAULT NULL,
   PRIMARY KEY (`usuario_id`,`campeonato_id`,`jogo_id`),
   KEY `usuario_id` (`usuario_id`),
   KEY `campeonato_id` (`campeonato_id`),
@@ -154,6 +153,25 @@ CREATE TABLE IF NOT EXISTS `rodada` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `contadoraposta`
+--
+
+CREATE TABLE IF NOT EXISTS `contadoraposta` (
+
+	`id` VARCHAR(255) NULL,
+	`campeonato_id` INT(11) NULL,
+	`jogo_id` INT(11) NULL,
+	`quantidadeApostas` BIGINT(11) NULL,
+	PRIMARY KEY (`id`, `campeonato_id`, `jogo_id`),
+	INDEX `campeonato_id` (`campeonato_id`),
+	INDEX `jogo_id` (`jogo_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `time`
 --
 
@@ -249,7 +267,7 @@ ALTER TABLE `pontuacaogeral`
 -- Restrições para a tabela `rendimentotime`
 --
 ALTER TABLE `rendimentotime`
-  ADD CONSTRAINT `FK_rendimentotime_timex` FOREIGN KEY (`time_id`) REFERENCES `time` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_rendimentotime_time` FOREIGN KEY (`time_id`) REFERENCES `time` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_rendimentotime_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
 
 --
@@ -257,3 +275,10 @@ ALTER TABLE `rendimentotime`
 --
 ALTER TABLE `rodada`
   ADD CONSTRAINT `FK_rodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para a tabela `contadoraposta`
+--
+ALTER TABLE `contadoraposta`
+	ADD CONSTRAINT `FK_contadoraposta_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`),
+	ADD CONSTRAINT `FK_contadoraposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`);
