@@ -261,7 +261,10 @@ try{
 				echo '
 				<table id="tabela" cellspacing=0>
 					<td id="aposta" align="center" colspan="7">
-						<h3>'.$campeonato->getNomeCampeonato().'</h3>
+						<h3>'
+							.$campeonato->getNomeCampeonato().' '
+							.$campeonato->getAnoCampeonato().'
+						</h3>
 					</td>
 					<form action="" method="POST" >';
 					$contadorArray=0;

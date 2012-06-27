@@ -208,13 +208,13 @@ else{
 									</td>
 									<td class="posicaoPontos">
 										<span class="descricaoPosicao">PONTOS<br/></span>
-										<?php $premiacoes->getClassificacaoCampeonato();?>ª posição
+										<?php echo $premiacoes->getClassificacaoCampeonato();?>ª posição
 									</td>
 								</tr>
 								<tr>
 									<td class="posicaoMedalhas">
 										<span class="descricaoPosicao">MEDALHAS<br/></span>
-										<?php $premiacoes->getClassificacaoMedalhas();?>ª posição
+										<?php echo $premiacoes->getClassificacaoMedalhas();?>ª posição
 									</td>
 								</tr>
 								<?php

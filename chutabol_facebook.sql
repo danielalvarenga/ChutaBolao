@@ -163,8 +163,8 @@ CREATE TABLE IF NOT EXISTS `contadoraposta` (
 	`jogo_id` INT(11) NULL,
 	`quantidadeApostas` BIGINT(11) NULL,
 	PRIMARY KEY (`id`, `campeonato_id`, `jogo_id`),
-	INDEX `campeonato_id` (`campeonato_id`),
-	INDEX `jogo_id` (`jogo_id`)
+	KEY `campeonato_id` (`campeonato_id`),
+	KEY `jogo_id` (`jogo_id`)
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB;
