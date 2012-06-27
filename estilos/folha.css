@@ -1,471 +1,1053 @@
-@charset "utf-8";
- *{margin:0; padding:0;} 
-
-#principal {
-	width: 780px;
-	\width: 780px;
-	w\idth: 780px;
-	margin-top: 10px;
-	margin-left:auto;
-	margin-right:auto;
-	padding:10px;
-	background-color: #F8F8F8;	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);		-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);		box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-}
-
-
-h1 {
-	font-family:Helvetica, Arial, sans-serif;	color: #ffffff; text-shadow: black 0.1em 0.1em 0.2em;
-}
-h2 {
-	font-family:Helvetica, Arial, sans-serif;
-	color: #ffffff; text-shadow: black 0.1em 0.1em 0.2em;
-}h3 {	font-family:Helvetica, Arial, sans-serif;	color: #ffffff;	text-shadow: black 0.1em 0.1em 0.2em;}h4 {	font-family:Helvetica, Arial, sans-serif;	color: #ffffff;	text-shadow: black 0.1em 0.1em 0.2em;}h5 {	font-family:Helvetica, Arial, sans-serif;	color: #ffffff;	text-shadow: black 0.1em 0.1em 0.2em;}h6 {	font-family:Helvetica, Arial, sans-serif;	color: #ffffff;	text-shadow: black 0.1em 0.1em 0.2em;}
-p {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	font-size: 13px;
-}
-
-#top{
-	height:160px;
-	width:740px;
-	margin-left:auto;
-	margin-right:auto;
-	
-}
-
-
-#topleft{ background:url(../imagens/logo.png)  ; 
-height:150px;
-width:200px;
-float:left;
-margin-right:2px;
-	
-}
-
-
-#topright{ 
-height:150px;
-width:538px;
-float:right;
-background-color:#CCC;
--webkit-border-top-right-radius: 8px;
--webkit-border-bottom-right-radius: 8px;
--moz-border-radius-topright: 8px;
--moz-border-radius-bottomright: 8px;
-border-top-right-radius: 8px;
-border-bottom-right-radius: 8px;	
-	
-}
-
-
-
-#content {
-	float:left;
-	width:780px;		height: 100%;
-	background-color: #fff;
-	
-}
-#meiopeq {
-	margin: 1%;
-	float: left;
-	height: 48%;
-	width: 48%;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	background-color: #666;
-}
-
-li {
-	list-style-type: none;
-	text-indent: -5px;
-}
-
-
-#footer {
-	clear:both;
-	padding: 5px;
-	margin-top:5px;
-	background-color: #E4E4E4;
-	height: 30px;
-	margin-top: 0px;
-	font-size:8px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	color: #fff; text-shadow: 0.1em 0.1em 0.05em #333;
-	text-align:center;
-}
-
-#areamenu {
-	height: 26px;
-	width: 100%;
-	float: left;
-	margin-bottom:0px;
-	
-
-}/*
-
-#menu {
-        FONT-SIZE: 93%; BACKGROUND: url(../imagens/bg.gif)  repeat-x 50% bottom; FLOAT: left; WIDTH: 100%; LINE-HEIGHT: normal
-}
-#menu UL {
-        PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 10px; LIST-STYLE-TYPE: none
-}
-#menu LI {
-        PADDING-RIGHT: 0px; PADDING-LEFT: 9px; BACKGROUND: url(../imagens/left.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
-}
-#menu A {
-        PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 6px; FONT-WEIGHT: bold; BACKGROUND: url(../imagens/right.gif) no-repeat right top; FLOAT: left; PADDING-BOTTOM: 4px; COLOR: #3d3d3d; PADDING-TOP: 5px; TEXT-DECORATION: none
-}
-#menu A {
-        FLOAT: none
-}
-#menu A:hover {
-        COLOR: #fefefe;
-}
-#menu #current {
-        BACKGROUND-IMAGE: url(../imagens/left_on.gif)
-}
-#menu #current A {
-        BACKGROUND-IMAGE: url(../imagens/right_on.gif); PADDING-BOTTOM: 5px; COLOR: #fff
-}
-*/
-
-
-
-#menu {
-	margin-left:15px;
-	float:left;
-	font-size: .85em; /* set the font size */
-	padding: 0px 0px 0px 0px; /* set the padding */
-}
-#menu ul {
-line-height: 1em; /* setting the line height now so we don't have any headaches*/
-margin: 0px; /* let's keep the margin set to 0 for the same reasons as above*/
-list-style-type: none; /* we remove the UL's default disc bullets */
-float: left; /* we float the list to the left like we will all the elements inside*/
-padding: 0px 0px 0px 5px; /* give it a left padding of 5px to counter the effect of margin -5px below */
-}
-#menu ul li {
-float: left; /* floatin' left */
-}
-#menu ul li a {
-text-decoration: none; /* remove the default underline off the anchor text */
-display: block; /* we display this text as block so that we can apply padding/margin without problems */
-float: left; /* floatin' left, to make the menu horizontal */
-padding: 0px 0px 0px 10px; /* we give it a left padding of 10px to show the first 10 pixels of the tabs image. you can also use padding-left: 10px; */
-background: url(../imagens/tabs.gif) no-repeat left top; /* we link to the tabs image, no tiling, showing the top left part of it */
-margin-left: -5px; /* this is important for the overlapping part - we are overlapping the tabs by 5 px */
-z-index: 0; /* keep it on layer 0 (default) */
-position: relative; /* very important as this enables the z-index to work for us and keeps the tabs where they should be */
-color: #666666; /* color of the tab text */
-}
-#menu ul li a strong {
-font-weight: normal; /* remove the bold effect */
-display: block; /* display the strong element as a block so we can pad it, etc. */
-float: left; /* float it left as well */
-background: url(../imagens/tabs.gif) no-repeat right top; /* now we show the right part of the tab and we complete the "puzzle" */
-padding: 6px 10px 7px 5px; /* important, as through this you define the position of the text within the tab */
-cursor: pointer; /* this makes the browser show the "hand" cursor when hovering over the tab */
-}
-#menu ul li a:hover {
-position: relative; /* again, keep things relative */
-z-index: 5; /* we show this tab over all other tabs in the menu, which would be on layer 0, thus overlapping occurs */
-background: url(../imagens/tabs.gif) no-repeat left bottom; /* now we show the bottom part of the tabs image, the "hover" instance */
-color: #000000; /* we color the hovered tab's text black */
-}
-#menu ul li a:hover strong {
-background-image: url(../imagens/tabs.gif) no-repeat;
-position: relative; /* keep it relative */
-z-index: 5; /* show this on layer 5 as well */
-background-position: right bottom; /* we show the right bottom part of the tabs image (the hover instance) */
-}
-
-
-
-
-
-
-#conteudo {
-	width: 100%;
-	float: left;
-}
-#meio {
-	float: left;
-	width: 49%;
-	height: 500px;
-}
-.meio{
-	margin-left: 1%;
-}
-.maeiopeq{
-		margin: 1%;
-	float: left;
-	height: 48%;
-	width: 48%;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	background-color: #666;
-}
-#meiogrande {
-	background-color: #E4E4E4;
-	height: 97%;
-	width: 95%;
-	padding-right: 5px;
-	padding-left: 5px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-/* MURAL */
-	
-#Mural {
-	width: 90%;
-	background-color: #E4E4E4;
-	margin-right: auto;
-	margin-left: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding: 5px 5px;
-	*padding: 5px;
-	_padding: 5px;
-	border: 1px solid #666;
-}
-	
-#Mural .titulo {
-	font-size: 18px;
-	font-family: Helvetica;
-	vertical-align: middle;	
-	color: #17541f;	margin-top: 10px;	margin-left: 5px;
-}
-
-#Mural img.iconG {
-	float: left;
-	margin-right: 10px;
-	margin-left: 5px;
-	margin-top: 3px;
-	margin-bottom: 3px;
-	height: 56px;	
-	width: 56px;
-}
-
-#Mural .texto {
-	font-family: Helvetica;
-	font-size: 18px;
-	vertical-align: middle;
-	color: #FFFFFF;
-}
-
-#Mural .texto a {	
-	vertical-align: middle;
-	margin: 0px 5px;
-	}
-
-#Mural #pontos, #Mural #medalhas, #Mural #chuteiras, #Mural #trofeus, #Mural #acertos {
-	height: 62px;
-	margin-top: 5px;	
-	padding: 1px 1px;
-	*padding: 1px;
-	_padding: 1px;
-}
-/*
-#Mural .bordas {
-	height:63;
-	width: 324;
-	border: 1px solid #ffffff;
-
-}*/
-
-#Mural .prata {	
-	font-family: Helvetica;	
-	font-size: 14px;	
-	color: #FFFFFF;
-}
-	
-#Mural .bronze {	
-	font-family: Helvetica;	
-	font-size: 14px;	
-	color: #FFFFFF;
-}
-
-#Mural .ouro {	
-	font-family: Helvetica;	
-	font-size: 30px;	
-	color: #FFFFFF;
-}
-
-
-/* BOTÃO COMPARTILHAR */
-
-
-#Mural #compartilharMural {
-
-	float:right;
-	height: 20px;
-	width: 100px;
-	margin-left:70px;	margin-top: 5px;	margin-botton: 5px;
-	margin-right: 5px;
-	padding: 2px 2px;
-	*padding: 2px;
-	_padding: 2px;
-	/*borda arredondada*/	
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	/*sombra na borda*/
-	border: 1px solid #666;
-	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .9);
-	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .9);
-	-goog-ms-box-shadow: 0 0 10px rgba(0, 0, 0, .9);
-	box-shadow: 0 0 10px rgba(0, 0, 0, .9);
-	/*gradiente*/
-	background: -moz-linear-gradient(top, #2B2BF4, #B5C9F9) repeat-X;
-
-			/* Para WebKit (Safari, Google Chrome etc) */
-	background: -webkit-gradient(linear, left top, left bottom, from(#2B2BF4), to(#B5C9F9)) repeat-X;
-
-			/* Para IE 8 
-			-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#666, endColorstr=#FFFFFFFF)";
-*/
-			/* Para IE 5.5 - 7 */
-			
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2B2BF4', endColorstr='#B5C9F9');
-}
-#Mural #compartilharMural:hover {
-
-	background: -moz-linear-gradient(top, #1D8350, #8FDAB1) repeat-X;
-	background: -webkit-gradient(linear, left top, left bottom, from(#1D8350), to(#8FDAB1)) repeat-X;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1D8350', endColorstr='#8FDAB1');
-}
-
-#Mural #compartilharMural .compartilhar {
-	font-size: 15px;
-	font-family: Helvetica;
-	vertical-align: middle;
-	color: #ffffff;
-	text-decoration: none; 
-	font-weight:bold;
-	margin: 3px;
-}
-
-	
-/* PONTOS */
-	
-#pontos {
-	width:336px;
-	float:left;
-	background: #56a102;
-	border: 1px solid #17541f;
-	margin-right: 5px;
-	margin-left: 5px;
-	margin-top: 10px;
-	margin-bottom: 5px;
-	padding: 1px 1px;
-	*padding: 1px;
-	_padding: 1px;
-}
-	
-#pontos .total_pontos {		
-	font-family: Helvetica;	
-	font-size: 36px;	
-	color: #FFFFFF;
-	text-align: center;	
-	vertical-align: middle;
-	height: 63px;	
-	line-height: 63px;
-}
-	
-	/* MEDALHAS */
-	
-#medalhas {	
-	width:336px;
-	background: #a63fbf;
-	border: 1px solid #17541f;
-	margin-right: 5px;
-	margin-left: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	padding: 1px 1px;
-	*padding: 1px;
-	_padding: 1px;
-	float:left;
-}
-
-/* CHUTEIRAS */
-	
-#chuteiras {	
-	width:336px;
-	background: #FFA500;
-	border: 1px solid #17541f;
-	margin-right: 5px;
-	margin-left: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	padding: 1px 1px;
-	*padding: 1px;
-	_padding: 1px;
-	float:left;
-}
-
-/* TROFÉUS */
-	
-#trofeus {
-	width:336px;
-	background: #DC143C;
-	border: 1px solid #17541f;
-	margin-right: 5px;
-	margin-left: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	padding: 1px 1px;
-	*padding: 1px;
-	_padding: 1px;
-	float:left;
-}
-	
-#Mural .total_trofeus {
-	font-family: Helvetica;	
-	color: #FFFFFF;
-	vertical-align: middle;
-}
-
-/* ACERTOS */
-
-#acertos {	
-	width:336px;
-	background: #3B5998;
-	border: 1px solid #17541f;
-	margin-right: 5px;
-	margin-left: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	padding: 1px 1px;
-	*padding: 1px;
-	_padding: 1px;
-	float:left;
-}
-
-#Mural #acertos .timeGanhador {	
-	font-family: Helvetica;	
-	font-size: 10px;	
-	color: #FFFFFF;
-}
-	
-#Mural #acertos .placarInvertido {	
-	font-family: Helvetica;	
-	font-size: 10px;	
-	color: #FFFFFF;
-}
-
-#Mural #acertos .placarCorreto {	
-	font-family: Helvetica;	
-	font-size: 15px;	
-	color: #FFFFFF;
-}
-	/* PÁGINA APOSTAS.PHP */#aposta{	border: 1px solid #666;	vertical-align: baseline;	margin-right: 5px;	margin-left: 5px;	margin-bottom: 5px;	background-color: #56a102;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;	text-shadow: black 0.1em 0.1em 0.2em;}#jogo{	font-family:Arial,serif,sans-serif;	font-size: 18pt;	color:red;	vertical-align:middle;	align: center;	margin-top:20px;	margin-right: 5px;	margin-left: 5px; 	background-color: lime;}#tabela {	width: 95% ;	border: 1px solid #666;	align:center;	background-color:#E4E4E4;	font-size: 18px;	font-family: Helvetica;	vertical-align: middle;		color: #17541f;    z-index: auto;    margin-right: 10px;	margin-bottom: 10px;	margin-left: 20px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;}img.escudo {	width: 30px ;	height: 30px;}tr.linha{	border: 0;	table-layout:auto;	font-weight:bold;	font-style:italic;	font-family: Helvetica;	background:#E4E4E4;}td.coluna{	border: 0;	background:#ffffff;	table-layout:auto;	border: 0px solid #666;	font-weight:bold;	font-style:italic;	font-family: Helvetica;	padding: 3px 0px;	*padding: 3px;	_padding: 3px;}td.data{	border: 0px solid #666;	vertical-align: middle;	font-size: 8pt;	font-style:italic;	font-family: Helvetica;}#painel{	border: 1px solid #666;	align:center;	background-color:#E4E4E4;	font-size: 18px;	font-family: Helvetica;	vertical-align: middle;		color: #17541f;    z-index: auto;    margin-right: 10px;	margin-bottom: 10px;	margin-left: 20px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;}
-/*PÁGINA HOME */#tabelaHome{	width: 90%;	background-color:#E4E4E4;	border: 1px solid #666;	margin-bottom: 10px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;}.tabelaInterna{	width: 100%;	font-weight:bold;	font-family: Helvetica;		font-size: 18px;		color: #FFFFFF;	text-align: center;		vertical-align: middle;}.tituloHome {	height: 35px;	background-color: #56a102;	font-family:Helvetica, Arial, sans-serif;	font-size: 20px;	color: #ffffff;	text-shadow: black 0.1em 0.1em 0.2em;}.descricaoPodium{	font-family: Helvetica;		font-size: 12px;		color: #FFFFFF;	text-align: center;		vertical-align: middle;	font-weight:bold;}#prateleira{	background-color:#ebb100;	height: 2px;	border: 1px solid #666;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;	color: #FFFFFF;	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	box-shadow: 0 0 7px rgba(0, 0, 0, .8);}.topoPodium{	width: 80px;	height: 60px;	border: 1px solid #666;	border-bottom-width: 0px;	font-family: Helvetica;		font-size: 18px;		color: #FFFFFF;	text-align: center;		vertical-align: top !important;	font-weight:bold;	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	box-shadow: 0 0 7px rgba(0, 0, 0, .8);}.meioPodium{	width: 80px;	height: 60px;	vertical-align: top;	position: absolute;	border-bottom: 1px solid #666;	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	box-shadow: 0 0 7px rgba(0, 0, 0, .8);}.colunaPodium{	width: 80px;	height: 60px;	border: 1px solid #666;	border-bottom-width: 0px;	border-top-width: 0px;	font-family: Helvetica;		font-size: 18px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	box-shadow: 0 0 7px rgba(0, 0, 0, .8);}.podiumDireito{	width: 80px;	height: 60px;	border: 1px solid #666;	border-bottom-width: 0px;	border-left-width: 0px;	font-family: Helvetica;		font-size: 18px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	box-shadow: 0 0 7px rgba(0, 0, 0, .8);}.podiumEsquerdo{	width: 80px;	height: 60px;	border: 1px solid #666;	border-bottom-width: 0px;	border-right-width: 0px;	font-family: Helvetica;		font-size: 18px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);	box-shadow: 0 0 7px rgba(0, 0, 0, .8);}/*PÁGINA RANKINGS */#tabelaExternaRanking{	width: 93%;	background-color:#E4E4E4;	border: 1px solid #666;	margin-bottom: 10px;	margin-top: 20px;	padding: 5px 5px;	*padding: 5px;	_padding: 5px;	vertical-align: top;}.tabelaRankingPontos{	width: 100%;	/*background-color:#56a102;*/	border: 0px solid #666;	font-weight:bold;	font-family: Helvetica;		font-size: 18px;		color: #FFFFFF;	text-align: center;		vertical-align: middle;}.tabelaRankingMedalhas{	width: 100%;	/*background-color:#56a102;*/	border: 0px solid #666;	font-weight:bold;	font-family: Helvetica;		font-size: 18px;		color: #FFFFFF;	text-align: center;		vertical-align: middle;}.tabelaOpcoesRanking{	width: 100%;	background-color:#E4E4E4;	border: 0px solid #666;	font-weight:bold;	font-family: Helvetica;		font-size: 18px;		color: #FFFFFF;	text-align: center;		vertical-align: middle;}.rankingPontosClassificacao1{	width: 20px;	height: 30px;	background-color: #00c300;	border: 0px solid #666;	border-top-width: 0px;	font-family: Helvetica;		font-size: 16px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}.rankingPontosNome1{	width: 120px;	height: 30px;	background-color: #00c300;	border: 0px solid #666;	border-top-width: 0px;	font-family: Helvetica;		font-size: 11px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}.rankingPontosClassificacao2{	width: 20px;	height: 30px;	background-color: #00df00;	border: 0px solid #666;	border-top-width: 0px;	font-family: Helvetica;		font-size: 16px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}.rankingPontosNome2{	width: 120px;	height: 30px;	background-color: #00df00;	border: 0px solid #666;	border-top-width: 0px;	font-family: Helvetica;		font-size: 11px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}.rankingMedalhasClassificacao1{	width: 20px;	height: 30px;	background-color: #00df00;	border: 0px solid #666;	font-family: Helvetica;		font-size: 16px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}.rankingMedalhasNome1{	width: 120px;	height: 30px;	background-color: #00df00;	border: 0px solid #666;	font-family: Helvetica;		font-size: 11px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}.rankingMedalhasClassificacao2{	width: 20px;	height: 30px;	background-color: #00c300;	border: 0px solid #666;	font-family: Helvetica;		font-size: 16px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}.rankingMedalhasNome2{	width: 120px;	height: 30px;	background-color: #00c300;	border: 0px solid #666;	font-family: Helvetica;		font-size: 11px;		color: #FFFFFF;	text-align: center;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}a.ranking{	color: #ffffff;	text-decoration: none;}.descricaoPosicao{	font-family: Helvetica;		font-size: 10px;		color: #FFFFFF;	text-align: center;		vertical-align: middle;	font-weight:bold;}.nomeRanking{	width: 150px;	height: 70px;	background-color: #56a102;	border: 0px solid #666;	font-family:Helvetica, Arial, sans-serif;	font-size: 18px;	color: #ffffff;	text-shadow: black 0.1em 0.1em 0.2em;	padding: 3px 3px;	*padding: 3px;	_padding: 3px;}.rankingAtivo{	width: 30px;	height: 70px;	background-color: #3B5998;	border: 0px solid #666;	font-family:Helvetica, Arial, sans-serif;	font-size: 36px;	color: #ffffff;	text-shadow: black 0.1em 0.1em 0.2em;}.rankingInativo{	width: 30px;	height: 70px;	background-color: #D3D3D3;	border: 0px solid #666;	font-family:Helvetica, Arial, sans-serif;	font-size: 36px;	color: #BEBEBE;}.posicaoPontos{	width: 100px;	height: 39px;	background-color: #dc143c;	border: 0px solid #666;	border-bottom-width: 0px;	font-family: Helvetica;		font-size: 14px;		color: #FFFFFF;	text-align: center;	font-weight:bold;}.posicaoMedalhas{	width: 100px;	height: 35px;	background-color: #FFA500;	border: 0px solid #666;	border-top-width: 0px;	font-family: Helvetica;		font-size: 14px;		color: #FFFFFF;	text-align: center;	font-weight:bold;}button {	width: 144px;	height: 64px;	background-color: #56a102;	border: 0px solid #666;	font-family:Helvetica, Arial, sans-serif;	font-size: 18px;	color: #ffffff;	font-weight:bold;	text-shadow: black 0.1em 0.1em 0.2em;}caption{	border: 0px solid #666;	font-family:Helvetica, Arial, sans-serif;	font-size: 18px;	font-weight:bold;	color: #ffffff;	text-shadow: black 0.1em 0.1em 0.2em;}
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#principal {
+	width: 780px;
+	\width: 780px;
+	w\idth: 780px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	background-color: #F8F8F8;
+	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+}
+
+h1 {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+h2 {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+h3 {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+h4 {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+h5 {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+h6 {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+#top {
+	height: 160px;
+	width: 740px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#topleft {
+	background: url(../imagens/logo.png);
+	height: 150px;
+	width: 200px;
+	float: left;
+	margin-right: 2px;
+}
+
+#topright {
+	height: 150px;
+	width: 538px;
+	float: right;
+	background-color: #CCC;
+	-webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	-moz-border-radius-bottomright: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+#content {
+	float: left;
+	width: 780px;
+	height: 100%;
+	background-color: #fff;
+}
+
+#meiopeq {
+	margin: 1%;
+	float: left;
+	height: 48%;
+	width: 48%;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	background-color: #666;
+}
+
+li {
+	list-style-type: none;
+	text-indent: -5px;
+}
+
+#footer {
+	clear: both;
+	padding: 5px;
+	margin-top: 5px;
+	background-color: #E4E4E4;
+	height: 30px;
+	margin-top: 0px;
+	font-size: 8px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #fff;
+	text-shadow: 0.1em 0.1em 0.05em #333;
+	text-align: center;
+}
+
+#areamenu {
+	height: 26px;
+	width: 100%;
+	float: left;
+	margin-bottom: 0px;
+} /*
+
+
+
+#menu {
+
+        FONT-SIZE: 93%; BACKGROUND: url(../imagens/bg.gif)  repeat-x 50% bottom; FLOAT: left; WIDTH: 100%; LINE-HEIGHT: normal
+
+}
+
+#menu UL {
+
+        PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 10px; LIST-STYLE-TYPE: none
+
+}
+
+#menu LI {
+
+        PADDING-RIGHT: 0px; PADDING-LEFT: 9px; BACKGROUND: url(../imagens/left.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+
+}
+
+#menu A {
+
+        PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 6px; FONT-WEIGHT: bold; BACKGROUND: url(../imagens/right.gif) no-repeat right top; FLOAT: left; PADDING-BOTTOM: 4px; COLOR: #3d3d3d; PADDING-TOP: 5px; TEXT-DECORATION: none
+
+}
+
+#menu A {
+
+        FLOAT: none
+
+}
+
+#menu A:hover {
+
+        COLOR: #fefefe;
+
+}
+
+#menu #current {
+
+        BACKGROUND-IMAGE: url(../imagens/left_on.gif)
+
+}
+
+#menu #current A {
+
+        BACKGROUND-IMAGE: url(../imagens/right_on.gif); PADDING-BOTTOM: 5px; COLOR: #fff
+
+}
+
+*/
+#menu {
+	margin-left: 15px;
+	float: left;
+	font-size: .85em; /* set the font size */
+	padding: 0px 0px 0px 0px; /* set the padding */
+}
+
+#menu ul {
+	line-height: 1em;
+	/* setting the line height now so we don't have any headaches*/
+	margin: 0px;
+	/* let's keep the margin set to 0 for the same reasons as above*/
+	list-style-type: none; /* we remove the UL's default disc bullets */
+	float: left;
+	/* we float the list to the left like we will all the elements inside*/
+	padding: 0px 0px 0px 5px;
+	/* give it a left padding of 5px to counter the effect of margin -5px below */
+}
+
+#menu ul li {
+	float: left; /* floatin' left */
+}
+
+#menu ul li a {
+	text-decoration: none;
+	/* remove the default underline off the anchor text */
+	display: block;
+	/* we display this text as block so that we can apply padding/margin without problems */
+	float: left; /* floatin' left, to make the menu horizontal */
+	padding: 0px 0px 0px 10px;
+	/* we give it a left padding of 10px to show the first 10 pixels of the tabs image. you can also use padding-left: 10px; */
+	background: url(../imagens/tabs.gif) no-repeat left top;
+	/* we link to the tabs image, no tiling, showing the top left part of it */
+	margin-left: -5px;
+	/* this is important for the overlapping part - we are overlapping the tabs by 5 px */
+	z-index: 0; /* keep it on layer 0 (default) */
+	position: relative;
+	/* very important as this enables the z-index to work for us and keeps the tabs where they should be */
+	color: #666666; /* color of the tab text */
+}
+
+#menu ul li a strong {
+	font-weight: normal; /* remove the bold effect */
+	display: block;
+	/* display the strong element as a block so we can pad it, etc. */
+	float: left; /* float it left as well */
+	background: url(../imagens/tabs.gif) no-repeat right top;
+	/* now we show the right part of the tab and we complete the "puzzle" */
+	padding: 6px 10px 7px 5px;
+	/* important, as through this you define the position of the text within the tab */
+	cursor: pointer;
+	/* this makes the browser show the "hand" cursor when hovering over the tab */
+}
+
+#menu ul li a:hover {
+	position: relative; /* again, keep things relative */
+	z-index: 5;
+	/* we show this tab over all other tabs in the menu, which would be on layer 0, thus overlapping occurs */
+	background: url(../imagens/tabs.gif) no-repeat left bottom;
+	/* now we show the bottom part of the tabs image, the "hover" instance */
+	color: #000000; /* we color the hovered tab's text black */
+}
+
+#menu ul li a:hover strong {
+	background-image: url(../imagens/tabs.gif) no-repeat;
+	position: relative; /* keep it relative */
+	z-index: 5; /* show this on layer 5 as well */
+	background-position: right bottom;
+	/* we show the right bottom part of the tabs image (the hover instance) */
+}
+
+#conteudo {
+	width: 100%;
+	float: left;
+}
+
+#meio {
+	float: left;
+	width: 49%;
+	height: 500px;
+}
+
+.meio {
+	margin-left: 1%;
+}
+
+.maeiopeq {
+	margin: 1%;
+	float: left;
+	height: 48%;
+	width: 48%;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	background-color: #666;
+}
+
+#meiogrande {
+	background-color: #E4E4E4;
+	height: 97%;
+	width: 95%;
+	padding-right: 5px;
+	padding-left: 5px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+/* MURAL */
+#Mural {
+	width: 90%;
+	background-color: #E4E4E4;
+	margin-right: auto;
+	margin-left: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
+	border: 1px solid #666;
+}
+
+#Mural .titulo {
+	font-size: 18px;
+	font-family: Helvetica;
+	vertical-align: middle;
+	color: #17541f;
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+#Mural img.iconG {
+	float: left;
+	margin-right: 10px;
+	margin-left: 5px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	height: 56px;
+	width: 56px;
+}
+
+#Mural .texto {
+	font-family: Helvetica;
+	font-size: 18px;
+	vertical-align: middle;
+	color: #FFFFFF;
+}
+
+#Mural .texto a {
+	vertical-align: middle;
+	margin: 0px 5px;
+}
+
+#Mural #pontos,#Mural #medalhas,#Mural #chuteiras,#Mural #trofeus,#Mural #acertos
+	{
+	height: 62px;
+	margin-top: 5px;
+	padding: 1px 1px;
+	*padding: 1px;
+	_padding: 1px;
+}
+
+/*
+
+#Mural .bordas {
+
+	height:63;
+
+	width: 324;
+
+	border: 1px solid #ffffff;
+
+
+
+}*/
+#Mural .prata {
+	font-family: Helvetica;
+	font-size: 14px;
+	color: #FFFFFF;
+}
+
+#Mural .bronze {
+	font-family: Helvetica;
+	font-size: 14px;
+	color: #FFFFFF;
+}
+
+#Mural .ouro {
+	font-family: Helvetica;
+	font-size: 30px;
+	color: #FFFFFF;
+}
+
+/* BOTÃO COMPARTILHAR */
+#Mural #compartilharMural {
+	float: right;
+	height: 20px;
+	width: 100px;
+	margin-left: 70px;
+	margin-top: 5px;
+	margin-botton: 5px;
+	margin-right: 5px;
+	padding: 2px 2px;
+	*padding: 2px;
+	_padding: 2px;
+	/*borda arredondada*/
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	/*sombra na borda*/
+	border: 1px solid #666;
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .9);
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .9);
+	-goog-ms-box-shadow: 0 0 10px rgba(0, 0, 0, .9);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .9);
+	/*gradiente*/
+	background: -moz-linear-gradient(top, #2B2BF4, #B5C9F9) repeat-X;
+	/* Para WebKit (Safari, Google Chrome etc) */
+	background: -webkit-gradient(linear, left top, left bottom, from(#2B2BF4),
+		to(#B5C9F9) ) repeat-X;
+	/* Para IE 8 
+
+			-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#666, endColorstr=#FFFFFFFF)";
+
+*/
+	/* Para IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2B2BF4',
+		endColorstr='#B5C9F9' );
+}
+
+#Mural #compartilharMural:hover {
+	background: -moz-linear-gradient(top, #1D8350, #8FDAB1) repeat-X;
+	background: -webkit-gradient(linear, left top, left bottom, from(#1D8350),
+		to(#8FDAB1) ) repeat-X;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1D8350',
+		endColorstr='#8FDAB1' );
+}
+
+#Mural #compartilharMural .compartilhar {
+	font-size: 15px;
+	font-family: Helvetica;
+	vertical-align: middle;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: bold;
+	margin: 3px;
+}
+
+/* PONTOS */
+#pontos {
+	width: 336px;
+	float: left;
+	background: #56a102;
+	border: 1px solid #17541f;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	padding: 1px 1px;
+	*padding: 1px;
+	_padding: 1px;
+}
+
+#pontos .total_pontos {
+	font-family: Helvetica;
+	font-size: 36px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	height: 63px;
+	line-height: 63px;
+}
+
+/* MEDALHAS */
+#medalhas {
+	width: 336px;
+	background: #a63fbf;
+	border: 1px solid #17541f;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 1px 1px;
+	*padding: 1px;
+	_padding: 1px;
+	float: left;
+}
+
+/* CHUTEIRAS */
+#chuteiras {
+	width: 336px;
+	background: #FFA500;
+	border: 1px solid #17541f;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 1px 1px;
+	*padding: 1px;
+	_padding: 1px;
+	float: left;
+}
+
+/* TROFÉUS */
+#trofeus {
+	width: 336px;
+	background: #DC143C;
+	border: 1px solid #17541f;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 1px 1px;
+	*padding: 1px;
+	_padding: 1px;
+	float: left;
+}
+
+#Mural .total_trofeus {
+	font-family: Helvetica;
+	color: #FFFFFF;
+	vertical-align: middle;
+}
+
+/* ACERTOS */
+#acertos {
+	width: 336px;
+	background: #3B5998;
+	border: 1px solid #17541f;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 1px 1px;
+	*padding: 1px;
+	_padding: 1px;
+	float: left;
+}
+
+#Mural #acertos .timeGanhador {
+	font-family: Helvetica;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+
+#Mural #acertos .placarInvertido {
+	font-family: Helvetica;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+
+#Mural #acertos .placarCorreto {
+	font-family: Helvetica;
+	font-size: 15px;
+	color: #FFFFFF;
+}
+
+/* PÁGINA APOSTAS */
+
+#aposta {
+	border: 1px solid #666;
+	vertical-align: baseline;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	background-color: #56a102;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+#jogo {
+	font-family: Arial, serif, sans-serif;
+	font-size: 18pt;
+	color: red;
+	vertical-align: middle;
+	align: center;
+	margin-top: 20px;
+	margin-right: 5px;
+	margin-left: 5px;
+	background-color: lime;
+}
+
+#tabela {
+	width: 95%;
+	border: 1px solid #666;
+	align: center;
+	background-color: #E4E4E4;
+	font-size: 18px;
+	font-family: Helvetica;
+	vertical-align: middle;
+	color: #17541f;
+	z-index: auto;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
+}
+
+img.escudo {
+	width: 30px;
+	height: 30px;
+}
+
+.linha {
+	border: 0;
+	table-layout: auto;
+	font-weight: bold;
+	font-style: italic;
+	font-family: Helvetica;
+	background: #E4E4E4;
+}
+
+.coluna {
+	border: 0;
+	background: #ffffff;
+	table-layout: auto;
+	border: 0px solid #666;
+	font-weight: bold;
+	font-style: italic;
+	font-family: Helvetica;
+	padding: 3px 0px;
+	*padding: 3px;
+	_padding: 3px;
+}
+
+td.data {
+	border: 0px solid #666;
+	vertical-align: middle;
+	font-size: 8pt;
+	font-style: italic;
+	font-family: Helvetica;
+}
+
+#painel {
+	border: 1px solid #666;
+	align: center;
+	background-color: #E4E4E4;
+	font-size: 18px;
+	font-family: Helvetica;
+	vertical-align: middle;
+	color: #17541f;
+	z-index: auto;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
+}
+
+/*PÁGINA HOME */
+
+#tabelaHome {
+	width: 90%;
+	background-color: #E4E4E4;
+	border: 1px solid #666;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
+}
+
+.tabelaInterna {
+	width: 100%;
+	font-weight: bold;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.tituloHome {
+	height: 35px;
+	background-color: #56a102;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.descricaoPodium {
+	font-family: Helvetica;
+	font-size: 12px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+#prateleira {
+	background-color: #ebb100;
+	height: 2px;
+	border: 1px solid #666;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
+	color: #FFFFFF;
+	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+}
+
+.topoPodium {
+	width: 80px;
+	height: 60px;
+	border: 1px solid #666;
+	border-bottom-width: 0px;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: top !important;
+	font-weight: bold;
+	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+}
+
+.meioPodium {
+	width: 80px;
+	height: 60px;
+	vertical-align: top;
+	position: absolute;
+	border-bottom: 1px solid #666;
+	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+}
+
+.colunaPodium {
+	width: 80px;
+	height: 60px;
+	border: 1px solid #666;
+	border-bottom-width: 0px;
+	border-top-width: 0px;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+}
+
+.podiumDireito {
+	width: 80px;
+	height: 60px;
+	border: 1px solid #666;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+}
+
+.podiumEsquerdo {
+	width: 80px;
+	height: 60px;
+	border: 1px solid #666;
+	border-bottom-width: 0px;
+	border-right-width: 0px;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+}
+
+/*PÁGINA RANKINGS */
+
+#tabelaExternaRanking {
+	width: 93%;
+	background-color: #E4E4E4;
+	border: 1px solid #666;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	padding: 5px 5px;
+	*padding: 5px;
+	_padding: 5px;
+	vertical-align: top;
+}
+
+.tabelaRankingPontos {
+	width: 100%;
+	/*background-color:#56a102;*/
+	border: 0px solid #666;
+	font-weight: bold;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.tabelaRankingMedalhas {
+	width: 100%;
+	/*background-color:#56a102;*/
+	border: 0px solid #666;
+	font-weight: bold;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.tabelaOpcoesRanking {
+	width: 100%;
+	background-color: #E4E4E4;
+	border: 0px solid #666;
+	font-weight: bold;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.rankingPontosClassificacao1 {
+	width: 20px;
+	height: 30px;
+	background-color: #00c300;
+	border: 0px solid #666;
+	border-top-width: 0px;
+	font-family: Helvetica;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.rankingPontosNome1 {
+	width: 120px;
+	height: 30px;
+	background-color: #00c300;
+	border: 0px solid #666;
+	border-top-width: 0px;
+	font-family: Helvetica;
+	font-size: 11px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.rankingPontosClassificacao2 {
+	width: 20px;
+	height: 30px;
+	background-color: #00df00;
+	border: 0px solid #666;
+	border-top-width: 0px;
+	font-family: Helvetica;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.rankingPontosNome2 {
+	width: 120px;
+	height: 30px;
+	background-color: #00df00;
+	border: 0px solid #666;
+	border-top-width: 0px;
+	font-family: Helvetica;
+	font-size: 11px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.rankingMedalhasClassificacao1 {
+	width: 20px;
+	height: 30px;
+	background-color: #00df00;
+	border: 0px solid #666;
+	font-family: Helvetica;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.rankingMedalhasNome1 {
+	width: 120px;
+	height: 30px;
+	background-color: #00df00;
+	border: 0px solid #666;
+	font-family: Helvetica;
+	font-size: 11px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.rankingMedalhasClassificacao2 {
+	width: 20px;
+	height: 30px;
+	background-color: #00c300;
+	border: 0px solid #666;
+	font-family: Helvetica;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.rankingMedalhasNome2 {
+	width: 120px;
+	height: 30px;
+	background-color: #00c300;
+	border: 0px solid #666;
+	font-family: Helvetica;
+	font-size: 11px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+a.ranking {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.descricaoPosicao {
+	font-family: Helvetica;
+	font-size: 10px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+.nomeRanking {
+	width: 150px;
+	height: 70px;
+	background-color: #56a102;
+	border: 0px solid #666;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+	padding: 3px 3px;
+	*padding: 3px;
+	_padding: 3px;
+}
+
+.rankingAtivo {
+	width: 30px;
+	height: 70px;
+	background-color: #3B5998;
+	border: 0px solid #666;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 36px;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.rankingInativo {
+	width: 30px;
+	height: 70px;
+	background-color: #D3D3D3;
+	border: 0px solid #666;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 36px;
+	color: #BEBEBE;
+}
+
+.posicaoPontos {
+	width: 100px;
+	height: 39px;
+	background-color: #dc143c;
+	border: 0px solid #666;
+	border-bottom-width: 0px;
+	font-family: Helvetica;
+	font-size: 14px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+}
+
+.posicaoMedalhas {
+	width: 100px;
+	height: 35px;
+	background-color: #FFA500;
+	border: 0px solid #666;
+	border-top-width: 0px;
+	font-family: Helvetica;
+	font-size: 14px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+}
+
+button {
+	width: 144px;
+	height: 64px;
+	background-color: #56a102;
+	border: 0px solid #666;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	color: #ffffff;
+	font-weight: bold;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+caption {
+	border: 0px solid #666;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #ffffff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+/* PLACARES */
+
+.placar{
+	width: 45%;
+	height: 30px;
+	background-color: #FFFFFF;
+	border: 0px solid #666;
+	border-left-width: 1px;
+	font-family: Helvetica;
+	font-size: 14px;
+	color: #56a102;
+	text-align: center;
+	font-weight: bold;
+}
+
+.nomeTime {
+	width: 20%;
+	background: #ffffff;
+	border: 0px solid #666;
+	font-weight: bold;
+	font-style: italic;
+	font-family: Helvetica;
+}
