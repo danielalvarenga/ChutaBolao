@@ -25,6 +25,12 @@ class Campeonato {
 	* @var Rodada[]
 	*/
 	private $rodadas;
+
+	/**
+	* @OneToMany(targetEntity="ContadorAposta", mappedBy="campeonato", cascade={"persist"})
+	* @var ContadorAposta[]
+	*/
+	private $contadorCampeonato;
 	
 	/**
 	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="rodada", cascade={"persist"})
@@ -67,6 +73,7 @@ class Campeonato {
 			$this->premiacoesCampeonato = new ArrayCollection();
 			$this->rendimentosTimes = new ArrayCollection();
 			$this->pontuacaoRodadas = new ArrayCollection();
+			$this->contadorCampeonato= new ArrayCollection();	
 	}
 
 	function getCodCampeonato(){

@@ -14,7 +14,7 @@ if(isset($_POST)){
 		$contador=0;
 		$contador1=0;
 		for ($i=0;$i<sizeof($_POST)/4;$i++){
-			
+			$auxContadorAposta[0]=null;
 			$aux=$i <<2;
 			$jogo_campeonato=$_POST[$aux];
 			$jogo_numero= $_POST[$aux + 1 ];
@@ -60,32 +60,95 @@ if(isset($_POST)){
 			//Cria nova aposta se ainda não existir
 			$publica = false;
 			if ($apostaCadastrada instanceof Aposta){
+				$indice=0;
 				if ($apostaCadastrada->getApostaGolsTime1()<>$palpite_time1_jogo) {
+					$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
+					$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$apostaCadastrada->getApostaGolsTime2();
 					$apostaCadastrada->setApostaGolsTime1($palpite_time1_jogo);
+					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
 					$entityManager->merge($apostaCadastrada);
 					$entityManager->flush();
 					$publica = true;
 					$contador1++;
-				}
+					$indice++;
+					}
+									
 				if($apostaCadastrada->getApostaGolsTime2()<>$palpite_time2_jogo){
+					$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
 					$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
+					$atualizacaoContadorAposta=$apostaCadastrada->getApostaGolsTime1()."  X  ".$palpite_time2_jogo;
+					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
 					$entityManager->merge($apostaCadastrada);
 					$entityManager->flush();
 					$publica = true;
 					$contador1++;
 				}
+				if($auxContadorAposta[0]<>NULL){
+				$contadorAposta = $entityManager->find("ContadorAposta", array (
+															"campeonato"=>$jogo_campeonato,
+															"jogo"=> $auxiliar_jogo,
+															"opcaoCadastrada"=>$auxContadorAposta[0]
+				));
+				$contadorAposta->declementaQuantidadeApostas();
+				$entityManager->merge($contadorAposta);
+				$entityManager->flush();
+
+				$contadorAposta = $entityManager->find("ContadorAposta", array (
+																			"campeonato"=>$jogo_campeonato,
+																			"jogo"=> $auxiliar_jogo,
+																			"opcaoCadastrada"=>$atualizacaoContadorAposta
+				));
+				
+				//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda não existir
+						
+				if ($contadorAposta instanceof ContadorAposta){
+					$contadorAposta->inclementaQuantidadeApostas();
+					$entityManager->merge($contadorAposta);
+					$entityManager->flush();
+						
+				}
+				else{
+				$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);	
+				$entityManager->persist($novoContadorAposta);
+				$entityManager->flush();
+					
+				}
+			  }
 			}
 			else{
 				if (($palpite_time1_jogo<>'') && ($palpite_time2_jogo<>'')){
 					$apostaNova = new Aposta($usuario, $campeonato, $jogo);
+					$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$palpite_time2_jogo;
 					$apostaNova->setApostaGolsTime1($palpite_time1_jogo);
 					$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
 					$entityManager->persist($apostaNova);
 					$entityManager->flush();
 					$publica = true;
 					$contador++;
+				
+				$contadorAposta = $entityManager->find("ContadorAposta", array (
+																							"campeonato"=>$jogo_campeonato,
+																							"jogo"=> $jogo_numero,
+																							"opcaoCadastrada"=>$atualizacaoContadorAposta
+				));
+				
+				//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda não existir
+				
+				if ($contadorAposta instanceof ContadorAposta){
+					$contadorAposta->inclementaQuantidadeApostas();
+					$entityManager->merge($contadorAposta);
+					$entityManager->flush();
+				
 				}
+				else{
+					$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
+					$entityManager->persist($novoContadorAposta);
+					$entityManager->flush();
+						
+				}
+			  }	
 			}
+			
 			if($publica){
 				if($palpite_time1_jogo > $palpite_time2_jogo){
 					$time1 = $entityManager->find("Time", $jogo->getCodtime1());

@@ -12,9 +12,6 @@ class Aposta{
 	/** @Column(type="integer") */
 	private $pontosAposta;
 	
-	/** @Column(type="string") */
-	private $opcaoCadastrada;
-	
 	/**
 	* @Id @ManyToOne(targetEntity="Jogo", inversedBy="apostasJogo")
 	*/
@@ -39,13 +36,6 @@ class Aposta{
 		$this->jogo=$jogo;
 	}
 	
-	 private function setOpcaoCadastrada(){
-	$this->opcaoCadastrada=  $this->apostaGolsTime1."X".$this->apostaGolsTime2;	
-	}
-	
-	function getOpcaoCadastrada(){
-		return $this->opcaoCadastrada;
-	}
 	function getApostaGolsTime1() {
 		return $this->apostaGolsTime1;
 	}
@@ -56,12 +46,10 @@ class Aposta{
 
 	function setApostaGolsTime1($apostaGolsTime1){
 		$this->apostaGolsTime1=$apostaGolsTime1;
-		$this->setOpcaoCadastrada();
 	}
 	 
 	function setApostaGolsTime2($apostaGolsTime2){
 		$this->apostaGolsTime2=$apostaGolsTime2;
-		$this->setOpcaoCadastrada();
 	}
 	function getUsuario(){
 		return $this->usuario;
