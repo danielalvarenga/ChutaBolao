@@ -67,9 +67,9 @@ class PremiosUsuario{
 		$this->acertosPlacarInvertido = 0;
 		$this->errosPlacar = 0;
 		$this->pontosCampeonato = 0;
-		$this->pontosMedalhas = NULL;
-		$this->classificacaoCampeonato = NULL;
-		$this->classificacaoMedalhas = NULL;
+		$this->pontosMedalhas = 0;
+		$this->classificacaoCampeonato = 0;
+		$this->classificacaoMedalhas = 0;
 		$this->medalhasOuro = 0;
 		$this->medalhasPrata = 0;
 		$this->medalhasBronze = 0;

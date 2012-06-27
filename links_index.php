@@ -41,7 +41,7 @@ switch ($pagina){
 	
 	
 	case "ranks":
-	$page = "includes/ranks.php";
+	$page = "includes/rankings.php";
 	$title = "Ranks";
 	$author = "";
 	break;

@@ -121,8 +121,8 @@ if($user_id){
 				<li id="li_menu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>&nbsp;&nbsp;&nbsp;Classifica&ccedil;&atilde;o&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
 				<li id="li_menu4"><a href="index.php?conteudo=convites" title="Convites"><strong>&nbsp;&nbsp;&nbsp;Convites&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
 				<li id="li_menu5"><a href="index.php?conteudo=placares" title="placares"><strong>&nbsp;&nbsp;&nbsp;Placares&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>&nbsp;&nbsp;&nbsp;Ranks&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu7"><a href="index.php?conteudo=apostas_antigas" title="Apostas Ja Realizadas"><strong>&nbsp;&nbsp;&nbsp;Apostas Realizadas&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_menu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>&nbsp;&nbsp;&nbsp;Rankings&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_menu7"><a href="index.php?conteudo=apostas_antigas" title="Apostas Ja Realizadas"><strong>&nbsp;&nbsp;&nbsp;Apostas Realizadas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
 				
 		</ul>
 		</div>
