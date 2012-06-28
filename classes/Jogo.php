@@ -80,6 +80,9 @@ class Jogo {
 
 		}
 	}
+	function getContadorJogo(){
+		return $this->contadorJogo;
+	}
 	function setCodTime1($codTime1){
 	
 		if(((is_int($codTime1))&&($codTime1>0))){

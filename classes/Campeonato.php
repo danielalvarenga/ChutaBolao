@@ -75,7 +75,10 @@ class Campeonato {
 			$this->pontuacaoRodadas = new ArrayCollection();
 			$this->contadorCampeonato= new ArrayCollection();	
 	}
-
+	
+	function getContadorCampeonato(){
+		return $this->contadorCampeonato;
+	}
 	function getCodCampeonato(){
 		return $this->codCampeonato;
 	}

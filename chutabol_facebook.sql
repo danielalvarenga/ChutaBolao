@@ -243,8 +243,8 @@ ALTER TABLE `aposta`
 -- Restrições para a tabela `contadoraposta`
 --
 ALTER TABLE `contadoraposta`
-  ADD CONSTRAINT `FK_contadoraposta_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`),
-  ADD CONSTRAINT `FK_contadoraposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`);
+  ADD CONSTRAINT `FK_contadoraposta_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_contadoraposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`) ON DELETE CASCADE;
 
 --
 -- Restrições para a tabela `jogo`

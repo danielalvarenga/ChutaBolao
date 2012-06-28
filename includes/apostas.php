@@ -154,14 +154,14 @@ if(isset($_POST)){
 					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
-					Ã  '.$palpite_time2_jogo.'
+					x  '.$palpite_time2_jogo.'
 					para o '.$time1->getNomeTime();
 				}
 				elseif($palpite_time1_jogo < $palpite_time2_jogo){
 					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time2_jogo.'
-					Ã  '.$palpite_time1_jogo.'
+					x  '.$palpite_time1_jogo.'
 					para o '.$time2->getNomeTime();
 				}
 				elseif($palpite_time1_jogo == $palpite_time2_jogo){
@@ -169,16 +169,16 @@ if(isset($_POST)){
 					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
-					Ã  '.$palpite_time2_jogo.'
+					x  '.$palpite_time2_jogo.'
 					para '.$time1->getNomeTime().'
 					e '.$time2->getNomeTime();
 				}
 
-				$message = 'AlguÃ©m chuta melhor que eu!? =D';
+				$message = 'Alguém chuta melhor que eu!? =D';
 				$picture = 'http://www.chutabolao.com.br/facebook/'.$jogo->getEscudosJogo();
 				$link = 'http://apps.facebook.com/chutabolao';
-				$caption = 'Mostre que vocÃª sabe mais!';
-				$description = "Jogo em ".$jogo->getDataLogica().". FaÃ§a seu chute atÃ© ".$jogo->getDataLogicaFimApostas();
+				$caption = 'Mostre que você sabe mais!';
+				$description = "Jogo em ".$jogo->getDataLogica().". Façaa seu chute até ".$jogo->getDataLogicaFimApostas();
 				/*
 				 $ret_obj = $facebook->api('/me/feed', 'POST',	array(
 				 		'link' => $link,
