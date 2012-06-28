@@ -1,5 +1,5 @@
 <?php
-
+include "valida_cookies.inc";
 require "bootstrap.php";
 require_once "lib/WideImage.php";
 

@@ -1,5 +1,5 @@
 <?php
-
+include "valida_cookies.inc";
 use Doctrine\DBAL\Types\ArrayType;
 
 use Doctrine\ORM\Query\AST\Functions\LengthFunction;

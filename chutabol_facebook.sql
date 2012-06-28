@@ -1,15 +1,21 @@
-/** C�digo para criar o Banco de Dados "chutabol_facebook" no localhost */
-CREATE DATABASE IF NOT EXISTS `chutabol_facebook`;
-USE `chutabol_facebook`;
-
-/** C�digo para criar o usu�rio "chutabol_admin" com senha "corporativa10" com todos os privil�gios sobre o "chutabol_facebook" */
-GRANT ALL PRIVILEGES ON *.* TO 'chutabol_admin'@'localhost' IDENTIFIED BY PASSWORD '*EEDE3CD56ADE00288A5D5939141F8369A419085F' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON `chutabol_facebook`.* TO 'chutabol_admin'@'localhost' WITH GRANT OPTION;
-
-
-
 -- Banco de Dados: `chutabol_facebook`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `admin`
+--
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  `nome` varchar(255) NOT NULL,
+  `login` varchar(20) NOT NULL,
+  `senha` varchar(20) NOT NULL,
+  PRIMARY KEY (`login`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `admin`(`nome`, `login`, `senha`)
+	VALUES ("Administrador","chutabolao","corporativa");
 
 -- --------------------------------------------------------
 
@@ -23,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `aposta` (
   `jogo_id` int(11) NOT NULL DEFAULT '0',
   `apostaGolsTime1` int(11) DEFAULT NULL,
   `apostaGolsTime2` int(11) DEFAULT NULL,
-   `pontosAposta` int(11) DEFAULT NULL,
+  `pontosAposta` int(11) DEFAULT NULL,
   PRIMARY KEY (`usuario_id`,`campeonato_id`,`jogo_id`),
   KEY `usuario_id` (`usuario_id`),
   KEY `campeonato_id` (`campeonato_id`),
@@ -43,7 +49,23 @@ CREATE TABLE IF NOT EXISTS `campeonato` (
   `quantidadeRodadas` int(11) DEFAULT NULL,
   `status` set('ativo','finalizado') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `contadoraposta`
+--
+
+CREATE TABLE IF NOT EXISTS `contadoraposta` (
+  `id` varchar(255) NOT NULL DEFAULT '',
+  `campeonato_id` int(11) NOT NULL DEFAULT '0',
+  `jogo_id` int(11) NOT NULL DEFAULT '0',
+  `quantidadeApostas` bigint(11) DEFAULT NULL,
+  PRIMARY KEY (`id`,`campeonato_id`,`jogo_id`),
+  KEY `campeonato_id` (`campeonato_id`),
+  KEY `jogo_id` (`jogo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -66,12 +88,36 @@ CREATE TABLE IF NOT EXISTS `jogo` (
   PRIMARY KEY (`id`),
   KEY `campeonato_id` (`campeonato_id`),
   KEY `rodada_id` (`rodada_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pontuacaoRodada`
+-- Estrutura da tabela `pontuacaogeral`
+--
+
+CREATE TABLE IF NOT EXISTS `pontuacaogeral` (
+  `usuario_id` bigint(20) NOT NULL DEFAULT '0',
+  `acertosPlacarGeral` int(11) DEFAULT NULL,
+  `acertosTimeGanhadorGeral` int(11) DEFAULT NULL,
+  `acertosPlacarInvertidoGeral` int(11) DEFAULT NULL,
+  `errosPlacarGeral` int(11) DEFAULT NULL,
+  `pontosGeral` int(11) DEFAULT NULL,
+  `classificacaoGeral` int(11) DEFAULT NULL,
+  `pontosMedalhasGeral` int(11) DEFAULT NULL,
+  `classificacaoMedalhasGeral` int(11) DEFAULT NULL,
+  `medalhasOuroGeral` int(11) DEFAULT NULL,
+  `medalhasPrataGeral` int(11) DEFAULT NULL,
+  `medalhasBronzeGeral` int(11) DEFAULT NULL,
+  `trofeus` int(11) DEFAULT NULL,
+  PRIMARY KEY (`usuario_id`),
+  KEY `usuario_id` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pontuacaorodada`
 --
 
 CREATE TABLE IF NOT EXISTS `pontuacaorodada` (
@@ -87,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `pontuacaorodada` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
 --
 -- Estrutura da tabela `premiosusuario`
 --
@@ -153,25 +200,6 @@ CREATE TABLE IF NOT EXISTS `rodada` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `contadoraposta`
---
-
-CREATE TABLE IF NOT EXISTS `contadoraposta` (
-
-	`id` VARCHAR(255) NULL,
-	`campeonato_id` INT(11) NULL,
-	`jogo_id` INT(11) NULL,
-	`quantidadeApostas` BIGINT(11) NULL,
-	PRIMARY KEY (`id`, `campeonato_id`, `jogo_id`),
-	KEY `campeonato_id` (`campeonato_id`),
-	KEY `jogo_id` (`jogo_id`)
-)
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `time`
 --
 
@@ -180,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `time` (
   `nomeTime` varchar(255) DEFAULT NULL,
   `escudo` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 -- --------------------------------------------------------
 
@@ -200,30 +228,6 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pontuacaogeral`
---
-
-CREATE TABLE IF NOT EXISTS `pontuacaogeral` (
-  `usuario_id` bigint(20) NOT NULL DEFAULT '0',
-  `acertosPlacarGeral` int(11) DEFAULT NULL,
-  `acertosTimeGanhadorGeral` int(11) DEFAULT NULL,
-  `acertosPlacarInvertidoGeral` int(11) DEFAULT NULL,
-  `errosPlacarGeral` int(11) DEFAULT NULL,
-  `pontosGeral` int(11) DEFAULT NULL,
-  `classificacaoGeral` int(11) DEFAULT NULL,
-  `pontosMedalhasGeral` int(11) DEFAULT NULL,
-  `classificacaoMedalhasGeral` int(11) DEFAULT NULL,
-  `medalhasOuroGeral` int(11) DEFAULT NULL,
-  `medalhasPrataGeral` int(11) DEFAULT NULL,
-  `medalhasBronzeGeral` int(11) DEFAULT NULL,
-  `trofeus` int(11) DEFAULT NULL,
-  PRIMARY KEY (`usuario_id`),
-  KEY `usuario_id` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Restrições para as tabelas dumpadas
 --
 
@@ -231,9 +235,16 @@ CREATE TABLE IF NOT EXISTS `pontuacaogeral` (
 -- Restrições para a tabela `aposta`
 --
 ALTER TABLE `aposta`
-  ADD CONSTRAINT `FK_aposta_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_aposta_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_aposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_aposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_aposta_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para a tabela `contadoraposta`
+--
+ALTER TABLE `contadoraposta`
+  ADD CONSTRAINT `FK_contadoraposta_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`),
+  ADD CONSTRAINT `FK_contadoraposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`);
 
 --
 -- Restrições para a tabela `jogo`
@@ -243,42 +254,35 @@ ALTER TABLE `jogo`
   ADD CONSTRAINT `FK_jogo_rodada` FOREIGN KEY (`rodada_id`) REFERENCES `rodada` (`id`) ON DELETE CASCADE;
 
 --
--- Restrições para a tabela `pontuacaoRodada`
---
-ALTER TABLE `pontuacaorodada`
-  ADD CONSTRAINT `FK_pontuacaoRodada_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_pontuacaoRodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_pontuacaoRodada_rodada` FOREIGN KEY (`rodada_id`) REFERENCES `rodada` (`id`) ON DELETE CASCADE;
-  
---
--- Restrições para a tabela `premiosusuario`
---
-ALTER TABLE `premiosusuario`
-  ADD CONSTRAINT `FK_premiosusuario_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_premiosusuario_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
-
---
 -- Restrições para a tabela `pontuacaogeral`
 --
 ALTER TABLE `pontuacaogeral`
   ADD CONSTRAINT `FK_pontuacaogeral_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
- 
+
+--
+-- Restrições para a tabela `pontuacaorodada`
+--
+ALTER TABLE `pontuacaorodada`
+  ADD CONSTRAINT `FK_pontuacaoRodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_pontuacaoRodada_rodada` FOREIGN KEY (`rodada_id`) REFERENCES `rodada` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_pontuacaoRodada_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para a tabela `premiosusuario`
+--
+ALTER TABLE `premiosusuario`
+  ADD CONSTRAINT `FK_premiosusuario_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_premiosusuario_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
+
 --
 -- Restrições para a tabela `rendimentotime`
 --
 ALTER TABLE `rendimentotime`
-  ADD CONSTRAINT `FK_rendimentotime_time` FOREIGN KEY (`time_id`) REFERENCES `time` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_rendimentotime_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_rendimentotime_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_rendimentotime_time` FOREIGN KEY (`time_id`) REFERENCES `time` (`id`) ON DELETE CASCADE;
 
 --
 -- Restrições para a tabela `rodada`
 --
 ALTER TABLE `rodada`
   ADD CONSTRAINT `FK_rodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
-
---
--- Restrições para a tabela `contadoraposta`
---
-ALTER TABLE `contadoraposta`
-	ADD CONSTRAINT `FK_contadoraposta_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`),
-	ADD CONSTRAINT `FK_contadoraposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`);

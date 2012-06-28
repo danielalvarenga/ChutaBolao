@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require ("bootstrap.php");
 
 function opcaoUsuario(){
@@ -32,7 +32,7 @@ if(isset($_POST)){
 					"jogo" => $jogo_numero
 			));
 				
-			//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda não existir
+			//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda nÃ£o existir
 				
 			$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
 					"campeonato" =>	$jogo_campeonato,
@@ -45,7 +45,7 @@ if(isset($_POST)){
 				$entityManager->flush();
 			}
 				
-			//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda não existir
+			//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda nÃ£o existir
 
 			$premiosUsuario = $entityManager->find("PremiosUsuario", array(
 					"campeonato" =>	$jogo_campeonato,
@@ -57,7 +57,7 @@ if(isset($_POST)){
 				$entityManager->flush();
 			}
 				
-			//Cria nova aposta se ainda não existir
+			//Cria nova aposta se ainda nÃ£o existir
 			$publica = false;
 			if ($apostaCadastrada instanceof Aposta){
 				$indice=0;
@@ -99,7 +99,7 @@ if(isset($_POST)){
 							"opcaoCadastrada"=>$atualizacaoContadorAposta
 					));
 
-					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda não existir
+					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃ£o existir
 
 					if ($contadorAposta instanceof ContadorAposta){
 						$contadorAposta->inclementaQuantidadeApostas();
@@ -132,7 +132,7 @@ if(isset($_POST)){
 							"opcaoCadastrada"=>$atualizacaoContadorAposta
 					));
 
-					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda não existir
+					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃ£o existir
 
 					if ($contadorAposta instanceof ContadorAposta){
 						$contadorAposta->inclementaQuantidadeApostas();
@@ -154,14 +154,14 @@ if(isset($_POST)){
 					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
-					à '.$palpite_time2_jogo.'
+					Ã  '.$palpite_time2_jogo.'
 					para o '.$time1->getNomeTime();
 				}
 				elseif($palpite_time1_jogo < $palpite_time2_jogo){
 					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time2_jogo.'
-					à '.$palpite_time1_jogo.'
+					Ã  '.$palpite_time1_jogo.'
 					para o '.$time2->getNomeTime();
 				}
 				elseif($palpite_time1_jogo == $palpite_time2_jogo){
@@ -169,16 +169,16 @@ if(isset($_POST)){
 					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
-					à '.$palpite_time2_jogo.'
+					Ã  '.$palpite_time2_jogo.'
 					para '.$time1->getNomeTime().'
 					e '.$time2->getNomeTime();
 				}
 
-				$message = 'Alguém chuta melhor que eu!? =D';
+				$message = 'AlguÃ©m chuta melhor que eu!? =D';
 				$picture = 'http://www.chutabolao.com.br/facebook/'.$jogo->getEscudosJogo();
 				$link = 'http://apps.facebook.com/chutabolao';
-				$caption = 'Mostre que você sabe mais!';
-				$description = "Jogo em ".$jogo->getDataLogica().". Faça seu chute até ".$jogo->getDataLogicaFimApostas();
+				$caption = 'Mostre que vocÃª sabe mais!';
+				$description = "Jogo em ".$jogo->getDataLogica().". FaÃ§a seu chute atÃ© ".$jogo->getDataLogicaFimApostas();
 				/*
 				 $ret_obj = $facebook->api('/me/feed', 'POST',	array(
 				 		'link' => $link,
@@ -219,7 +219,7 @@ if(isset($_POST)){
 		<table id='tabela'>
 		<tr class=\"linha\">
 		<td class=\"coluna\">
-		<p align='center'>N�o foi poss�vel gravar seu Chute. Tente outra vez mais tarde.</p>
+		<p align='center'>Não foi possível gravar seu Chute. Tente outra vez mais tarde.</p>
 		</td>
 		</tr>
 		</table>";
@@ -304,7 +304,7 @@ try{
 						<tr>
 						<td class=\"data\" align='center' colspan='7' >
 						Em ".$jogo->getDataLogica()." -
-						Chute até ".$jogo->getDataLogicaFimApostas().";
+						Chute atÃ© ".$jogo->getDataLogicaFimApostas().";
 						</td>
 						</tr>
 						<tr class=\"linha\" align='center'>
@@ -348,7 +348,7 @@ try{
 						<tr>
 						<td class=\"data\" align='center' colspan='7' >
 						Em ".$jogo->getDataLogica()." -
-						Chute até ".$jogo->getDataLogicaFimApostas().";
+						Chute atÃ© ".$jogo->getDataLogicaFimApostas().";
 						</td>
 						</tr>
 						<tr class=\"linha\" align='center'>
@@ -405,9 +405,9 @@ try{
 		<table id='tabela'>
 		<tr class=\"linha\">
 		<td class=\"coluna\">
-		<p align='center'>N�o existem apostas abertas no momento.<br/>
-		O in�cio das apostas come�a sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
-		Volte amanh� para conferir novamente.</p>
+		<p align='center'>Não existem apostas abertas no momento.<br/>
+		O início das apostas começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
+		Volte amanhã para conferir novamente.</p>
 		</td>
 		</tr>
 		</table>";
@@ -420,9 +420,9 @@ try{
 	<table id='tabela'>
 	<tr class=\"linha\">
 	<td class=\"coluna\">
-	<p align='center'>N�o existem apostas abertas no momento.<br/>
-		O in�cio das apostas come�a sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
-		Volte amanh� para conferir novamente.</p>
+	<p align='center'>Não existem apostas abertas no momento.<br/>
+		O início das apostas começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
+		Volte amanhã para conferir novamente.</p>
 	</td>
 	</tr>
 	</table>";

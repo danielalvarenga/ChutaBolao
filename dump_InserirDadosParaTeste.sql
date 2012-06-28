@@ -1,6 +1,5 @@
 /*Quando executar o index ele já coloca o usuário de teste no banco com seu objeto geral*/
 	
-	
 INSERT INTO `time` (`id`, `nomeTime`, `escudo`) VALUES
 (1, 'Atlético-go', 'imagens/escudos/atletico-go47x47.png'),
 (2, 'Atlético-mg', 'imagens/escudos/atletico-mg47x47.png'),

@@ -1,5 +1,5 @@
 <?php ob_start();
-header('Content-type: text/html; charset=utf-8');
+header('Content-type: text/html; charset=ISO-8859-1');
 require "bootstrap.php";
 /*
 require_once 'FacebookApi/facebook.php';
@@ -61,7 +61,7 @@ ob_end_flush();
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Chuta Bol&atilde;o</title>
 <link href="estilos/folha.css" rel="stylesheet" type="text/css" />
 
@@ -116,13 +116,13 @@ if($user_id){
 		<div id="areamenu">
 		<div id="menu">
         <ul>
-				<li id="li_menu1"><a href="index.php?conteudo=home" title="Home"><strong>&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu2"><a href="index.php?conteudo=apostas" title="Apostas"><strong>&nbsp;&nbsp;&nbsp;Apostas&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>&nbsp;&nbsp;&nbsp;Classifica&ccedil;&atilde;o&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu4"><a href="index.php?conteudo=convites" title="Convites"><strong>&nbsp;&nbsp;&nbsp;Convites&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_menu1"><a href="index.php?conteudo=home" title="Home"><strong>&nbsp;&nbsp;&nbsp;In�cio&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_menu2"><a href="index.php?conteudo=apostas" title="Apostas"><strong>&nbsp;&nbsp;&nbsp;Jogos&nbsp;Liberados&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<!--  <li id="li_menu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>&nbsp;&nbsp;&nbsp;Classifica&ccedil;&atilde;o&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>  -->
+				<!--  <li id="li_menu4"><a href="index.php?conteudo=convites" title="Convites"><strong>&nbsp;&nbsp;&nbsp;Convites&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>  -->
 				<li id="li_menu5"><a href="index.php?conteudo=placares" title="placares"><strong>&nbsp;&nbsp;&nbsp;Placares&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
 				<li id="li_menu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>&nbsp;&nbsp;&nbsp;Rankings&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu7"><a href="index.php?conteudo=apostas_antigas" title="Apostas Ja Realizadas"><strong>&nbsp;&nbsp;&nbsp;Apostas Realizadas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_menu7"><a href="index.php?conteudo=apostas_antigas" title="Apostas Ja Realizadas"><strong>&nbsp;&nbsp;&nbsp;Jogos&nbsp;Encerrados&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
 				
 		</ul>
 		</div>

@@ -1,3 +1,7 @@
+<?php
+include "valida_cookies.inc";
+?>
+
 <html>
 <head>
 <title>
@@ -11,5 +15,6 @@ Painel Chuta Bolão
 	<p align="center"><a href="cadastra-jogo.php">Cadastrar Jogo</a></p>
 	<p align="center"><a href="cadastra-jogo.php">Cadastrar Resultado de Jogo</a></p>
 	<p align="center"><a target="_blank" href="index.php">Ir para aplicativo</a></p>
+	<p align="center"><a href="logout.php">SAIR</a></p>
 </body>
 </html>

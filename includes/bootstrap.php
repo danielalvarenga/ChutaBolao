@@ -3,6 +3,7 @@
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
+require_once "../classes/Admin.php";
 require_once "../classes/Usuario.php";
 require_once "../classes/PremiosUsuario.php";
 require_once "../classes/Aposta.php";
@@ -11,6 +12,7 @@ require_once "../classes/Jogo.php";
 require_once "../classes/Rodada.php";
 require_once "../classes/Campeonato.php";
 require_once "../classes/RendimentoTime.php";
+require_once "../classes/PontuacaoRodada.php";
 require_once "../classes/PontuacaoGeral.php";
 require_once "../classes/ContadorAposta.php";
 
