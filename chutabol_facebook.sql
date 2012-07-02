@@ -58,10 +58,10 @@ CREATE TABLE IF NOT EXISTS `campeonato` (
 --
 
 CREATE TABLE IF NOT EXISTS `contadoraposta` (
-  `id` varchar(255) NOT NULL DEFAULT '',
-  `campeonato_id` int(11) NOT NULL DEFAULT '0',
-  `jogo_id` int(11) NOT NULL DEFAULT '0',
-  `quantidadeApostas` bigint(11) DEFAULT NULL,
+  `id` varchar(255) DEFAULT NULL,
+  `campeonato_id` int(11) DEFAULT NULL,
+  `jogo_id` int(11) DEFAULT NULL,
+  `quantidadeApostas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`,`campeonato_id`,`jogo_id`),
   KEY `campeonato_id` (`campeonato_id`),
   KEY `jogo_id` (`jogo_id`)

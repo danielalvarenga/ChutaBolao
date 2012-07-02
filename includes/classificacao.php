@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require 'importa-classificacao.php';
 /*try{
 	echo "<center>

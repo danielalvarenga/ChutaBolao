@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
 try{
@@ -90,7 +90,7 @@ try{
 					<td width=15px rowspan="2">
 					</td>
 					<td class="topoPodium" bgcolor="#dc143c" rowspan="2">
-						<span class="descricaoPodium">TROFÉUS<br/><br/></span>
+						<span class="descricaoPodium">TROF�US<br/><br/></span>
 						<?php echo $pontuacaoGeral->getTrofeus();?>
 					</td>
 				</tr>

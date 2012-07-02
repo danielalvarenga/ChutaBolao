@@ -1,4 +1,4 @@
-@charset "utf-8";
+@charset "ISO-8859-1";
 
 * {
 	margin: 0;
@@ -12,6 +12,7 @@
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-botton: 10px;
 	padding: 10px;
 	background-color: #F8F8F8;
 	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
@@ -376,7 +377,7 @@ li {
 	color: #FFFFFF;
 }
 
-/* BOT√ÉO COMPARTILHAR */
+/* BOT√O COMPARTILHAR */
 #Mural #compartilharMural {
 	float: right;
 	height: 20px;
@@ -486,7 +487,7 @@ li {
 	float: left;
 }
 
-/* TROF√âUS */
+/* TROF…US */
 #trofeus {
 	width: 336px;
 	background: #DC143C;
@@ -540,7 +541,7 @@ li {
 	color: #FFFFFF;
 }
 
-/* P√ÅGINA APOSTAS */
+/* P¡GINA APOSTAS */
 
 #aposta {
 	border: 1px solid #666;
@@ -639,10 +640,10 @@ td.data {
 	_padding: 5px;
 }
 
-/*P√ÅGINA HOME */
+/*P¡GINA HOME */
 
 #tabelaHome {
-	width: 90%;
+	width: 95%;
 	background-color: #E4E4E4;
 	border: 1px solid #666;
 	margin-bottom: 10px;
@@ -774,14 +775,14 @@ td.data {
 	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
 }
 
-/*P√ÅGINA RANKINGS */
+/*P¡GINA RANKINGS */
 
 #tabelaExternaRanking {
-	width: 93%;
+	width: 95%;
 	background-color: #E4E4E4;
 	border: 1px solid #666;
 	margin-bottom: 10px;
-	margin-top: 20px;
+	margin-top: 10px;
 	padding: 5px 5px;
 	*padding: 5px;
 	_padding: 5px;
@@ -940,7 +941,7 @@ a.ranking {
 .descricaoPosicao {
 	font-family: Helvetica;
 	font-size: 10px;
-	color: #FFFFFF;
+	color: #000000;
 	text-align: center;
 	vertical-align: middle;
 	font-weight: bold;
@@ -984,12 +985,13 @@ a.ranking {
 .posicaoPontos {
 	width: 100px;
 	height: 39px;
-	background-color: #dc143c;
-	border: 0px solid #666;
-	border-bottom-width: 0px;
+	/*background-color: #dc143c;*/
+	background-color: #ffffff;
+	border: 0px solid #BEBEBE;
+	border-bottom-width: 1px;
 	font-family: Helvetica;
 	font-size: 14px;
-	color: #FFFFFF;
+	color: #000000;
 	text-align: center;
 	font-weight: bold;
 }
@@ -997,12 +999,13 @@ a.ranking {
 .posicaoMedalhas {
 	width: 100px;
 	height: 35px;
-	background-color: #FFA500;
+	/*background-color: #FFA500;*/
+	background-color: #ffffff;
 	border: 0px solid #666;
 	border-top-width: 0px;
 	font-family: Helvetica;
 	font-size: 14px;
-	color: #FFFFFF;
+	color: #000000;
 	text-align: center;
 	font-weight: bold;
 }

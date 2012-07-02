@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require ("bootstrap.php");
 
 function opcaoUsuario(){
@@ -239,14 +239,13 @@ try{
 	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo' ";
 	$query= $entityManager->createQuery($dql);
 	$campeonatos= $query->getResult();
+	
+	foreach ($campeonatos as $campeonato){
+		if($campeonato instanceof Campeonato){
 
-	if($campeonatos<>NULL){
-
-		$opcaoVazia=' ';
-		$imprimeLetraX= "X";
-	  
-		foreach ($campeonatos as $campeonato){
-				
+			$opcaoVazia=' ';
+			$imprimeLetraX= "X";
+			
 			//Essa parte do codigo busca os jogos cadastradas dentro do banco de dados.
 
 			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas AND '$dataAtual
@@ -398,19 +397,20 @@ try{
 				</table>";
 			}
 		}
-	}
-	else{
-		echo
-		"<p align='center'>
-		<table id='tabela'>
-		<tr class=\"linha\">
-		<td class=\"coluna\">
-		<p align='center'>Não existem apostas abertas no momento.<br/>
-		O início das apostas começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
-		Volte amanhã para conferir novamente.</p>
-		</td>
-		</tr>
-		</table>";
+		else{
+			echo
+			"<p align='center'>
+			<table id='tabela'>
+			<tr class=\"linha\">
+			<td class=\"coluna\">
+			<p align='center'>Não existem jogos liberados no momento.<br/>
+			O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
+			Volte amanhã para conferir novamente.</p>
+			</td>
+			</tr>
+			</table>";
+			break;
+		}
 	}
 	$conn->commit();
 } catch(Exception $e) {
@@ -420,9 +420,9 @@ try{
 	<table id='tabela'>
 	<tr class=\"linha\">
 	<td class=\"coluna\">
-	<p align='center'>Não existem apostas abertas no momento.<br/>
-		O início das apostas começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
-		Volte amanhã para conferir novamente.</p>
+	<p align='center'>Não existem jogos liberados no momento.<br/>
+			O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
+			Volte amanhã para conferir novamente.</p>
 	</td>
 	</tr>
 	</table>";

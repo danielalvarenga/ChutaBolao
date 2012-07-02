@@ -27,8 +27,7 @@ try{
 		
 			//Aqui esta testando se a busca voltou com algum jogo ou nao
 		if ($apostas<>NULL){
-					echo 
-					'<br>
+					echo'
 				<table id="tabela" cellspacing=0>
 					<td id="aposta" align="center" colspan="7">
 					<h3>'.$campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato().'</h3>
@@ -52,7 +51,11 @@ try{
 							echo "
 							<tr>
 								<td class=\"data\" align='center' colspan='7' >
-									".$aposta->getJogo()->getDataLogica()."
+									Realizado em ".$aposta->getJogo()->getDataLogica();
+									if($aposta->getJogo()->getGolsTime1() != NULL && $aposta->getJogo()->getGolsTime2() != NULL){
+										echo " - Resultado Real: ".$aposta->getJogo()->getGolsTime1()." X ".$aposta->getJogo()->getGolsTime2();
+									}
+								echo"
 								</td>
 							</tr>
 							<tr class=\"linha\" align='center'>
