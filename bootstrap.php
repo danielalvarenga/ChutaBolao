@@ -16,7 +16,6 @@ require_once "classes/PontuacaoRodada.php";
 require_once "classes/PontuacaoGeral.php";
 require_once "classes/ContadorAposta.php";
 
-
 //require_once "Doctrine/ORM/Tools/Setup.php";
 //Setup::registerAutoloadPEAR();
 

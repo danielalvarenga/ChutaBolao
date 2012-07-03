@@ -69,7 +69,6 @@ try{
 							$conn->rollback();
 							echo $e->getMessage() . "<br/><font color=red>Dados não encontrados. Verifique o Banco de Dados.</font><br/>";
 						}
-						$conn->close();
 						?>		
 					</select>
 					<a href="cadastra-campeonato.php">Cadastrar novo Campeonato</a>
@@ -143,7 +142,6 @@ try{
 				$conn->rollback();
 				echo $e->getMessage() . "<br/><font color=red>Dados não encontrados. Verifique o Banco de Dados.</font><br/>";
 			}
-			$conn->close();
 				?>
 				</table>
 			<?php 
@@ -156,7 +154,6 @@ try{
 			$conn->rollback();
 			echo $e->getMessage() . "<br/><font color=red>Dados de Times não encontrados. Verifique o Banco de Dados.</font><br/>";
 		}
-		$conn->close();
 	} else{
 		echo 'É necessário ter no mínimo 1 Campeonato Ativo para cadastrar um jogo.';
 		echo '<p align="center"><a href="cadastra-campeonato.php">Cadastrar Campeonato</a></p>';
