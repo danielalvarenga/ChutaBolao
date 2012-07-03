@@ -174,11 +174,11 @@ if(isset($_POST)){
 					e '.$time2->getNomeTime();
 				}
 
-				$message = 'Algu√©m chuta melhor que eu!? =D';
+				$message = 'AlguÈm chuta melhor que eu!? =D';
 				$picture = 'http://www.chutabolao.com.br/facebook/'.$jogo->getEscudosJogo();
 				$link = 'http://apps.facebook.com/chutabolao';
-				$caption = 'Mostre que voc√™ sabe mais!';
-				$description = "Jogo em ".$jogo->getDataLogica().". Fa√ßaa seu chute at√© ".$jogo->getDataLogicaFimApostas();
+				$caption = 'Mostre que vocÍ sabe mais!';
+				$description = "Jogo em ".$jogo->getDataLogica().". FaÁa seu chute atÈ ".$jogo->getDataLogicaFimApostas();
 				/*
 				 $ret_obj = $facebook->api('/me/feed', 'POST',	array(
 				 		'link' => $link,
@@ -219,7 +219,7 @@ if(isset($_POST)){
 		<table id='tabela'>
 		<tr class=\"linha\">
 		<td class=\"coluna\">
-		<p align='center'>N√£o foi poss√≠vel gravar seu Chute. Tente outra vez mais tarde.</p>
+		<p align='center'>N„o foi possÌvel gravar seu Chute. Tente outra vez mais tarde.</p>
 		</td>
 		</tr>
 		</table>";
@@ -303,7 +303,7 @@ try{
 						<tr>
 						<td class=\"data\" align='center' colspan='7' >
 						Em ".$jogo->getDataLogica()." -
-						Chute at√É¬© ".$jogo->getDataLogicaFimApostas().";
+						Chute atÈ ".$jogo->getDataLogicaFimApostas().";
 						</td>
 						</tr>
 						<tr class=\"linha\" align='center'>
@@ -403,9 +403,9 @@ try{
 			<table id='tabela'>
 			<tr class=\"linha\">
 			<td class=\"coluna\">
-			<p align='center'>N√£o existem jogos liberados no momento.<br/>
-			O in√≠cio dos chutes come√ßa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
-			Volte amanh√£ para conferir novamente.</p>
+			<p align='center'>N„o existem jogos liberados no momento.<br/>
+			O inÌcio dos chutes comeÁa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
+			Volte amanh„ para conferir novamente.</p>
 			</td>
 			</tr>
 			</table>";
@@ -420,9 +420,9 @@ try{
 	<table id='tabela'>
 	<tr class=\"linha\">
 	<td class=\"coluna\">
-	<p align='center'>N√£o existem jogos liberados no momento.<br/>
-			O in√≠cio dos chutes come√ßa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
-			Volte amanh√£ para conferir novamente.</p>
+	<p align='center'>N„o existem jogos liberados no momento.<br/>
+			O inÌcio dos chutes comeÁa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
+			Volte amanh„ para conferir novamente.</p>
 	</td>
 	</tr>
 	</table>";

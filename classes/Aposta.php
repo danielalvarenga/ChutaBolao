@@ -94,6 +94,9 @@ class Aposta{
 		elseif (($this->apostaGolsTime2 == $this->apostaGolsTime1) && ($golsTime2 == $golsTime1)){
 			$this->pontosAposta=5;
 		}
+		else{
+			$this->pontosAposta=0;
+		}
 	}
 
 	function getPontosAposta(){

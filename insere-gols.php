@@ -338,12 +338,12 @@ if (isset($_POST['jogo'])) {
 			//Verifica se o Campeonato acabou
 			$fimCampeonato = false;
 			if($numRodada == $jogo->getCampeonato()->getQuantidadeRodadas()){
+				$fimCampeonato = true;
 				$dql = 'SELECT j FROM Jogo j WHERE
 						j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
 						ORDER BY j.dataJogo DESC';
 				$query = $entityManager->createQuery($dql);
 				$jogs = $query->getResult();
-				$fimCampeonato = true;
 				foreach($jogs as $jog) {
 					if($jog instanceof Jogo){
 						if($jog->getGolstime1() == NULL){
