@@ -89,8 +89,7 @@ try{
 							foreach ($contadorApostas as $contadorAposta){	//Aqui esta buscando os nomes dos times do jogo
 									
 								echo
-									"<p>".$contadorAposta->getOpcaoCadastrada()." - "
-									.$contador."º mais chutado com "
+									"<p>".$contadorAposta->getOpcaoCadastrada()." com "
 									.$contadorAposta->getQuantidadeApostas()." chutes</p>";
 								$contador++;
 							}
