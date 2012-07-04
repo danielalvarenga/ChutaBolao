@@ -119,7 +119,7 @@ if($user_id){
 		<div id="areamenu">
 		<div id="menu">
         <ul>
-				<li id="li_menu1"><a href="index.php?conteudo=home" title="Home"><strong>&nbsp;&nbsp;&nbsp;Início&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="z"><a href="index.php?conteudo=home" title="Home"><strong>&nbsp;&nbsp;&nbsp;Início&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
 				<li id="li_menu2"><a href="index.php?conteudo=apostas" title="Apostas"><strong>&nbsp;&nbsp;&nbsp;Jogos&nbsp;Liberados&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
 				<!--  <li id="li_menu3"><a href="index.php?conteudo=classificacao" title="ClassificaÃ§Ã£o"><strong>&nbsp;&nbsp;&nbsp;Classifica&ccedil;&atilde;o&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>  -->
 				<!--  <li id="li_menu4"><a href="index.php?conteudo=convites" title="Convites"><strong>&nbsp;&nbsp;&nbsp;Convites&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>  -->

@@ -154,14 +154,14 @@ if(isset($_POST)){
 					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
-					xÂ  '.$palpite_time2_jogo.'
+					x  '.$palpite_time2_jogo.'
 					para o '.$time1->getNomeTime();
 				}
 				elseif($palpite_time1_jogo < $palpite_time2_jogo){
 					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time2_jogo.'
-					xÂ  '.$palpite_time1_jogo.'
+					x  '.$palpite_time1_jogo.'
 					para o '.$time2->getNomeTime();
 				}
 				elseif($palpite_time1_jogo == $palpite_time2_jogo){
@@ -169,7 +169,7 @@ if(isset($_POST)){
 					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
-					xÂ  '.$palpite_time2_jogo.'
+					x  '.$palpite_time2_jogo.'
 					para '.$time1->getNomeTime().'
 					e '.$time2->getNomeTime();
 				}
@@ -347,7 +347,7 @@ try{
 						<tr>
 						<td class=\"data\" align='center' colspan='7' >
 						Em ".$jogo->getDataLogica()." -
-						Chute atÃƒÂ© ".$jogo->getDataLogicaFimApostas().";
+						Chute até ".$jogo->getDataLogicaFimApostas().";
 						</td>
 						</tr>
 						<tr class=\"linha\" align='center'>
