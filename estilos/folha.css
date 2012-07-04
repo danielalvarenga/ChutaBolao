@@ -941,7 +941,7 @@ a.ranking {
 .descricaoPosicao {
 	font-family: Helvetica;
 	font-size: 10px;
-	color: #000000;
+	color: #17541f;
 	text-align: center;
 	vertical-align: middle;
 	font-weight: bold;
@@ -991,7 +991,7 @@ a.ranking {
 	border-bottom-width: 1px;
 	font-family: Helvetica;
 	font-size: 14px;
-	color: #000000;
+	color: #17541f;
 	text-align: center;
 	font-weight: bold;
 }
@@ -1005,7 +1005,7 @@ a.ranking {
 	border-top-width: 0px;
 	font-family: Helvetica;
 	font-size: 14px;
-	color: #000000;
+	color: #17541f;
 	text-align: center;
 	font-weight: bold;
 }
@@ -1027,8 +1027,7 @@ caption {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 18px;
 	font-weight: bold;
-	color: #ffffff;
-	text-shadow: black 0.1em 0.1em 0.2em;
+	color: #17541f;
 }
 
 /* PLACARES */
@@ -1041,7 +1040,7 @@ caption {
 	border-left-width: 1px;
 	font-family: Helvetica;
 	font-size: 14px;
-	color: #56a102;
+	color: #17541f;
 	text-align: center;
 	font-weight: bold;
 }

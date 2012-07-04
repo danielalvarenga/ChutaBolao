@@ -90,7 +90,7 @@ try{
 									
 								echo
 									"<p>".$contadorAposta->getOpcaoCadastrada()." - "
-									.$contador."º com "
+									.$contador."º mais chutado com "
 									.$contadorAposta->getQuantidadeApostas()." chutes</p>";
 								$contador++;
 							}
@@ -108,7 +108,7 @@ try{
 				<table id='tabela'>
 				<tr class=\"linha\">
 				<td class=\"coluna\">
-				<p align='center'>Não existem jogos abertos. Volte amanhã para conferir.</p>
+				<p align='center'>Não existem chutes para este campeonato. Volte amanhã para conferir.</p>
 				</td>
 				</tr>
 				</table>";

@@ -303,7 +303,7 @@ try{
 						<tr>
 						<td class=\"data\" align='center' colspan='7' >
 						Em ".$jogo->getDataLogica()." -
-						Chute até ".$jogo->getDataLogicaFimApostas().";
+						Chute até ".$jogo->getDataLogicaFimApostas()."
 						</td>
 						</tr>
 						<tr class=\"linha\" align='center'>
@@ -347,7 +347,7 @@ try{
 						<tr>
 						<td class=\"data\" align='center' colspan='7' >
 						Em ".$jogo->getDataLogica()." -
-						Chute até ".$jogo->getDataLogicaFimApostas().";
+						Chute até ".$jogo->getDataLogicaFimApostas()."
 						</td>
 						</tr>
 						<tr class=\"linha\" align='center'>

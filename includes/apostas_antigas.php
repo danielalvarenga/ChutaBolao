@@ -12,6 +12,7 @@ try{
 	$query= $entityManager->createQuery($dql);
 	$campeonatos= $query->getResult();
 	
+	$semChutes = false;
 	if($campeonatos<>NULL){
  
 		$opcaoVazia=' ';
@@ -26,7 +27,7 @@ try{
 			$apostas = $query->getResult();
 		
 			//Aqui esta testando se a busca voltou com algum jogo ou nao
-		if ($apostas<>NULL){
+			if ($apostas<>NULL){
 					echo'
 				<table id="tabela" cellspacing=0>
 					<td id="aposta" align="center" colspan="7">
@@ -36,7 +37,7 @@ try{
 						// Essa parte do codigo busca aposta do usuario de acordo com o numero do
 						//jogo cadastradas dentro do banco de dados.
 			
-	foreach ($apostas as $aposta){	//Aqui esta buscando os nomes dos times do jogo
+					foreach ($apostas as $aposta){	//Aqui esta buscando os nomes dos times do jogo
 						$time = $entityManager->find("Time", $aposta->getJogo()->getCodtime1());
 						$time1 = $time->getNomeTime();
 						$escudo1 = $time->getEscudo();
@@ -59,7 +60,7 @@ try{
 								</td>
 							</tr>
 							<tr class=\"linha\" align='center'>
-								<td class=\"coluna\" align=\"right\">
+								<td class=\"nomeTime\" align=\"right\">
 									$time1
 								</td>
 								<td class=\"coluna\">
@@ -80,19 +81,34 @@ try{
 								<td class=\"coluna\">
 									<img class=\"escudo\" src='$escudo2'>
 								</td>
-								<td class=\"coluna\" align=\"left\">
+								<td class=\"nomeTime\" align=\"left\">
 									$time2
 								</td>
 							</tr>";
 
-								}
-		echo "
-	</table>";
-						}
-								
-				}
-			
-		}			
+					}
+				echo "
+				</table>";
+			}
+			else{
+				$semChutes = true;
+			}				
+		}
+	}
+	else{
+		$semChutes = true;
+	}
+	if($semChutes){
+		echo
+		"<p align='center'>
+		<table id='tabela'>
+		<tr class=\"linha\">
+		<td class=\"coluna\">
+		<p align='center'>Você ainda não deu seu chute em nenhum jogo.</p>
+		</td>
+		</tr>
+		</table>";
+	}
 
 	$conn->commit();
 } catch(Exception $e) {
@@ -102,7 +118,7 @@ try{
 	<table id='tabela'>
 	<tr class=\"linha\">
 	<td class=\"coluna\">
-	<p align='center'>Não existem apostas cadastradas. Volte amanhã para conferir.</p>
+	<p align='center'>Você ainda não deu seu chute em nenhum jogo.</p>
 	</td>
 	</tr>
 	</table>";

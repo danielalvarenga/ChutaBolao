@@ -9,15 +9,15 @@ switch ($pagina){
 		$author = "";
 		break;
 
-	case "apostas":
+	case "chutes":
 		$page = "includes/apostas.php";
-		$title = "Apostas";
+		$title = "Chutes";
 		$author = "";
 		break;
 
-	case "apostas_antigas":
+	case "encerrados":
 		$page = "includes/apostas_antigas.php";
-		$title = "Apostas Ja Realizadas";
+		$title = "Jogos Encerrados";
 		$author = "";
 		break;
 
