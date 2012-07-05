@@ -240,6 +240,7 @@ try{
 	$query= $entityManager->createQuery($dql);
 	$campeonatos= $query->getResult();
 	
+	$semChutes = false;
 	foreach ($campeonatos as $campeonato){
 		if($campeonato instanceof Campeonato){
 
@@ -396,15 +397,21 @@ try{
 				</form>
 				</table>";
 			}
+			else{
+				$semChutes = false;
+			}
 		}
 		else{
+				$semChutes = false;
+		}
+		if($semChutes){
 			echo
 			"<p align='center'>
 			<table id='tabela'>
 			<tr class=\"linha\">
 			<td class=\"coluna\">
-			<p align='center'>Não existem jogos liberados no momento.<br/>
-			O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
+			<p class=\"aviso\" align='center'>Não existem jogos liberados no momento.<br/>
+			O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br/>
 			Volte amanhã para conferir novamente.</p>
 			</td>
 			</tr>
@@ -420,9 +427,7 @@ try{
 	<table id='tabela'>
 	<tr class=\"linha\">
 	<td class=\"coluna\">
-	<p align='center'>Não existem jogos liberados no momento.<br/>
-			O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br>/
-			Volte amanhã para conferir novamente.</p>
+	<p class=\"aviso\" align='center'>Não existem jogos liberados no momento.</p>
 	</td>
 	</tr>
 	</table>";

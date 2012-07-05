@@ -53,8 +53,11 @@ try{
 							<tr>
 								<td class=\"data\" align='center' colspan='7' >
 									Realizado em ".$aposta->getJogo()->getDataLogica();
-									if($aposta->getJogo()->getGolsTime1() != NULL && $aposta->getJogo()->getGolsTime2() != NULL){
-										echo " - Resultado Real: ".$aposta->getJogo()->getGolsTime1()." X ".$aposta->getJogo()->getGolsTime2();
+									if(($aposta->getJogo()->getGolstime1() != NULL) && ($aposta->getJogo()->getGolstime2() != NULL)){
+										echo " - O RESULTADO REAL FOI ".$aposta->getJogo()->getGolstime1()." X ".$aposta->getJogo()->getGolstime2();
+									}
+									else{
+										echo " - AGUARDANDO RESULTADO REAL...";
 									}
 								echo"
 								</td>
@@ -66,7 +69,7 @@ try{
 								<td class=\"coluna\">
 									<img class=\"escudo\" src='$escudo1'>
 								</td>
-								<td class=\"coluna\">										"
+								<td class=\"coluna\">"
 									.$aposta->getApostaGolsTime1();
 										echo "
 								</td>
@@ -91,12 +94,12 @@ try{
 				</table>";
 			}
 			else{
-				$semChutes = true;
+				$semChutes = false;
 			}				
 		}
 	}
 	else{
-		$semChutes = true;
+		$semChutes = false;
 	}
 	if($semChutes){
 		echo
@@ -104,7 +107,7 @@ try{
 		<table id='tabela'>
 		<tr class=\"linha\">
 		<td class=\"coluna\">
-		<p align='center'>Você ainda não deu seu chute em nenhum jogo.</p>
+		<p class=\"aviso\" align='center'>Você ainda não deu seu chute em nenhum jogo.</p>
 		</td>
 		</tr>
 		</table>";
@@ -118,7 +121,7 @@ try{
 	<table id='tabela'>
 	<tr class=\"linha\">
 	<td class=\"coluna\">
-	<p align='center'>Você ainda não deu seu chute em nenhum jogo.</p>
+	<p class=\"aviso\" align='center'>Você ainda não deu seu chute em nenhum jogo.</p>
 	</td>
 	</tr>
 	</table>";

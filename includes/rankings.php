@@ -7,12 +7,12 @@ $query = $entityManager->createQuery($dql);
 $premiosUsuario = $query->getResult();
 
 if(!isset($_POST['campeonato'])){
-	$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.classificacaoGeral DESC";
+	$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.classificacaoGeral ASC";
 	$query->setMaxResults(100);
 	$query = $entityManager->createQuery($dql);
 	$rankingPontos = $query->getResult();
 	
-	$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.classificacaoMedalhasGeral DESC";
+	$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.classificacaoMedalhasGeral ASC";
 	$query->setMaxResults(100);
 	$query = $entityManager->createQuery($dql);
 	$rankingMedalhas = $query->getResult();
@@ -21,13 +21,13 @@ if(!isset($_POST['campeonato'])){
 }
 else{
 	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonato'].'
-			ORDER BY p.classificacaoCampeonato DESC';
+			ORDER BY p.classificacaoCampeonato ASC';
 	$query->setMaxResults(100);
 	$query = $entityManager->createQuery($dql);
 	$rankingPontos = $query->getResult();
 	
 	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonato'].'
-			ORDER BY p.classificacaoMedalhas DESC';
+			ORDER BY p.classificacaoMedalhas ASC';
 	$query->setMaxResults(100);
 	$query = $entityManager->createQuery($dql);
 	$rankingMedalhas = $query->getResult();
@@ -151,7 +151,7 @@ else{
 			</td>
 			<td width="5px">
 			</td>
-			<td>
+			<td class="alinhamentoOpcoesRanking">
 				<table class="tabelaOpcoesRanking" cellspacing="0" cellpadding="0">
 				<tr>
 						<td colspan="3">

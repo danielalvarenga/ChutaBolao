@@ -103,8 +103,45 @@ if ($user_id) {
 <!------------------------------------------------------------------------>
 
 </head>
+<?php 
+$conteudo = $_GET['conteudo'];
+switch ($conteudo){
+	case 'home':{
+		$idMenuBody = "tsmenu1";
+		break;
+	}
+	case 'chutes':{
+		$idMenuBody = "tsmenu2";
+		break;
+	}
+	case 'classificacao':{
+		$idMenuBody = "tsmenu3";
+		break;
+	}
+	case 'convites':{
+		$idMenuBody = "tsmenu4";
+		break;
+	}
+	case 'placares':{
+		$idMenuBody = "tsmenu5";
+		break;
+	}
+	case 'ranks':{
+		$idMenuBody = "tsmenu6";
+		break;
+	}
+	case 'encerrados':{
+		$idMenuBody = "tsmenu7";
+		break;
+	}
+	default:{
+		$idMenuBody = "tsmenu1";
+		break;
+	}
+}
+?>
 
-<body background="imagens/campo-futebol.png">
+<body background="imagens/campo-futebol.png" id="<?php echo $idMenuBody;?>">
 		
 		<!-- CabeÃ§alho -->
 		
@@ -130,15 +167,15 @@ if ($user_id) {
 		<!-- Menu   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
 		
 		<div id="areamenu">
-		<div id="menu">
+		<div id="ts_tabmenu">
         <ul>
-				<li id="li_menu1"><a href="index.php?conteudo=home" title="Home"><strong>&nbsp;&nbsp;&nbsp;Início&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>&nbsp;&nbsp;&nbsp;Jogos&nbsp;Liberados&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<!--  <li id="li_menu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>&nbsp;&nbsp;&nbsp;Classifica&ccedil;&atilde;o&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>  -->
-				<!--  <li id="li_menu4"><a href="index.php?conteudo=convites" title="Convites"><strong>&nbsp;&nbsp;&nbsp;Convites&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>  -->
-				<li id="li_menu5"><a href="index.php?conteudo=placares" title="placares"><strong>&nbsp;&nbsp;&nbsp;TOP&nbsp;3&nbsp;Placares&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>&nbsp;&nbsp;&nbsp;Rankings&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
-				<li id="li_menu7"><a href="index.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>&nbsp;&nbsp;&nbsp;Jogos&nbsp;Encerrados&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>&nbsp;&nbsp;&nbsp;Início&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>&nbsp;&nbsp;&nbsp;Jogos&nbsp;Liberados&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<!--  <li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>&nbsp;&nbsp;&nbsp;Classifica&ccedil;&atilde;o&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>  -->
+				<!--  <li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>&nbsp;&nbsp;&nbsp;Convites&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>  -->
+				<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>&nbsp;&nbsp;&nbsp;TOP&nbsp;3&nbsp;Placares&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>&nbsp;&nbsp;&nbsp;Rankings&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
+				<li id="li_tsmenu7"><a href="index.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>&nbsp;&nbsp;&nbsp;Chutes&nbsp;Feitos&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></li>
 						
         </ul>
 		</div>

@@ -16,9 +16,16 @@ try{
 		foreach ($campeonatos as $campeonato){
 				
 			//Essa parte do codigo busca os jogos cadastradas dentro do banco de dados.
-				
+
+			/*
 			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas AND '$dataAtual
 			'<=j.dataFimApostas AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo ";
+			$query = $entityManager->createQuery($dql);
+			$jogos = $query->getResult();
+			*/
+			
+			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas
+					AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo ";
 			$query = $entityManager->createQuery($dql);
 			$jogos = $query->getResult();
 				
@@ -103,14 +110,15 @@ try{
 			}
 			else{
 				echo
-				"<p align='center'>
+				"<center>
 				<table id='tabela'>
 				<tr class=\"linha\">
 				<td class=\"coluna\">
-				<p align='center'>Não existem chutes para este campeonato. Volte amanhã para conferir.</p>
+				<p class=\"aviso\" align='center'>Não existem chutes para este campeonato. Volte amanhã para conferir.</p>
 				</td>
 				</tr>
-				</table>";
+				</table>
+				</center>";
 
 			}
 			echo "
@@ -121,16 +129,17 @@ try{
 } catch(Exception $e) {
 $conn->rollback();
 echo
-"<p align='center'>
+"<center>
 	<table id='tabela'>
 	<tr class=\"linha\">
 	<td class=\"coluna\" align='center'>
-	Ainda não existem chutes para nenhum jogo.<br/>
+	<p class=\"aviso\" align=\"center\">Ainda não existem chutes para nenhum jogo.<br/>
 	O inícioo das apostas começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br/>
 	Volte amanhã para conferir novamente.</p>
 	</td>
 	</tr>
-	</table>";
+	</table>
+	</center>";
 }
 $conn->close();
 
