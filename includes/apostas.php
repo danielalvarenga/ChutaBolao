@@ -77,7 +77,7 @@ if(isset($_POST)){
 					$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
 					$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
 					$atualizacaoContadorAposta=$apostaCadastrada->getApostaGolsTime1()."  X  ".$palpite_time2_jogo;
-					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
+					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodJogo();
 					$entityManager->merge($apostaCadastrada);
 					$entityManager->flush();
 					$publica = true;
@@ -89,7 +89,7 @@ if(isset($_POST)){
 							"jogo"=> $auxiliar_jogo,
 							"opcaoCadastrada"=>$auxContadorAposta[0]
 					));
-					$contadorAposta->declementaQuantidadeApostas();
+					$contadorAposta->decrementaQuantidadeApostas();
 					$entityManager->merge($contadorAposta);
 					$entityManager->flush();
 
@@ -102,7 +102,7 @@ if(isset($_POST)){
 					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃƒÂ£o existir
 
 					if ($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->inclementaQuantidadeApostas();
+						$contadorAposta->incrementaQuantidadeApostas();
 						$entityManager->merge($contadorAposta);
 						$entityManager->flush();
 
@@ -135,7 +135,7 @@ if(isset($_POST)){
 					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃƒÂ£o existir
 
 					if ($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->inclementaQuantidadeApostas();
+						$contadorAposta->incrementaQuantidadeApostas();
 						$entityManager->merge($contadorAposta);
 						$entityManager->flush();
 
@@ -151,22 +151,22 @@ if(isset($_POST)){
 				
 			if($publica){
 				if($palpite_time1_jogo > $palpite_time2_jogo){
-					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
+					$time1 = $entityManager->find("Time", $jogo->getCodTime1());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
 					x  '.$palpite_time2_jogo.'
 					para o '.$time1->getNomeTime();
 				}
 				elseif($palpite_time1_jogo < $palpite_time2_jogo){
-					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
+					$time2 = $entityManager->find("Time", $jogo->getCodTime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time2_jogo.'
 					x  '.$palpite_time1_jogo.'
 					para o '.$time2->getNomeTime();
 				}
 				elseif($palpite_time1_jogo == $palpite_time2_jogo){
-					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
-					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
+					$time1 = $entityManager->find("Time", $jogo->getCodTime1());
+					$time2 = $entityManager->find("Time", $jogo->getCodTime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
 					x  '.$palpite_time2_jogo.'
@@ -286,12 +286,12 @@ try{
 					));
 						
 					//Aqui esta buscando os nomes dos times do jogo
-					$time = $entityManager->find("Time", $jogo->getCodtime1());
+					$time = $entityManager->find("Time", $jogo->getCodTime1());
 					$time1 = $time->getNomeTime();
 					$escudo1 = $time->getEscudo();
 
 					//Aqui esta buscando os nomes dos times do jogo
-					$time = $entityManager->find("Time", $jogo->getCodtime2());
+					$time = $entityManager->find("Time", $jogo->getCodTime2());
 					$time2 = $time->getNomeTime();
 					$escudo2 = $time->getEscudo();
 

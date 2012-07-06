@@ -117,7 +117,7 @@ require "bootstrap.php";
 			$fimRodada = true;
 			foreach($jogs as $jog) {
 				if($jog instanceof Jogo){
-					if($jog->getGolstime1() == NULL){
+					if($jog->getGolsTime1() == NULL){
 						$fimRodada = false;
 						break;
 					}
@@ -246,7 +246,7 @@ require "bootstrap.php";
 				$fimCampeonato = true;
 				foreach($jogs as $jog) {
 					if($jog instanceof Jogo){
-						if($jog->getGolstime1() == NULL){
+						if($jog->getGolsTime1() == NULL){
 							$fimCampeonato = false;
 							break;
 						}

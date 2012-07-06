@@ -221,7 +221,7 @@ if (isset($_POST['jogo'])) {
 			$fimRodada = true;
 			foreach($jogs as $jog) {
 				if($jog instanceof Jogo){
-					if($jog->getGolstime1() == NULL){
+					if($jog->getGolsTime1() == NULL){
 						$fimRodada = false;
 						break;
 					}
@@ -346,7 +346,7 @@ if (isset($_POST['jogo'])) {
 				$jogs = $query->getResult();
 				foreach($jogs as $jog) {
 					if($jog instanceof Jogo){
-						if($jog->getGolstime1() == NULL){
+						if($jog->getGolsTime1() == NULL){
 							$fimCampeonato = false;
 							break;
 						}

@@ -111,7 +111,7 @@ class Jogo {
 			$this->golsTime2 = NULL;
 		}
 	}
-	function setGolstime1($num_golsTime1){
+	function setGolsTime1($num_golsTime1){
 		if (is_int($num_golsTime1)&&($num_golsTime1>=0)){
 			$this->golsTime1=$num_golsTime1;
 		}
@@ -120,7 +120,7 @@ class Jogo {
 		}
 	}
 
-	function setGolstime2($num_golsTime2){
+	function setGolsTime2($num_golsTime2){
 		if (is_int($num_golsTime2)&&($num_golsTime2>=0)){
 			$this->golsTime2=$num_golsTime2;
 				
@@ -154,7 +154,7 @@ class Jogo {
 		
 	}
 
-	function verificaPeriodoapostas($dataDaAposta){
+	function verificaPeriodoApostas($dataDaAposta){
 		
 		if (($dataDaAposta>=$this->dataInicioApostas)&&($dataDaAposta<=$this->dataFimApostas)) {
 			return true;
@@ -164,22 +164,22 @@ class Jogo {
 		}
 	}
 	
-	function getCodjogo(){
+	function getCodJogo(){
 		return $this->codJogo;
 	}
-	function getDatajogo(){
+	function getDataJogo(){
 		return $this->dataJogo;
 	}
-	function getGolstime1(){
+	function getGolsTime1(){
 		return $this->golsTime1;
 	}
-	function getGolstime2(){
+	function getGolsTime2(){
 		return $this->golsTime2;
 	}
-	function getCodtime1(){
+	function getCodTime1(){
 		return $this->codTime1;
 	}
-	function getCodtime2(){
+	function getCodTime2(){
 		return $this->codTime2;
 	}
 	function getDataInicioApostas(){
@@ -223,20 +223,20 @@ class Jogo {
 		$dataFimAposta->modify( "-1 Hours" );
 		return $dataFimAposta->format( "Y-m-d H:i:s" );	
 	}
-	function criarDatetime($data){
+	function criarDateTime($data){
 		return new DateTime(''.$data.'', new DateTimeZone('America/Sao_Paulo'));
 	}
 	function calculaDataAtual(){
 		$agora="now";
-		$dataAtual = $this->criarDatetime($agora);
+		$dataAtual = $this->criarDateTime($agora);
 		return $dataAtual->format( "Y-m-d H:i:s" );
 	}
 	function getDataLogica(){
-		$dataLogica = $this->criarDatetime($this->dataJogo);
+		$dataLogica = $this->criarDateTime($this->dataJogo);
 		return $dataLogica->format( "d/m/Y" )." às ".$dataLogica->format( "H:i" );
 	}
 	function getDataLogicaFimApostas(){
-		$dataLogicaFimApostas = $this->criarDatetime($this->getDataFimApostas());
+		$dataLogicaFimApostas = $this->criarDateTime($this->getDataFimApostas());
 		return $dataLogicaFimApostas->format( "d/m/Y" )." às ".$dataLogicaFimApostas->format( "H:i" );
 	}
 	

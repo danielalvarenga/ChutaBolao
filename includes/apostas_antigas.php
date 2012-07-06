@@ -38,12 +38,12 @@ try{
 						//jogo cadastradas dentro do banco de dados.
 			
 					foreach ($apostas as $aposta){	//Aqui esta buscando os nomes dos times do jogo
-						$time = $entityManager->find("Time", $aposta->getJogo()->getCodtime1());
+						$time = $entityManager->find("Time", $aposta->getJogo()->getCodTime1());
 						$time1 = $time->getNomeTime();
 						$escudo1 = $time->getEscudo();
 						
 						//Aqui esta buscando os nomes dos times do jogo
-						$time = $entityManager->find("Time", $aposta->getJogo()->getCodtime2());
+						$time = $entityManager->find("Time", $aposta->getJogo()->getCodTime2());
 						$time2 = $time->getNomeTime();
 						$escudo2 = $time->getEscudo();
 						
@@ -53,8 +53,8 @@ try{
 							<tr>
 								<td class=\"data\" align='center' colspan='7' >
 									Realizado em ".$aposta->getJogo()->getDataLogica();
-									if(($aposta->getJogo()->getGolstime1() != NULL) && ($aposta->getJogo()->getGolstime2() != NULL)){
-										echo " - O RESULTADO REAL FOI ".$aposta->getJogo()->getGolstime1()." X ".$aposta->getJogo()->getGolstime2();
+									if(($aposta->getJogo()->getGolsTime1() != NULL) && ($aposta->getJogo()->getGolsTime2() != NULL)){
+										echo " - O RESULTADO REAL FOI ".$aposta->getJogo()->getGolsTime1()." X ".$aposta->getJogo()->getGolsTime2();
 									}
 									else{
 										echo " - AGUARDANDO RESULTADO REAL...";

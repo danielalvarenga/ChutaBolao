@@ -60,7 +60,7 @@ if (isset($_POST['jogo'])) {
 			
 		//--------------------------------------------------------------------
 			$numRodada = $jogo->getRodada()->getNumRodada();
-			$codJogo = $jogo->getCodjogo();
+			$codJogo = $jogo->getCodJogo();
 			$dqlApostas = "SELECT a FROM Aposta a WHERE a.jogo = $codJogo";
 			$queryApostas = $entityManager->createQuery($dqlApostas);
 			$apostas = $queryApostas->getResult();
@@ -145,12 +145,12 @@ inserir gols
 <?php
 	echo '
 			<tr vertical-align="middle" align="center">
-				<td>'.$jogo->getDatajogo().'</td>
+				<td>'.$jogo->getDataJogo().'</td>
 				<td>'.$jogo->getCampeonato()->getNomeCampeonato().' '.$jogo->getCampeonato()->getAnoCampeonato().'</td>
 				<td>'.$jogo->getRodada()->getNumRodada().'</td>
 				<td>'.$time1->getNomeTime().'</td>
 				<td>'.$time2->getNomeTime().'</td>
-				<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
+				<td>'.$jogo->getGolsTime1().' X '.$jogo->getGolsTime2().'</td>
 				<td>'.$jogo->getDataInicioApostas().'</td>
 				<td>'.$jogo->getDataFimApostas().'</td>
 			</tr>';
@@ -178,7 +178,7 @@ inserir gols
 			?>
 		</select> <?php echo $time2->getNomeTime();?>
 		<br/>
-		<input type="hidden" name="jogo" value=<?php echo $jogo->getCodjogo();?>>
+		<input type="hidden" name="jogo" value=<?php echo $jogo->getCodJogo();?>>
 		<input type="submit" name="registra-resultado" value="Registrar Resultado"><br/>
 		</p>
 	</form>

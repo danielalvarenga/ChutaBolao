@@ -51,12 +51,12 @@ try{
 					// Essa parte do codigo busca aposta do usuario de acordo com o numero do
 					//jogo cadastradas dentro do banco de dados.
 		
-					$time = $entityManager->find("Time", $jogo->getCodtime1());
+					$time = $entityManager->find("Time", $jogo->getCodTime1());
 					$time1 = $time->getNomeTime();
 					$escudo1 = $time->getEscudo();
 						
 					//Aqui esta buscando os nomes dos times do jogo
-					$time = $entityManager->find("Time", $jogo->getCodtime2());
+					$time = $entityManager->find("Time", $jogo->getCodTime2());
 					$time2 = $time->getNomeTime();
 					$escudo2 = $time->getEscudo();
 						
@@ -84,7 +84,7 @@ try{
 						<td class=\"placar\">";
 
 					$dql = "SELECT ca FROM ContadorAposta ca WHERE ca.campeonato=".$campeonato->getCodCampeonato().
-					" AND ca.jogo=".$jogo->getCodjogo()."ORDER BY ca.quantidadeApostas DESC";
+					" AND ca.jogo=".$jogo->getCodJogo()."ORDER BY ca.quantidadeApostas DESC";
 					
 					$query = $entityManager->createQuery($dql);
 					$query->setMaxResults(3);
