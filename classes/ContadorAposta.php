@@ -26,11 +26,11 @@ class ContadorAposta{
 		$this->quantidadeApostas=1;
 	}
 	
-	function inclementaQuantidadeApostas(){
+	function incrementaQuantidadeApostas(){
 		$this->quantidadeApostas++;	
 	}
 	
-	function declementaQuantidadeApostas(){
+	function decrementaQuantidadeApostas(){
 		$this->quantidadeApostas--;
 	} 
 	

@@ -1,23 +1,17 @@
 <?php
 require "bootstrap.php";
+require 'metodos-bd.php';
 
-function opcaoUsuario(){
-	for($indiceEscolhaUsuario = 0 ; $indiceEscolhaUsuario < 100 ; $indiceEscolhaUsuario++ ){
-		echo "<OPTION VALUE=$indiceEscolhaUsuario>$indiceEscolhaUsuario</OPTION>";
-	}
-}
 
 if(!isset($_GET['campeonato'])){
 	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
-	$query= $entityManager->createQuery($dql);
-	$campeonatos= $query->getResult();
+	$campeonatos= consultaDql($dql);
 	
 	$classeGeral='geralRankingAtivo';
 }
 else{
 	$dql = "SELECT c FROM Campeonato c WHERE c.codCampeonato = ".$_GET['campeonato'];
-	$query= $entityManager->createQuery($dql);
-	$campeonatos= $query->getResult();
+	$campeonatos= consultaDql($dql);
 	
 	$classeGeral='geralRankingInativo';
 }
@@ -35,20 +29,9 @@ try{
 			
 		foreach ($campeonatos as $campeonato){
 				
-			//Essa parte do codigo busca os jogos cadastradas dentro do banco de dados.
-
-			/*
-			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas AND '$dataAtual
-			'<=j.dataFimApostas AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo ";
-			$query = $entityManager->createQuery($dql);
-			$jogos = $query->getResult();
-			*/
-			
-			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas
-					AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo DESC";
-			$query = $entityManager->createQuery($dql);
-			$query->setMaxResults(15);
-			$jogos = $query->getResult();
+		$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas
+				AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo DESC";
+		$jogos = consultaDqlMaxResult(15, $dql);
 				
 			?>
 			<div id="jogos">
@@ -86,10 +69,7 @@ try{
 
 					$dql = "SELECT ca FROM ContadorAposta ca WHERE ca.campeonato=".$campeonato->getCodCampeonato().
 					" AND ca.jogo=".$jogo->getCodjogo()."ORDER BY ca.quantidadeApostas DESC";
-					
-					$query = $entityManager->createQuery($dql);
-					$query->setMaxResults(3);
-					$contadorApostas = $query->getResult();
+					$contadorApostas = consultaDqlMaxResult(3, $dql);
 					
 					//Aqui esta testando se a busca voltou com algum jogo ou nao
 					if ($contadorApostas<>NULL){
@@ -119,18 +99,10 @@ try{
 				}
 			}
 			else{
-				echo
-				"<center>
-				<table id='tabela'>
-				<tr class=\"linha\">
-				<td class=\"coluna\">
-				<p class=\"aviso\" align='center'>Não existem chutes para este campeonato. Volte amanhã para conferir.</p>
-				</td>
-				</tr>
-				</table>
-				</center>";
-
-			}
+				?>
+						<p class="aviso">Não existem chutes para este campeonato. Volte amanhã para conferir</p>
+						<?php 
+					}
 			?>
 			</div>
 			<?php 
@@ -139,18 +111,13 @@ try{
 	$conn->commit();
 } catch(Exception $e) {
 $conn->rollback();
-echo
-"<center>
-	<table id='tabela'>
-	<tr class=\"linha\">
-	<td class=\"coluna\" align='center'>
-	<p class=\"aviso\" align=\"center\">Ainda não existem chutes para nenhum jogo.<br/>
-	O inícioo das apostas começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br/>
+
+?>
+		<p class="aviso">Ainda não existem chutes para nenhum jogo.<br/>
+	O início das apostas começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br/>
 	Volte amanhã para conferir novamente.</p>
-	</td>
-	</tr>
-	</table>
-	</center>";
+		<?php 
+		
 }
 $conn->close();
 
@@ -166,8 +133,7 @@ $conn->close();
 
 		<?php
 		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
-		$query = $entityManager->createQuery($dql);
-		$campeonatos = $query->getResult();
+		$campeonatos = consultaDql($dql);
 		foreach($campeonatos as $campeonato) {
 			if($campeonato instanceof $campeonato){
 				$classe = 'campeonatoRankingInativo';

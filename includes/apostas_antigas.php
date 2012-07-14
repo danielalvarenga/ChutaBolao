@@ -1,17 +1,16 @@
  <?php
 require ("bootstrap.php");
+require 'metodos-bd.php';
 
 if(!isset($_GET['campeonato'])){
 	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
-	$query= $entityManager->createQuery($dql);
-	$campeonatos= $query->getResult();
+	$campeonatos= consultaDql($dql);
 
 	$classeGeral='geralRankingAtivo';
 }
 else{
 	$dql = "SELECT c FROM Campeonato c WHERE c.codCampeonato = ".$_GET['campeonato'];
-	$query= $entityManager->createQuery($dql);
-	$campeonatos= $query->getResult();
+	$campeonatos= consultaDql($dql);
 
 	$classeGeral='geralRankingInativo';
 }
@@ -39,8 +38,7 @@ try{
 		
 			$dql = "SELECT a FROM Aposta a WHERE a.campeonato=".$campeonato->getCodCampeonato()." AND a.usuario=".$user_id."
 			ORDER BY a.jogo DESC";
-			$query = $entityManager->createQuery($dql);
-			$apostas = $query->getResult();
+			$apostas = consultaDql($dql);
 		
 			//Aqui esta testando se a busca voltou com algum jogo ou nao
 			if ($apostas<>NULL){
@@ -128,8 +126,7 @@ $conn->close();
 
 		<?php
 		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
-		$query = $entityManager->createQuery($dql);
-		$campeonatos = $query->getResult();
+		$campeonatos = consultaDql($dql);
 		foreach($campeonatos as $campeonato) {
 			if($campeonato instanceof $campeonato){
 				$classe = 'campeonatoRankingInativo';
@@ -150,8 +147,7 @@ $conn->close();
 		}
 		
 		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'finalizado' ORDER BY c.codCampeonato ASC";
-		$query = $entityManager->createQuery($dql);
-		$campeonatos = $query->getResult();
+		$campeonatos = consultaDql($dql);
 		foreach($campeonatos as $campeonato) {
 			if($campeonato instanceof $campeonato){
 				$classe = 'campeonatoRankingInativo';

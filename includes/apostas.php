@@ -1,5 +1,6 @@
 <?php
 require ("bootstrap.php");
+require 'metodos-bd.php';
 
 function opcaoUsuario(){
 	for($indiceEscolhaUsuario = 0 ; $indiceEscolhaUsuario < 100 ; $indiceEscolhaUsuario++ ){
@@ -16,25 +17,26 @@ else{
 	$classeGeral='geralRankingInativo';
 }
 
-if(isset($_POST)){
+if(isset($_POST[0])){
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
 		$contador=0;
 		$contador1=0;
-		for ($i=0;$i<sizeof($_POST)/4;$i++){
+		$jogo_campeonato=$_POST[0];
+		$usuario = $entityManager->find("Usuario", $user_id);
+		$campeonato= $entityManager->find("Campeonato", $jogo_campeonato);
+			
+		for ($i=0;$i<sizeof($_POST)>>2;$i++){
 			$auxContadorAposta[0]=null;
 			$aux=$i <<2;
-			$jogo_campeonato=$_POST[$aux];
 			$jogo_numero= $_POST[$aux + 1 ];
 			$palpite_time1_jogo= $_POST[$aux + 2 ];
 			$palpite_time2_jogo= $_POST[$aux + 3 ];
 				
 			//Busca objeto Jogo, Campeonato e Aposta
 				
-			$usuario = $entityManager->find("Usuario", $user_id);
 			$jogo = $entityManager->find("Jogo", $jogo_numero);
-			$campeonato= $entityManager->find("Campeonato", $jogo_campeonato);
 			$apostaCadastrada = $entityManager->find("Aposta", array(
 					"campeonato" =>	$jogo_campeonato,
 					"usuario" => $user_id,
@@ -50,9 +52,8 @@ if(isset($_POST)){
 			));
 			if(!$pontuacaoRodada instanceof PontuacaoRodada){
 				$pontuacaoRodada = new PontuacaoRodada($jogo->getRodada(), $campeonato, $usuario);
-				$entityManager->persist($pontuacaoRodada);
-				$entityManager->flush();
-			}
+				salvaBancoDados($pontuacaoRodada);
+				}
 				
 			//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda nÃ£o existir
 
@@ -62,9 +63,8 @@ if(isset($_POST)){
 			));
 			if(!$premiosUsuario instanceof PremiosUsuario){
 				$premiosUsuario = new PremiosUsuario($usuario, $campeonato);
-				$entityManager->persist($premiosUsuario);
-				$entityManager->flush();
-			}
+				salvaBancoDados($premiosUsuario);
+				}
 				
 			//Cria nova aposta se ainda nÃ£o existir
 			$publica = false;
@@ -75,8 +75,7 @@ if(isset($_POST)){
 					$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$apostaCadastrada->getApostaGolsTime2();
 					$apostaCadastrada->setApostaGolsTime1($palpite_time1_jogo);
 					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
-					$entityManager->merge($apostaCadastrada);
-					$entityManager->flush();
+					atualizaBancoDados($apostaCadastrada);
 					$publica = true;
 					$contador1++;
 					$indice++;
@@ -87,8 +86,7 @@ if(isset($_POST)){
 					$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
 					$atualizacaoContadorAposta=$apostaCadastrada->getApostaGolsTime1()."  X  ".$palpite_time2_jogo;
 					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
-					$entityManager->merge($apostaCadastrada);
-					$entityManager->flush();
+					atualizaBancoDados($apostaCadastrada);
 					$publica = true;
 					$contador1++;
 				}
@@ -99,10 +97,9 @@ if(isset($_POST)){
 							"opcaoCadastrada"=>$auxContadorAposta[0]
 					));
 					if($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->declementaQuantidadeApostas();
-						$entityManager->merge($contadorAposta);
-						$entityManager->flush();
-	
+						$contadorAposta->decrementaQuantidadeApostas();
+						atualizaBancoDados($contadorAposta);
+						
 						$contadorAposta = $entityManager->find("ContadorAposta", array (
 								"campeonato"=>$jogo_campeonato,
 								"jogo"=> $auxiliar_jogo,
@@ -113,15 +110,13 @@ if(isset($_POST)){
 					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃ£o existir
 
 					if ($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->inclementaQuantidadeApostas();
-						$entityManager->merge($contadorAposta);
-						$entityManager->flush();
-
+						$contadorAposta->incrementaQuantidadeApostas();
+						atualizaBancoDados($contadorAposta);
+						
 					}
 					else{
 						$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
-						$entityManager->persist($novoContadorAposta);
-						$entityManager->flush();
+						salvaBancoDados($novoContadorAposta);
 							
 					}
 				}
@@ -132,8 +127,7 @@ if(isset($_POST)){
 					$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$palpite_time2_jogo;
 					$apostaNova->setApostaGolsTime1($palpite_time1_jogo);
 					$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
-					$entityManager->persist($apostaNova);
-					$entityManager->flush();
+					salvaBancoDados($apostaNova);
 					$publica = true;
 					$contador++;
 
@@ -146,16 +140,14 @@ if(isset($_POST)){
 					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃ£o existir
 
 					if ($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->inclementaQuantidadeApostas();
-						$entityManager->merge($contadorAposta);
-						$entityManager->flush();
-
+						$contadorAposta->incrementaQuantidadeApostas();
+						atualizaBancoDados($contadorAposta);
+						
 					}
 					else{
 						$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
-						$entityManager->persist($novoContadorAposta);
-						$entityManager->flush();
-
+						salvaBancoDados($novoContadorAposta);
+						
 					}
 				}
 			}
@@ -237,9 +229,7 @@ try{
 	
 	$semChutes = true;
 	
-	$query= $entityManager->createQuery($dqlMenu);
-	$campeonatos= $query->getResult();
-	
+	$campeonatos=consultaDql($dqlMenu);
 	foreach ($campeonatos as $campeonato){
 		if($campeonato instanceof Campeonato){
 
@@ -249,8 +239,7 @@ try{
 
 			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas AND '$dataAtual
 			'<=j.dataFimApostas AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo ASC";
-			$query = $entityManager->createQuery($dql);
-			$jogos = $query->getResult();
+			$jogos = consultaDql($dql);
 
 			//Aqui esta testando se a busca voltou com algum jogo ou nao
 
@@ -401,8 +390,7 @@ $conn->close();
 
 		<?php
 		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
-		$query = $entityManager->createQuery($dql);
-		$campeonatos = $query->getResult();
+		$campeonatos = consultaDql($dql);
 		foreach($campeonatos as $campeonato) {
 			if($campeonato instanceof Campeonato){
 				$classe = 'campeonatoRankingInativo';
