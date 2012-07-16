@@ -182,7 +182,7 @@ cadastro de jogo
 		<select name="ano">
 		<option>ano</option>
 			<?php
-				for($ano = 2012 ; $ano <= 2030 ; $ano++ ){
+				for($ano = 2012 ; $ano <= 2020 ; $ano++ ){
 					echo "<option value=$ano>$ano</option>";
 				};
 			?>
@@ -205,7 +205,7 @@ cadastro de jogo
 		<select name="minuto">
 		<option>minuto</option>
 			<?php
-				for($minuto = 0 ; $minuto <= 59 ; $minuto++ ){
+				for($minuto = 0 ; $minuto <= 59 ; $minuto +=5 ){
 					$minuto2 = $minuto;
 					if($minuto2 <= 9){
 						$minuto2 = '0'.$minuto;
@@ -277,16 +277,16 @@ cadastro de jogo
 		
 			if($jogo instanceof Jogo){
 			
-				$codTime1 = $jogo->getCodTime1();
+				$codTime1 = $jogo->getCodtime1();
 				
-				$codTime2 = $jogo->getCodTime2();
+				$codTime2 = $jogo->getCodtime2();
 				
 				$time1 = $entityManager->find("Time", $codTime1);
 				
 				$time2 = $entityManager->find("Time", $codTime2);
 				
 				echo '<tr vertical-align="middle" align="center">
-						<td>'.$jogo->getDataJogo().'</td>
+						<td>'.$jogo->getDatajogo().'</td>
 						<td>'.$jogo->getCampeonato()->getNomeCampeonato().' '.$jogo->getCampeonato()->getAnoCampeonato().'</td>
 						<td>'.$jogo->getRodada()->getNumRodada().'</td>
 						<td>'.$time1->getNomeTime().'</td>
@@ -294,12 +294,12 @@ cadastro de jogo
 						<td>
 								<img src="'.$jogo->getEscudosJogo().'">
 						</td>
-						<td>'.$jogo->getGolsTime1().' X '.$jogo->getGolsTime2().'</td>
+						<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
 						<td>'.$jogo->getDataInicioApostas().'</td>
 						<td>'.$jogo->getDataFimApostas().'</td>
 						<td>
 							<form method="POST" action="insere-gols.php">
-							<input type="hidden" name="jogo" value='.$jogo->getCodJogo().'>
+							<input type="hidden" name="jogo" value='.$jogo->getCodjogo().'>
 							<input type="submit" name="insere-gols" value="Inserir Gols"><br/>
 							</form>
 						</td>

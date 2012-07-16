@@ -1,15 +1,35 @@
 <?php
 require "bootstrap.php";
 
+function opcaoUsuario(){
+	for($indiceEscolhaUsuario = 0 ; $indiceEscolhaUsuario < 100 ; $indiceEscolhaUsuario++ ){
+		echo "<OPTION VALUE=$indiceEscolhaUsuario>$indiceEscolhaUsuario</OPTION>";
+	}
+}
+
+if(!isset($_GET['campeonato'])){
+	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
+	$query= $entityManager->createQuery($dql);
+	$campeonatos= $query->getResult();
+	
+	$classeGeral='geralRankingAtivo';
+}
+else{
+	$dql = "SELECT c FROM Campeonato c WHERE c.codCampeonato = ".$_GET['campeonato'];
+	$query= $entityManager->createQuery($dql);
+	$campeonatos= $query->getResult();
+	
+	$classeGeral='geralRankingInativo';
+}
+
+?>
+<div id="colunaEsquerda">
+<?php
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
 try{
 	$dataAgora = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 	$dataAtual = $dataAgora->format( "Y-m-d H:i:s" );
-
-	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo' ";
-	$query= $entityManager->createQuery($dql);
-	$campeonatos= $query->getResult();
 
 	if($campeonatos<>NULL){
 			
@@ -25,20 +45,15 @@ try{
 			*/
 			
 			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas
-					AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo ";
+					AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo DESC";
 			$query = $entityManager->createQuery($dql);
+			$query->setMaxResults(15);
 			$jogos = $query->getResult();
 				
-			echo '
-			<table id="tabela" cellspacing=0>
-				<tr>
-					<td id="aposta" align="center" colspan="6">
-						<h3>'
-						.$campeonato->getNomeCampeonato().' '
-						.$campeonato->getAnoCampeonato().'
-						</h3>
-					</td>
-				</tr>';
+			?>
+			<div id="jogos">
+			<h3 class="titulo"><?php echo $campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato();?></h3>
+			<?php
 				
 			//Aqui esta testando se a busca voltou com algum jogo ou nao
 				
@@ -51,40 +66,26 @@ try{
 					// Essa parte do codigo busca aposta do usuario de acordo com o numero do
 					//jogo cadastradas dentro do banco de dados.
 		
-					$time = $entityManager->find("Time", $jogo->getCodTime1());
+					$time = $entityManager->find("Time", $jogo->getCodtime1());
 					$time1 = $time->getNomeTime();
 					$escudo1 = $time->getEscudo();
 						
 					//Aqui esta buscando os nomes dos times do jogo
-					$time = $entityManager->find("Time", $jogo->getCodTime2());
+					$time = $entityManager->find("Time", $jogo->getCodtime2());
 					$time2 = $time->getNomeTime();
 					$escudo2 = $time->getEscudo();
-						
-					echo "
-					<tr height=\"5px\">
-							<td>
-							</td>
-					</tr>
-					<tr class=\"linha\" align=\"center\">
-						<td class=\"nomeTime\">"
-							.$time1."
-						</td>
-						<td class=\"coluna\" >
-							<img class=\"escudo\" src='$escudo1'>
-						</td>
-						<td class=\"coluna\">
-						X
-						</td>
-						<td class=\"coluna\">
-							<img class=\"escudo\" src='$escudo2'>
-						</td>
-						<td class=\"nomeTime\">"
-							.$time2."
-						</td>
-						<td class=\"placar\">";
+					?>
+					<div class="jogoPlacares">
+						<span class="nomeTimePlacares"><?php echo $time1;?></span>
+						<img class="escudoTimePlacares" src="<?php echo $escudo1;?>">
+						<span class="letraX">X</span>
+						<img class="escudoTimePlacares" src="<?php echo $escudo2;?>">
+						<span class="nomeTimePlacares"><?php echo $time2?></span>
+					</div>
+						<?php
 
 					$dql = "SELECT ca FROM ContadorAposta ca WHERE ca.campeonato=".$campeonato->getCodCampeonato().
-					" AND ca.jogo=".$jogo->getCodJogo()."ORDER BY ca.quantidadeApostas DESC";
+					" AND ca.jogo=".$jogo->getCodjogo()."ORDER BY ca.quantidadeApostas DESC";
 					
 					$query = $entityManager->createQuery($dql);
 					$query->setMaxResults(3);
@@ -93,19 +94,28 @@ try{
 					//Aqui esta testando se a busca voltou com algum jogo ou nao
 					if ($contadorApostas<>NULL){
 						$contador=1;
+						?>
+						<div class="top3Placares">
+						<?php 
 							foreach ($contadorApostas as $contadorAposta){	//Aqui esta buscando os nomes dos times do jogo
-									
-								echo
-									"<p>".$contadorAposta->getOpcaoCadastrada()." com "
-									.$contadorAposta->getQuantidadeApostas()." chutes</p>";
+								?>
+									<?php echo $contadorAposta->getOpcaoCadastrada();?> com 
+									<?php echo $contadorAposta->getQuantidadeApostas();?> chutes<br/>
+								<?php
 								$contador++;
 							}
+						?>
+						</div>
+						<?php 
 					}
 					else{
-						echo"Ainda não existem chutes para este jogo.";
+						?>
+						<div class="top3Placares">Ainda não existem chutes para este jogo.</div>
+						<?php 
 					}
-					echo "	</td>
-						</tr>";
+					?>
+					<div class="divisoria"></div>
+					<?php 
 				}
 			}
 			else{
@@ -121,8 +131,9 @@ try{
 				</center>";
 
 			}
-			echo "
-			</table>";
+			?>
+			</div>
+			<?php 
 		}
 	}
 	$conn->commit();
@@ -144,4 +155,37 @@ echo
 $conn->close();
 
 ?>
+</div>
+<div id="colunaDireita">
+	<h3 class="titulo">Campeonatos</h3>
+		<form name="formRankingGeral" action="" method="GET">
+			<INPUT type='hidden' name="conteudo" value="<?php echo $_GET['conteudo'];?>">
+			<button class="<?php echo $classeGeral;?>" type="submit" name="geral" value="geral">Todos</button><br/>
+		</form>
+		<div class="divisoriaRanking"></div>
 
+		<?php
+		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
+		$query = $entityManager->createQuery($dql);
+		$campeonatos = $query->getResult();
+		foreach($campeonatos as $campeonato) {
+			if($campeonato instanceof $campeonato){
+				$classe = 'campeonatoRankingInativo';
+				if(isset($_GET['campeonato'])){
+					if($_GET['campeonato'] == $campeonato->getCodCampeonato()){
+						$classe = 'campeonatoRankingAtivo';
+					}
+				}
+				?>
+				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="" method="GET">
+				<INPUT type='hidden' name="conteudo" value="<?php echo $_GET['conteudo'];?>">
+					<button class="<?php echo $classe;?>" type="submit" name="campeonato" value="<?php echo $campeonato->getCodCampeonato();?>">
+						<?php echo $campeonato->getNomeCampeonato();?>
+					</button>
+				</form>
+				<?php
+			}
+		}
+		
+		?>
+</div>

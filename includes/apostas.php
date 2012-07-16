@@ -7,6 +7,15 @@ function opcaoUsuario(){
 	}
 }
 
+if(!isset($_GET['campeonato'])){
+	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
+	$classeGeral='geralRankingAtivo';
+}
+else{
+	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.codCampeonato = ".$_GET['campeonato'];
+	$classeGeral='geralRankingInativo';
+}
+
 if(isset($_POST)){
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
@@ -77,7 +86,7 @@ if(isset($_POST)){
 					$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
 					$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
 					$atualizacaoContadorAposta=$apostaCadastrada->getApostaGolsTime1()."  X  ".$palpite_time2_jogo;
-					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodJogo();
+					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
 					$entityManager->merge($apostaCadastrada);
 					$entityManager->flush();
 					$publica = true;
@@ -89,20 +98,22 @@ if(isset($_POST)){
 							"jogo"=> $auxiliar_jogo,
 							"opcaoCadastrada"=>$auxContadorAposta[0]
 					));
-					$contadorAposta->decrementaQuantidadeApostas();
-					$entityManager->merge($contadorAposta);
-					$entityManager->flush();
-
-					$contadorAposta = $entityManager->find("ContadorAposta", array (
-							"campeonato"=>$jogo_campeonato,
-							"jogo"=> $auxiliar_jogo,
-							"opcaoCadastrada"=>$atualizacaoContadorAposta
-					));
-
+					if($contadorAposta instanceof ContadorAposta){
+						$contadorAposta->declementaQuantidadeApostas();
+						$entityManager->merge($contadorAposta);
+						$entityManager->flush();
+	
+						$contadorAposta = $entityManager->find("ContadorAposta", array (
+								"campeonato"=>$jogo_campeonato,
+								"jogo"=> $auxiliar_jogo,
+								"opcaoCadastrada"=>$atualizacaoContadorAposta
+						));
+					}
+					
 					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃƒÂ£o existir
 
 					if ($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->incrementaQuantidadeApostas();
+						$contadorAposta->inclementaQuantidadeApostas();
 						$entityManager->merge($contadorAposta);
 						$entityManager->flush();
 
@@ -135,7 +146,7 @@ if(isset($_POST)){
 					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃƒÂ£o existir
 
 					if ($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->incrementaQuantidadeApostas();
+						$contadorAposta->inclementaQuantidadeApostas();
 						$entityManager->merge($contadorAposta);
 						$entityManager->flush();
 
@@ -151,22 +162,22 @@ if(isset($_POST)){
 				
 			if($publica){
 				if($palpite_time1_jogo > $palpite_time2_jogo){
-					$time1 = $entityManager->find("Time", $jogo->getCodTime1());
+					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
 					x  '.$palpite_time2_jogo.'
 					para o '.$time1->getNomeTime();
 				}
 				elseif($palpite_time1_jogo < $palpite_time2_jogo){
-					$time2 = $entityManager->find("Time", $jogo->getCodTime2());
+					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time2_jogo.'
 					x  '.$palpite_time1_jogo.'
 					para o '.$time2->getNomeTime();
 				}
 				elseif($palpite_time1_jogo == $palpite_time2_jogo){
-					$time1 = $entityManager->find("Time", $jogo->getCodTime1());
-					$time2 = $entityManager->find("Time", $jogo->getCodTime2());
+					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
+					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
 					x  '.$palpite_time2_jogo.'
@@ -191,82 +202,65 @@ if(isset($_POST)){
 				*/
 			}
 		}
-		if($contador>0){
-			echo"<p align='center'>
-			<table id='tabela'>
-			<tr class=\"linha\">
-			<td class=\"coluna\">
-			<p align='center'>Aposta realizada com sucesso</p>
-			</td>
-			</tr>
-			</table>";
-		}
-		if($contador1>0){
-			echo"<p align='center'>
-			<table id='tabela'>
-			<tr class=\"linha\">
-			<td class=\"coluna\">
-			<p align='center'>Aposta atualizada com sucesso</p>
-			</td>
-			</tr>
-			</table>";
-		}
 		$conn->commit();
 	} catch(Exception $e) {
 		$conn->rollback();
-		echo
-		"<p align='center'>
-		<table id='tabela'>
-		<tr class=\"linha\">
-		<td class=\"coluna\">
-		<p align='center'>Não foi possível gravar seu Chute. Tente outra vez mais tarde.</p>
-		</td>
-		</tr>
-		</table>";
+		?>
+		<p class="aviso">Não foi possível gravar seu Chute. Tente outra vez mais tarde.</p>
+		<?php
 	}
 	$conn->close();
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-
+?>
+<div id="colunaEsquerda">
+<?php
+if(isset($contador) || isset($contador1)){
+	if($contador>0){
+		?>
+		<p class="aviso">Aposta realizada com sucesso</p>
+		<?php 
+	}
+	if($contador1>0){
+		?>
+		<p class="aviso">Aposta atualizada com sucesso</p>
+		<?php
+	}
+}
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
 try{
 	$dataAgora = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 	$dataAtual = $dataAgora->format( "Y-m-d H:i:s" );
-
-	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo' ";
-	$query= $entityManager->createQuery($dql);
+	
+	$semChutes = true;
+	
+	$query= $entityManager->createQuery($dqlMenu);
 	$campeonatos= $query->getResult();
 	
-	$semChutes = false;
 	foreach ($campeonatos as $campeonato){
 		if($campeonato instanceof Campeonato){
 
-			$opcaoVazia=' ';
-			$imprimeLetraX= "X";
+			$opcaoVazia='';
 			
 			//Essa parte do codigo busca os jogos cadastradas dentro do banco de dados.
 
 			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas AND '$dataAtual
-			'<=j.dataFimApostas AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo ";
+			'<=j.dataFimApostas AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo ASC";
 			$query = $entityManager->createQuery($dql);
 			$jogos = $query->getResult();
 
 			//Aqui esta testando se a busca voltou com algum jogo ou nao
 
 			if($jogos<>NULL){
-
-				echo '
-				<table id="tabela" cellspacing=0>
-				<td id="aposta" align="center" colspan="7">
-				<h3>'
-				.$campeonato->getNomeCampeonato().' '
-				.$campeonato->getAnoCampeonato().'
-				</h3>
-				</td>
-				<form action="" method="POST" >';
+				$semChutes = false;
+				?>
+				<div id="jogos">
+					<h3 class="titulo"><?php echo $campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato();?></h3>
+					<form action="" method="POST" >
+				<?php
 				$contadorArray=0;
 
 				foreach ($jogos as $jogo){
@@ -286,12 +280,12 @@ try{
 					));
 						
 					//Aqui esta buscando os nomes dos times do jogo
-					$time = $entityManager->find("Time", $jogo->getCodTime1());
+					$time = $entityManager->find("Time", $jogo->getCodtime1());
 					$time1 = $time->getNomeTime();
 					$escudo1 = $time->getEscudo();
 
 					//Aqui esta buscando os nomes dos times do jogo
-					$time = $entityManager->find("Time", $jogo->getCodTime2());
+					$time = $entityManager->find("Time", $jogo->getCodtime2());
 					$time2 = $time->getNomeTime();
 					$escudo2 = $time->getEscudo();
 
@@ -300,138 +294,133 @@ try{
 					if ($aposta instanceof Aposta){
 						$apostaGolsTime1=$aposta->getApostaGolsTime1();
 						$apostaGolsTime2=$aposta->getApostaGolsTime2();
-						echo "
-						<tr>
-						<td class=\"data\" align='center' colspan='7' >
-						Em ".$jogo->getDataLogica()." -
-						Chute até ".$jogo->getDataLogicaFimApostas()."
-						</td>
-						</tr>
-						<tr class=\"linha\" align='center'>
-						<td class=\"nomeTime\" align=\"right\">
-						$time1
-						</td>
-						<td class=\"coluna\">
-						<img class=\"escudo\" src='$escudo1'>
-						</td>
-						<td class=\"coluna\">
-						<INPUT type='hidden' name='$numero_campeonato' value=".$campeonato->getCodCampeonato().">
-						<INPUT type='hidden' name='$numeroJogo' value=".$jogo->getCodJogo().">
-						<SELECT name=$apostaGolsUsuarioTime1>
-						<OPTION VALUE=$apostaGolsTime1>$apostaGolsTime1</OPTION>";
-						opcaoUsuario();
-						echo "
-						</SELECT>
-						</td>
-						<td class=\"coluna\">
-						$imprimeLetraX
-						</td>
-						<td class=\"coluna\">
-						<SELECT name=$apostaGolsUsuarioTime2>
-						<OPTION VALUE=$apostaGolsTime2>$apostaGolsTime2</OPTION>";
-						opcaoUsuario();
-						echo "
-						</SELECT>
-						</td>
-						<td class=\"coluna\">
-						<img class=\"escudo\" src='$escudo2'>
-						</td>
-						<td class=\"nomeTime\" align=\"left\">
-						$time2
-						</td>
-						</tr>";
+						
+						?>
+						
+							<span class="dataJogo">Em <?php echo $jogo->getDataLogica();?></span>
+							<span class="statusJogo">Chute até <?php echo $jogo->getDataLogicaFimApostas();?></span>
+						<div class="jogoLiberado">
+							<span class="nomeTimeChutes"><?php echo $time1;?></span>
+							<img class="escudoTime" src="<?php echo $escudo1;?>">
+							<div class="chute">
+								<INPUT type='hidden' name="<?php echo $numero_campeonato;?>" value="<?php echo $campeonato->getCodCampeonato();?>">
+								<INPUT type='hidden' name="<?php echo $numeroJogo;?>" value="<?php echo $jogo->getCodJogo();?>">
+								<SELECT name="<?php echo $apostaGolsUsuarioTime1;?>">
+								<OPTION VALUE="<?php echo $apostaGolsTime1;?>"><?php echo $apostaGolsTime1;?></OPTION>
+								<?php echo opcaoUsuario();?>
+								</SELECT>
+							</div>
+							<span class="letraX">X</span>
+							<div class="chute">
+								<SELECT name="<?php echo $apostaGolsUsuarioTime2;?>">
+								<OPTION VALUE="<?php echo $apostaGolsTime2;?>"><?php echo $apostaGolsTime2;?></OPTION>
+								<?php echo opcaoUsuario();?>
+								</SELECT>
+							</div>
+							<img class="escudoTime" src="<?php echo $escudo2;?>">
+							<span class="nomeTimeChutes"><?php echo $time2?></span>
+							<button class="okChutes" type="submit" value="salvar">OK</button>
+							<div class="divisoria"></div>
+							</div>
+						
+						<?php
+						
 					}
 					else {
 						// Esse for serve para imprimir todo os jogos corrente da rodada.
+						
+						?>
+												
+						<span class="dataJogo">Em <?php echo $jogo->getDataLogica();?></span>
+						<span class="statusJogo">Chute até <?php echo $jogo->getDataLogicaFimApostas();?></span>
+						<div class="jogoLiberado">
+							<span class="nomeTimeChutes"><?php echo $time1;?></span>
+							<img class="escudoTime" src="<?php echo $escudo1;?>">
+							<div class="chute">
+								<INPUT type='hidden' name="<?php echo $numero_campeonato;?>" value="<?php echo $campeonato->getCodCampeonato();?>">
+								<INPUT type='hidden' name="<?php echo $numeroJogo;?>" value="<?php echo $jogo->getCodJogo();?>">
+								<SELECT name="<?php echo $apostaGolsUsuarioTime1;?>">
+								<OPTION VALUE="<?php echo $opcaoVazia;?>"><?php echo $opcaoVazia;?></OPTION>
+								<?php echo opcaoUsuario();?>
+								</SELECT>
+							</div>
+							<span class="letraX">X</span>
+							<div class="chute">
+								<SELECT name="<?php echo $apostaGolsUsuarioTime2;?>">
+								<OPTION VALUE="<?php echo $opcaoVazia;?>"><?php echo $opcaoVazia;?></OPTION>
+								<?php echo opcaoUsuario();?>
+								</SELECT>
+							</div>
+							<img class="escudoTime" src="<?php echo $escudo2;?>">
+							<span class="nomeTimeChutes"><?php echo $time2?></span>
+							<button class="okChutes" type="submit" value="salvar">OK</button>
+							<div class="divisoria"></div>
+						</div>
+						
+						<?php
 							
-						echo "
-						<tr>
-						<td class=\"data\" align='center' colspan='7' >
-						Em ".$jogo->getDataLogica()." -
-						Chute até ".$jogo->getDataLogicaFimApostas()."
-						</td>
-						</tr>
-						<tr class=\"linha\" align='center'>
-						<td class=\"nomeTime\" align=\"right\">
-						$time1
-						</td>
-						<td class=\"coluna\">
-						<img class=\"escudo\" src='$escudo1'>
-						</td>
-						<td class=\"coluna\">
-						<INPUT type='hidden' name='$numero_campeonato' value=".$campeonato->getCodCampeonato().">
-						<INPUT type='hidden' name='$numeroJogo' value=".$jogo->getCodJogo().">
-						<SELECT name=$apostaGolsUsuarioTime1>
-						<OPTION VALUE=$opcaoVazia>$opcaoVazia</OPTION>";
-						opcaoUsuario();
-						echo "
-						</SELECT>
-						</td>
-						<td class=\"coluna\">
-						$imprimeLetraX
-						</td>
-						<td class=\"coluna\">
-							
-						<SELECT name=$apostaGolsUsuarioTime2>
-						<OPTION VALUE=$opcaoVazia>$opcaoVazia</OPTION>";
-						opcaoUsuario();
-						echo "
-						</SELECT>
-						</td>
-						<td class=\"coluna\">
-						<img class=\"escudo\" src='$escudo2'>
-						</td>
-						<td class=\"nomeTime\"  align=\"left\">
-						$time2
-						</td>
-						</tr>";
 					}
 					$contadorArray++;
 				}
-				echo "
-				<tr>
-				<td cellpadding=2 align='center'  colspan='7' >
-				<input  type='submit' value='Salvar'>
-				</td>
-				</tr>
+				?>
+				<p><button class="salvarChutes" type="submit" value="salvar">Salvar Todos</button></p>
 				</form>
-				</table>";
+				</div>
+				<div class="divisoriaCampeonatos"></div>
+				<?php
 			}
-			else{
-				$semChutes = false;
-			}
-		}
-		else{
-				$semChutes = false;
 		}
 		if($semChutes){
-			echo
-			"<p align='center'>
-			<table id='tabela'>
-			<tr class=\"linha\">
-			<td class=\"coluna\">
-			<p class=\"aviso\" align='center'>Não existem jogos liberados no momento.<br/>
-			O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br/>
-			Volte amanhã para conferir novamente.</p>
-			</td>
-			</tr>
-			</table>";
+			?>
+			<p class="aviso">
+				Não existem jogos liberados no momento.<br/>
+				O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br/>
+				Volte amanhã para conferir novamente.</p>
+			<?php
 			break;
 		}
 	}
 	$conn->commit();
 } catch(Exception $e) {
 	$conn->rollback();
-	echo
-	"<p align='center'>
-	<table id='tabela'>
-	<tr class=\"linha\">
-	<td class=\"coluna\">
-	<p class=\"aviso\" align='center'>Não existem jogos liberados no momento.</p>
-	</td>
-	</tr>
-	</table>";
+	?>
+	<p class="aviso">Não existem jogos liberados no momento.</p>
+	<?php
 }
 $conn->close();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
+</div>
+<div id="colunaDireita">
+	<h3 class="titulo">Campeonatos</h3>
+		<form name="formRankingGeral" action="" method="GET">
+			<INPUT type='hidden' name="conteudo" value="<?php echo $_GET['conteudo'];?>">
+			<button class="<?php echo $classeGeral;?>" type="submit" name="geral" value="geral">Todos</button><br/>
+		</form>
+		<div class="divisoriaRanking"></div>
+
+		<?php
+		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
+		$query = $entityManager->createQuery($dql);
+		$campeonatos = $query->getResult();
+		foreach($campeonatos as $campeonato) {
+			if($campeonato instanceof $campeonato){
+				$classe = 'campeonatoRankingInativo';
+				if(isset($_GET['campeonato'])){
+					if($_GET['campeonato'] == $campeonato->getCodCampeonato()){
+						$classe = 'campeonatoRankingAtivo';
+					}
+				}
+				?>
+				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="" method="GET">
+				<INPUT type='hidden' name="conteudo" value="<?php echo $_GET['conteudo'];?>">
+					<button class="<?php echo $classe;?>" type="submit" name="campeonato" value="<?php echo $campeonato->getCodCampeonato();?>">
+						<?php echo $campeonato->getNomeCampeonato();?>
+					</button>
+				</form>
+				<?php
+			}
+		}
+		
+		?>
+</div>

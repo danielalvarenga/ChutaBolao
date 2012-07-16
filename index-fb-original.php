@@ -5,7 +5,7 @@ $charset = $charsetArray[2];
 header('Content-type: text/html; charset='.$charset);
 require "bootstrap.php";
 require_once 'FacebookApi/facebook.php';
-/*
+
 $app_id = '233715530059546';
 $app_secret = '0fa65b36e29b5ba8f774827028f67317';
 $config = array(
@@ -13,18 +13,10 @@ $config = array(
 		'secret' => $app_secret,);
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
-*/
-
-$user_id = "100000885523518";
-$primeiroNomeUsuario = 'Daniel';
-$segundoNomeUsuario = 'Alvarenga Lima';
-$emailUsuario = 'alvarenga_daniel@hotmail.com';
-$tokenUsuario = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
-
 
 if ($user_id) {
 	try {
-		//$user_profile = $facebook->api('/me');
+		$user_profile = $facebook->api('/me');
 		
 		$conn = $entityManager->getConnection();
 		$conn->beginTransaction();
@@ -44,12 +36,11 @@ if ($user_id) {
 			$conn = $entityManager->getConnection();
 			$conn->beginTransaction();
 			try{
-				/*
+			
 				$primeiroNomeUsuario = utf8_decode($user_profile['first_name']);
 				$segundoNomeUsuario = utf8_decode($user_profile['last_name']);
 				$emailUsuario = $user_profile['email'];
 				$tokenUsuario = $facebook->getAccessToken();
-				*/
 				$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
 				$entityManager->persist($usuario);
 				$entityManager->flush();
@@ -164,7 +155,7 @@ switch ($conteudo){
 			
 			<div id="banner">
 				<p>
-				<img src="imagens/banners/sertao-games.png">
+				<a href="https://www.facebook.com/sertaogames" target="_blank"><img src="imagens/banners/sertao-games.png"></a>
 				</p>
 				<div id="curtir">
 				<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fsertaogames&amp;send=false&amp;layout=button_count&amp;width=130&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:21px;" allowTransparency="true"></iframe>
@@ -172,7 +163,7 @@ switch ($conteudo){
 			</div>
 			<div id="banner">
 				<p>
-				<img src="imagens/banners/os-mosqueteiros.png">
+				<a href="https://www.facebook.com/osmosqueteiros" target="_blank"><img src="imagens/banners/os-mosqueteiros.png"></a>
 				</p>
 				<div id="curtir">
 				<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FOsMosqueteiros&amp;send=false&amp;layout=button_count&amp;width=130&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:21px;" allowTransparency="true"></iframe>
@@ -180,7 +171,7 @@ switch ($conteudo){
 			</div>
 			<div id="banner">
 				<p>
-				<img src="imagens/banners/quero-carona.png">
+				<a href="https://www.facebook.com/querocarona" target="_blank"><img src="imagens/banners/quero-carona.png"></a>
 				</p>
 				<div id="curtir">
 				<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fquerocarona&amp;send=false&amp;layout=button_count&amp;width=130&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:21px;" allowTransparency="true"></iframe>
@@ -188,7 +179,7 @@ switch ($conteudo){
 			</div>
 			<div id="banner">
 				<p>
-				<img src="imagens/banners/chuta-bolao.png">
+				<a href="https://www.facebook.com/chutabolao" target="_blank"><img src="imagens/banners/chuta-bolao.png"></a>
 				</p>
 				<div id="curtir">
 				<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FChutaBolao&amp;send=false&amp;layout=button_count&amp;width=130&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:21px;" allowTransparency="true"></iframe>
@@ -250,4 +241,3 @@ switch ($conteudo){
 		
 </body>
 </html>
-

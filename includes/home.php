@@ -1,3 +1,4 @@
+<div id="colunaUnica">
 <?php
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
@@ -19,8 +20,8 @@ try{
 			<td>
 				<table class="tabelaInterna" cellspacing="0" cellpadding="0">
 				<tr align="center" bottom="middle" style ="border-style: solid; border-width: 1">
-					<td class="tituloHome" colspan=11>
-						PODIUM GERAL
+					<td colspan=11>
+						<h3 class="titulo">Conquistas Totais</h3>
 					</td>
 				</tr>
 				<tr>
@@ -141,8 +142,8 @@ try{
 								</td>
 							</tr>
 							<tr align="center" bottom="middle" style ="border-style: solid; border-width: 1">
-								<td class="tituloHome" colspan=11>
-									<?php echo $premiacoes->getCampeonato()->getNomeCampeonato();?>
+								<td colspan=11>
+									<h3 class="titulo"> Conquistas no <?php echo $premiacoes->getCampeonato()->getNomeCampeonato();?></h3>
 								</td>
 							</tr>
 							<tr>
@@ -247,6 +248,4 @@ try{
 }
 $conn->close();
 ?>
-  
-
-    
+</div>

@@ -1,54 +1,62 @@
 <?php
+require "bootstrap.php";
 
-$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $user_id);
-
-$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario = $user_id";
-$query = $entityManager->createQuery($dql);
-$premiosUsuario = $query->getResult();
 
 if(!isset($_POST['campeonato'])){
-	$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.classificacaoGeral ASC";
-	$query->setMaxResults(100);
+	$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $user_id);
+	
+	$dql = 'SELECT p FROM PontuacaoGeral p WHERE p.classificacaoGeral > 0
+			ORDER BY p.classificacaoGeral ASC';
 	$query = $entityManager->createQuery($dql);
+	$query->setMaxResults(100);
 	$rankingPontos = $query->getResult();
 	
-	$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.classificacaoMedalhasGeral ASC";
-	$query->setMaxResults(100);
+	$dql = 'SELECT p FROM PontuacaoGeral p WHERE p.classificacaoMedalhasGeral > 0
+			ORDER BY p.classificacaoMedalhasGeral ASC';
 	$query = $entityManager->createQuery($dql);
+	$query->setMaxResults(100);
 	$rankingMedalhas = $query->getResult();
-	
-	$classeGeral='rankingAtivo';
+
+	$posicaoPontos = $pontuacaoGeral->getClassificacaoGeral();
+	$posicaoMedalhas = $pontuacaoGeral->getClassificacaoMedalhasGeral();
+	$classeGeral='geralRankingAtivo';
 }
 else{
+	$premiacoes = $entityManager->find("PremiosUsuario", array(
+			"usuario" => $user_id,
+			"campeonato" => $_POST['campeonato']
+	));
+	
 	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonato'].'
+			AND p.classificacaoCampeonato > 0
 			ORDER BY p.classificacaoCampeonato ASC';
-	$query->setMaxResults(100);
 	$query = $entityManager->createQuery($dql);
+	$query->setMaxResults(100);
 	$rankingPontos = $query->getResult();
 	
 	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonato'].'
+			AND p.classificacaoMedalhas > 0
 			ORDER BY p.classificacaoMedalhas ASC';
-	$query->setMaxResults(100);
 	$query = $entityManager->createQuery($dql);
+	$query->setMaxResults(100);
 	$rankingMedalhas = $query->getResult();
 	
-	$classeGeral='rankingInativo';
+	$posicaoPontos = $premiacoes->getClassificacaoCampeonato();
+	$posicaoMedalhas = $premiacoes->getClassificacaoMedalhas();
+	$classeGeral='geralRankingInativo';
 }
 
 ?>
-
-<center>
-	<table id="tabelaExternaRanking">
-		<tr>
-			<td>
-				<table class="tabelaRankingPontos" cellspacing="0" cellpadding="0">
-					<tr>
-						<td>
-						<caption>PONTOS</caption>
-						</td>
-					</tr>
+<div id="colunaEsquerda">
+	<div class="rankingPontos">
+		<h3 class="titulo">Pontos</h3>
+		<div class="posicaoUsuario">
+			Você está na<br/>
+			<?php echo $posicaoPontos;?>ª posição
+		</div>
+		<div class="topoRanking"></div>
 					<?php
-					$valor = 1;
+					$cor = "Escuro";
 					foreach($rankingPontos as $colocado) {
 						$objValido = false;
 						if($colocado instanceof PontuacaoGeral){
@@ -63,48 +71,42 @@ else{
 							$nome =
 									$colocado->getUsuario()->getPrimeiroNomeUsuario().' '.
 									$colocado->getUsuario()->getSegundoNomeUsuario();
-							$perfil = 'http://www.facebook.com/'.$colocado->getUsuario()->getIdUsuario();
-							echo'
-							<tr>
-								<td class="rankingPontosClassificacao'.$valor.'">
-									'.$classificacaoPontos.'
-								</td>
-								<td class="rankingPontosNome'.$valor.'">
-									<a class="ranking" href="'.$perfil.'" target="_blank">'.$nome.'</a>
-								</td>';
-							if($valor == 1){
-								$valor = 2;
+							$id = $colocado->getUsuario()->getIdUsuario();
+							$perfil = 'http://www.facebook.com/'.$id;
+							$foto = 'https://graph.facebook.com/'.$id.'/picture';
+							?>
+								<div class="classificado<?php echo $cor;?>">
+									<div class="posicao"><?php echo $classificacaoPontos;?></div>
+									<div class="classificadoFoto"><img class="ranking" src="<?php echo $foto;?>"></div>
+									<div class="classificadoNome"><a class="ranking" href="<?php echo $perfil;?>" target="_blank"><?php echo $nome;?></a></div>
+									<div class="divisoriaRanking"></div>
+								</div>
+								<?php 
+							if($cor == "Claro"){
+								$cor = "Escuro";
 							}
 							else{
-								$valor = 1;
+								$cor = "Claro";
 							}
 						}
 						else{
-							echo'
-								<td class="rankingPontosClassificacao'.$valor.'">
-									0
-								</td>
-								<td class="rankingPontosNome'.$valor.'">
-									Não há nenhum classificado no momento.
-								</td>
-							</tr>';
+							?>
+							<p class="aviso">Não há nenhum classificado no momento.</p>
+							<?php
 						}
 					}
 					?>
-					</tr>
-				</table>
-			</td>
-			<td width="5px">
-			</td>
-			<td>
-				<table class="tabelaRankingMedalhas" cellspacing="0" cellpadding="0">
-					<tr>
-						<td>
-						<caption>MEDALHAS</caption>
-						</td>
-					</tr>
+			<div class="baseRanking"></div>
+	</div>
+	<div class="rankingMedalhas">			
+		<h3 class="titulo">Medalhas</h3>
+		<div class="posicaoUsuario">
+			Você está na<br/>
+			<?php echo $posicaoMedalhas?>ª posição
+		</div>
+		<div class="topoRanking"></div>
 					<?php		
-					$valor = 1;
+					$cor = "Escuro";
 					foreach($rankingMedalhas as $colocado) {
 						$objValido = false;
 						if($colocado instanceof PontuacaoGeral){
@@ -119,112 +121,63 @@ else{
 							$nome =
 							$colocado->getUsuario()->getPrimeiroNomeUsuario().' '.
 							$colocado->getUsuario()->getSegundoNomeUsuario();
-							$perfil = 'http://www.facebook.com/'.$colocado->getUsuario()->getIdUsuario();
-							echo'
-							<tr>
-								<td class="rankingMedalhasClassificacao'.$valor.'">
-									'.$classificacaoMedalhas.'
-								</td>
-								<td class="rankingMedalhasNome'.$valor.'">
-									<a class="ranking" href="'.$perfil.'" target="_blank">'.$nome.'</a>
-								</td>';
-							if($valor == 1){
-								$valor = 2;
+							$id = $colocado->getUsuario()->getIdUsuario();
+							$perfil = 'http://www.facebook.com/'.$id;
+							$foto = 'https://graph.facebook.com/'.$id.'/picture';
+							?>
+							<div class="classificado<?php echo $cor;?>">
+							<div class="posicao"><?php echo $classificacaoMedalhas;?></div>
+								<div class="classificadoFoto"><img class="ranking" src="<?php echo $foto;?>"></div>
+								<div class="classificadoNome"><a class="ranking" href="<?php echo $perfil;?>" target="_blank"><?php echo $nome;?></a></div>
+								<div class="divisoriaRanking"></div>
+							</div>
+							<?php
+							if($cor == "Claro"){
+								$cor = "Escuro";
 							}
 							else{
-								$valor = 1;
+								$cor = "Claro";
 							}
 						}
 						else{
-							echo'
-								<td class="rankingMedalhasClassificacao'.$valor.'">
-									0
-								</td>
-								<td class="rankingMedalhasNome'.$valor.'">
-									Não há nenhum classificado no momento.
-								</td>
-							</tr>';
+							?>
+							<p class="aviso">Não há nenhum classificado no momento.</p>
+							<?php
 						}
 					}
 					?>
-				</table>
-			</td>
-			<td width="5px">
-			</td>
-			<td class="alinhamentoOpcoesRanking">
-				<table class="tabelaOpcoesRanking" cellspacing="0" cellpadding="0">
-				<tr>
-						<td colspan="3">
-						<h6>clique no campeonato para abrir</h6>
-						</td>
-					</tr>
-					<tr>
-						<td class="<?php echo $classeGeral;?>" rowspan="2">
-							<?php echo "<<";?>
-						</td>
-						<td class="nomeRanking" rowspan="2">
-							<form name="formRankingGeral" action="" method="POST">
-								<!-- <input type="hidden" name="geral" value="geral"> -->
-								<button type="submit" name="geral" value="geral">Ranking Geral</button><br/>
-							</form>
-						</td>
-						<td class="posicaoPontos">
-							<span class="descricaoPosicao">PONTOS<br/></span>
-							<?php echo $pontuacaoGeral->getClassificacaoGeral();?>ª posição
-						</td>
-					</tr>
-					<tr>
-						<td class="posicaoMedalhas">
-							<span class="descricaoPosicao">MEDALHAS<br/></span>
-							<?php echo $pontuacaoGeral->getClassificacaoMedalhasGeral();?>ª posição
-						</td>
-					</tr>
-					<?php
-					foreach($premiosUsuario as $premiacoes) {
-						if($premiacoes instanceof PremiosUsuario){
-							$statusCampeonato = $premiacoes->getCampeonato()->getStatus();
-							$classe = 'rankingInativo';
-							if(isset($_POST['campeonato'])){
-								if($_POST['campeonato'] == $premiacoes->getCampeonato()->getCodCampeonato()){
-									$classe = 'rankingAtivo';
-								}
-							}
-							if($statusCampeonato == "ativo"){
-								?>
-								<tr>
-									<td height="10px" cowspan="3">
-									</td>
-								</tr>
-								<tr>
-									<td class="<?php echo $classe;?>" rowspan="2">
-										<?php echo "<<";?>
-									</td>
-									<td class="nomeRanking" rowspan="2">
-										<form name="<?php echo 'form'.$premiacoes->getCampeonato()->getCodCampeonato();?>" action="" method="POST">
-											<button type="submit" name="campeonato" value="<?php echo $premiacoes->getCampeonato()->getCodCampeonato();?>">
-													Ranking <?php echo $premiacoes->getCampeonato()->getNomeCampeonato();?>
-											</button>
-										</form>
-									</td>
-									<td class="posicaoPontos">
-										<span class="descricaoPosicao">PONTOS<br/></span>
-										<?php echo $premiacoes->getClassificacaoCampeonato();?>ª posição
-									</td>
-								</tr>
-								<tr>
-									<td class="posicaoMedalhas">
-										<span class="descricaoPosicao">MEDALHAS<br/></span>
-										<?php echo $premiacoes->getClassificacaoMedalhas();?>ª posição
-									</td>
-								</tr>
-								<?php
-							}
-						}
+			<div class="baseRanking"></div>
+	</div>
+</div>
+<div id="colunaDireita">
+<h3 class="titulo">Rankings Disponíveis</h3>
+		<form name="formRankingGeral" action="" method="POST">
+			<!-- <input type="hidden" name="geral" value="geral"> -->
+			<button class="<?php echo $classeGeral;?>" type="submit" name="geral" value="geral">Ranking Geral</button><br/>
+		</form>
+		<div class="divisoriaRanking"></div>
+
+		<?php
+		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
+		$query = $entityManager->createQuery($dql);
+		$campeonatos = $query->getResult();
+		foreach($campeonatos as $campeonato) {
+			if($campeonato instanceof $campeonato){
+				$classe = 'campeonatoRankingInativo';
+				if(isset($_POST['campeonato'])){
+					if($_POST['campeonato'] == $campeonato->getCodCampeonato()){
+						$classe = 'campeonatoRankingAtivo';
 					}
-					
-					?>
-				</table>
-			</td>
-		</tr>
-	</table>
-</center>
+				}
+				?>
+				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="" method="POST">
+					<button class="<?php echo $classe;?>" type="submit" name="campeonato" value="<?php echo $campeonato->getCodCampeonato();?>">
+						<?php echo $campeonato->getNomeCampeonato();?>
+					</button>
+				</form>
+				<?php
+			}
+		}
+		
+		?>
+</div>

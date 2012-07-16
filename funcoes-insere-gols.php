@@ -2,6 +2,7 @@
 require "bootstrap.php";
 
 		function atualizaClassificacaoPontosGeral(){
+			global $entityManager;
 			$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.pontosGeral DESC";
 			$query = $entityManager->createQuery($dql);
 			$pontuacoesGerais = $query->getResult();
@@ -36,6 +37,7 @@ require "bootstrap.php";
 		}
 			
 		function atualizaClassificacaoPontosCampeonato($jogo){
+			global $entityManager;
 			$dql = "SELECT p FROM PremiosUsuario p WHERE
 					p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
 					ORDER BY p.pontosCampeonato DESC";
@@ -72,6 +74,7 @@ require "bootstrap.php";
 		}
 			
 		function atualizaClassificacaoPontosRodada($numRodada, $jogo){
+			global $entityManager;
 			$dql = 'SELECT p FROM PontuacaoRodada p WHERE
 					p.rodada = '.$numRodada.'
 					AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
@@ -109,6 +112,7 @@ require "bootstrap.php";
 		}
 			
 		function verificaFimRodada($numRodada, $jogo){
+			global $entityManager;
 			$dql = 'SELECT j FROM Jogo j WHERE j.rodada = '.$numRodada.'
 					AND j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
 					ORDER BY j.dataJogo DESC';
@@ -124,14 +128,15 @@ require "bootstrap.php";
 				}
 			}
 			if($fimRodada){
-				$this->atribuiMedalhasRodada($numRodada, $jogo);
-				$this->atualizaClassificacaoMedalhasCampeonato($jogo);
-				$this->atualizaClassificacaoMedalhasCampeonato($jogo);
-				$this->atualizaClassificacaoMedalhasGeral();
+				atribuiMedalhasRodada($numRodada, $jogo);
+				atualizaClassificacaoMedalhasCampeonato($jogo);
+				atualizaClassificacaoMedalhasCampeonato($jogo);
+				atualizaClassificacaoMedalhasGeral();
 			}
 		}
 			
 		function atribuiMedalhasRodada($numRodada, $jogo){
+			global $entityManager;
 			$dql = 'SELECT p FROM PontuacaoRodada p WHERE p.rodada = '.$numRodada.'
 					AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
 					AND p.classificacaoRodada >= 1 AND p.classificacaoRodada <= 3';
@@ -167,6 +172,7 @@ require "bootstrap.php";
 		}
 				
 		function atualizaClassificacaoMedalhasCampeonato($jogo){
+			global $entityManager;
 			$dql = "SELECT p FROM PremiosUsuario p WHERE
 					p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
 					ORDER BY p.pontosMedalhas DESC";
@@ -203,6 +209,7 @@ require "bootstrap.php";
 		}
 				
 		function atualizaClassificacaoMedalhasGeral(){
+			global $entityManager;
 			$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.pontosMedalhasGeral DESC";
 			$query = $entityManager->createQuery($dql);
 			$pontuacoesGerais = $query->getResult();
@@ -237,6 +244,7 @@ require "bootstrap.php";
 		}
 			
 		function verificaFinalCampeonato($numRodada, $jogo){
+			global $entityManager;
 			if($numRodada == $jogo->getCampeonato()->getQuantidadeRodadas()){
 				$dql = 'SELECT j FROM Jogo j WHERE
 						j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
@@ -261,6 +269,7 @@ require "bootstrap.php";
 		}
 				
 		function atualizaChuteirasCampeonato($jogo){
+			global $entityManager;
 			$dql = 'SELECT p FROM PremiosUsuario p WHERE
 					p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
 					AND p.classificacaoMedalhas >= 1 AND p.classificacaoMedalhas <= 3';
@@ -285,6 +294,7 @@ require "bootstrap.php";
 		}
 			
 		function atribuiTrofeuCampeonato($jogo){
+			global $entityManager;
 			$dql = 'SELECT p FROM PremiosUsuario p WHERE
 					p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
 					AND p.chuteirasOuro = 1';
@@ -332,6 +342,10 @@ require "bootstrap.php";
 			$pontuacaoGeral = $premiosUsuarioGanhador->getUsuario()->getPontuacaoGeral();
 			$pontuacaoGeral->ganhaTrofeu();
 			$entityManager->merge($pontuacaoGeral);
+			$entityManager->flush();
+			$campeonato = $jogo->getCampeonato();
+			$campeonato->finalizaStatus();
+			$entityManager->merge($campeonato);
 			$entityManager->flush();
 		}
 ?>
