@@ -113,20 +113,27 @@ require "bootstrap.php";
 			
 		function verificaFimRodada($numRodada, $jogo){
 			global $entityManager;
-			$dql = 'SELECT j FROM Jogo j WHERE j.rodada = '.$numRodada.'
-					AND j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
-					ORDER BY j.dataJogo DESC';
+			$campeonato = $jogo->getCampeonato()->getCodCampeonato();
+			$dql = "SELECT j FROM Jogo j WHERE j.rodada = '$numRodada'
+					AND j.campeonato ='$campeonato'
+					AND j.golsTime1 >= 0";
 			$query = $entityManager->createQuery($dql);
-			$jogs = $query->getResult();
-			$fimRodada = true;
-			foreach($jogs as $jog) {
-				if($jog instanceof Jogo){
-					if($jog->getGolsTime1() == NULL){
-						$fimRodada = false;
-						break;
-					}
-				}
+			$jogosPassados = $query->getResult();
+			
+			$qtdJogosPassados = sizeof($jogosPassados);
+			
+			$dql = "SELECT j FROM Jogo j WHERE j.rodada = '$numRodada'
+			AND j.campeonato ='$campeonato'";
+			$query = $entityManager->createQuery($dql);
+			$jogosTodos = $query->getResult();
+			
+			$qtdJogosRodada = sizeof($jogosTodos);
+			
+			$fimRodada = false;
+			if($qtdJogosPassados == $qtdJogosRodada){
+				$fimRodada = true;
 			}
+			
 			if($fimRodada){
 				atribuiMedalhasRodada($numRodada, $jogo);
 				atualizaClassificacaoMedalhasCampeonato($jogo);
@@ -246,19 +253,25 @@ require "bootstrap.php";
 		function verificaFinalCampeonato($numRodada, $jogo){
 			global $entityManager;
 			if($numRodada == $jogo->getCampeonato()->getQuantidadeRodadas()){
-				$dql = 'SELECT j FROM Jogo j WHERE
-						j.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
-						ORDER BY j.dataJogo DESC';
+				
+				$campeonato = $jogo->getCampeonato()->getCodCampeonato();
+				
+				$dql = "SELECT j FROM Jogo j WHERE j.campeonato ='$campeonato'
+				AND j.golsTime1 >= 0";
 				$query = $entityManager->createQuery($dql);
-				$jogs = $query->getResult();
-				$fimCampeonato = true;
-				foreach($jogs as $jog) {
-					if($jog instanceof Jogo){
-						if($jog->getGolsTime1() == NULL){
-							$fimCampeonato = false;
-							break;
-						}
-					}
+				$jogosPassados = $query->getResult();
+					
+				$qtdJogosPassados = sizeof($jogosPassados);
+					
+				$dql = "SELECT j FROM Jogo j WHERE j.campeonato ='$campeonato'";
+				$query = $entityManager->createQuery($dql);
+				$jogosTodos = $query->getResult();
+					
+				$qtdJogosCampeonato = sizeof($jogosTodos);
+					
+				$fimCampeonato = false;
+				if($qtdJogosPassados == $qtdJogosCampeonato){
+					$fimCampeonato = true;
 				}
 				
 				if($fimCampeonato){
