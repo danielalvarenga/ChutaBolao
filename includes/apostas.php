@@ -404,7 +404,7 @@ $conn->close();
 		$query = $entityManager->createQuery($dql);
 		$campeonatos = $query->getResult();
 		foreach($campeonatos as $campeonato) {
-			if($campeonato instanceof $campeonato){
+			if($campeonato instanceof Campeonato){
 				$classe = 'campeonatoRankingInativo';
 				if(isset($_GET['campeonato'])){
 					if($_GET['campeonato'] == $campeonato->getCodCampeonato()){
