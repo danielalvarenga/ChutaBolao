@@ -1,3 +1,4 @@
+--
 -- Banco de Dados: `chutabol_facebook`
 --
 
@@ -14,8 +15,12 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `admin`(`nome`, `login`, `senha`)
-	VALUES ("Administrador","chutabolao","corporativa");
+--
+-- Extraindo dados da tabela `admin`
+--
+
+INSERT INTO `admin` (`nome`, `login`, `senha`) VALUES
+('Administrador', 'chutabolao', 'corporativa');
 
 -- --------------------------------------------------------
 
@@ -47,9 +52,14 @@ CREATE TABLE IF NOT EXISTS `campeonato` (
   `nomeCampeonato` varchar(255) DEFAULT NULL,
   `anoCampeonato` int(11) DEFAULT NULL,
   `quantidadeRodadas` int(11) DEFAULT NULL,
+  `urlLogo` text,
   `status` set('ativo','finalizado') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Extraindo dados da tabela `campeonato`
+--
 
 -- --------------------------------------------------------
 
@@ -58,9 +68,9 @@ CREATE TABLE IF NOT EXISTS `campeonato` (
 --
 
 CREATE TABLE IF NOT EXISTS `contadoraposta` (
-  `id` varchar(255) DEFAULT NULL,
-  `campeonato_id` int(11) DEFAULT NULL,
-  `jogo_id` int(11) DEFAULT NULL,
+  `id` varchar(255) NOT NULL DEFAULT '',
+  `campeonato_id` int(11) NOT NULL DEFAULT '0',
+  `jogo_id` int(11) NOT NULL DEFAULT '0',
   `quantidadeApostas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`,`campeonato_id`,`jogo_id`),
   KEY `campeonato_id` (`campeonato_id`),
@@ -88,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `jogo` (
   PRIMARY KEY (`id`),
   KEY `campeonato_id` (`campeonato_id`),
   KEY `rodada_id` (`rodada_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 -- --------------------------------------------------------
 
@@ -208,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `time` (
   `nomeTime` varchar(255) DEFAULT NULL,
   `escudo` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 -- --------------------------------------------------------
 

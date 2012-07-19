@@ -118,7 +118,7 @@ a {
 
 #curtir{
 	float: right;
-	width: 107px;
+	width: 114px;
 	height: 21px;
 	
 	background-color: #ffffff;
@@ -346,6 +346,8 @@ a {
 }
 
 .aviso{
+	clear:both;
+	
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	color: #ff3300;
@@ -1081,7 +1083,7 @@ img.escudoTime{
 	height: 30px;
 	
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 11px;
+	font-size: 10px;
 	color: #006600;
 	text-align: center;
 	vertical-align: middle;
@@ -1138,188 +1140,6 @@ a.ranking{
 
 .divisoriaRanking{
 	clear: both;
-}
-
-.geralRankingAtivo{
-	width: 100%;
-	
-	background-color: #ff3300;
-	
-	border:solid 0px #000000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	
-	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
-	box-shadow: 2px 2px 5px #000000;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 18px;
-	color: #ffffff;
-	font-weight: bold;
-	
-	margin-top: 5px;
-	margin-right: auto;
-	margin-bottom: 5px;
-	margin-left: auto;
-	
-	padding-top: 5px;
-	padding-right: 10px;
-	padding-bottom: 5px;
-	padding-left: 10px;
-}
-
-.geralRankingInativo{
-	width: 100%;
-	
-	background-color: #ffffcc;
-	cursor:pointer;
-	
-	border:solid 0px #000000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	
-	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
-	box-shadow: 2px 2px 5px #000000;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 18px;
-	color: #ff3300;
-	font-weight: bold;
-	
-	margin-top: 5px;
-	margin-right: auto;
-	margin-bottom: 5px;
-	margin-left: auto;
-	
-	padding-top: 5px;
-	padding-right: 10px;
-	padding-bottom: 5px;
-	padding-left: 10px;
-}
-
-.geralRankingInativo:hover {
-	
-	background-color: #ff3300;
-	cursor:pointer;
-	
-	border:solid 0px #000000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	
-	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
-	box-shadow: 2px 2px 5px #000000;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 18px;
-	color: #ffffff;
-	font-weight: bold;
-	
-	margin-top: 5px;
-	margin-right: auto;
-	margin-bottom: 5px;
-	margin-left: auto;
-	
-	padding-top: 5px;
-	padding-right: 10px;
-	padding-bottom: 5px;
-	padding-left: 10px;
-}
-
-.campeonatoRankingAtivo{
-	width: 100%;
-	
-	background-color: #ff3300;
-	
-	border:solid 0px #000000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	
-	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
-	box-shadow: 2px 2px 5px #000000;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 18px;
-	color: #ffffff;
-	font-weight: bold;
-	
-	margin-top: 5px;
-	margin-right: auto;
-	margin-bottom: 5px;
-	margin-left: auto;
-	
-	padding-top: 5px;
-	padding-right: 10px;
-	padding-bottom: 5px;
-	padding-left: 10px;
-}
-
-.campeonatoRankingInativo{
-	width: 100%;
-	
-	background-color: #ffffcc;
-	cursor:pointer;
-	
-	border:solid 0px #000000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	
-	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
-	box-shadow: 2px 2px 5px #000000;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 18px;
-	color: #ff3300;
-	font-weight: bold;
-	
-	margin-top: 5px;
-	margin-right: auto;
-	margin-bottom: 5px;
-	margin-left: auto;
-	
-	padding-top: 5px;
-	padding-right: 10px;
-	padding-bottom: 5px;
-	padding-left: 10px;
-}
-
-.campeonatoRankingInativo:hover {
-	
-	background-color: #ff3300;
-	cursor:pointer;
-	
-	border:solid 0px #000000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	
-	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
-	box-shadow: 2px 2px 5px #000000;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 18px;
-	color: #ffffff;
-	font-weight: bold;
-	
-	margin-top: 5px;
-	margin-right: auto;
-	margin-bottom: 5px;
-	margin-left: auto;
-	
-	padding-top: 5px;
-	padding-right: 10px;
-	padding-bottom: 5px;
-	padding-left: 10px;
 }
 
 /* CHUTES FEITOS */
@@ -1380,6 +1200,43 @@ a.ranking{
 	padding-right: 0px;
 	padding-bottom: 5px;
 	padding-left: 0px;
+}
+
+.dataJogoPlacares{
+	height: 20px;
+	
+	background-color: #e4e4e4;
+	background: #e4e4e4;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	text-align: center;
+	vertical-align: middle;
+	
+	border:solid 0px #000000;
+	-moz-border-radius-topleft: 75px;
+	-moz-border-radius-topright:75px;
+	-moz-border-radius-bottomleft:75px;
+	-moz-border-radius-bottomright:75px;
+	-webkit-border-top-left-radius:75px;
+	-webkit-border-top-right-radius:75px;
+	-webkit-border-bottom-left-radius:75px;
+	-webkit-border-bottom-right-radius:75px;
+	border-top-left-radius:75px;
+	border-top-right-radius:75px;
+	border-bottom-left-radius:75px;
+	border-bottom-right-radius:75px;
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	
+	padding-top: 2px;
+	padding-right: 20px;
+	padding-bottom: 2px;
+	padding-left: 20px;
 }
 
 .nomeTimePlacares{
@@ -1463,6 +1320,262 @@ img.escudoTimePlacares{
 
 .divisoriaPlacares{
 	clear: both;
+	width: 100%;
+	
+	/*background-color: #ffffff;
+	background: #ffffff;*/
+	
+	border:solid 0px #cccccc;
+	border-bottom-width: 1px;
+
+	text-align: center;
+	vertical-align: middle;
+	
+	/*-moz-box-shadow: 0px 0px 12px #000000;
+	-webkit-box-shadow: 0px 0px 12px #000000;
+	box-shadow: 0px 0px 12px #000000;*/
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 10px;
+	margin-left: auto;
+	
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+/*MENU CAMPEONATOS*/
+
+#menuCampeonatos{
+	clear: both;
+	width: 100%;
+	
+	border:solid 0px #cccccc;
+
+	text-align: center;
+	vertical-align: middle;
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 10px;
+	margin-left: auto;
+	
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+img.logoCampeonato{
+	width: 100%;
+	
+	text-align: center;
+	vertical-align: middle;
+	
+	margin-top: 5px;
+	margin-right: auto;
+	margin-bottom: 5px;
+	margin-left: auto;
+}
+
+.nomeCampeonato{
+	clear: both;
+}
+
+a.menuCampeonatos{
+	color: #006600;
+}
+
+.divisoriaMenuCampeonatos{
+	clear: both;
+}
+
+.todosAtivo{
+	width: 100%;
+	
+	background-color: #ff3300;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	color: #ffffff;
+	font-weight: bold;
+	
+	margin-top: 5px;
+	margin-right: auto;
+	margin-bottom: 5px;
+	margin-left: auto;
+	
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}
+
+.todosInativo{
+	width: 100%;
+	
+	background-color: #ffffcc;
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	color: #ff3300;
+	font-weight: bold;
+	
+	margin-top: 5px;
+	margin-right: auto;
+	margin-bottom: 5px;
+	margin-left: auto;
+	
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}
+
+.todosInativo:hover {
+	
+	background-color: #ff3300;
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	color: #ffffff;
+	font-weight: bold;
+	
+	margin-top: 5px;
+	margin-right: auto;
+	margin-bottom: 5px;
+	margin-left: auto;
+	
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}
+
+.campeonatoAtivo{
+	float: left;
+	width: 45%;
+	
+	background-color: #ff3300;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+	font-weight: bold;
+	
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}
+
+.campeonatoInativo{
+	float: left;
+	width: 45%;
+	
+	background-color: #ffffcc;
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #ff3300;
+	font-weight: bold;
+	
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}
+
+.campeonatoInativo:hover {
+	float: left;
+	width: 45%;
+	
+	background-color: #ff3300;
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+	font-weight: bold;
+	
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
 }
 
 /*PÁGINA HOME */

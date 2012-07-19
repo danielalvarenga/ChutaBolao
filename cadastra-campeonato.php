@@ -27,26 +27,105 @@ if(isset($_POST['excluir'])){
 if(isset($_POST['nome'])){
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
-	try{
-		$nome = $_POST['nome'];
-		$ano = $_POST['ano'];
-		$quant = $_POST['quant'];
-		$campeonato = new Campeonato($nome, $ano, $quant);	
+	try{		
 		
-		$entityManager->persist($campeonato);
-		$entityManager->flush();
+		if(empty($_POST['nome'])){
+			echo "<script> alert('Campo \"Nome\" obrigatorio!')
+			location = ('cadastra-time.php');
+			</script>";
+		}
+		elseif(empty($_POST['ano'])){
+			echo "<script> alert('Campo \"Ano\" obrigatorio!')
+			location = ('cadastra-time.php');
+			</script>";
+		}
+		elseif(empty($_POST['quant'])){
+			echo "<script> alert('Campo \"Quantidade de Rodadas\" obrigatorio!')
+			location = ('cadastra-time.php');
+			</script>";
+		}
+		else{
+			$nome = $_POST['nome'];
+			$ano = $_POST['ano'];
+			$quant = $_POST['quant'];
+			$imagem = $_FILES["logo"];
+			// Se a foto estiver sido selecionada
+			if (!empty($imagem["name"])) {
+					
+				// Largura máxima em pixels
+				$largura = 90;
+				// Altura máxima em pixels
+				$altura = 90;
 		
-		for($i = 1; $i <= $quant; $i++){
-			$rodada = new Rodada($i, $campeonato);
-			$entityManager->persist($rodada);
-			$entityManager->flush();
+				$dimensoes = getimagesize($imagem["tmp_name"]);
+		
+				if($dimensoes[0] <= $largura && $dimensoes[1] <= $altura){
+					$dql = "SELECT c FROM Campeonato c WHERE c.nomeCampeonato = '$nome'
+								AND c.anoCampeonato = '$ano'";
+					$query = $entityManager->createQuery($dql);
+					$query->setMaxResults(1);
+					$campeonatos = $query->getResult();
+					$contador = 0;
+					foreach($campeonatos as $campeonato) {
+						if($campeonato instanceof Campeonato){
+							$contador++;
+						}
+					}
+					if($contador == 0){
+						// Pega extensão da imagem
+						preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $imagem["name"], $ext);
+		
+						$nomeUrlLogo = strtolower(trim(
+								str_replace('é', 'e',
+									str_replace('ó', 'o',
+										str_replace('á', 'a',
+											str_replace('í', 'i',
+												str_replace('ú', 'u',
+													str_replace('ê', 'e',
+														str_replace('ô', 'o',
+															str_replace('â', 'a',
+																str_replace('õ', 'o',
+																	str_replace('ã', 'a',
+																		str_replace(' ', '-', $nome.'-'.$ano)
+																			)))))))))))).'-'.$largura.'x'.$altura;
+		
+						// Gera um nome único para a imagem
+						$nome_imagem = $nomeUrlLogo."." . $ext[1];
+		
+						// Caminho de onde ficará a imagem
+						$caminho_imagem = "imagens/logo-campeonatos/" . $nome_imagem;
+		
+						// Faz o upload da imagem para seu respectivo caminho
+						move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
+		
+						$campeonato = new Campeonato($nome, $ano, $quant, $caminho_imagem);
+						$entityManager->persist($campeonato);
+						$entityManager->flush();
+						
+						for($i = 1; $i <= $quant; $i++){
+							$rodada = new Rodada($i, $campeonato);
+							$entityManager->persist($rodada);
+							$entityManager->flush();
+						}
+						
+						echo "Campeonato criado com: ";
+						echo "Codigo: ".$campeonato->getCodCampeonato()."\n";
+						echo "Nome: ".$campeonato->getNomeCampeonato()."\n";
+						echo "Ano: ".$campeonato->getAnoCampeonato()."\n";
+						echo "Quantidade de rodadas: ".$campeonato->getQuantidadeRodadas()."\n";
+					}
+					else{
+						echo "<font color='red'><b>Este campeonato já existe.</b></font>";
+					}
+				}
+				else{
+					echo "<script> alert('Campo \"logo\" obrigatorio!')
+					location = ('cadastra-time.php');
+					</script>";
+				}
+			}
 		}
 		
-		echo "Campeonato criado com: ";
-		echo "Codigo: ".$campeonato->getCodCampeonato()."\n";
-		echo "Nome: ".$campeonato->getNomeCampeonato()."\n";
-		echo "Ano: ".$campeonato->getAnoCampeonato()."\n";
-		echo "Quantidade de rodadas: ".$campeonato->getQuantidadeRodadas()."\n";
 		$conn->commit();
 	} catch(Exception $e) {
 		$conn->rollback();
@@ -72,6 +151,7 @@ cadastro de time
 			<p>Nome do campeonato:<input type="text" name="nome" size="60" maxlength="30"></p>
             <p>Ano:<input type="text" name="ano" size="60" maxlength="4"></p>
             <p>Quantidade de rodadas:<input type="text" name="quant" size="60" maxlength="2"></p>
+            <p>Logo do Campeonato: <input type="file" name="logo"/></p>
             <p><input type="submit" name="salvar" value="Salvar" /></p>
     </form>
     
@@ -88,6 +168,7 @@ cadastro de time
 	<tr vertical-align="middle" align="center">
 		<td>Código</td>
 		<td>Nome</td>
+		<td>Logo</td>
 		<td>Ano</td>
 		<td>Rodadas</td>
 		<td>Status</td>
@@ -106,6 +187,7 @@ cadastro de time
 				echo '<tr vertical-align="middle" align="center">
 						<td>'.$campeonato->getCodCampeonato().'</td>
 						<td>'.$campeonato->getNomeCampeonato().'</td>
+						<td><img src="'.$campeonato->getUrlLogo().'"></td>
 						<td>'.$campeonato->getAnoCampeonato().'</td>
 						<td>'.$campeonato->getQuantidadeRodadas().'</td>
 						<td>'.$campeonato->getStatus().'</td>

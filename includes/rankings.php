@@ -2,7 +2,7 @@
 require "bootstrap.php";
 
 
-if(!isset($_POST['campeonato'])){
+if(!isset($_POST['campeonatoMenu'])){
 	$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $user_id);
 	
 	$dql = 'SELECT p FROM PontuacaoGeral p WHERE p.classificacaoGeral > 0
@@ -16,38 +16,49 @@ if(!isset($_POST['campeonato'])){
 	$query = $entityManager->createQuery($dql);
 	$query->setMaxResults(100);
 	$rankingMedalhas = $query->getResult();
-
-	$posicaoPontos = $pontuacaoGeral->getClassificacaoGeral();
-	$posicaoMedalhas = $pontuacaoGeral->getClassificacaoMedalhasGeral();
-	$classeGeral='geralRankingAtivo';
+	
+	if($pontuacaoGeral instanceof PontuacaoGeral){
+		$posicaoPontos = $pontuacaoGeral->getClassificacaoGeral();
+		$posicaoMedalhas = $pontuacaoGeral->getClassificacaoMedalhasGeral();
+	}
+	$classeGeral='todosAtivo';
 }
 else{
 	$premiacoes = $entityManager->find("PremiosUsuario", array(
 			"usuario" => $user_id,
-			"campeonato" => $_POST['campeonato']
+			"campeonato" => $_POST['campeonatoMenu']
 	));
 	
-	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonato'].'
+	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonatoMenu'].'
 			AND p.classificacaoCampeonato > 0
 			ORDER BY p.classificacaoCampeonato ASC';
 	$query = $entityManager->createQuery($dql);
 	$query->setMaxResults(100);
 	$rankingPontos = $query->getResult();
 	
-	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonato'].'
+	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonatoMenu'].'
 			AND p.classificacaoMedalhas > 0
 			ORDER BY p.classificacaoMedalhas ASC';
 	$query = $entityManager->createQuery($dql);
 	$query->setMaxResults(100);
 	$rankingMedalhas = $query->getResult();
 	
-	$posicaoPontos = $premiacoes->getClassificacaoCampeonato();
-	$posicaoMedalhas = $premiacoes->getClassificacaoMedalhas();
-	$classeGeral='geralRankingInativo';
+	if($premiacoes instanceof PremiosUsuario){
+		$posicaoPontos = $premiacoes->getClassificacaoCampeonato();
+		$posicaoMedalhas = $premiacoes->getClassificacaoMedalhas();
+	}
+	$classeGeral='todosInativo';
 }
+$tituloMenu = 'Rankings Disponíveis';
+$todosMenu = 'Todos';
 
 ?>
 <div id="colunaEsquerda">
+<?php
+
+if(isset($posicaoPontos) && isset($posicaoMedalhas)){
+
+?>
 	<div class="rankingPontos">
 		<h3 class="titulo">Pontos</h3>
 		<div class="posicaoUsuario">
@@ -148,36 +159,16 @@ else{
 					?>
 			<div class="baseRanking"></div>
 	</div>
+<?php
+}
+else{
+	?>
+	<p class="aviso">Ainda não existe ranking para este campeonato.</p>
+	<?php
+}
+
+?>
 </div>
 <div id="colunaDireita">
-<h3 class="titulo">Rankings Disponíveis</h3>
-		<form name="formRankingGeral" action="" method="POST">
-			<!-- <input type="hidden" name="geral" value="geral"> -->
-			<button class="<?php echo $classeGeral;?>" type="submit" name="geral" value="geral">Ranking Geral</button><br/>
-		</form>
-		<div class="divisoriaRanking"></div>
-
-		<?php
-		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
-		$query = $entityManager->createQuery($dql);
-		$campeonatos = $query->getResult();
-		foreach($campeonatos as $campeonato) {
-			if($campeonato instanceof $campeonato){
-				$classe = 'campeonatoRankingInativo';
-				if(isset($_POST['campeonato'])){
-					if($_POST['campeonato'] == $campeonato->getCodCampeonato()){
-						$classe = 'campeonatoRankingAtivo';
-					}
-				}
-				?>
-				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="" method="POST">
-					<button class="<?php echo $classe;?>" type="submit" name="campeonato" value="<?php echo $campeonato->getCodCampeonato();?>">
-						<?php echo $campeonato->getNomeCampeonato();?>
-					</button>
-				</form>
-				<?php
-			}
-		}
-		
-		?>
+<?php include "includes/menu-campeonatos-ativos.php";?>
 </div>

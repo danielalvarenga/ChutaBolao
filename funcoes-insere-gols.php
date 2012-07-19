@@ -93,19 +93,17 @@ require "bootstrap.php";
 						$entityManager->merge($pontuacaoRodada);
 						$entityManager->flush();
 					}
+					elseif($pontuacaoRodada->getPontosRodada() == $pontosRodadaAnterior){
+							$pontuacaoRodada->setClassificacaoRodada($classificacaoRodada);
+							$entityManager->merge($pontuacaoRodada);
+							$entityManager->flush();
+					}
 					else{
-						if($pontuacaoRodada->getPontosRodada() == $pontosRodadaAnterior){
-							$pontuacaoRodada->setClassificacaoRodada($classificacaoRodada);
-							$entityManager->merge($pontuacaoRodada);
-							$entityManager->flush();
-						}
-						else{
-							$classificacaoRodada++;
-							$pontuacaoRodada->setClassificacaoRodada($classificacaoRodada);
-							$pontosRodadaAnterior = $pontuacaoRodada->getPontosRodada();
-							$entityManager->merge($pontuacaoRodada);
-							$entityManager->flush();
-						}
+						$classificacaoRodada++;
+						$pontuacaoRodada->setClassificacaoRodada($classificacaoRodada);
+						$pontosRodadaAnterior = $pontuacaoRodada->getPontosRodada();
+						$entityManager->merge($pontuacaoRodada);
+						$entityManager->flush();
 					}
 				}
 			}
@@ -136,7 +134,6 @@ require "bootstrap.php";
 			
 			if($fimRodada){
 				atribuiMedalhasRodada($numRodada, $jogo);
-				atualizaClassificacaoMedalhasCampeonato($jogo);
 				atualizaClassificacaoMedalhasCampeonato($jogo);
 				atualizaClassificacaoMedalhasGeral();
 			}

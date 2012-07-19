@@ -20,6 +20,9 @@ class Campeonato {
 	/** @Column(type="integer")*/
 	private $quantidadeRodadas;
 	
+	/** @Column(type="string")*/
+	private $urlLogo;
+	
 	/**
 	* @OneToMany(targetEntity="Rodada", mappedBy="campeonato", cascade={"persist"})
 	* @var Rodada[]
@@ -63,17 +66,26 @@ class Campeonato {
 	protected $rendimentosTimes;
 	
 	
-	function __construct($nomeCampeonato, $anoCampeonato, $qtdRodadas){
+	function __construct($nomeCampeonato, $anoCampeonato, $qtdRodadas, $urlLogo){
 			$this->nomeCampeonato = $nomeCampeonato;
 			$this->anoCampeonato = $anoCampeonato;
 			$this->status = "ativo";
 			$this->setQuantidadeRodadas($qtdRodadas);
+			$this->setUrlLogo($urlLogo);
 			$this->apostasCampeonato = new ArrayCollection();
 			$this->jogosCampeonato = new ArrayCollection();
 			$this->premiacoesCampeonato = new ArrayCollection();
 			$this->rendimentosTimes = new ArrayCollection();
 			$this->pontuacaoRodadas = new ArrayCollection();
 			$this->contadorCampeonato= new ArrayCollection();	
+	}
+	
+	function getUrlLogo(){
+		return $this->urlLogo;
+	}
+	
+	function setUrlLogo($urlImagem){
+		$this->urlLogo = $urlImagem;
 	}
 	
 	function getContadorCampeonato(){

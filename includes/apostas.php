@@ -8,14 +8,16 @@ function opcaoUsuario(){
 	}
 }
 
-if(!isset($_GET['campeonato'])){
+if(!isset($_POST['campeonatoMenu'])){
 	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
-	$classeGeral='geralRankingAtivo';
+	$classeGeral='todosAtivo';
 }
 else{
-	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.codCampeonato = ".$_GET['campeonato'];
-	$classeGeral='geralRankingInativo';
+	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.codCampeonato = ".$_POST['campeonatoMenu'];
+	$classeGeral='todosInativo';
 }
+$tituloMenu = 'Campeonatos';
+$todosMenu = 'Todos';
 
 if(isset($_POST[0])){
 	$conn = $entityManager->getConnection();
@@ -381,34 +383,5 @@ $conn->close();
 ?>
 </div>
 <div id="colunaDireita">
-	<h3 class="titulo">Campeonatos</h3>
-		<form name="formRankingGeral" action="" method="GET">
-			<INPUT type='hidden' name="conteudo" value="<?php echo $_GET['conteudo'];?>">
-			<button class="<?php echo $classeGeral;?>" type="submit" name="geral" value="geral">Todos</button><br/>
-		</form>
-		<div class="divisoriaRanking"></div>
-
-		<?php
-		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
-		$campeonatos = consultaDql($dql);
-		foreach($campeonatos as $campeonato) {
-			if($campeonato instanceof Campeonato){
-				$classe = 'campeonatoRankingInativo';
-				if(isset($_GET['campeonato'])){
-					if($_GET['campeonato'] == $campeonato->getCodCampeonato()){
-						$classe = 'campeonatoRankingAtivo';
-					}
-				}
-				?>
-				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="" method="GET">
-				<INPUT type='hidden' name="conteudo" value="<?php echo $_GET['conteudo'];?>">
-					<button class="<?php echo $classe;?>" type="submit" name="campeonato" value="<?php echo $campeonato->getCodCampeonato();?>">
-						<?php echo $campeonato->getNomeCampeonato();?>
-					</button>
-				</form>
-				<?php
-			}
-		}
-		
-		?>
+<?php include "includes/menu-campeonatos-ativos.php";?>
 </div>

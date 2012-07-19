@@ -3,18 +3,21 @@ require "bootstrap.php";
 require 'metodos-bd.php';
 
 
-if(!isset($_GET['campeonato'])){
+if(!isset($_POST['campeonatoMenu'])){
 	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
 	$campeonatos= consultaDql($dql);
 	
-	$classeGeral='geralRankingAtivo';
+	$classeGeral='todosAtivo';
 }
 else{
-	$dql = "SELECT c FROM Campeonato c WHERE c.codCampeonato = ".$_GET['campeonato'];
+	$codCampeonatoMenu = 
+	$dql = "SELECT c FROM Campeonato c WHERE c.codCampeonato = ".$_POST['campeonatoMenu'];
 	$campeonatos= consultaDql($dql);
 	
-	$classeGeral='geralRankingInativo';
+	$classeGeral='todosInativo';
 }
+$tituloMenu = 'Campeonatos';
+$todosMenu = 'Todos';
 
 ?>
 <div id="colunaEsquerda">
@@ -58,6 +61,7 @@ try{
 					$time2 = $time->getNomeTime();
 					$escudo2 = $time->getEscudo();
 					?>
+					<span class="dataJogoPlacares">Em <?php echo $jogo->getDataLogica();?></span>
 					<div class="jogoPlacares">
 						<span class="nomeTimePlacares"><?php echo $time1;?></span>
 						<img class="escudoTimePlacares" src="<?php echo $escudo1;?>">
@@ -94,15 +98,15 @@ try{
 						<?php 
 					}
 					?>
-					<div class="divisoria"></div>
+					<div class="divisoriaPlacares"></div>
 					<?php 
 				}
 			}
 			else{
 				?>
-						<p class="aviso">Não existem chutes para este campeonato. Volte amanhã para conferir</p>
-						<?php 
-					}
+				<p class="aviso">Ainda não existem chutes para este campeonato. Volte amanhã para conferir</p>
+				<?php 
+			}
 			?>
 			</div>
 			<?php 
@@ -124,34 +128,5 @@ $conn->close();
 ?>
 </div>
 <div id="colunaDireita">
-	<h3 class="titulo">Campeonatos</h3>
-		<form name="formRankingGeral" action="" method="GET">
-			<INPUT type='hidden' name="conteudo" value="<?php echo $_GET['conteudo'];?>">
-			<button class="<?php echo $classeGeral;?>" type="submit" name="geral" value="geral">Todos</button><br/>
-		</form>
-		<div class="divisoriaRanking"></div>
-
-		<?php
-		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
-		$campeonatos = consultaDql($dql);
-		foreach($campeonatos as $campeonato) {
-			if($campeonato instanceof $campeonato){
-				$classe = 'campeonatoRankingInativo';
-				if(isset($_GET['campeonato'])){
-					if($_GET['campeonato'] == $campeonato->getCodCampeonato()){
-						$classe = 'campeonatoRankingAtivo';
-					}
-				}
-				?>
-				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="" method="GET">
-				<INPUT type='hidden' name="conteudo" value="<?php echo $_GET['conteudo'];?>">
-					<button class="<?php echo $classe;?>" type="submit" name="campeonato" value="<?php echo $campeonato->getCodCampeonato();?>">
-						<?php echo $campeonato->getNomeCampeonato();?>
-					</button>
-				</form>
-				<?php
-			}
-		}
-		
-		?>
+<?php include "includes/menu-campeonatos-ativos.php";?>
 </div>
