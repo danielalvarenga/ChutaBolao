@@ -1,6 +1,7 @@
 <?php
 include "valida_cookies.inc";
 require "bootstrap.php";
+require 'metodos-bd.php';
 require_once "lib/WideImage.php";
 
 if(isset($_POST['rodada']) && isset($_POST['campeonato'])){
@@ -33,7 +34,7 @@ if (isset($_POST['codtime1'])) {
 					j.campeonato = '$codCampeonato' AND
 					j.dataJogo ='$dataJogoString'";
 		$queryJ = $entityManager->createQuery($dqlJogo);
-		$jogos = $queryJ->getResult();
+		$jogos = consultaDql($dqlJogo);
 		
 		$time1 = $entityManager->find("Time", $_POST['codtime1']);
 		$time2 = $entityManager->find("Time", $_POST['codtime2']);
@@ -104,20 +105,17 @@ if (isset($_POST['codtime1'])) {
 					
 				if(!$rendimentoTime1 instanceof RendimentoTime){
 					$rendimentoTime1 = new RendimentoTime($objCampeonato, $time1);
-					$entityManager->persist($rendimentoTime1);
-					$entityManager->flush();
-				}
+					salvaBancoDados($rendimentoTime1);
+					}
 				if(!$rendimentoTime2 instanceof RendimentoTime){
 					$rendimentoTime2 = new RendimentoTime($objCampeonato, $time2);
-					$entityManager->persist($rendimentoTime2);
-					$entityManager->flush();
-				}
+					salvaBancoDados($rendimentoTime2);
+					}
 		// -------------------------------------------------------------------------------------------------------------------
 				
 				$jogo = new Jogo($data,$objRodada,$_POST['codtime1'],$_POST['codtime2'], $objCampeonato, $urlEscudosJogo);
-				$entityManager->persist($jogo);
-				$entityManager->flush();
-		}
+				salvaBancoDados($jogo);
+				}
 		$conn->commit();
 	} catch(Exception $e) {
 		$conn->rollback();
@@ -218,8 +216,7 @@ cadastro de jogo
 		</select></p>
 		<?php 
 				$time1 = "SELECT t FROM time t ORDER BY t.nomeTime ASC";
-				$queryt1 = $entityManager->createQuery($time1);
-				$times = $queryt1->getResult();
+				$times = consultaDql($time1);
 		?>
 		<p>Time1: 
 			<select size="1" name="codtime1">
@@ -269,9 +266,7 @@ cadastro de jogo
 	try{
 		$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.campeonato DESC";
 		
-		$queryJogo = $entityManager->createQuery($dqlJogo);
-		
-		$jogos = $queryJogo->getResult();
+		$jogos = consultaDql($dqlJogo);
 			
 		foreach($jogos as $jogo) {
 		

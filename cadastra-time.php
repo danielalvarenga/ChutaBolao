@@ -1,6 +1,7 @@
 <?php
 include "valida_cookies.inc";
 require "bootstrap.php";
+require 'metodos-bd.php';
 
 if(isset($_POST['time'])){
 	$conn = $entityManager->getConnection();
@@ -11,8 +12,7 @@ if(isset($_POST['time'])){
 		$escudo = $time->getEscudo();
 		$nomeTime = $time->getNomeTime();
 		$codTime = $time->getCodTime();
-		$entityManager->remove($time);
-		$entityManager->flush();
+		removeBancoDados($time);
 		unlink("$escudo");
 		echo "Excluído time com o nome $nomeTime com código $codTime<br><br>";
 		
@@ -49,9 +49,7 @@ if(isset($_POST['nome'])){
 	
 				if($dimensoes[0] <= $largura && $dimensoes[1] <= $altura){
 					$dqlTime = "SELECT t FROM Time t WHERE t.nomeTime = '$nome'";
-					$queryT = $entityManager->createQuery($dqlTime);
-					$queryT->setMaxResults(1);
-					$times = $queryT->getResult();
+					$times = consultaDqlMaxResult(1, $dqlTime);
 					$contador = 0;
 					foreach($times as $time) {
 						if($time instanceof Time){
@@ -86,9 +84,8 @@ if(isset($_POST['nome'])){
 						move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
 						
 						$time = new Time($nome, $caminho_imagem);
-						$entityManager->persist($time);
-						$entityManager->flush();
-					}
+						salvaBancoDados($time);
+						}
 					else{
 						echo "<font color='red'><b>Este time já existe.</b></font>";
 					}
@@ -144,8 +141,7 @@ cadastro de time
 
 <?php
 	$dqlTimes = "SELECT t FROM Time t ORDER BY t.nomeTime ASC";
-	$queryTimes = $entityManager->createQuery($dqlTimes);
-	$times = $queryTimes->getResult();
+	$times = consultaDql($dqlTimes);
 	foreach($times as $time) {
 		if($time instanceof Time){
 			echo '<tr vertical-align="middle" align="center">

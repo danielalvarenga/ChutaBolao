@@ -1,15 +1,14 @@
 <?php
 include "valida_cookies.inc";
 require "bootstrap.php";
+require 'metodos-bd.php';
 
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
 try{
 	// Testa se existem pelo menos 1campeonato cadastrado
 	$camp = "SELECT c FROM Campeonato c WHERE c.status = 'ativo'";
-	$queryc = $entityManager->createQuery($camp);
-	$queryc->setMaxResults(1);
-	$campeonatos = $queryc->getResult();
+	$campeonatos = consultaDqlMaxResult(1, $camp);
 	$contador = 0;
 	foreach($campeonatos as $campeonato) {
 		if($campeonato instanceof Campeonato){
@@ -23,9 +22,7 @@ try{
 	try{
 	// Testa se existem 2 times cadastrados
 		$dqlTime = "SELECT t FROM Time t";
-		$queryt = $entityManager->createQuery($dqlTime);
-		$queryt->setMaxResults(2);
-		$times = $queryt->getResult();
+		$times = consultaDqlMaxResult(2, $dqlTime);
 		$contador = 0;
 		foreach($times as $time) {
 			if($time instanceof Time){
@@ -57,8 +54,7 @@ try{
 						$conn->beginTransaction();
 						try{
 							$camp = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.nomeCampeonato DESC";
-							$queryc = $entityManager->createQuery($camp);
-							$campeonatos = $queryc->getResult();
+							$campeonatos = consultaDql($camp);
 							foreach($campeonatos as $campeonato) {
 								if($campeonato instanceof Campeonato){
 									echo '<option value='.$campeonato->getCodCampeonato().'> '.$campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato().'</option>';
@@ -100,9 +96,7 @@ try{
 			try{
 				$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.campeonato DESC";
 				
-				$queryJogo = $entityManager->createQuery($dqlJogo);
-				
-				$jogos = $queryJogo->getResult();
+				$jogos = consultaDql($dqlJogo);
 					
 				foreach($jogos as $jogo) {
 				

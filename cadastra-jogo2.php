@@ -1,7 +1,8 @@
 <?php
 include "valida_cookies.inc";
 require "bootstrap.php";			
-		
+require 'metodos-bd.php';
+
 ?>
 <html>
 <head>
@@ -29,8 +30,7 @@ cadastro de jogo
 					'<br/><font size="1"><a href="cadastra-jogo.php">Escolher outro Campeonato</a></font></p>';
 		
 			$dqlR = 'SELECT r FROM Rodada r WHERE r.campeonato = '.$_POST['campeonato'].'ORDER BY r.numRodada ASC';
-			$querytR = $entityManager->createQuery($dqlR);
-			$rodadas = $querytR->getResult();
+			$rodadas = consultaDql($dqlR);
 			?>
 			<p>Escolha a Rodada: 
 				<select name="rodada">
@@ -82,9 +82,7 @@ cadastro de jogo
 	try{
 		$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.campeonato DESC";
 		
-		$queryJogo = $entityManager->createQuery($dqlJogo);
-		
-		$jogos = $queryJogo->getResult();
+		$jogos = consultaDql($dqlJogo);
 			
 		foreach($jogos as $jogo) {
 		
