@@ -5,6 +5,7 @@ use Doctrine\DBAL\Types\ArrayType;
 use Doctrine\ORM\Query\AST\Functions\LengthFunction;
 
 require "bootstrap.php";
+require 'metodos-bd.php';
 
 if(isset($_POST['excluir'])){
 	$conn = $entityManager->getConnection();
@@ -13,8 +14,7 @@ if(isset($_POST['excluir'])){
 		$campeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
 		$nomeCampeonato = $campeonato->getNomeCampeonato();
 		$anoCampeonato = $campeonato->getAnoCampeonato();
-		$entityManager->remove($campeonato);
-		$entityManager->flush();
+		removeBancoDados($campeonato);
 		echo "Excluído Campeonato $nomeCampeonato $anoCampeonato<br><br>";
 		$conn->commit();
 	} catch(Exception $e) {
@@ -62,9 +62,7 @@ if(isset($_POST['nome'])){
 				if($dimensoes[0] <= $largura && $dimensoes[1] <= $altura){
 					$dql = "SELECT c FROM Campeonato c WHERE c.nomeCampeonato = '$nome'
 								AND c.anoCampeonato = '$ano'";
-					$query = $entityManager->createQuery($dql);
-					$query->setMaxResults(1);
-					$campeonatos = $query->getResult();
+					$campeonatos = consultaDqlMaxResult(1, $dql);
 					$contador = 0;
 					foreach($campeonatos as $campeonato) {
 						if($campeonato instanceof Campeonato){
@@ -99,14 +97,12 @@ if(isset($_POST['nome'])){
 						move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
 		
 						$campeonato = new Campeonato($nome, $ano, $quant, $caminho_imagem);
-						$entityManager->persist($campeonato);
-						$entityManager->flush();
+						salvaBancoDados($campeonato);
 						
 						for($i = 1; $i <= $quant; $i++){
 							$rodada = new Rodada($i, $campeonato);
-							$entityManager->persist($rodada);
-							$entityManager->flush();
-						}
+							salvaBancoDados($rodada);
+							}
 						
 						echo "Campeonato criado com: ";
 						echo "Codigo: ".$campeonato->getCodCampeonato()."\n";
@@ -180,8 +176,7 @@ cadastro de time
 	$conn->beginTransaction();
 	try{
 		$dqlCampeonatos = "SELECT c FROM Campeonato c ORDER BY c.codCampeonato ASC";
-		$queryCampeonatos = $entityManager->createQuery($dqlCampeonatos);
-		$campeonatos = $queryCampeonatos->getResult();
+		$campeonatos = consultaDql($dqlCampeonatos);
 		foreach($campeonatos as $campeonato) {
 			if($campeonato instanceof Campeonato){
 				echo '<tr vertical-align="middle" align="center">
