@@ -1,4 +1,1 @@
-
-<h1>Dreamweaver</h1>
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum Lorem.</p>
+<div id="colunaUnica"><script>	FB.init({        appId: '<?php echo $app_id; ?>',          cookie: true,          xfbml: true,         oauth: true       });	function sendInvite() {	  // Use the Facebook JS SDK to open a Request MFS Dialog	  FB.ui({method: 'apprequests',	    title: 'Jogue ChutaBolão comigo!',	    message: 'Veja se você é bom de chute e venha pro ChutaBolão!',	  }, fbCallback);	}    function fbCallback(response) {	  console.log(response);	}</script></div>
