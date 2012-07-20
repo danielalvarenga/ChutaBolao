@@ -141,7 +141,6 @@ require 'metodos-bd.php';
 					$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $pontuacaoRodada->getUsuario()->getIdUsuario());
 											
 					if($pontuacaoRodada->getClassificacaoRodada() == 1){
-						$armazenaMetodos=ganhaMedalhaOuro();
 						$premiosUsuario->ganhaMedalhaOuro();
 						$pontuacaoGeral->ganhaMedalhasOuroGeral();
 					}
