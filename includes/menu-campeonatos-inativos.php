@@ -3,7 +3,7 @@
 $dql = "SELECT c FROM Campeonato c WHERE c.status = 'finalizado' ORDER BY c.codCampeonato ASC";
 $campeonatos = consultaDql($dql);
 foreach($campeonatos as $campeonato) {
-	if($campeonato instanceof $campeonato){
+	if($campeonato instanceof Campeonato){
 		$classe = 'campeonatoInativo';
 		if(isset($_POST['campeonatoMenu'])){
 			if($_POST['campeonatoMenu'] == $campeonato->getCodCampeonato()){

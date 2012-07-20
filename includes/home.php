@@ -1,9 +1,9 @@
 <div id="homeTimesFavoritos">
 <?php 
+require 'metodos-bd.php';
+
 		$dql = "SELECT t FROM Time t WHERE t.nomeTime <> 'Boca Juniors' ORDER BY t.nomeTime ASC";
-		$query = $entityManager->createQuery($dql);
-		$query->getMaxResults(20);
-		$times = $query->getResult();
+		$times = consultaDqlMaxResult(20, $dql);
 		foreach($times as $time) {
 			?>
 			<img class="timeFavorito" src="<?php echo $time->getEscudo();?>">
@@ -81,8 +81,7 @@ try{
 	<?php 
 	
 	$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario = $user_id";
-	$query = $entityManager->createQuery($dql);
-	$premiosUsuario = $query->getResult();
+	$premiosUsuario = consultaDql($dql);
 	foreach($premiosUsuario as $premiacoes) {
 		if($premiacoes instanceof PremiosUsuario){
 			$statusCampeonato = $premiacoes->getCampeonato()->getStatus();
@@ -152,10 +151,9 @@ $conn->close();
 		<h3 class="titulo">Dê seus Chutes</h3>
 		<?php
 		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
-		$query = $entityManager->createQuery($dql);
-		$campeonatos = $query->getResult();
+		$campeonatos = consultaDql($dql);
 		foreach($campeonatos as $campeonato) {
-			if($campeonato instanceof $campeonato){
+			if($campeonato instanceof Campeonato){
 				$classe = 'campeonatoInativo';
 				if(isset($_POST['campeonatoMenu'])){
 					if($_POST['campeonatoMenu'] == $campeonato->getCodCampeonato()){
