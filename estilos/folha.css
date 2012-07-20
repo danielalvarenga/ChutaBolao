@@ -148,21 +148,21 @@ a {
 	float: left;
 	width: 750px;
 	
-	background-color: #ffffff;
-	background: #ffffff;
+	background-color: #ffffcc;
+	cursor:pointer;
 	
 	border:solid 0px #000000;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	
-	-moz-box-shadow: 0px 0px 12px #000000;
-	-webkit-box-shadow: 0px 0px 12px #000000;
-	box-shadow: 0px 0px 12px #000000;
+	-moz-box-shadow:inset 0px 0px 10px #ff3300;
+	-webkit-box-shadow:inset 0px 0px 10px #ff3300;
+	box-shadow:inset 0px 0px 10px #ff3300;
 	
 	margin-top: 5px;
 	margin-right: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	margin-left: 5px;
 	
 	padding-top: 0px;
@@ -838,17 +838,19 @@ img.escudoTime{
 /*RANKINGS*/
 
 .posicaoUsuario{
-	/*background-color: #c1ffc1;
-	background: #c1ffc1;*/
+	background-color: #ffffcc;
+	background: #ffffcc;
 	
-	border:solid 2px #00df00;
+	border:solid 1px #ff3300;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-
+	
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 18px;
-	color: #006600;
+	color: #ff3300;
+	text-align: center;
+	vertical-align: middle;
 	font-weight: bold;
 	
 	margin-top: 0px;
@@ -1433,9 +1435,9 @@ a.menuCampeonatos{
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	
-	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
-	box-shadow: 2px 2px 5px #000000;
+	-moz-box-shadow:inset 0px 0px 10px #ff3300;
+	-webkit-box-shadow:inset 0px 0px 10px #ff3300;
+	box-shadow:inset 0px 0px 10px #ff3300;
 
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 18px;
@@ -1526,9 +1528,9 @@ a.menuCampeonatos{
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	
-	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
-	box-shadow: 2px 2px 5px #000000;
+	-moz-box-shadow:inset 0px 0px 10px #ff3300;
+	-webkit-box-shadow:inset 0px 0px 10px #ff3300;
+	box-shadow:inset 0px 0px 10px #ff3300;
 
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 12px;
@@ -1578,138 +1580,444 @@ a.menuCampeonatos{
 	padding-left: 10px;
 }
 
-/*PÁGINA HOME */
+/* HOME */
 
-#tabelaHome {
-	width: 95%;
-	border: 0px solid #666;
-	margin-bottom: 10px;
-	margin-top: 10px;
-	padding: 5px 5px;
-	*padding: 5px;
-	_padding: 5px;
-}
-
-.tabelaInterna {
-	width: 100%;
-	font-weight: bold;
-	font-family: Helvetica;
-	font-size: 18px;
-	color: #FFFFFF;
-	text-align: center;
-	vertical-align: middle;
-}
-
-.tituloHome {
-	height: 35px;
-	background-color: #56a102;
+#mural{
+	float: left;
+	width: 45%;
+	height: 345px;
+	
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 20px;
-	color: #ffffff;
-	text-shadow: black 0.1em 0.1em 0.2em;
+	font-size: 10px;
+	color: #000000;
+	text-align: center;
+	vertical-align: middle;
+	
+	background-color: #ffffcc;
+	background: #ffffcc;
+	
+	border:solid 1px #ff3300;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	/*-moz-box-shadow: 0px 0px 12px #000000;
+	-webkit-box-shadow: 0px 0px 12px #000000;
+	box-shadow: 0px 0px 12px #000000;*/
+	
+	margin-top: 5px;
+	margin-right: 6px;
+	margin-bottom: 5px;
+	margin-left: 6px;
+	
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
 }
 
-.descricaoPodium {
-	font-family: Helvetica;
-	font-size: 12px;
-	color: #FFFFFF;
+img.muralLogoCampeonato{
+	height: 45px;
+	width: 45px;
+	
+	text-align: left;
+	vertical-align: middle;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+.tituloMural{
+	width: 100%;
+	height:: 30px;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #ff3300;
 	text-align: center;
 	vertical-align: middle;
 	font-weight: bold;
+	
+	/*background-color: #e4e4e4;
+	background: #e4e4e4;*/
+	
+	border:solid 0px #ff3300;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	/*-moz-box-shadow: 0px 0px 12px #000000;
+	-webkit-box-shadow: 0px 0px 12px #000000;
+	box-shadow: 0px 0px 12px #000000;*/
+	
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	
+	padding-top: 2px;
+	padding-right: 0px;
+	padding-bottom: 2px;
+	padding-left: 0px;
 }
 
-#prateleira {
-	background-color: #ebb100;
-	height: 2px;
-	border: 1px solid #666;
-	padding: 5px 5px;
-	*padding: 5px;
-	_padding: 5px;
-	color: #FFFFFF;
-	-moz-box-shadow: 0px 5px 8px #000000;
-	-webkit-box-shadow: 0px 5px 8px #000000;
-	box-shadow: 0px 5px 8px #000000;
+.divisoriaMural{
+	height: 5px;
 }
 
-.topoPodium {
-	width: 80px;
-	height: 60px;
-	border: 1px solid #666;
-	border-bottom-width: 0px;
-	font-family: Helvetica;
-	font-size: 18px;
-	color: #FFFFFF;
-	text-align: center;
-	vertical-align: top !important;
+.muralPontos{
+	width: 100%;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000000;
+	text-align: left;
+	vertical-align: middle;
 	font-weight: bold;
-	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	border:solid 0px #ff3300;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 0px 0px 1px #ff3300;
+	-webkit-box-shadow: 0px 0px 1px #ff3300;
+	box-shadow: 0px 0px 1px #ff3300;
+	
+	margin-top: 2px;
+	margin-right: 0px;
+	margin-bottom: 2px;
+	margin-left: 0px;
+	
+	padding-top: 2px;
+	padding-right: 0px;
+	padding-bottom: 2px;
+	padding-left: 0px;
 }
 
-.meioPodium {
-	width: 80px;
-	height: 60px;
-	vertical-align: top;
-	position: absolute;
-	border-bottom: 1px solid #666;
-	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-}
-
-.colunaPodium {
-	width: 80px;
-	height: 60px;
-	border: 1px solid #666;
-	border-bottom-width: 0px;
-	border-top-width: 0px;
-	font-family: Helvetica;
-	font-size: 18px;
-	color: #FFFFFF;
-	text-align: center;
+.muralTrofeus{
+	width: 100%;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000000;
+	text-align: left;
+	vertical-align: middle;
 	font-weight: bold;
-	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	border:solid 0px #ff3300;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 0px 0px 1px #ff3300;
+	-webkit-box-shadow: 0px 0px 1px #ff3300;
+	box-shadow: 0px 0px 1px #ff3300;
+	
+	margin-top: 2px;
+	margin-right: 0px;
+	margin-bottom: 2px;
+	margin-left: 0px;
+	
+	padding-top: 2px;
+	padding-right: 0px;
+	padding-bottom: 2px;
+	padding-left: 0px;
 }
 
-.podiumDireito {
-	width: 80px;
-	height: 60px;
-	border: 1px solid #666;
-	border-bottom-width: 0px;
-	border-left-width: 0px;
-	font-family: Helvetica;
-	font-size: 18px;
-	color: #FFFFFF;
-	text-align: center;
+.muralAcertos{
+	width: 100%;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000000;
+	text-align: left;
+	vertical-align: middle;
 	font-weight: bold;
-	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	border:solid 0px #ff3300;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 0px 0px 1px #ff3300;
+	-webkit-box-shadow: 0px 0px 1px #ff3300;
+	box-shadow: 0px 0px 1px #ff3300;
+	
+	margin-top: 2px;
+	margin-right: 0px;
+	margin-bottom: 2px;
+	margin-left: 0px;
+	
+	padding-top: 2px;
+	padding-right: 0px;
+	padding-bottom: 2px;
+	padding-left: 0px;
 }
 
-.podiumEsquerdo {
-	width: 80px;
-	height: 60px;
-	border: 1px solid #666;
-	border-bottom-width: 0px;
-	border-right-width: 0px;
-	font-family: Helvetica;
-	font-size: 18px;
-	color: #FFFFFF;
-	text-align: center;
+.muralMedalhas{
+	width: 100%;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000000;
+	text-align: left;
+	vertical-align: middle;
 	font-weight: bold;
-	-moz-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-webkit-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	-goog-ms-box-shadow: 0 0 7px rgba(0, 0, 0, .8);
-	box-shadow: 0 0 7px rgba(0, 0, 0, .8);
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	border:solid 0px #ff3300;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 0px 0px 1px #ff3300;
+	-webkit-box-shadow: 0px 0px 1px #ff3300;
+	box-shadow: 0px 0px 1px #ff3300;
+	
+	margin-top: 2px;
+	margin-right: 0px;
+	margin-bottom: 2px;
+	margin-left: 0px;
+	
+	padding-top: 2px;
+	padding-right: 0px;
+	padding-bottom: 2px;
+	padding-left: 0px;
 }
+
+img.muralImg{
+	height: 25px;
+	width: 25px;
+	
+	text-align: left;
+	vertical-align: middle;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	
+	padding-top: 2px;
+	padding-right: 5px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+}
+
+.muralQtd{
+	width: 80%px;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	text-align: left;
+	vertical-align: middle;
+	font-weight: bold;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	
+	padding-top: 7px;
+	padding-right: 5px;
+	padding-bottom: 2px;
+	padding-left: 0px;
+}
+
+#homeTimesFavoritos{
+	clear: both;
+	width: 750px;
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	text-align: center;
+	vertical-align: middle;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 0px 0px 12px #000000;
+	-webkit-box-shadow: 0px 0px 12px #000000;
+	box-shadow: 0px 0px 12px #000000;
+	
+	margin-top: 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+img.timeFavorito{
+	width: 25px;
+	height: 25px;
+	
+	text-align: center;
+	vertical-align: middle;
+	
+	margin-top: 3px;
+	margin-right: 3px;
+	margin-bottom: 3px;
+	margin-left: 3px;
+}
+
+/* TOP Torcidas */
+
+#boxTopTorcidas{
+	clear: both;
+	width: 100%;
+	
+	border:solid 0px #cccccc;
+
+	text-align: center;
+	vertical-align: middle;
+	
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+img.timeFanpage{
+	float: left;
+	width: 25px;
+	height: 25px;
+	
+	text-align: center;
+	vertical-align: middle;
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: 15px;
+	
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+.curtirTopTorcidas{
+	float: left;
+	width: 180px;
+	height: 25px;
+	
+	/*background-color: #ffffff;
+	background: #ffffff;*/
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	/*-moz-box-shadow: 0px 0px 12px #000000;
+	-webkit-box-shadow: 0px 0px 12px #000000;
+	box-shadow: 0px 0px 12px #000000;*/
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	
+	padding-top: 3px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+.divisoriaTopTorcidas{
+	clear: both;
+	width: 190px;
+	
+	/*background-color: #ffffff;
+	background: #ffffff;*/
+	
+	border:solid 0px #cccccc;
+	border-bottom-width: 1px;
+
+	text-align: center;
+	vertical-align: middle;
+	
+	/*-moz-box-shadow: 0px 0px 12px #000000;
+	-webkit-box-shadow: 0px 0px 12px #000000;
+	box-shadow: 0px 0px 12px #000000;*/
+	
+	margin-top: 2px;
+	margin-right: 0px;
+	margin-bottom: 3px;
+	margin-left: 15px;
+	
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1751,7 +2059,6 @@ a.menuCampeonatos{
 
 
 #ts_tabmenu {
-
 	margin-left: 15px;
 	float: left;
 	font-size: .90em; /* set the font size */
@@ -1760,44 +2067,48 @@ a.menuCampeonatos{
 }
 
 #ts_tabmenu ul {
-
-line-height: 1em; /* setting the line height now so we don't have any headaches*/
-
-margin: 0px; /* let's keep the margin set to 0 for the same reasons as above*/
-
-list-style-type: none; /* we remove the UL's default disc bullets */
-
-float: left; /* we float the list to the left like we will all the elements inside*/
-
-padding: 0px 0px 0px 5px; /* give it a left padding of 5px to counter the effect of margin -5px below */
+	line-height: 1em; /* setting the line height now so we don't have any headaches*/
+	margin: 0px; /* let's keep the margin set to 0 for the same reasons as above*/
+	list-style-type: none; /* we remove the UL's default disc bullets */
+	float: left; /* we float the list to the left like we will all the elements inside*/
+	padding: 0px 0px 0px 5px; /* give it a left padding of 5px to counter the effect of margin -5px below */
 
 }
 
 #ts_tabmenu ul li {
-
-float: left; /* floatin' left */
-
+	float: left; /* floatin' left */
 }
 
 #ts_tabmenu ul li a {
 
-text-decoration: none; /* remove the default underline off the anchor text */
+	text-decoration: none; /* remove the default underline off the anchor text */
+	display: block; /* we display this text as block so that we can apply padding/margin without problems */
+	float: left; /* floatin' left, to make the menu horizontal */
+	z-index: 0; /* keep it on layer 0 (default) */
+	position: relative;  /* very important as this enables the z-index to work for us and keeps the tabs where they should be */
 
-display: block; /* we display this text as block so that we can apply padding/margin without problems */
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
 
-float: left; /* floatin' left, to make the menu horizontal */
-
-padding: 0px 0px 0px 10px;  /* we give it a left padding of 10px to show the first 10 pixels of the tabs image. you can also use padding-left: 10px; */
-
-background: url(../imagens/tabs.gif) no-repeat left top;  /* we link to the tabs image, no tiling, showing the top left part of it */
-
-margin-left: -5px;  /* this is important for the overlapping part - we are overlapping the tabs by 5 px */
-
-z-index: 0; /* keep it on layer 0 (default) */
-
-position: relative;  /* very important as this enables the z-index to work for us and keeps the tabs where they should be */
-
-color: #666666;  /* color of the tab text */
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	color: #ff3300;
+	font-weight: bold;
+	
+	margin-top: 2px;
+	margin-right: 2px;
+	margin-bottom: 2px;
+	margin-left: auto;
+	
+	padding-top: 0px;
+	padding-right: 5px;
+	padding-bottom: 0px;
+	padding-left: 5px;
 
 }
 
@@ -1808,8 +2119,6 @@ font-weight: normal;   /* remove the bold effect */
 display: block;   /* display the strong element as a block so we can pad it, etc. */
 
 float: left;   /* float it left as well */
-
-background: url(../imagens/tabs.gif) no-repeat right top;  /* now we show the right part of the tab and we complete the "puzzle" */
 
 padding: 6px 10px 7px 5px;  /* important, as through this you define the position of the text within the tab */
 
@@ -1823,15 +2132,36 @@ position: relative; /* again, keep things relative */
 
 z-index: 5; /* we show this tab over all other tabs in the menu, which would be on layer 0, thus overlapping occurs */
 
-background: url(../imagens/tabs.gif) no-repeat left bottom;  /* now we show the bottom part of the tabs image, the "hover" instance */
+	background-color: #ff3300;
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow:inset 0px 0px 2px #000000;
+	-webkit-box-shadow:inset 0px 0px 2px #000000;
+	box-shadow:inset 0px 0px 2px #000000;
 
-color: #000000;   /* we color the hovered tab's text black */
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	color: #ffffff;
+	font-weight: bold;
+	
+	margin-top: 2px;
+	margin-right: auto;
+	margin-bottom: 2px;
+	margin-left: auto;
+	
+	padding-top: 0px;
+	padding-right: 5px;
+	padding-bottom: 0px;
+	padding-left: 5px;
 
 }
 
 #ts_tabmenu ul li a:hover strong {
-
-background-image: url(../imagens/tabs.gif) no-repeat; 
 
 position: relative; /* keep it relative */
 
@@ -1852,9 +2182,32 @@ position: relative;
 
 z-index: 5; 
 
-background: url(../imagens/tabs.gif) no-repeat left bottom; 
+	background-color: #ff3300;
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow:inset 0px 0px 2px #000000;
+	-webkit-box-shadow:inset 0px 0px 2px #000000;
+	box-shadow:inset 0px 0px 2px #000000;
 
-color: #000000; 
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	color: #ffffff;
+	font-weight: bold;
+	
+	margin-top: 2px;
+	margin-right: 2px;
+	margin-bottom: 2px;
+	margin-left: auto;
+	
+	padding-top: 0px;
+	padding-right: 5px;
+	padding-bottom: 0px;
+	padding-left: 5px;
 
 }
 
@@ -1865,8 +2218,6 @@ color: #000000;
 #tsmenu5 #li_tsmenu5 a strong, #tsmenu6 #li_tsmenu6 a strong, 
 
 #tsmenu7 #li_tsmenu7 a strong { 
-
-background-image: url(../imagens/tabs.gif) no-repeat; 
 
 position: relative; 
 

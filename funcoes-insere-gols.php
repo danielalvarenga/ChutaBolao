@@ -1,151 +1,135 @@
 <?php
 require "bootstrap.php";
+require 'metodos-bd.php';
 
 		function atualizaClassificacaoPontosGeral(){
-			global $entityManager;
-			$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.pontosGeral DESC";
-			$query = $entityManager->createQuery($dql);
-			$pontuacoesGerais = $query->getResult();
-			$classificacaoGeral = 1;
-			$primeiro = true;
-			$pontosGeralAnterior = NULL;
+			
+			$contador=0;
+			$armazenaPontos[0]=null;
+			$armazenaPosicao[0]=null;
+				
+			$dql = "SELECT p FROM PontuacaoGeral p GROUP BY p.pontosGeral ORDER BY p.pontosGeral DESC";
+			$pontuacoesGerais = consultaDql($dql);
+			
 			foreach ($pontuacoesGerais as $pontuacaoGeral){
 				if($pontuacaoGeral instanceof PontuacaoGeral){
-					if($primeiro){
-						$pontuacaoGeral->setClassificacaoGeral($classificacaoGeral);
-						$pontosGeralAnterior = $pontuacaoGeral->getPontosGeral();
-						$primeiro = false;
-						$entityManager->merge($pontuacaoGeral);
-						$entityManager->flush();
-					}
-					else{
-						if($pontuacaoGeral->getPontosGeral() == $pontosGeralAnterior){
-							$pontuacaoGeral->setClassificacaoGeral($classificacaoGeral);
-							$entityManager->merge($pontuacaoGeral);
-							$entityManager->flush();
-						}
-						else{
-							$classificacaoGeral++;
-							$pontuacaoGeral->setClassificacaoGeral($classificacaoGeral);
-							$pontosGeralAnterior = $pontuacaoGeral->getPontosGeral();
-							$entityManager->merge($pontuacaoGeral);
-							$entityManager->flush();
-						}
-					}
+					$armazenaPontos[$contador]=$pontuacaoGeral->getPontosGeral();
+					$armazenaPosicao[$contador]=$contador+1;
+					$contador++;
 				}
 			}
-		}
+			for ($i=0 ; $i < $contador ; $i++){
+			$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosGeral=".$armazenaPontos[$i] ;
+			$pontuacoesGerais = consultaDql($dql);
 			
+			foreach ($pontuacoesGerais as $pontuacaoGeral){
+				if($pontuacaoGeral instanceof PontuacaoGeral){
+					$pontuacaoGeral->setClassificacaoGeral($armazenaPosicao[$i]);
+					atualizaBancoDados($pontuacaoGeral);
+						
+							}
+						
+				 	  }
+			     }
+			}		
 		function atualizaClassificacaoPontosCampeonato($jogo){
-			global $entityManager;
+			
+			$contador=0;
+			$armazenaPontos[0]=null;
+			$armazenaPosicao[0]=null;
+				
 			$dql = "SELECT p FROM PremiosUsuario p WHERE
 					p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
-					ORDER BY p.pontosCampeonato DESC";
-			$query = $entityManager->createQuery($dql);
-			$premiosUsuarios = $query->getResult();
-			$classificacaoCampeonato = 1;
-			$primeiro = true;
-			$pontosCampeonatoAnterior = NULL;
+					GROUP BY p.pontosCampeonato ORDER BY p.pontosCampeonato DESC";
+			$premiosUsuarios = consultaDql($dql);
+			
 			foreach ($premiosUsuarios as $premiosUsuario){
 				if($premiosUsuario instanceof PremiosUsuario){
-					if($primeiro){
-						$premiosUsuario->setClassificacaoCampeonato($classificacaoCampeonato);
-						$pontosCampeonatoAnterior = $premiosUsuario->getPontosCampeonato();
-						$primeiro = false;
-						$entityManager->merge($premiosUsuario);
-						$entityManager->flush();
-					}
-					else{
-						if($premiosUsuario->getPontosCampeonato() == $pontosCampeonatoAnterior){
-							$premiosUsuario->setClassificacaoCampeonato($classificacaoCampeonato);
-							$entityManager->merge($premiosUsuario);
-							$entityManager->flush();
-						}
-						else{
-							$classificacaoCampeonato++;
-							$premiosUsuario->setClassificacaoCampeonato($classificacaoCampeonato);
-							$pontosCampeonatoAnterior = $premiosUsuario->getPontosCampeonato();
-							$entityManager->merge($premiosUsuario);
-							$entityManager->flush();
+					$armazenaPontos[$contador]=$premiosUsuario->getPontosCampeonato();
+					$armazenaPosicao[$contador]=$contador+1;
+					$contador++;
+					
 						}
 					}
+			for ($i=0 ; $i < $contador ; $i++){
+				$dql = "SELECT p FROM PremiosUsuario p WHERE
+						p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+						AND p.pontosCampeonato=".$armazenaPontos[$i] ;
+				$premiosUsuarios = consultaDql($dql);
+
+				foreach ($premiosUsuarios as $premiosUsuario){
+					if($premiosUsuario instanceof PremiosUsuario){
+						$premiosUsuario->setClassificacaoCampeonato($armazenaPosicao[$i]);
+						atualizaBancoDados($premiosUsuario);
+					}		
 				}
 			}
 		}
 			
 		function atualizaClassificacaoPontosRodada($numRodada, $jogo){
-			global $entityManager;
+			
+			$contador=0;
+			$armazenaPontos[0]=null;
+			$armazenaPosicao[0]=null;
 			$dql = 'SELECT p FROM PontuacaoRodada p WHERE
 					p.rodada = '.$numRodada.'
 					AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
 					ORDER BY p.pontosRodada DESC';
-			$query = $entityManager->createQuery($dql);
-			$pontuacoesRodada = $query->getResult();
-			$classificacaoRodada = 1;
-			$primeiro = true;
-			$pontosRodadaAnterior = NULL;
+			$pontuacoesRodada=consultaDql($dql);
+			
 			foreach ($pontuacoesRodada as $pontuacaoRodada){
 				if($pontuacaoRodada instanceof PontuacaoRodada){
-					if($primeiro){
-						$pontuacaoRodada->setClassificacaoRodada($classificacaoRodada);
-						$pontosRodadaAnterior = $pontuacaoRodada->getPontosRodada();
-						$primeiro = false;
-						$entityManager->merge($pontuacaoRodada);
-						$entityManager->flush();
-					}
-					elseif($pontuacaoRodada->getPontosRodada() == $pontosRodadaAnterior){
-							$pontuacaoRodada->setClassificacaoRodada($classificacaoRodada);
-							$entityManager->merge($pontuacaoRodada);
-							$entityManager->flush();
-					}
-					else{
-						$classificacaoRodada++;
-						$pontuacaoRodada->setClassificacaoRodada($classificacaoRodada);
-						$pontosRodadaAnterior = $pontuacaoRodada->getPontosRodada();
-						$entityManager->merge($pontuacaoRodada);
-						$entityManager->flush();
+					$armazenaPontos[$contador]=$pontuacaoRodada->getPontosRodada();
+					$armazenaPosicao[$contador]=$contador+1;
+					$contador++;
 					}
 				}
+				for($i=0 ; $i < $contador ; $i++){
+					$dql = 'SELECT p FROM PontuacaoRodada p WHERE
+							p.rodada = '.$numRodada.'
+							AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
+						    AND p.pontosRodada='.$armazenaPontos[$i];
+					$pontuacoesRodada=consultaDql($dql);
+
+					foreach ($pontuacoesRodada as $pontuacaoRodada){
+						if($pontuacaoRodada instanceof PontuacaoRodada){
+							$pontuacaoRodada->setClassificacaoRodada($armazenaPosicao[$i]);
+							atualizaBancoDados($pontuacaoRodada);
+					}
+				}	
 			}
 		}
+
 			
 		function verificaFimRodada($numRodada, $jogo){
-			global $entityManager;
 			$campeonato = $jogo->getCampeonato()->getCodCampeonato();
 			$dql = "SELECT j FROM Jogo j WHERE j.rodada = '$numRodada'
 					AND j.campeonato ='$campeonato'
 					AND j.golsTime1 >= 0";
-			$query = $entityManager->createQuery($dql);
-			$jogosPassados = $query->getResult();
+			$jogosPassados =consultaDql($dql);
 			
 			$qtdJogosPassados = sizeof($jogosPassados);
 			
 			$dql = "SELECT j FROM Jogo j WHERE j.rodada = '$numRodada'
 			AND j.campeonato ='$campeonato'";
-			$query = $entityManager->createQuery($dql);
-			$jogosTodos = $query->getResult();
+			$jogosTodos = consultaDql($dql);
 			
 			$qtdJogosRodada = sizeof($jogosTodos);
 			
-			$fimRodada = false;
 			if($qtdJogosPassados == $qtdJogosRodada){
-				$fimRodada = true;
-			}
-			
-			if($fimRodada){
 				atribuiMedalhasRodada($numRodada, $jogo);
+				atualizaClassificacaoMedalhasCampeonato($jogo);
 				atualizaClassificacaoMedalhasCampeonato($jogo);
 				atualizaClassificacaoMedalhasGeral();
 			}
 		}
 			
 		function atribuiMedalhasRodada($numRodada, $jogo){
-			global $entityManager;
+			
 			$dql = 'SELECT p FROM PontuacaoRodada p WHERE p.rodada = '.$numRodada.'
 					AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
 					AND p.classificacaoRodada >= 1 AND p.classificacaoRodada <= 3';
-			$query = $entityManager->createQuery($dql);
-			$pontuacoesRodada = $query->getResult();
+			$pontuacoesRodada = consultaDql($dql);
 			foreach ($pontuacoesRodada as $pontuacaoRodada){
 				if($pontuacaoRodada instanceof PontuacaoRodada){
 					
@@ -156,6 +140,7 @@ require "bootstrap.php";
 					$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $pontuacaoRodada->getUsuario()->getIdUsuario());
 											
 					if($pontuacaoRodada->getClassificacaoRodada() == 1){
+						$armazenaMetodos=ganhaMedalhaOuro();
 						$premiosUsuario->ganhaMedalhaOuro();
 						$pontuacaoGeral->ganhaMedalhasOuroGeral();
 					}
@@ -167,111 +152,94 @@ require "bootstrap.php";
 						$premiosUsuario->ganhaMedalhaBronze();
 						$pontuacaoGeral->ganhaMedalhasBronzeGeral();
 					}
-					$entityManager->merge($premiosUsuario);
-					$entityManager->flush();
-					$entityManager->merge($pontuacaoGeral);
-					$entityManager->flush();
-				}
+					atualizaBancoDados($premiosUsuario);
+					atualizaBancoDados($pontuacaoGeral);
+					}
 			}
 		}
-				
+					
 		function atualizaClassificacaoMedalhasCampeonato($jogo){
-			global $entityManager;
+			
+$contador=0;
+$armazenaPontos[0]=null;
+$armazenaPosicao[0]=null;
+
 			$dql = "SELECT p FROM PremiosUsuario p WHERE
 					p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
 					ORDER BY p.pontosMedalhas DESC";
-			$query = $entityManager->createQuery($dql);
-			$premiosUsuarios = $query->getResult();
-			$classificacaoMedalhas = 1;
-			$primeiro = true;
-			$pontosMedalhasAnterior = NULL;
-			foreach ($premiosUsuarios as $premiosUsuario){
-				if($premiosUsuario instanceof PremiosUsuario){
-					if($primeiro){
-						$premiosUsuario->setClassificacaoMedalhas($classificacaoMedalhas);
-						$pontosMedalhasAnterior = $premiosUsuario->getPontosMedalhas();
-						$primeiro = false;
-						$entityManager->merge($premiosUsuario);
-						$entityManager->flush();
-					}
-					else{
-						if($premiosUsuario->getPontosMedalhas() == $pontosMedalhasAnterior){
-							$premiosUsuario->setClassificacaoMedalhas($classificacaoMedalhas);
-							$entityManager->merge($premiosUsuario);
-							$entityManager->flush();
-						}
-						else{
-							$classificacaoMedalhas++;
-							$premiosUsuario->setClassificacaoMedalhas($classificacaoMedalhas);
-							$pontosMedalhasAnterior = $premiosUsuario->getPontosMedalhas();
-							$entityManager->merge($premiosUsuario);
-							$entityManager->flush();
-						}
-					}
+$premiosUsuarios = consultaDql($dql);
+
+foreach ($premiosUsuarios as $premiosUsuario){
+	if($premiosUsuario instanceof PremiosUsuario){
+		$armazenaPontos[$contador]=$premiosUsuario->getPontosMedalhas();
+		$armazenaPosicao[$contador]=$contador+1;
+		$contador++;
+			
+		}	
+	}
+
+for ($i=0 ; $i < $contador ; $i++){
+	$dql = "SELECT p FROM PremiosUsuario p WHERE
+						p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+						AND p.pontosMedalhas=".$armazenaPontos[$i] ;
+	$premiosUsuarios = consultaDql($dql);
+
+	foreach ($premiosUsuarios as $premiosUsuario){
+		if($premiosUsuario instanceof PremiosUsuario){
+			$premiosUsuario->setClassificacaoMedalhas($armazenaPosicao[$i]);
+			atualizaBancoDados($premiosUsuario);
+				
 				}
 			}
 		}
+	}
 				
 		function atualizaClassificacaoMedalhasGeral(){
-			global $entityManager;
-			$dql = "SELECT p FROM PontuacaoGeral p ORDER BY p.pontosMedalhasGeral DESC";
-			$query = $entityManager->createQuery($dql);
-			$pontuacoesGerais = $query->getResult();
-			$classificacaoMedalhasGeral = 1;
-			$primeiro = true;
-			$pontosMedalhasGeralAnterior = NULL;
+			
+$contador=0;
+$armazenaPontos[0]=null;
+$armazenaPosicao[0]=null;
+
+$dql = "SELECT p FROM PontuacaoGeral p GROUP BY p.pontosMedalhasGeral ORDER BY p.pontosMedalhasGeral DESC";
+$pontuacoesGerais = consultaDql($dql);
+
+foreach ($pontuacoesGerais as $pontuacaoGeral){
+	if($pontuacaoGeral instanceof PontuacaoGeral){
+		$armazenaPontos[$contador]=$pontuacaoGeral->getPontosMedalhasGeral();
+		$armazenaPosicao[$contador]=$contador+1;
+		$contador++;	
+			}
+		}
+		for ($i = 0 ;$i < $contador ; $i++){
+			$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosMedalhasGeral=".$armazenaPontos[$i];
+			$pontuacoesGerais = consultaDql($dql);
+
 			foreach ($pontuacoesGerais as $pontuacaoGeral){
 				if($pontuacaoGeral instanceof PontuacaoGeral){
-					if($primeiro){
-						$pontuacaoGeral->setClassificacaoMedalhasGeral($classificacaoMedalhasGeral);
-						$pontosMedalhasAnteriorGeral = $pontuacaoGeral->getPontosMedalhasGeral();
-						$primeiro = false;
-						$entityManager->merge($pontuacaoGeral);
-						$entityManager->flush();
-					}
-					else{
-						if($pontuacaoGeral->getPontosMedalhasGeral() == $pontosMedalhasAnteriorGeral){
-							$pontuacaoGeral->setClassificacaoMedalhasGeral($classificacaoMedalhasGeral);
-							$entityManager->merge($pontuacaoGeral);
-							$entityManager->flush();
-						}
-						else{
-							$classificacaoMedalhasGeral++;
-							$pontuacaoGeral->setClassificacaoMedalhasGeral($classificacaoMedalhasGeral);
-							$pontosMedalhasAnteriorGeral = $pontuacaoGeral->getPontosMedalhasGeral();
-							$entityManager->merge($pontuacaoGeral);
-							$entityManager->flush();
-						}
+					$pontuacaoGeral->setClassificacaoMedalhasGeral(	$armazenaPosicao[$i]);
+					atualizaBancoDados($pontuacaoGeral);
 					}
 				}
 			}
 		}
 			
 		function verificaFinalCampeonato($numRodada, $jogo){
-			global $entityManager;
 			if($numRodada == $jogo->getCampeonato()->getQuantidadeRodadas()){
 				
 				$campeonato = $jogo->getCampeonato()->getCodCampeonato();
 				
 				$dql = "SELECT j FROM Jogo j WHERE j.campeonato ='$campeonato'
 				AND j.golsTime1 >= 0";
-				$query = $entityManager->createQuery($dql);
-				$jogosPassados = $query->getResult();
+				$jogosPassados = consultaDql($dql);
 					
 				$qtdJogosPassados = sizeof($jogosPassados);
 					
 				$dql = "SELECT j FROM Jogo j WHERE j.campeonato ='$campeonato'";
-				$query = $entityManager->createQuery($dql);
-				$jogosTodos = $query->getResult();
+				$jogosTodos = consultaDql($dql);
 					
 				$qtdJogosCampeonato = sizeof($jogosTodos);
 					
-				$fimCampeonato = false;
 				if($qtdJogosPassados == $qtdJogosCampeonato){
-					$fimCampeonato = true;
-				}
-				
-				if($fimCampeonato){
 					$this->atualizaChuteirasCampeonato($jogo);
 					$this->atribuiTrofeuCampeonato($jogo);
 				}
@@ -279,12 +247,10 @@ require "bootstrap.php";
 		}
 				
 		function atualizaChuteirasCampeonato($jogo){
-			global $entityManager;
 			$dql = 'SELECT p FROM PremiosUsuario p WHERE
 					p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
 					AND p.classificacaoMedalhas >= 1 AND p.classificacaoMedalhas <= 3';
-			$query = $entityManager->createQuery($dql);
-			$premiosUsuarios = $query->getResult();
+			$premiosUsuarios = consultaDql($dql);
 			foreach ($premiosUsuarios as $premiosUsuario){
 				if($premiosUsuario instanceof PremiosUsuario){
 						
@@ -297,19 +263,24 @@ require "bootstrap.php";
 					elseif ($premiosUsuario->getClassificacaoMedalhas() == 3){
 						$premiosUsuario->ganhaChuteiraBronze();
 					}
-					$entityManager->merge($premiosUsuario);
-					$entityManager->flush();
-				}
+					atualizaBancoDados($premiosUsuario);
+					}
 			}
 		}
 			
 		function atribuiTrofeuCampeonato($jogo){
-			global $entityManager;
 			$dql = 'SELECT p FROM PremiosUsuario p WHERE
 					p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
-					AND p.chuteirasOuro = 1';
-			$query = $entityManager->createQuery($dql);
-			$premiosUsuarios = $query->getResult();
+					AND p.classificacaoCampeonato = 1 ORDER BY p.acertosPlacar DESC,
+					p.acertosTimeGanhador DESC, p.acertosPlacarInvertido DESC, p.pontosMedalhas DESC';
+			
+			//essa parte abaixo e se quiser listar tambem a quantidade de erros
+			//e so tirar a aspas simples e o ponto e virgula acima 
+			//no final de p.pontosMedalhas DESC e acrescentar essa parte abaixo
+			
+			//    , p.errosPlacar ASC';
+			
+			$premiosUsuarios = consultaDql($dql);
 			$primeiro = true;
 			$premiosUsuarioGanhador = NULL;
 			foreach ($premiosUsuarios as $premiosUsuario){
@@ -347,15 +318,12 @@ require "bootstrap.php";
 				}
 			}
 			$premiosUsuarioGanhador->ganhaTrofeu();
-			$entityManager->merge($premiosUsuarioGanhador);
-			$entityManager->flush();
+			atualizaBancoDados($premiosUsuarioGanhador);
 			$pontuacaoGeral = $premiosUsuarioGanhador->getUsuario()->getPontuacaoGeral();
 			$pontuacaoGeral->ganhaTrofeu();
-			$entityManager->merge($pontuacaoGeral);
-			$entityManager->flush();
+			atualizaBancoDados($pontuacaoGeral);
 			$campeonato = $jogo->getCampeonato();
 			$campeonato->finalizaStatus();
-			$entityManager->merge($campeonato);
-			$entityManager->flush();
-		}
+			atualizaBancoDados($campeonato);
+			}
 ?>

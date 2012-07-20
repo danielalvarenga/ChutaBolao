@@ -1,4 +1,17 @@
-<div id="colunaUnica">
+<div id="homeTimesFavoritos">
+<?php 
+		$dql = "SELECT t FROM Time t WHERE t.nomeTime <> 'Boca Juniors' ORDER BY t.nomeTime ASC";
+		$query = $entityManager->createQuery($dql);
+		$query->getMaxResults(20);
+		$times = $query->getResult();
+		foreach($times as $time) {
+			?>
+			<img class="timeFavorito" src="<?php echo $time->getEscudo();?>">
+			<?php 
+		}
+?>
+</div>
+<div id="colunaEsquerda">
 <?php
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
@@ -13,117 +26,58 @@ try{
 	$imgTrofeus = "imagens/trofeu.png";
 	
 	$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $user_id);
+	
 ?>	
-	<center>
-	<table id="tabelaHome" cellspacing="5" cellpadding="5">
-		<tr>
-			<td>
-				<table class="tabelaInterna" cellspacing="0" cellpadding="0">
-				<tr align="center" bottom="middle" style ="border-style: solid; border-width: 1">
-					<td colspan=11>
-						<h3 class="titulo">Conquistas Totais</h3>
-					</td>
-				</tr>
-				<tr>
-					<td height="5px">
-					</td>
-				</tr>
-				<tr align="center" bottom="middle">
-					<td>
-					</td>
-					<td>
-						<img src="<?php echo $imgAcertoPlacar;?>" />  
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-						<img src="<?php echo $imgMedalhaOuro;?>" />  
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-						<img src="<?php  echo $imgPontos;?>" />
-					</td>
-					<td>
-					</td>
-					<td>
-						<img src="<?php  echo $imgTrofeus;?>" />
-					</td>
-				</tr>
-				<tr align="center" bottom="middle">
-					<td>
-						<img src="<?php echo $imgAcertoTimeGanhador;?>" />   
-					</td>
-					<td class="topoPodium" bgcolor="#3B5998" rowspan="2">
-						<span class="descricaoPodium">ACERTOS<br/><br/></span>
-							<?php echo $pontuacaoGeral->getAcertosPlacarGeral();?>
-							<span class="descricaoPodium"><br/>Placar Completo</span>
-						</span>
-					</td>
-					<td>
-						<img src="<?php echo $imgAcertoPlacarInvertido;?>" />   
-					</td>
-					<td>
-					</td>
-					<td>
-						<img src="<?php echo $imgMedalhaPrata;?>" /> 
-					</td>
-					<td class="topoPodium" bgcolor="#FFA500" rowspan="2">
-						<span class="descricaoPodium">MEDALHAS<br/><br/></span>
-						<?php echo $pontuacaoGeral->getMedalhasOuroGeral();?>
-						<span class="descricaoPodium"><br/>Ouro</span>
-					</td>
-					<td>
-						<img src="<?php echo $imgMedalhaBronze;?>" /> 
-					</td>
-					<td>
-					</td>
-					<td class="topoPodium" bgcolor="#56a102" rowspan="2">
-						<span class="descricaoPodium">PONTOS<br/><br/></span>
-						<?php echo $pontuacaoGeral->getPontosGeral();?>
-					</td>
-					<td width=15px rowspan="2">
-					</td>
-					<td class="topoPodium" bgcolor="#dc143c" rowspan="2">
-						<span class="descricaoPodium">TROFÉUS<br/><br/></span>
-						<?php echo $pontuacaoGeral->getTrofeus();?>
-					</td>
-				</tr>
-				<tr align="center" bottom="middle">
-					<td class="podiumEsquerdo" bgcolor="#3B5998">
-						<?php echo $pontuacaoGeral->getAcertosTimeGanhadorGeral();?>
-						<br/><span class="descricaoPodium">Time Ganhador</span>
-					</td>
-					<td class="podiumDireito" bgcolor="#3B5998">
-						<?php echo $pontuacaoGeral->getAcertosPLacarInvertidoGeral();?>
-						<br/><span class="descricaoPodium">Placar Invertido</span>
-					</td>
-					<td width=15px>
-					</td>
-					<td class="podiumEsquerdo" bgcolor="#FFA500">
-						<?php echo $pontuacaoGeral->getMedalhasPrataGeral();?>
-						<br/><span class="descricaoPodium">Prata</span>
-					</td>
-					<td class="podiumDireito" bgcolor="#FFA500">
-						<?php echo $pontuacaoGeral->getMedalhasBronzeGeral();?>
-						<br/><span class="descricaoPodium">Bronze</span>
-					</td>
-					<td width=15px>
-					</td>
-				</tr>
-				<tr>
-					<td id="prateleira" colspan=11>
-					</td>
-				</tr>
-				</table>
- 			</td>
- 		</tr>
+	<div class="titulo">Suas Conquistas</div>
+	<div id="mural">
+		<div class="tituloMural">
+			Conquistas até Hoje
+		</div>
+		
+		<div class="divisoriaMural"></div>
+		
+		<div class="muralTrofeus">
+			<img class="muralImg" src="<?php echo $imgTrofeus;?>">
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getTrofeus();?> troféus conquistados</span>
+		</div>
+		
+		<div class="divisoriaMural"></div>
+		
+		<div class="muralPontos">
+			<img class="muralImg" src="<?php echo $imgPontos;?>">
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getPontosGeral();?> pontos conquistados</span>
+		</div>
+		
+		<div class="divisoriaMural"></div>
+		
+		<div class="muralAcertos">
+			<img class="muralImg" src="<?php echo $imgAcertoPlacar;?>">
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getAcertosPlacarGeral();?> placares corretos</span>
+		</div>
+		<div class="muralAcertos">
+			<img class="muralImg" src="<?php echo $imgAcertoTimeGanhador;?>">
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getAcertosTimeGanhadorGeral();?> acertos de ganhador</span>
+		</div>
+		<div class="muralAcertos">
+			<img class="muralImg" src="<?php echo $imgAcertoPlacarInvertido;?>">
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getAcertosPLacarInvertidoGeral();?> placares invertidos</span>
+		</div>
+		
+		<div class="divisoriaMural"></div>
+		
+		<div class="muralMedalhas">
+			<img class="muralImg" src="<?php echo $imgMedalhaOuro;?>">
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getMedalhasOuroGeral();?> medalhas de ouro</span>
+		</div>
+		<div class="muralMedalhas">
+			<img class="muralImg" src="<?php echo $imgMedalhaPrata;?>">
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getMedalhasPrataGeral();?> medalhas de prata</span>
+		</div>
+		<div class="muralMedalhas">
+			<img class="muralImg" src="<?php echo $imgMedalhaBronze;?>">
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getMedalhasBronzeGeral();?> medalhas de bronze</span>
+		</div>
+	</div>
 	<?php 
 	
 	$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario = $user_id";
@@ -134,118 +88,169 @@ try{
 			$statusCampeonato = $premiacoes->getCampeonato()->getStatus();
 			if($statusCampeonato == "ativo"){
 	?>
-					<tr>
-						<td>
-							<table width="100%" cellspacing="0" cellpadding="0">
-							<tr>
-								<td height="10px">
-								</td>
-							</tr>
-							<tr align="center" bottom="middle" style ="border-style: solid; border-width: 1">
-								<td colspan=11>
-									<h3 class="titulo"> Conquistas no <?php echo $premiacoes->getCampeonato()->getNomeCampeonato();?></h3>
-								</td>
-							</tr>
-							<tr>
-								<td height="5px">
-								</td>
-							</tr>
-							<tr align="center" bottom="middle">
-								<td>
-								</td>
-								<td>
-									<img src="<?php echo $imgAcertoPlacar;?>" />  
-								</td>
-								<td>
-								</td>
-								<td>
-								</td>
-								<td>
-								</td>
-								<td>
-									<img src="<?php echo $imgMedalhaOuro;?>" />  
-								</td>
-								<td>
-								</td>
-								<td>
-								</td>
-								<td>
-									<img src="<?php  echo $imgPontos;?>" />
-								</td>
-							</tr>
-							<tr align="center" bottom="middle">
-								<td>
-									<img src="<?php echo $imgAcertoTimeGanhador;?>" />   
-								</td>
-								<td class="topoPodium" bgcolor="#3B5998" rowspan="2">
-									<span class="descricaoPodium">ACERTOS<br/><br/></span>
-										<?php echo $premiacoes->getAcertosPlacar();?>
-										<span class="descricaoPodium"><br/>Placar Completo</span>
-									</span>
-								</td>
-								<td>
-									<img src="<?php echo $imgAcertoPlacarInvertido;?>" />   
-								</td>
-								<td>
-								</td>
-								<td>
-									<img src="<?php echo $imgMedalhaPrata;?>" /> 
-								</td>
-								<td class="topoPodium" bgcolor="#FFA500" rowspan="2">
-									<span class="descricaoPodium">MEDALHAS<br/><br/></span>
-									<?php echo $premiacoes->getMedalhasOuro();?>
-									<span class="descricaoPodium"><br/>Ouro</span>
-								</td>
-								<td>
-									<img src="<?php echo $imgMedalhaBronze;?>" /> 
-								</td>
-								<td>
-								</td>
-								<td class="topoPodium" bgcolor="#56a102" rowspan="2">
-									<span class="descricaoPodium">PONTOS<br/><br/></span>
-									<?php echo $premiacoes->getPontosCampeonato();?>
-								</td>
-							</tr>
-							<tr align="center" bottom="middle">
-								<td class="podiumEsquerdo" bgcolor="#3B5998">
-									<?php echo $premiacoes->getAcertosTimeGanhador();?>
-									<br/><span class="descricaoPodium">Time Ganhador</span>
-								</td>
-								<td class="podiumDireito" bgcolor="#3B5998">
-									<?php echo $premiacoes->getAcertosPlacarInvertido();?>
-									<br/><span class="descricaoPodium">Placar Invertido</span>
-								</td>
-								<td width=15px>
-								</td>
-								<td class="podiumEsquerdo" bgcolor="#FFA500">
-									<?php echo $premiacoes->getMedalhasPrata();?>
-									<br/><span class="descricaoPodium">Prata</span>
-								</td>
-								<td class="podiumDireito" bgcolor="#FFA500">
-									<?php echo $premiacoes->getMedalhasBronze();?>
-									<br/><span class="descricaoPodium">Bronze</span>
-								</td>
-								<td width=15px>
-								</td>
-							</tr>
-							<tr>
-								<td id="prateleira" colspan=11>
-								</td>
-							</tr>
-							</table>
-			 			</td>
-			 		</tr>
+				<div id="mural">
+					<img class="muralLogoCampeonato" src="<?php echo $premiacoes->getCampeonato()->getUrlLogo();?>">
+				
+					<div class="tituloMural">
+						<?php echo $premiacoes->getCampeonato()->getNomeCampeonato();?>
+					</div>
+					
+					<div class="divisoriaMural"></div>
+					
+					<div class="muralPontos">
+						<img class="muralImg" src="<?php echo $imgPontos;?>">
+						<span class="muralQtd"><?php echo $premiacoes->getPontosCampeonato();?> pontos conquistados</span>
+					</div>
+					
+					<div class="divisoriaMural"></div>
+					
+					<div class="muralAcertos">
+						<img class="muralImg" src="<?php echo $imgAcertoPlacar;?>">
+						<span class="muralQtd"><?php echo $premiacoes->getAcertosPlacar();?> placares corretos</span>
+					</div>
+					<div class="muralAcertos">
+						<img class="muralImg" src="<?php echo $imgAcertoTimeGanhador;?>">
+						<span class="muralQtd"><?php echo $premiacoes->getAcertosTimeGanhador();?> acertos de ganhador</span>
+					</div>
+					<div class="muralAcertos">
+						<img class="muralImg" src="<?php echo $imgAcertoPlacarInvertido;?>">
+						<span class="muralQtd"><?php echo $premiacoes->getAcertosPlacarInvertido();?> placares invertidos</span>
+					</div>
+					
+					<div class="divisoriaMural"></div>
+					
+					<div class="muralMedalhas">
+						<img class="muralImg" src="<?php echo $imgMedalhaOuro;?>">
+						<span class="muralQtd"><?php echo $premiacoes->getMedalhasOuro();?> medalhas de ouro</span>
+					</div>
+					<div class="muralMedalhas">
+						<img class="muralImg" src="<?php echo $imgMedalhaPrata;?>">
+						<span class="muralQtd"><?php echo $premiacoes->getMedalhasPrata();?> medalhas de prata</span>
+					</div>
+					<div class="muralMedalhas">
+						<img class="muralImg" src="<?php echo $imgMedalhaBronze;?>">
+						<span class="muralQtd"><?php echo $premiacoes->getMedalhasBronze();?> medalhas de bronze</span>
+					</div>
+				</div>
 			      
 	<?php
 			}
 		}
 	}
-	echo '</table></center>';
 	$conn->commit();
 } catch(Exception $e) {
 	$conn->rollback();
-	echo $e->getMessage() . "<br/><font color=red>NÃ£o foi possÃ­vel gravar os dados. Verifique o Banco de Dados.</font><br/>";
+	?>
+	<p class="aviso">Estamos atualizando. Volte amanhã para conferir a novidade.</p>
+	<?php 
 }
 $conn->close();
 ?>
+</div>
+<div id="colunaDireita">
+<div id="menuCampeonatos">
+		<h3 class="titulo">Dê seus Chutes</h3>
+		<?php
+		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
+		$query = $entityManager->createQuery($dql);
+		$campeonatos = $query->getResult();
+		foreach($campeonatos as $campeonato) {
+			if($campeonato instanceof $campeonato){
+				$classe = 'campeonatoInativo';
+				if(isset($_POST['campeonatoMenu'])){
+					if($_POST['campeonatoMenu'] == $campeonato->getCodCampeonato()){
+						$classe = 'campeonatoAtivo';
+					}
+				}
+				?>
+				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="index.php?conteudo=chutes" method="POST">
+					<button class="<?php echo $classe;?>" type="submit" name="campeonatoMenu" value="<?php echo $campeonato->getCodCampeonato();?>">
+						<span class="nomeCampeonato">
+							Dê seu Chute
+						</span>
+						<img class="logoCampeonato" src="<?php echo $campeonato->getUrlLogo();?>">
+						<span class="nomeCampeonato">
+							<?php echo $campeonato->getNomeCampeonato();?>
+						</span>
+					</button>
+				</form>
+				<?php
+			}
+		}
+		
+?>
+</div>
+<div id="boxTopTorcidas">
+<h2 class="titulo">TOP 10 Torcidas</h2>
+<a target="_blank" href="https://www.facebook.com/corinthians">
+	<img class="timeFanpage" src="https://graph.facebook.com/corinthians/picture">
+</a>
+<div class="curtirTopTorcidas">
+	<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fcorinthians&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/FlamengoOficial">
+	<img class="timeFanpage" src="https://graph.facebook.com/FlamengoOficial/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FFlamengoOficial&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/saopaulofc">
+	<img class="timeFanpage" src="https://graph.facebook.com/saopaulofc/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fsaopaulofc&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/sePalmeiras">
+	<img class="timeFanpage" src="https://graph.facebook.com/sePalmeiras/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FsePalmeiras&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/santosfc">
+	<img class="timeFanpage" src="https://graph.facebook.com/santosfc/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fsantosfc&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/oficialvasco">
+	<img class="timeFanpage" src="https://graph.facebook.com/oficialvasco/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Foficialvasco&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/cruzeirooficial">
+	<img class="timeFanpage" src="https://graph.facebook.com/cruzeirooficial/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fcruzeirooficial&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/Gremio.Futebol.Portoalegrense">
+	<img class="timeFanpage" src="https://graph.facebook.com/Gremio.Futebol.Portoalegrense/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FGremio.Futebol.Portoalegrense&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/FluminenseFC">
+	<img class="timeFanpage" src="https://graph.facebook.com/FluminenseFC/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FFluminenseFC&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+<a target="_blank" href="https://www.facebook.com/BotafogoOficial">
+	<img class="timeFanpage" src="https://graph.facebook.com/BotafogoOficial/picture">
+</a>
+<div class="curtirTopTorcidas">
+<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FBotafogoOficial&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="divisoriaTopTorcidas"></div>
+</div>
 </div>

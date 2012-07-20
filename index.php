@@ -164,15 +164,19 @@ switch ($conteudo){
 			
 			<div id="banner">
 				<p>
-				<img src="imagens/banners/sertao-games.png">
+				<a target="_blank" href="https://www.facebook.com/sertaogames">
+					<img src="imagens/banners/sertao-games.png">
+				</a>
 				</p>
 				<div id="curtir">
-				<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fsertaogames&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+					<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fsertaogames&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
 				</div>
 			</div>
 			<div id="banner">
 				<p>
-				<img src="imagens/banners/os-mosqueteiros.png">
+				<a target="_blank" href="https://www.facebook.com/osmosqueteiros">
+					<img src="imagens/banners/os-mosqueteiros.png">
+				</a>
 				</p>
 				<div id="curtir">
 				<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FOsMosqueteiros&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
@@ -180,7 +184,9 @@ switch ($conteudo){
 			</div>
 			<div id="banner">
 				<p>
-				<img src="imagens/banners/quero-carona.png">
+				<a target="_blank" href="https://www.facebook.com/querocarona">
+					<img src="imagens/banners/quero-carona.png">
+				</a>
 				</p>
 				<div id="curtir">
 				<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fquerocarona&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
@@ -188,7 +194,9 @@ switch ($conteudo){
 			</div>
 			<div id="banner">
 				<p>
-				<img src="imagens/banners/chuta-bolao.png">
+				<a target="_blank" href="https://www.facebook.com/chutabolao">
+					<img src="imagens/banners/chuta-bolao.png">
+				</a>
 				</p>
 				<div id="curtir">
 				<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FChutaBolao&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=104984016274497" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
@@ -204,7 +212,7 @@ switch ($conteudo){
 						<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Início</strong></a></li>
 						<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
 						<!--  <li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
-						<!--  <li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>&nbsp;&nbsp;Convites</strong></a></li>  -->
+						<!--  <li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Convites</strong></a></li>  -->
 						<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
 						<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
 						<li id="li_tsmenu7"><a href="index.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>
