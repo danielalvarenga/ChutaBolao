@@ -125,6 +125,7 @@ require 'metodos-bd.php';
 		}
 			
 		function atribuiMedalhasRodada($numRodada, $jogo){
+		global $entityManager;
 			
 			$dql = 'SELECT p FROM PontuacaoRodada p WHERE p.rodada = '.$numRodada.'
 					AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
