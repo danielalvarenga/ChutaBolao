@@ -31,14 +31,14 @@ try{
 	<div class="titulo">Suas Conquistas</div>
 	<div id="mural">
 		<div class="tituloMural">
-			Conquistas até Hoje
+			Conquistas atï¿½ Hoje
 		</div>
 		
 		<div class="divisoriaMural"></div>
 		
 		<div class="muralTrofeus">
 			<img class="muralImg" src="<?php echo $imgTrofeus;?>">
-			<span class="muralQtd"><?php echo $pontuacaoGeral->getTrofeus();?> troféus conquistados</span>
+			<span class="muralQtd"><?php echo $pontuacaoGeral->getTrofeus();?> trofï¿½us conquistados</span>
 		</div>
 		
 		<div class="divisoriaMural"></div>
@@ -78,6 +78,25 @@ try{
 			<span class="muralQtd"><?php echo $pontuacaoGeral->getMedalhasBronzeGeral();?> medalhas de bronze</span>
 		</div>
 	</div>
+	<script>
+	FB.init({
+        appId: '<?php// echo $facebook->getAppID() ?>', 
+         cookie: true, 
+         xfbml: true,
+         oauth: true
+       });
+	function sendInvite() {
+	  // Use the Facebook JS SDK to open a Request MFS Dialog
+	  FB.ui({method: 'apprequests',
+	    title: 'Jogue ChutaBolÃ£o comigo!',
+	    message: 'Veja se vocÃª Ã© bom de chute e venha pro ChutaBolÃ£o!',
+	  }, fbCallback);
+	}
+    function fbCallback(response) {
+	  console.log(response);
+	}
+	</script>
+	<input type="button" value="CONVIDE SEUS AMIGOS" onclick="sendInvite();"/>
 	<?php 
 	
 	$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario = $user_id";
@@ -140,7 +159,7 @@ try{
 } catch(Exception $e) {
 	$conn->rollback();
 	?>
-	<p class="aviso">Estamos atualizando. Volte amanhã para conferir a novidade.</p>
+	<p class="aviso">Estamos atualizando. Volte amanhï¿½ para conferir a novidade.</p>
 	<?php 
 }
 $conn->close();
@@ -148,7 +167,7 @@ $conn->close();
 </div>
 <div id="colunaDireita">
 <div id="menuCampeonatos">
-		<h3 class="titulo">Dê seus Chutes</h3>
+		<h3 class="titulo">Dï¿½ seus Chutes</h3>
 		<?php
 		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
 		$campeonatos = consultaDql($dql);
@@ -164,7 +183,7 @@ $conn->close();
 				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="index.php?conteudo=chutes" method="POST">
 					<button class="<?php echo $classe;?>" type="submit" name="campeonatoMenu" value="<?php echo $campeonato->getCodCampeonato();?>">
 						<span class="nomeCampeonato">
-							Dê seu Chute
+							Dï¿½ seu Chute
 						</span>
 						<img class="logoCampeonato" src="<?php echo $campeonato->getUrlLogo();?>">
 						<span class="nomeCampeonato">
