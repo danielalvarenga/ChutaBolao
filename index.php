@@ -102,7 +102,7 @@ if(isset($_REQUEST['request_ids'])) {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <?php echo '<meta http-equiv="Content-Type" content="text/html; charset='.$charset.'" />'; ?>
-<title>Chuta Bolï¿½o</title>
+<title>Chuta Bolão</title>
 <link href="estilos/folha.css" rel="stylesheet" type="text/css" />
 
 <!---------------------------Google Analytics---------------------------->
@@ -219,10 +219,10 @@ switch ($conteudo){
 		<div id="boxMenu">
 				<div id="ts_tabmenu">
 		        <ul>
-						<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Inï¿½cio</strong></a></li>
+						<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Conquistas</strong></a></li>
 						<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
 						<!--  <li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificaï¿½ï¿½o"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
-						<!--  <li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Convites</strong></a></li>  -->
+						<li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Convites</strong></a></li>
 						<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
 						<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
 						<li id="li_tsmenu7"><a href="index.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>
@@ -237,7 +237,7 @@ switch ($conteudo){
 		</div>
 		
 		<div id="rodape">
-				Copyright ï¿½  2012
+				Copyright © 2012
 			</div>
 		</div>
 	

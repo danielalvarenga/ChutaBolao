@@ -151,7 +151,7 @@ a {
 	background-color: #ffffcc;
 	cursor:pointer;
 	
-	border:solid 0px #000000;
+	border:solid 1px #ff3300;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
