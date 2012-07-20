@@ -13,7 +13,7 @@
 		$query = $entityManager->createQuery($dql);
 		$campeonatos = $query->getResult();
 		foreach($campeonatos as $campeonato) {
-			if($campeonato instanceof $campeonato){
+			if($campeonato instanceof Campeonato){
 				$classe = 'campeonatoInativo';
 				if(isset($_POST['campeonatoMenu'])){
 					if($_POST['campeonatoMenu'] == $campeonato->getCodCampeonato()){
