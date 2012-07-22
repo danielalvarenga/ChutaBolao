@@ -13,7 +13,8 @@ $golsTime1 = 89;
 $golsTime2 = 88;
 
 //Para testar finalização do Campeonato
-//Ver rodada do jogo.
+$finalizaRodada = false;
+$finalizaCampeonato = false;
 
 $enter = "<br/>";
 
@@ -51,7 +52,7 @@ try{
 	try{
 		$nome = "Campeonato de Teste";
 		$ano = "2012";
-		$quant = "38";
+		$quant = "2";
 		$caminho_imagem = "imagens/teste/campeonato-teste.png";
 		
 		$campeonato = new Campeonato($nome, $ano, $quant, $caminho_imagem);
@@ -79,12 +80,17 @@ try{
 		$conn->rollback();
 		echo $e->getMessage() . "<br/><font color=red>Erro na gravação das rodadas.</font><br/>";
 	}
-	$rodada = $rodada2;
 	
 	// CADASTRA JOGO DE TESTE -------------------------------------------------------------------------------
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
+		
+		$rodada = $rodada1;
+		if($finalizaCampeonato){
+			$rodada = $rodada2;
+		}
+		
 		$codTime1 = $time1->getCodTime();
 		$codTime2 = $time2->getCodTime();
 		$urlEscudosJogo = 'imagens/teste/jogo-teste.png';
@@ -307,6 +313,15 @@ try{
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
+		if($finalizaRodada){
+			$jogo2->setResultado(2, 1);
+			atualizaBancoDados($jogo2);
+		}
+		if($finalizaCampeonato){
+			$jogo2->setResultado(2, 1);
+			atualizaBancoDados($jogo2);
+		}
+		
 		$jogo->setResultado($golsTime1, $golsTime2);
 		atualizaBancoDados($jogo);
 			
