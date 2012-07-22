@@ -15,7 +15,7 @@ if (isset($_POST['jogo'])) {
 	$time2 = $entityManager->find("Time", $codTime2);
 	
 	
-	if(isset($_POST['golsTime1'])){
+	if(isset($_POST['golsTime1']) && isset($_POST['golsTime2'])){
 		
 		$conn = $entityManager->getConnection();
 		$conn->beginTransaction();
