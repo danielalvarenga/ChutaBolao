@@ -8,7 +8,7 @@ Class Rodada{
 	private $numRodada;
 	
 	/**
-	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rodadas")
+	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rodadas", cascade={"persist"})
 	 */
 	private $campeonato;
 	

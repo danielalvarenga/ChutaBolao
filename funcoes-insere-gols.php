@@ -240,8 +240,8 @@ foreach ($pontuacoesGerais as $pontuacaoGeral){
 				$qtdJogosCampeonato = sizeof($jogosTodos);
 					
 				if($qtdJogosPassados == $qtdJogosCampeonato){
-					$this->atualizaChuteirasCampeonato($jogo);
-					$this->atribuiTrofeuCampeonato($jogo);
+					atualizaChuteirasCampeonato($jogo);
+					atribuiTrofeuCampeonato($jogo);
 				}
 			}
 		}
@@ -319,7 +319,9 @@ foreach ($pontuacoesGerais as $pontuacaoGeral){
 			}
 			$premiosUsuarioGanhador->ganhaTrofeu();
 			atualizaBancoDados($premiosUsuarioGanhador);
-			$pontuacaoGeral = $premiosUsuarioGanhador->getUsuario()->getPontuacaoGeral();
+			$idUsuario = $premiosUsuarioGanhador->getUsuario()->getIdUsuario();
+			global $entityManager;
+			$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $idUsuario);
 			$pontuacaoGeral->ganhaTrofeu();
 			atualizaBancoDados($pontuacaoGeral);
 			$campeonato = $jogo->getCampeonato();
