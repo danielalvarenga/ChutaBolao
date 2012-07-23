@@ -14,7 +14,7 @@ $golsTime2 = 88;
 
 //Para testar finalização do Campeonato
 $finalizaRodada = false;
-$finalizaCampeonato = false;
+$finalizaCampeonato = true;
 
 $enter = "<br/>";
 
