@@ -4,6 +4,7 @@ $charsetArray[2] = 'ISO-8859-1';
 $charset = $charsetArray[2];
 header('Content-type: text/html; charset='.$charset);
 require "bootstrap.php";
+require 'metodos-bd.php';
 require_once 'FacebookApi/facebook.php';
 
 $app_id = '233715530059546';
@@ -42,12 +43,10 @@ if ($user_id) {
 				$emailUsuario = $user_profile['email'];
 				$tokenUsuario = $facebook->getAccessToken();
 				$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-				$entityManager->persist($usuario);
-				$entityManager->flush();
+				salvaBancoDados($usuario);
 				$pontuacaoGeral = new PontuacaoGeral($usuario);
-				$entityManager->persist($pontuacaoGeral);
-				$entityManager->flush();
-			
+				salvaBancoDados($pontuacaoGeral);
+				
 			$conn->commit();
 			} catch(Exception $e) {
 				$conn->rollback();

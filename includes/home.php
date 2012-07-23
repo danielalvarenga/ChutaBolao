@@ -1,6 +1,5 @@
 <div id="homeTimesFavoritos">
 <?php 
-require 'metodos-bd.php';
 
 		$dql = "SELECT t FROM Time t WHERE t.nomeTime <> 'Boca Juniors' ORDER BY t.nomeTime ASC";
 		$times = consultaDqlMaxResult(20, $dql);

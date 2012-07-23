@@ -1,6 +1,5 @@
 <?php
 require ("bootstrap.php");
-require 'metodos-bd.php';
 
 function opcaoUsuario(){
 	for($indiceEscolhaUsuario = 0 ; $indiceEscolhaUsuario < 100 ; $indiceEscolhaUsuario++ ){

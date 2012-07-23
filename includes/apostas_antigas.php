@@ -1,6 +1,5 @@
  <?php
 require ("bootstrap.php");
-require 'metodos-bd.php';
 
 if(!isset($_POST['campeonatoMenu'])){
 	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
