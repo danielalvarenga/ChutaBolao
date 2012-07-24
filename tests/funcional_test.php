@@ -13,8 +13,8 @@ $golsTime1 = 89;
 $golsTime2 = 88;
 
 //Para testar finalização do Campeonato
-$finalizaRodada = true;
-$finalizaCampeonato = true;
+$finalizaRodada = false;
+$finalizaCampeonato = false;
 
 $enter = "<br/>";
 
@@ -466,7 +466,7 @@ try{
 		
 		//REMOVE TODOS OS OBJETOS
 		
-		$entityManager->remove($usuario1);
+/*		$entityManager->remove($usuario1);
 		$entityManager->remove($usuario2);
 		$entityManager->remove($usuario3);
 		$entityManager->remove($usuario4);
@@ -474,7 +474,7 @@ try{
 		$entityManager->remove($time1);
 		$entityManager->remove($time2);
 		$entityManager->flush();
-		
+*/		
 		$conn->commit();
 	} catch(Exception $e) {
 		$conn->rollback();
