@@ -104,7 +104,7 @@ try{
 		salvaBancoDados($jogo);
 		
 		$jogo2 = new Jogo($data,$rodada,$codTime2,$codTime1, $campeonato, $urlEscudosJogo);
-		salvaBancoDados($jogo);
+		salvaBancoDados($jogo2);
 	
 		$conn->commit();
 	} catch(Exception $e) {
@@ -374,6 +374,7 @@ try{
 		verificaFinalCampeonato($numRodada, $jogo);
 		
 		//EXIBE INFORMAÇÔES PARA ANÁLISE DE ERROS
+		echo 'Rodada '.$rodada->getNumRodada().' '.$rodada->getStatus().$enter;
 		echo $campeonato->getNomeCampeonato().' '.$campeonato->getStatus().$enter.$enter;
 		
 		echo $enter.$usuario1->getPrimeiroNomeUsuario().$enter.$enter;

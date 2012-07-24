@@ -184,7 +184,7 @@ if(isset($_POST[0])){
 				$link = 'http://apps.facebook.com/chutabolao';
 				$caption = 'Mostre que você sabe mais!';
 				$description = "Jogo em ".$jogo->getDataLogica().". Faça seu chute até ".$jogo->getDataLogicaFimApostas();
-				/*
+				
 				 $ret_obj = $facebook->api('/me/feed', 'POST',	array(
 				 		'link' => $link,
 				 		'message' => $message,
@@ -193,7 +193,7 @@ if(isset($_POST[0])){
 				 		'caption' => $caption,
 				 		'description' => $description
 				 ));
-				*/
+				
 			}
 		}
 		$conn->commit();

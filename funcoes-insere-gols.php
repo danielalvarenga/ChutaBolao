@@ -109,14 +109,14 @@ require 'metodos-bd.php';
 			$jogosPassados =consultaDql($dql);
 			
 			$qtdJogosPassados = sizeof($jogosPassados);
-			
+
 			$dql = "SELECT j FROM Jogo j WHERE j.rodada = '$numRodada'
 			AND j.campeonato ='$campeonato'";
 			$jogosTodos = consultaDql($dql);
 			
 			$qtdJogosRodada = sizeof($jogosTodos);
-			
 			if($qtdJogosPassados == $qtdJogosRodada){
+				$jogo->getRodada()->finalizaStatus();
 				atribuiMedalhasRodada($numRodada, $jogo);
 				atualizaClassificacaoMedalhasCampeonato($jogo);
 				atualizaClassificacaoMedalhasCampeonato($jogo);

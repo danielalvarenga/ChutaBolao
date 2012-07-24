@@ -58,11 +58,11 @@ class Jogo {
 		$dataAtual= $this->calculaDataAtual();
 		
 		if ($codTime1===$codTime2){
-			throw new Exception("ERRO CODIGO DOS DOIS TIMES SAO IGUAIS");
+			echo "ERRO CODIGO DOS DOIS TIMES SAO IGUAIS";
 		}
-		//elseif (($dataJogo <= $dataAtual)){
-		//throw new Exception("ERRO DATA DO JOGO MENOR QUE DATA ATUAL");
-		//}
+		elseif (($dataJogo <= $dataAtual)){
+			echo "ERRO DATA DO JOGO MENOR QUE DATA ATUAL";
+		}
 		else{
 
 			$this->dataJogo=$dataJogo;

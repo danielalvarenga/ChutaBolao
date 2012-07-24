@@ -54,7 +54,7 @@ if ($user_id) {
 				echo $e->getMessage() . "<br/><font color=red>Não gravado usuário no Banco de Dados.</font><br/>";
 			}
 			$conn->close();
-			/*
+			
 			$message = 'Agora vou mostrar quem entende de futebol! =D';
 			$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/chuta-bolao-logo.png';
 			$link = 'http://apps.facebook.com/chutabolao';
@@ -69,7 +69,7 @@ if ($user_id) {
 					'caption' => $caption,
 					'description' => $description
 			));
-			*/
+			
 		}
 		
 	} catch (FacebookApiException $e) {

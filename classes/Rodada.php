@@ -7,6 +7,9 @@ Class Rodada{
 	/** @Id @Column(type="integer", name="id") */
 	private $numRodada;
 	
+	/** @Column(type="string")*/
+	private $status;
+	
 	/**
 	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rodadas", cascade={"persist"})
 	 */
@@ -25,6 +28,7 @@ Class Rodada{
 	protected $pontuacaoRodadas;
 	
 	function __construct($numRodada, $campeonato){
+		$this->status = "ativa";
 		$this->setNumRodada($numRodada);
 		$this->setCampeonato($campeonato);
 		$this->jogosRodada = new ArrayCollection();
@@ -37,6 +41,18 @@ Class Rodada{
 	
 	function setNumRodada($numero){
 		$this->numRodada = $numero;
+	}
+	
+	function finalizaStatus(){
+		$this->status = "finalizada";
+	}
+	
+	function ativaStatus(){
+		$this->status = "ativa";
+	}
+	
+	function getStatus(){
+		return $this->status;
 	}
 	
 	function getCampeonato(){
