@@ -1,21 +1,16 @@
 <?php
 require "bootstrap.php";
 
-
 if(!isset($_POST['campeonatoMenu'])){
 	$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $user_id);
 	
 	$dql = 'SELECT p FROM PontuacaoGeral p WHERE p.classificacaoGeral > 0
 			ORDER BY p.classificacaoGeral ASC';
-	$query = $entityManager->createQuery($dql);
-	$query->setMaxResults(100);
-	$rankingPontos = $query->getResult();
+	$rankingPontos = consultaDqlMaxResult(100, $dql);
 	
 	$dql = 'SELECT p FROM PontuacaoGeral p WHERE p.classificacaoMedalhasGeral > 0
 			ORDER BY p.classificacaoMedalhasGeral ASC';
-	$query = $entityManager->createQuery($dql);
-	$query->setMaxResults(100);
-	$rankingMedalhas = $query->getResult();
+	$rankingMedalhas = consultaDqlMaxResult(100, $dql);
 	
 	if($pontuacaoGeral instanceof PontuacaoGeral){
 		$posicaoPontos = $pontuacaoGeral->getClassificacaoGeral();
@@ -32,16 +27,12 @@ else{
 	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonatoMenu'].'
 			AND p.classificacaoCampeonato > 0
 			ORDER BY p.classificacaoCampeonato ASC';
-	$query = $entityManager->createQuery($dql);
-	$query->setMaxResults(100);
-	$rankingPontos = $query->getResult();
+	$rankingPontos = consultaDqlMaxResult(100, $dql);
 	
 	$dql = 'SELECT p FROM PremiosUsuario p WHERE p.campeonato = '.$_POST['campeonatoMenu'].'
 			AND p.classificacaoMedalhas > 0
 			ORDER BY p.classificacaoMedalhas ASC';
-	$query = $entityManager->createQuery($dql);
-	$query->setMaxResults(100);
-	$rankingMedalhas = $query->getResult();
+	$rankingMedalhas =consultaDqlMaxResult(100, $dql);
 	
 	if($premiacoes instanceof PremiosUsuario){
 		$posicaoPontos = $premiacoes->getClassificacaoCampeonato();

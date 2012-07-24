@@ -1,6 +1,5 @@
 <?php
 require "bootstrap.php";
-require 'metodos-bd.php';
 
 
 if(!isset($_POST['campeonatoMenu'])){

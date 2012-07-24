@@ -27,8 +27,7 @@ if (isset($_POST['jogo'])) {
 			$golsTime2 = $_POST['golsTime2'];
 			$jogo->setResultado($golsTime1, $golsTime2);
 			
-			$entityManager->merge($jogo);
-			$entityManager->flush();
+			atualizaBancoDados($jogo);
 			
 			$jogo = $entityManager->find("Jogo", $_POST['jogo']);
 			
@@ -43,8 +42,7 @@ if (isset($_POST['jogo'])) {
 			$golsContra1 = $golsTime2;
 			$rendimentoTime1->calculaRendimentoTime($golsPro1, $golsContra1);
 			
-			$entityManager->merge($rendimentoTime1);
-			$entityManager->flush();
+			atualizaBancoDados($rendimentoTime1);
 			
 			//Time2
 			$rendimentoTime2 = $entityManager->find("RendimentoTime", array(
@@ -55,21 +53,18 @@ if (isset($_POST['jogo'])) {
 			$golsContra2 = $golsTime1;
 			$rendimentoTime2->calculaRendimentoTime($golsPro2, $golsContra2);
 			
-			$entityManager->merge($rendimentoTime2);
-			$entityManager->flush();
+			atualizaBancoDados($rendimentoTime2);
 			
 		//--------------------------------------------------------------------
 			$numRodada = $jogo->getRodada()->getNumRodada();
 			$codJogo = $jogo->getCodJogo();
 			$dqlApostas = "SELECT a FROM Aposta a WHERE a.jogo = $codJogo";
-			$queryApostas = $entityManager->createQuery($dqlApostas);
-			$apostas = $queryApostas->getResult();
+			$apostas = consultaDql($dqlApostas);
 			
 			foreach ($apostas as $aposta){
 				if ($aposta instanceof Aposta){
 					$aposta->calculaPontosAposta($jogo->getGolsTime1(),$jogo->getGolsTime2());
-					$entityManager->merge($aposta);
-					$entityManager->flush();
+					atualizaBancoDados($aposta);
 					
 					//Atualiza PremiosUsuario do Usuário no Campeonato
 					
@@ -78,8 +73,7 @@ if (isset($_POST['jogo'])) {
 						"usuario" => $aposta->getUsuario()->getIdUsuario()
 					));
 					$premiosUsuario->calculaPontos($aposta->getPontosAposta());
-					$entityManager->merge($premiosUsuario);
-					$entityManager->flush();
+					atualizaBancoDados($premiosUsuario);
 					
 					//Atualiza Pontos de cada Usuário na Rodada
 					
@@ -89,15 +83,13 @@ if (isset($_POST['jogo'])) {
 							"usuario" => $aposta->getUsuario()->getIdUsuario()
 					));
 					$pontuacaoRodada->calculaPontosRodada($aposta->getPontosAposta());
-					$entityManager->merge($pontuacaoRodada);
-					$entityManager->flush();
+					atualizaBancoDados($pontuacaoRodada);
 					
 					//Atualiza PontosGeral de cada Usuário
 					
 					$pontuacaoGeral = $entityManager->find("PontuacaoGeral", $aposta->getUsuario()->getIdUsuario());
 					$pontuacaoGeral->calculaPontosGeral($aposta->getPontosAposta());
-					$entityManager->merge($pontuacaoGeral);
-					$entityManager->flush();
+					atualizaBancoDados($pontuacaoGeral);
 					
 				} else {
 					echo "NÃO EXISTEM APOSTAS PARA ESTE JOGO";

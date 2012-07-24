@@ -10,8 +10,7 @@
 
 		<?php
 		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
-		$query = $entityManager->createQuery($dql);
-		$campeonatos = $query->getResult();
+		$campeonatos = consultaDql($dql);
 		foreach($campeonatos as $campeonato) {
 			if($campeonato instanceof Campeonato){
 				$classe = 'campeonatoInativo';
