@@ -61,12 +61,12 @@ if ($user_id) {
 			$caption = 'Seu time vai ganhar esse Campeonato?';
 			$description = 'Faça seus Chutes e acerte o placar dos melhores jogos do Campeonato.';
 			$ret_obj = $facebook->api('/me/feed', 'POST',	array(
-					'link' => $link,
-					'message' => $message,
-					'name' => $name,
+					'link' => utf8_encode($link),
+					'message' => utf8_encode($message),
+					'name' => utf8_encode($name),
 					'picture' => $picture,
-					'caption' => $caption,
-					'description' => $description
+					'caption' => utf8_encode($caption),
+					'description' => utf8_encode($description)
 			));
 			
 		}

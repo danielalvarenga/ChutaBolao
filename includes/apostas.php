@@ -39,7 +39,8 @@ if(isset($_POST[0])){
 				
 			$jogo = $entityManager->find("Jogo", $jogo_numero);
 			
-			$dataAgora = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+			$dataAtual = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+			$dataAgora = $dataAtual->format( "Y-m-d H:i:s" );
 			$dataFimApostas = $jogo->getDataFimApostas();
 			if($dataAgora < $dataFimApostas){
 			
@@ -191,16 +192,16 @@ if(isset($_POST[0])){
 				$description = "Jogo em ".$jogo->getDataLogica().". Faça seu chute até ".$jogo->getDataLogicaFimApostas();
 				
 				 $ret_obj = $facebook->api('/me/feed', 'POST',	array(
-				 		'link' => $link,
-				 		'message' => $message,
-				 		'name' => $name,
-				 		'picture' => $picture,
-				 		'caption' => $caption,
-				 		'description' => $description
+				 		'link' => utf8_encode($link),
+						'message' => utf8_encode($message),
+						'name' => utf8_encode($name),
+						'picture' => $picture,
+						'caption' => utf8_encode($caption),
+						'description' => utf8_encode($description)
 				 ));
 				
 			}
-			else{
+			elseif ($dataAgora > $dataFimApostas){
 				$time1 = $entityManager->find("Time", $jogo->getCodtime1());
 				$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 				?>
