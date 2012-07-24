@@ -47,7 +47,7 @@ class PremiosUsuario{
 	/** @Column(type="integer") */
 	private $chuteirasBronze; // Quantidade de chuteiras de bronze acumuladas no campeonato
 	
-	/** @Column(type="boolean") */
+	/** @Column(type="integer") */
 	private $trofeu; // "true" se o usuário ganhou troféu do campeonato. "false" por default.
 	
 	/** @Id @ManyToOne(targetEntity="Usuario", inversedBy="premiacoesUsuario")
@@ -76,7 +76,7 @@ class PremiosUsuario{
 		$this->chuteirasOuro = 0;
 		$this->chuteirasPrata = 0;
 		$this->chuteirasBronze = 0;
-		$this->trofeu = false;
+		$this->trofeu = 0;
 		$this->usuario = $usuario;
 		$this->campeonato = $campeonato;
 		
@@ -196,7 +196,12 @@ class PremiosUsuario{
 	}
 	/* Atribue "true" ao atributo trofeu */
 	function ganhaTrofeu(){
-		$this->trofeu = true;
+		if($this->trofeu == 0){
+			$this->trofeu++;
+		}
+		else{
+			$this->trofeu = 1;
+		}
 	}
 	function calculaPontos($pontosAposta){
 		switch($pontosAposta){

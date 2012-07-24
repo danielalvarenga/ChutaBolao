@@ -13,7 +13,7 @@ $golsTime1 = 89;
 $golsTime2 = 88;
 
 //Para testar finalização do Campeonato
-$finalizaRodada = false;
+$finalizaRodada = true;
 $finalizaCampeonato = true;
 
 $enter = "<br/>";
@@ -141,12 +141,10 @@ try{
 		$tokenUsuario = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
 		
 		$usuario1 = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-		$entityManager->persist($usuario1);
-		$entityManager->flush();
+		salvaBancoDados($usuario1);
 		
 		$pontuacaoGeral1 = new PontuacaoGeral($usuario1);
-		$entityManager->persist($pontuacaoGeral1);
-		$entityManager->flush();
+		salvaBancoDados($pontuacaoGeral1);
 	
 		$conn->commit();
 	} catch(Exception $e) {
@@ -165,12 +163,10 @@ try{
 		$tokenUsuario = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
 	
 		$usuario2 = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-		$entityManager->persist($usuario2);
-		$entityManager->flush();
+		salvaBancoDados($usuario2);
 	
 		$pontuacaoGeral2 = new PontuacaoGeral($usuario2);
-		$entityManager->persist($pontuacaoGeral2);
-		$entityManager->flush();
+		salvaBancoDados($pontuacaoGeral2);
 	
 		$conn->commit();
 	} catch(Exception $e) {
@@ -189,12 +185,10 @@ try{
 		$tokenUsuario = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
 	
 		$usuario3 = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-		$entityManager->persist($usuario3);
-		$entityManager->flush();
+		salvaBancoDados($usuario3);
 	
 		$pontuacaoGeral3 = new PontuacaoGeral($usuario3);
-		$entityManager->persist($pontuacaoGeral3);
-		$entityManager->flush();
+		salvaBancoDados($pontuacaoGeral3);
 	
 		$conn->commit();
 	} catch(Exception $e) {
@@ -213,12 +207,10 @@ try{
 		$tokenUsuario = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
 	
 		$usuario4 = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-		$entityManager->persist($usuario4);
-		$entityManager->flush();
+		salvaBancoDados($usuario4);
 	
 		$pontuacaoGeral4 = new PontuacaoGeral($usuario4);
-		$entityManager->persist($pontuacaoGeral4);
-		$entityManager->flush();
+		salvaBancoDados($pontuacaoGeral4);
 	
 		$conn->commit();
 	} catch(Exception $e) {
@@ -387,7 +379,20 @@ try{
 		echo 'Medalhas Ouro Geral: '.$pontuacaoGeral1->getMedalhasOuroGeral().$enter;
 		echo 'Medalhas Prata Geral: '.$pontuacaoGeral1->getMedalhasPrataGeral().$enter;
 		echo 'Medalhas Bronze Geral: '.$pontuacaoGeral1->getMedalhasBronzeGeral().$enter;
-		echo 'Trofeus Geral: '.$pontuacaoGeral1->getTrofeus().$enter;
+		echo 'Trofeus Geral: '.$pontuacaoGeral1->getTrofeus().$enter.$enter;
+		
+		echo 'Classificação Pontos Campeonato: '.$premiosUsuario1->getClassificacaoCampeonato().$enter;
+		echo 'Classificação Medalhas Campeonato: '.$premiosUsuario1->getClassificacaoMedalhas().$enter;
+		echo 'Acertos Placar Campeonato: '.$premiosUsuario1->getAcertosPlacar().$enter;
+		echo 'Acertos Invertidos Campeonato: '.$premiosUsuario1->getAcertosPlacarInvertido().$enter;
+		echo 'Acertos Time Campeonato: '.$premiosUsuario1->getAcertosTimeGanhador().$enter;
+		echo 'Pontos Campeonato: '.$premiosUsuario1->getPontosCampeonato().$enter;
+		echo 'Medalhas Ouro Campeonato: '.$premiosUsuario1->getMedalhasOuro().$enter;
+		echo 'Medalhas Prata Campeonato: '.$premiosUsuario1->getMedalhasPrata().$enter;
+		echo 'Medalhas Bronze Campeonato: '.$premiosUsuario1->getMedalhasBronze().$enter;
+		echo 'Trofeu Campeonato: '.$premiosUsuario1->getTrofeu().$enter;
+		
+		
 		
 		echo $enter.$usuario2->getPrimeiroNomeUsuario().$enter.$enter;
 		echo 'Classificação Geral Pontos: '.$pontuacaoGeral2->getClassificacaoGeral().$enter;
@@ -399,7 +404,19 @@ try{
 		echo 'Medalhas Ouro Geral: '.$pontuacaoGeral2->getMedalhasOuroGeral().$enter;
 		echo 'Medalhas Prata Geral: '.$pontuacaoGeral2->getMedalhasPrataGeral().$enter;
 		echo 'Medalhas Bronze Geral: '.$pontuacaoGeral2->getMedalhasBronzeGeral().$enter;
-		echo 'Trofeus Geral: '.$pontuacaoGeral2->getTrofeus().$enter;
+		echo 'Trofeus Geral: '.$pontuacaoGeral2->getTrofeus().$enter.$enter;
+		
+		echo 'Classificação Pontos Campeonato: '.$premiosUsuario2->getClassificacaoCampeonato().$enter;
+		echo 'Classificação Medalhas Campeonato: '.$premiosUsuario2->getClassificacaoMedalhas().$enter;
+		echo 'Acertos Placar Campeonato: '.$premiosUsuario2->getAcertosPlacar().$enter;
+		echo 'Acertos Invertidos Campeonato: '.$premiosUsuario2->getAcertosPlacarInvertido().$enter;
+		echo 'Acertos Time Campeonato: '.$premiosUsuario2->getAcertosTimeGanhador().$enter;
+		echo 'Pontos Campeonato: '.$premiosUsuario2->getPontosCampeonato().$enter;
+		echo 'Medalhas Ouro Campeonato: '.$premiosUsuario2->getMedalhasOuro().$enter;
+		echo 'Medalhas Prata Campeonato: '.$premiosUsuario2->getMedalhasPrata().$enter;
+		echo 'Medalhas Bronze Campeonato: '.$premiosUsuario2->getMedalhasBronze().$enter;
+		echo 'Trofeu Campeonato: '.$premiosUsuario2->getTrofeu().$enter;
+		
 		
 		echo $enter.$usuario3->getPrimeiroNomeUsuario().$enter.$enter;
 		echo 'Classificação Geral Pontos: '.$pontuacaoGeral3->getClassificacaoGeral().$enter;
@@ -411,7 +428,18 @@ try{
 		echo 'Medalhas Ouro Geral: '.$pontuacaoGeral3->getMedalhasOuroGeral().$enter;
 		echo 'Medalhas Prata Geral: '.$pontuacaoGeral3->getMedalhasPrataGeral().$enter;
 		echo 'Medalhas Bronze Geral: '.$pontuacaoGeral3->getMedalhasBronzeGeral().$enter;
-		echo 'Trofeus Geral: '.$pontuacaoGeral3->getTrofeus().$enter;
+		echo 'Trofeus Geral: '.$pontuacaoGeral3->getTrofeus().$enter.$enter;
+		
+		echo 'Classificação Pontos Campeonato: '.$premiosUsuario3->getClassificacaoCampeonato().$enter;
+		echo 'Classificação Medalhas Campeonato: '.$premiosUsuario3->getClassificacaoMedalhas().$enter;
+		echo 'Acertos Placar Campeonato: '.$premiosUsuario3->getAcertosPlacar().$enter;
+		echo 'Acertos Invertidos Campeonato: '.$premiosUsuario3->getAcertosPlacarInvertido().$enter;
+		echo 'Acertos Time Campeonato: '.$premiosUsuario3->getAcertosTimeGanhador().$enter;
+		echo 'Pontos Campeonato: '.$premiosUsuario3->getPontosCampeonato().$enter;
+		echo 'Medalhas Ouro Campeonato: '.$premiosUsuario3->getMedalhasOuro().$enter;
+		echo 'Medalhas Prata Campeonato: '.$premiosUsuario3->getMedalhasPrata().$enter;
+		echo 'Medalhas Bronze Campeonato: '.$premiosUsuario3->getMedalhasBronze().$enter;
+		echo 'Trofeu Campeonato: '.$premiosUsuario3->getTrofeu().$enter;
 		
 		echo $enter.$usuario4->getPrimeiroNomeUsuario().$enter.$enter;
 		echo 'Classificação Geral Pontos: '.$pontuacaoGeral4->getClassificacaoGeral().$enter;
@@ -423,7 +451,18 @@ try{
 		echo 'Medalhas Ouro Geral: '.$pontuacaoGeral4->getMedalhasOuroGeral().$enter;
 		echo 'Medalhas Prata Geral: '.$pontuacaoGeral4->getMedalhasPrataGeral().$enter;
 		echo 'Medalhas Bronze Geral: '.$pontuacaoGeral4->getMedalhasBronzeGeral().$enter;
-		echo 'Trofeus Geral: '.$pontuacaoGeral4->getTrofeus().$enter;
+		echo 'Trofeus Geral: '.$pontuacaoGeral4->getTrofeus().$enter.$enter;
+		
+		echo 'Classificação Pontos Campeonato: '.$premiosUsuario4->getClassificacaoCampeonato().$enter;
+		echo 'Classificação Medalhas Campeonato: '.$premiosUsuario4->getClassificacaoMedalhas().$enter;
+		echo 'Acertos Placar Campeonato: '.$premiosUsuario4->getAcertosPlacar().$enter;
+		echo 'Acertos Invertidos Campeonato: '.$premiosUsuario4->getAcertosPlacarInvertido().$enter;
+		echo 'Acertos Time Campeonato: '.$premiosUsuario4->getAcertosTimeGanhador().$enter;
+		echo 'Pontos Campeonato: '.$premiosUsuario4->getPontosCampeonato().$enter;
+		echo 'Medalhas Ouro Campeonato: '.$premiosUsuario4->getMedalhasOuro().$enter;
+		echo 'Medalhas Prata Campeonato: '.$premiosUsuario4->getMedalhasPrata().$enter;
+		echo 'Medalhas Bronze Campeonato: '.$premiosUsuario4->getMedalhasBronze().$enter;
+		echo 'Trofeu Campeonato: '.$premiosUsuario3->getTrofeu().$enter;
 		
 		//REMOVE TODOS OS OBJETOS
 		

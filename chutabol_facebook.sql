@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `premiosusuario` (
   `chuteirasOuro` int(11) DEFAULT NULL,
   `chuteirasPrata` int(11) DEFAULT NULL,
   `chuteirasBronze` int(11) DEFAULT NULL,
-  `trofeu` tinyint(4) DEFAULT NULL,
+  `trofeu` int(11) DEFAULT '0',
   PRIMARY KEY (`usuario_id`,`campeonato_id`),
   KEY `usuario_id` (`usuario_id`),
   KEY `campeonato_id` (`campeonato_id`)
