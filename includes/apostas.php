@@ -39,117 +39,123 @@ if(isset($_POST[0])){
 			//Busca objeto Jogo, Campeonato e Aposta
 				
 			$jogo = $entityManager->find("Jogo", $jogo_numero);
-			$apostaCadastrada = $entityManager->find("Aposta", array(
-					"campeonato" =>	$jogo_campeonato,
-					"usuario" => $user_id,
-					"jogo" => $jogo_numero
-			));
-				
-			//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda nÃ£o existir
-				
-			$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
-					"campeonato" =>	$jogo_campeonato,
-					"rodada" => $jogo->getRodada()->getNumRodada(),
-					"usuario" => $user_id
-			));
-			if(!$pontuacaoRodada instanceof PontuacaoRodada){
-				$pontuacaoRodada = new PontuacaoRodada($jogo->getRodada(), $campeonato, $usuario);
-				salvaBancoDados($pontuacaoRodada);
-				}
-				
-			//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda nÃ£o existir
-
-			$premiosUsuario = $entityManager->find("PremiosUsuario", array(
-					"campeonato" =>	$jogo_campeonato,
-					"usuario" => $user_id
-			));
-			if(!$premiosUsuario instanceof PremiosUsuario){
-				$premiosUsuario = new PremiosUsuario($usuario, $campeonato);
-				salvaBancoDados($premiosUsuario);
-				}
-				
-			//Cria nova aposta se ainda nÃ£o existir
-			$publica = false;
-			if ($apostaCadastrada instanceof Aposta){
-				$indice=0;
-				if ($apostaCadastrada->getApostaGolsTime1()<>$palpite_time1_jogo) {
-					$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
-					$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$apostaCadastrada->getApostaGolsTime2();
-					$apostaCadastrada->setApostaGolsTime1($palpite_time1_jogo);
-					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
-					atualizaBancoDados($apostaCadastrada);
-					$publica = true;
-					$contador1++;
-					$indice++;
-				}
+			
+			$dataAgora = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+			$dataFimApostas = $jogo->getDataFimApostas();
+			if($dataAgora < $dataFimApostas){
+			
+				$apostaCadastrada = $entityManager->find("Aposta", array(
+						"campeonato" =>	$jogo_campeonato,
+						"usuario" => $user_id,
+						"jogo" => $jogo_numero
+				));
 					
-				if($apostaCadastrada->getApostaGolsTime2()<>$palpite_time2_jogo){
-					$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
-					$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
-					$atualizacaoContadorAposta=$apostaCadastrada->getApostaGolsTime1()."  X  ".$palpite_time2_jogo;
-					$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
-					atualizaBancoDados($apostaCadastrada);
-					$publica = true;
-					$contador1++;
-				}
-				if($auxContadorAposta[0]<>NULL){
-					$contadorAposta = $entityManager->find("ContadorAposta", array (
-							"campeonato"=>$jogo_campeonato,
-							"jogo"=> $auxiliar_jogo,
-							"opcaoCadastrada"=>$auxContadorAposta[0]
-					));
-					if($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->decrementaQuantidadeApostas();
-						atualizaBancoDados($contadorAposta);
+				//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda nÃ£o existir
+					
+				$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
+						"campeonato" =>	$jogo_campeonato,
+						"rodada" => $jogo->getRodada()->getNumRodada(),
+						"usuario" => $user_id
+				));
+				if(!$pontuacaoRodada instanceof PontuacaoRodada){
+					$pontuacaoRodada = new PontuacaoRodada($jogo->getRodada(), $campeonato, $usuario);
+					salvaBancoDados($pontuacaoRodada);
+					}
+					
+				//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda nÃ£o existir
+	
+				$premiosUsuario = $entityManager->find("PremiosUsuario", array(
+						"campeonato" =>	$jogo_campeonato,
+						"usuario" => $user_id
+				));
+				if(!$premiosUsuario instanceof PremiosUsuario){
+					$premiosUsuario = new PremiosUsuario($usuario, $campeonato);
+					salvaBancoDados($premiosUsuario);
+					}
+					
+				//Cria nova aposta se ainda nÃ£o existir
+				$publica = false;
+				if ($apostaCadastrada instanceof Aposta){
+					$indice=0;
+					if ($apostaCadastrada->getApostaGolsTime1()<>$palpite_time1_jogo) {
+						$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
+						$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$apostaCadastrada->getApostaGolsTime2();
+						$apostaCadastrada->setApostaGolsTime1($palpite_time1_jogo);
+						$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
+						atualizaBancoDados($apostaCadastrada);
+						$publica = true;
+						$contador1++;
+						$indice++;
+					}
 						
+					if($apostaCadastrada->getApostaGolsTime2()<>$palpite_time2_jogo){
+						$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
+						$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
+						$atualizacaoContadorAposta=$apostaCadastrada->getApostaGolsTime1()."  X  ".$palpite_time2_jogo;
+						$auxiliar_jogo=$apostaCadastrada->getJogo()->getCodjogo();
+						atualizaBancoDados($apostaCadastrada);
+						$publica = true;
+						$contador1++;
+					}
+					if($auxContadorAposta[0]<>NULL){
 						$contadorAposta = $entityManager->find("ContadorAposta", array (
 								"campeonato"=>$jogo_campeonato,
 								"jogo"=> $auxiliar_jogo,
-								"opcaoCadastrada"=>$atualizacaoContadorAposta
+								"opcaoCadastrada"=>$auxContadorAposta[0]
 						));
-					}
-					
-					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃ£o existir
-
-					if ($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->incrementaQuantidadeApostas();
-						atualizaBancoDados($contadorAposta);
-						
-					}
-					else{
-						$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
-						salvaBancoDados($novoContadorAposta);
+						if($contadorAposta instanceof ContadorAposta){
+							$contadorAposta->decrementaQuantidadeApostas();
+							atualizaBancoDados($contadorAposta);
 							
+							$contadorAposta = $entityManager->find("ContadorAposta", array (
+									"campeonato"=>$jogo_campeonato,
+									"jogo"=> $auxiliar_jogo,
+									"opcaoCadastrada"=>$atualizacaoContadorAposta
+							));
+						}
+						
+						//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃ£o existir
+	
+						if ($contadorAposta instanceof ContadorAposta){
+							$contadorAposta->incrementaQuantidadeApostas();
+							atualizaBancoDados($contadorAposta);
+							
+						}
+						else{
+							$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
+							salvaBancoDados($novoContadorAposta);
+								
+						}
 					}
 				}
-			}
-			else{
-				if (($palpite_time1_jogo<>'') && ($palpite_time2_jogo<>'')){
-					$apostaNova = new Aposta($usuario, $campeonato, $jogo);
-					$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$palpite_time2_jogo;
-					$apostaNova->setApostaGolsTime1($palpite_time1_jogo);
-					$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
-					salvaBancoDados($apostaNova);
-					$publica = true;
-					$contador++;
-
-					$contadorAposta = $entityManager->find("ContadorAposta", array (
-							"campeonato"=>$jogo_campeonato,
-							"jogo"=> $jogo_numero,
-							"opcaoCadastrada"=>$atualizacaoContadorAposta
-					));
-
-					//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃ£o existir
-
-					if ($contadorAposta instanceof ContadorAposta){
-						$contadorAposta->incrementaQuantidadeApostas();
-						atualizaBancoDados($contadorAposta);
-						
-					}
-					else{
-						$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
-						salvaBancoDados($novoContadorAposta);
-						
+				else{
+					if (($palpite_time1_jogo<>'') && ($palpite_time2_jogo<>'')){
+						$apostaNova = new Aposta($usuario, $campeonato, $jogo);
+						$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$palpite_time2_jogo;
+						$apostaNova->setApostaGolsTime1($palpite_time1_jogo);
+						$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
+						salvaBancoDados($apostaNova);
+						$publica = true;
+						$contador++;
+	
+						$contadorAposta = $entityManager->find("ContadorAposta", array (
+								"campeonato"=>$jogo_campeonato,
+								"jogo"=> $jogo_numero,
+								"opcaoCadastrada"=>$atualizacaoContadorAposta
+						));
+	
+						//Cria um objeto ContadorAposta para uma Aposta no Campeonato do Jogo que apostou se ainda nÃ£o existir
+	
+						if ($contadorAposta instanceof ContadorAposta){
+							$contadorAposta->incrementaQuantidadeApostas();
+							atualizaBancoDados($contadorAposta);
+							
+						}
+						else{
+							$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
+							salvaBancoDados($novoContadorAposta);
+							
+						}
 					}
 				}
 			}
@@ -194,6 +200,16 @@ if(isset($_POST[0])){
 				 		'description' => $description
 				 ));
 				
+			}
+			else{
+				$time1 = $entityManager->find("Time", $jogo->getCodtime1());
+				$time2 = $entityManager->find("Time", $jogo->getCodtime2());
+				?>
+				<p class="aviso">
+					Chutes encerrados para o jogo <?php echo $time1->getNomeTime();?> X <?php echo $time2->getNomeTime();?>.
+					Chutes n�o salvo para este jogo.
+				</p>
+				<?php
 			}
 		}
 		$conn->commit();
