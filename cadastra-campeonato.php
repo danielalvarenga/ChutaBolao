@@ -15,7 +15,9 @@ if(isset($_POST['excluir'])){
 		$nomeCampeonato = $campeonato->getNomeCampeonato();
 		$anoCampeonato = $campeonato->getAnoCampeonato();
 		removeBancoDados($campeonato);
-		echo "Excluído Campeonato $nomeCampeonato $anoCampeonato<br><br>";
+		echo "<script> alert('Excluído Campeonato $nomeCampeonato $anoCampeonato')
+		location = ('cadastra-campeonato.php');
+		</script>";
 		$conn->commit();
 	} catch(Exception $e) {
 		$conn->rollback();

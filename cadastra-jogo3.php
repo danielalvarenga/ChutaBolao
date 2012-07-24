@@ -4,6 +4,23 @@ require "bootstrap.php";
 require 'metodos-bd.php';
 require_once "lib/WideImage.php";
 
+if(isset($_POST['excluir'])){
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		$jogoExcluir = $entityManager->find("Jogo", $_POST['jogoExcluir']);
+		removeBancoDados($jogoExcluir);
+		echo "<script> alert('Jogo Excluído.')
+		location = ('cadastra-jogo.php');
+		</script>";
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Não foi possível apagar os dados. Verifique o Banco de Dados.</font><br/>";
+	}
+	$conn->close();
+}
+
 if(isset($_POST['rodada']) && isset($_POST['campeonato'])){
 	$objCampeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
 	$objRodada = $entityManager->find("Rodada", array(
@@ -296,6 +313,10 @@ cadastro de jogo
 							<form method="POST" action="insere-gols.php">
 							<input type="hidden" name="jogo" value='.$jogo->getCodjogo().'>
 							<input type="submit" name="insere-gols" value="Inserir Gols"><br/>
+							</form>
+							<form method="POST" action="">
+							<input type="hidden" name="jogoExcluir" value='.$jogo->getCodjogo().'>
+							<input type="submit" name="excluir" value="Excluir"><br/>
 							</form>
 						</td>
 					</tr>';

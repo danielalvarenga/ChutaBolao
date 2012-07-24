@@ -9,7 +9,9 @@ if(isset($_POST['excluir'])){
 	try{
 		$jogoExcluir = $entityManager->find("Jogo", $_POST['jogoExcluir']);
 		removeBancoDados($jogoExcluir);
-		echo "Jogo excluído.<br><br>";
+		echo "<script> alert('Jogo Excluído.')
+		location = ('cadastra-jogo.php');
+		</script>";
 		$conn->commit();
 	} catch(Exception $e) {
 		$conn->rollback();

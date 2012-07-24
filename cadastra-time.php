@@ -14,7 +14,9 @@ if(isset($_POST['time'])){
 		$codTime = $time->getCodTime();
 		removeBancoDados($time);
 		unlink("$escudo");
-		echo "Excluído time com o nome $nomeTime com código $codTime<br><br>";
+		echo "<script> alert('Excluído time com o nome $nomeTime com código $codTime')
+		location = ('cadastra-campeonato.php');
+		</script>";
 		
 		$conn->commit();
 	} catch(Exception $e) {
