@@ -42,8 +42,7 @@ if(isset($_POST[0])){
 			$dataAtual = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 			$dataAgora = $dataAtual->format( "Y-m-d H:i:s" );
 			$dataFimApostas = $jogo->getDataFimApostas();
-			$data = new DateTime(''.$dataFimApostas.'', new DateTimeZone('America/Sao_Paulo'));
-			if($dataAgora < $data){
+			if($dataAgora < $dataFimApostas){
 			
 				$apostaCadastrada = $entityManager->find("Aposta", array(
 						"campeonato" =>	$jogo_campeonato,
