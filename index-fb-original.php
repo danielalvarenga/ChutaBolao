@@ -11,7 +11,7 @@ $app_id = '233715530059546';
 $app_secret = '0fa65b36e29b5ba8f774827028f67317';
 $config = array(
 		'appId' => $app_id,
-		'secret' => $app_secret,);
+		'secret' => $app_secret);
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
 
@@ -19,18 +19,7 @@ if ($user_id) {
 	try {
 		$user_profile = $facebook->api('/me');
 		
-		$conn = $entityManager->getConnection();
-		$conn->beginTransaction();
-		try{
-		
-			$usuario = $entityManager->find("Usuario", $user_id);
-			
-			$conn->commit();
-		} catch(Exception $e) {
-			$conn->rollback();
-			echo $e->getMessage() . "<br/><font color=red>Não localizado usuário no Banco de Dados.</font><br/>";
-		}
-		$conn->close();
+		$usuario = $entityManager->find("Usuario", $user_id);
 			
 		if(($usuario instanceof Usuario) == false){
 			
@@ -50,7 +39,6 @@ if ($user_id) {
 			$conn->commit();
 			} catch(Exception $e) {
 				$conn->rollback();
-				echo $e->getMessage() . "<br/><font color=red>Não gravado usuário no Banco de Dados.</font><br/>";
 			}
 			$conn->close();
 			
@@ -74,6 +62,7 @@ if ($user_id) {
 	} catch (FacebookApiException $e) {
 		echo '<pre>'.htmlspecialchars(print_r($e, true)).'</pre>';
 		$user = null;
+		echo("<script> top.location.href='index.php'</script>");
 	}
 }
 ?>
