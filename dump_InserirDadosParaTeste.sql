@@ -17,7 +17,7 @@ INSERT INTO `time` (`id`, `nomeTime`, `escudo`) VALUES
 (14, 'Palmeiras', 'imagens/escudos/palmeiras47x47.png'),
 (15, 'Ponte Preta', 'imagens/escudos/ponte-preta47x47.png'),
 (16, 'Portuguesa-sp', 'imagens/escudos/portuguesa-sp47x47.png'),
-(18, 'Santos', 'imagens/escudos/santos47x47.png'),
-(19, 'São Paulo', 'imagens/escudos/sao-paulo47x47.png'),
-(20, 'Sport', 'imagens/escudos/sport47x47.png'),
-(21, 'Vasco', 'imagens/escudos/vasco47x47.png');
+(17, 'Santos', 'imagens/escudos/santos47x47.png'),
+(18, 'São Paulo', 'imagens/escudos/sao-paulo47x47.png'),
+(19, 'Sport', 'imagens/escudos/sport47x47.png'),
+(20, 'Vasco', 'imagens/escudos/vasco47x47.png');

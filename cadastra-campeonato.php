@@ -14,7 +14,9 @@ if(isset($_POST['excluir'])){
 		$campeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
 		$nomeCampeonato = $campeonato->getNomeCampeonato();
 		$anoCampeonato = $campeonato->getAnoCampeonato();
+		$logo = $campeonato->getUrlLogo();
 		removeBancoDados($campeonato);
+		unlink("$campeonato->getUrlLogo()");
 		echo "<script> alert('Excluído Campeonato $nomeCampeonato $anoCampeonato')
 		location = ('cadastra-campeonato.php');
 		</script>";

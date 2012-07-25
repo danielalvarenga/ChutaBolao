@@ -8,7 +8,9 @@ if(isset($_POST['excluir'])){
 	$conn->beginTransaction();
 	try{
 		$jogoExcluir = $entityManager->find("Jogo", $_POST['jogoExcluir']);
+		$imgJogo = $jogoExcluir->getEscudosJogo();
 		removeBancoDados($jogoExcluir);
+		unlink("$imgJogo");
 		echo "<script> alert('Jogo Excluído.')
 		location = ('cadastra-jogo.php');
 		</script>";

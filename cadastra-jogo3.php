@@ -9,7 +9,9 @@ if(isset($_POST['excluir'])){
 	$conn->beginTransaction();
 	try{
 		$jogoExcluir = $entityManager->find("Jogo", $_POST['jogoExcluir']);
+		$imgJogo = $jogoExcluir->getEscudosJogo();
 		removeBancoDados($jogoExcluir);
+		unlink("$imgJogo");
 		echo "<script> alert('Jogo Excluído.')
 		location = ('cadastra-jogo.php');
 		</script>";
@@ -206,7 +208,7 @@ cadastro de jogo
 	 	<select name="hora">
 	 	<option>hora</option>
 			<?php
-				for($hora = 0 ; $hora <= 23 ; $hora++ ){
+				for($hora = 23 ; $hora >= 0 ; $hora-- ){
 					$hora2 = $hora;
 					if($hora2 <= 9){
 						$hora2 = '0'.$hora;

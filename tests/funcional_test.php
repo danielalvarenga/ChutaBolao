@@ -105,6 +105,9 @@ try{
 		
 		$jogo2 = new Jogo($data,$rodada,$codTime2,$codTime1, $campeonato, $urlEscudosJogo);
 		salvaBancoDados($jogo2);
+		
+		$jogo3 = new Jogo($data,$rodada,$codTime2,$codTime1, $campeonato, $urlEscudosJogo);
+		salvaBancoDados($jogo3);
 	
 		$conn->commit();
 	} catch(Exception $e) {
