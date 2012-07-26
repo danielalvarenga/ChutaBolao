@@ -25,12 +25,26 @@ INSERT INTO `admin` (`nome`, `login`, `senha`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `log`
+--
+
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` text,
+  `data` datetime DEFAULT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `aposta`
 --
 
 CREATE TABLE IF NOT EXISTS `aposta` (
   `usuario_id` bigint(20) NOT NULL DEFAULT '0',
-  `campeonato_id` int(255) NOT NULL DEFAULT '0',
+  `campeonato_id` int(11) NOT NULL DEFAULT '0',
   `jogo_id` int(11) NOT NULL DEFAULT '0',
   `apostaGolsTime1` int(11) DEFAULT NULL,
   `apostaGolsTime2` int(11) DEFAULT NULL,

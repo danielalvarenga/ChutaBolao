@@ -16,7 +16,7 @@ $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
 */
 
-$user_id = "100000885523518";
+$user_id = "100003616428848";
 $primeiroNomeUsuario = 'Daniel';
 $segundoNomeUsuario = 'Alvarenga Lima';
 $emailUsuario = 'alvarenga_daniel@hotmail.com';
@@ -35,7 +35,7 @@ if ($user_id) {
 			
 			$conn->commit();
 		} catch(Exception $e) {
-			$conn->rollback();
+			desfazTransacao($e);
 			echo $e->getMessage() . "<br/><font color=red>N�o localizado usu�rio no Banco de Dados.</font><br/>";
 		}
 		$conn->close();
@@ -58,7 +58,7 @@ if ($user_id) {
 				
 			$conn->commit();
 			} catch(Exception $e) {
-				$conn->rollback();
+				desfazTransacao($e);
 				echo $e->getMessage() . "<br/><font color=red>N�o gravado usu�rio no Banco de Dados.</font><br/>";
 			}
 			$conn->close();
@@ -152,6 +152,10 @@ switch ($conteudo){
 		$idMenuBody = "tsmenu7";
 		break;
 	}
+	case 'como-funciona':{
+		$idMenuBody = "tsmenu8";
+		break;
+	}
 	default:{
 		$idMenuBody = "tsmenu1";
 		break;
@@ -216,18 +220,18 @@ switch ($conteudo){
 		</div>
 		
 		<div id="boxMenu">
-				<div id="ts_tabmenu">
-		        <ul>
-						<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Conquistas</strong></a></li>
-						<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
-						<!--  <li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classifica��o"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
-						<li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Convites</strong></a></li>
-						<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
-						<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
-						<li id="li_tsmenu7"><a href="index.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>
-								
-		        </ul>
-		        </div>
+			<div id="ts_tabmenu">
+	        <ul>
+				<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Conquistas</strong></a></li>
+				<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
+				<!--  <li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classifica��o"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
+				<li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Convites</strong></a></li>
+				<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
+				<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
+				<li id="li_tsmenu7"><a href="index.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>
+				<li id="li_tsmenu8"><a href="index.php?conteudo=como-funciona" title="Como Funciona"><strong>Como&nbsp;Funciona</strong></a></li>
+	        </ul>
+	        </div>
 		</div>
 		
 					

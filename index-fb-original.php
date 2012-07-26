@@ -7,8 +7,8 @@ require "bootstrap.php";
 require 'metodos-bd.php';
 require_once 'FacebookApi/facebook.php';
 
-$app_id = '233715530059546';
-$app_secret = '0fa65b36e29b5ba8f774827028f67317';
+$app_id = "233715530059546";
+$app_secret = "0fa65b36e29b5ba8f774827028f67317";
 $config = array(
 		'appId' => $app_id,
 		'secret' => $app_secret);
@@ -19,7 +19,7 @@ if ($user_id) {
 	try {
 		$user_profile = $facebook->api('/me');
 		
-		$usuario = $entityManager->find("Usuario", $user_id);
+		$usuario = buscaObjeto("Usuario", $user_id);
 			
 		if(($usuario instanceof Usuario) == false){
 			
@@ -48,6 +48,7 @@ if ($user_id) {
 			$name = $primeiroNomeUsuario.' agora "Chuta Bolão"';
 			$caption = 'Seu time vai ganhar esse Campeonato?';
 			$description = 'Faça seus Chutes e acerte o placar dos melhores jogos do Campeonato.';
+			
 			$ret_obj = $facebook->api('/me/feed', 'POST',	array(
 					'link' => utf8_encode($link),
 					'message' => utf8_encode($message),
@@ -122,6 +123,10 @@ switch ($conteudo){
 		$idMenuBody = "tsmenu7";
 		break;
 	}
+	case 'como-funciona':{
+		$idMenuBody = "tsmenu8";
+		break;
+	}
 	default:{
 		$idMenuBody = "tsmenu1";
 		break;
@@ -186,18 +191,18 @@ switch ($conteudo){
 		</div>
 		
 		<div id="boxMenu">
-				<div id="ts_tabmenu">
+			<div id="ts_tabmenu">
 		        <ul>
-						<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Início</strong></a></li>
-						<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
-						<!--  <li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
-						<!--  <li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Desafie</strong></a></li>  -->
-						<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
-						<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
-						<li id="li_tsmenu7"><a href="index.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>
-								
+					<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Início</strong></a></li>
+					<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
+					<!--  <li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
+					<!--  <li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Desafie</strong></a></li>  -->
+					<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
+					<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
+					<li id="li_tsmenu7"><a href="index.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>
+					<li id="li_tsmenu8"><a href="index.php?conteudo=como-funciona" title="Como Funciona"><strong>Como&nbsp;Funciona</strong></a></li>		
 		        </ul>
-		        </div>
+	        </div>
 		</div>
 		
 					
@@ -211,10 +216,10 @@ switch ($conteudo){
 		</div>
 	
 <script>   
-/*	
+	
       window.fbAsyncInit = function() {
         FB.init({
-         appId: '<?php// echo $facebook->getAppID() ?>', 
+         appId: '<?php echo $facebook->getAppID(); ?>', 
           cookie: true, 
           xfbml: true,
           oauth: true
@@ -232,7 +237,7 @@ switch ($conteudo){
           '//connect.facebook.net/en_US/all.js';
         document.getElementById('fb-root').appendChild(e);
       }());
-      */
+      
 </script>
 		
 </body>

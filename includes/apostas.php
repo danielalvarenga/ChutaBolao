@@ -25,9 +25,10 @@ if(isset($_POST[0])){
 		$contador=0;
 		$contador1=0;
 		$jogo_campeonato=$_POST[0];
-		$usuario = $entityManager->find("Usuario", $user_id);
-		$campeonato= $entityManager->find("Campeonato", $jogo_campeonato);
-			
+		$usuario = buscaObjeto("Usuario", $user_id);
+		$campeonato= buscaObjeto("Campeonato", $jogo_campeonato);
+		
+		$contadorPublicacoesMural = 1;
 		for ($i=0;$i<sizeof($_POST)>>2;$i++){
 			$auxContadorAposta[0]=null;
 			$aux=$i <<2;
@@ -37,14 +38,14 @@ if(isset($_POST[0])){
 				
 			//Busca objeto Jogo, Campeonato e Aposta
 				
-			$jogo = $entityManager->find("Jogo", $jogo_numero);
+			$jogo = buscaObjeto("Jogo", $jogo_numero);
 			
 			$dataAtual = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 			$dataAgora = $dataAtual->format( "Y-m-d H:i:s" );
 			$dataFimApostas = $jogo->getDataFimApostas();
 			if($dataAgora < $dataFimApostas){
 			
-				$apostaCadastrada = $entityManager->find("Aposta", array(
+				$apostaCadastrada = buscaObjeto("Aposta", array(
 						"campeonato" =>	$jogo_campeonato,
 						"usuario" => $user_id,
 						"jogo" => $jogo_numero
@@ -52,7 +53,7 @@ if(isset($_POST[0])){
 					
 				//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda nÃƒÂ£o existir
 					
-				$pontuacaoRodada = $entityManager->find("PontuacaoRodada", array(
+				$pontuacaoRodada = buscaObjeto("PontuacaoRodada", array(
 						"campeonato" =>	$jogo_campeonato,
 						"rodada" => $jogo->getRodada()->getNumRodada(),
 						"usuario" => $user_id
@@ -64,7 +65,7 @@ if(isset($_POST[0])){
 					
 				//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda nÃƒÂ£o existir
 	
-				$premiosUsuario = $entityManager->find("PremiosUsuario", array(
+				$premiosUsuario = buscaObjeto("PremiosUsuario", array(
 						"campeonato" =>	$jogo_campeonato,
 						"usuario" => $user_id
 				));
@@ -98,7 +99,7 @@ if(isset($_POST[0])){
 						$contador1++;
 					}
 					if($auxContadorAposta[0]<>NULL){
-						$contadorAposta = $entityManager->find("ContadorAposta", array (
+						$contadorAposta = buscaObjeto("ContadorAposta", array (
 								"campeonato"=>$jogo_campeonato,
 								"jogo"=> $auxiliar_jogo,
 								"opcaoCadastrada"=>$auxContadorAposta[0]
@@ -107,7 +108,7 @@ if(isset($_POST[0])){
 							$contadorAposta->decrementaQuantidadeApostas();
 							atualizaBancoDados($contadorAposta);
 							
-							$contadorAposta = $entityManager->find("ContadorAposta", array (
+							$contadorAposta = buscaObjeto("ContadorAposta", array (
 									"campeonato"=>$jogo_campeonato,
 									"jogo"=> $auxiliar_jogo,
 									"opcaoCadastrada"=>$atualizacaoContadorAposta
@@ -138,7 +139,7 @@ if(isset($_POST[0])){
 						$publica = true;
 						$contador++;
 	
-						$contadorAposta = $entityManager->find("ContadorAposta", array (
+						$contadorAposta = buscaObjeto("ContadorAposta", array (
 								"campeonato"=>$jogo_campeonato,
 								"jogo"=> $jogo_numero,
 								"opcaoCadastrada"=>$atualizacaoContadorAposta
@@ -160,24 +161,24 @@ if(isset($_POST[0])){
 				}
 			}
 				
-			if($publica){
+			if($publica && $contadorPublicacoesMural <= 3){
 				if($palpite_time1_jogo > $palpite_time2_jogo){
-					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
+					$time1 = buscaObjeto("Time", $jogo->getCodtime1());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
 					x  '.$palpite_time2_jogo.'
 					para o '.$time1->getNomeTime();
 				}
 				elseif($palpite_time1_jogo < $palpite_time2_jogo){
-					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
+					$time2 = buscaObjeto("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time2_jogo.'
 					x  '.$palpite_time1_jogo.'
 					para o '.$time2->getNomeTime();
 				}
 				elseif($palpite_time1_jogo == $palpite_time2_jogo){
-					$time1 = $entityManager->find("Time", $jogo->getCodtime1());
-					$time2 = $entityManager->find("Time", $jogo->getCodtime2());
+					$time1 = buscaObjeto("Time", $jogo->getCodtime1());
+					$time2 = buscaObjeto("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
 					x  '.$palpite_time2_jogo.'
@@ -185,39 +186,34 @@ if(isset($_POST[0])){
 					e '.$time2->getNomeTime();
 				}
 
-				$message = 'Alguém chuta melhor que eu!? =D';
 				$picture = 'http://www.chutabolao.com.br/facebook/'.$jogo->getEscudosJogo();
 				$link = 'http://apps.facebook.com/chutabolao';
 				$caption = 'Mostre que você sabe mais!';
 				$description = "Jogo em ".$jogo->getDataLogica().". Faça seu chute até ".$jogo->getDataLogicaFimApostas();
 				
-				 $ret_obj = $facebook->api('/me/feed', 'POST',	array(
-				 		'link' => utf8_encode($link),
-						'message' => utf8_encode($message),
-						'name' => utf8_encode($name),
-						'picture' => $picture,
-						'caption' => utf8_encode($caption),
-						'description' => utf8_encode($description)
-				 ));
-				
+					$ret_obj = $facebook->api('/me/feed', 'POST',	array(
+					 		'link' => utf8_encode($link),
+							'name' => utf8_encode($name),
+							'picture' => $picture,
+							'caption' => utf8_encode($caption),
+							'description' => utf8_encode($description)
+					 ));
+				 $contadorPublicacoesMural++;
 			}
 			elseif ($dataAgora > $dataFimApostas){
-				$time1 = $entityManager->find("Time", $jogo->getCodtime1());
-				$time2 = $entityManager->find("Time", $jogo->getCodtime2());
+				$time1 = buscaObjeto("Time", $jogo->getCodtime1());
+				$time2 = buscaObjeto("Time", $jogo->getCodtime2());
 				?>
 				<p class="aviso">
 					Chutes encerrados para o jogo <?php echo $time1->getNomeTime();?> X <?php echo $time2->getNomeTime();?>.
-					Chutes não salvo para este jogo.
+					Chutes não salvos.
 				</p>
 				<?php
 			}
 		}
 		$conn->commit();
 	} catch(Exception $e) {
-		$conn->rollback();
-		?>
-		<p class="aviso">Não foi possível gravar seu Chute. Tente outra vez mais tarde.</p>
-		<?php
+		desfazTransacao($e);
 	}
 	$conn->close();
 }
@@ -280,19 +276,19 @@ try{
 					// Essa parte do codigo busca aposta do usuario de acordo com o numero do
 					//jogo cadastradas dentro do banco de dados.
 						
-					$aposta = $entityManager->find("Aposta", array(
+					$aposta = buscaObjeto("Aposta", array(
 							"campeonato" =>	$campeonato->getCodCampeonato(),
 							"usuario" => $user_id,
 							"jogo" => $jogo->getCodJogo()
 					));
 						
 					//Aqui esta buscando os nomes dos times do jogo
-					$time = $entityManager->find("Time", $jogo->getCodtime1());
+					$time = buscaObjeto("Time", $jogo->getCodtime1());
 					$time1 = $time->getNomeTime();
 					$escudo1 = $time->getEscudo();
 
 					//Aqui esta buscando os nomes dos times do jogo
-					$time = $entityManager->find("Time", $jogo->getCodtime2());
+					$time = buscaObjeto("Time", $jogo->getCodtime2());
 					$time2 = $time->getNomeTime();
 					$escudo2 = $time->getEscudo();
 
@@ -389,7 +385,7 @@ try{
 	}
 	$conn->commit();
 } catch(Exception $e) {
-	$conn->rollback();
+	desfazTransacao($e);
 	?>
 	<p class="aviso">Não existem jogos liberados no momento.</p>
 	<?php

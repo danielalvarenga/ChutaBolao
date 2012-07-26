@@ -223,20 +223,20 @@ class Jogo {
 		$dataFimAposta->modify( "-1 Hours" );
 		return $dataFimAposta->format( "Y-m-d H:i:s" );	
 	}
-	function criarDatetime($data){
+	function criarDateTime($data){
 		return new DateTime(''.$data.'', new DateTimeZone('America/Sao_Paulo'));
 	}
 	function calculaDataAtual(){
 		$agora="now";
-		$dataAtual = $this->criarDatetime($agora);
+		$dataAtual = $this->criarDateTime($agora);
 		return $dataAtual->format( "Y-m-d H:i:s" );
 	}
 	function getDataLogica(){
-		$dataLogica = $this->criarDatetime($this->dataJogo);
+		$dataLogica = $this->criarDateTime($this->dataJogo);
 		return $dataLogica->format( "d/m/Y" )." às ".$dataLogica->format( "H:i" );
 	}
 	function getDataLogicaFimApostas(){
-		$dataLogicaFimApostas = $this->criarDatetime($this->getDataFimApostas());
+		$dataLogicaFimApostas = $this->criarDateTime($this->getDataFimApostas());
 		return $dataLogicaFimApostas->format( "d/m/Y" )." às ".$dataLogicaFimApostas->format( "H:i" );
 	}
 	

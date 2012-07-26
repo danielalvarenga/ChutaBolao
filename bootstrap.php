@@ -4,6 +4,7 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 require_once "classes/Admin.php";
+require_once "classes/Log.php";
 require_once "classes/Usuario.php";
 require_once "classes/PremiosUsuario.php";
 require_once "classes/Aposta.php";

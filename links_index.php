@@ -46,7 +46,11 @@ switch ($pagina){
 		$author = "";
 		break;
 
-
+	case "como-funciona":
+		$page = "includes/como-funciona.php";
+		$title = "Como Funciona";
+		$author = "";
+		break;
 
 	default:
 		$page = "includes/home.php";
