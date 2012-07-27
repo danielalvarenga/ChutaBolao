@@ -6,8 +6,7 @@ function consultaDql($dql){
 	global $entityManager;
 	try{
 		$query= $entityManager->createQuery($dql);
-		$retorna= $query->getResult();
-		
+		$retorna= $query->getResult();	
 	} catch(Exception $e) {
 		$erroE = $e->getMessage();
 		$erro = "$erroE - consultaDql()";
@@ -90,7 +89,6 @@ function desfazTransacao($e){
 
 function salvaLogErro($erro){
 	global $entityManager;
-	echo $erro;
 	$dql = "SELECT l FROM Log l WHERE l.descricao = '$erro'";
 	$query= $entityManager->createQuery($dql);
 	$logs= $query->getResult();
