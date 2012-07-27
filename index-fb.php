@@ -65,7 +65,6 @@ if(empty($_SESSION["facebook_token"])){
 			$description = 'Faça seus Chutes e acerte o placar dos melhores jogos do Campeonato.';
 			
 			$ret_obj = $facebook->api('/'.$user_id.'/feed', 'POST',	array(
-					'access_token' => utf8_encode($token),
 					'link' => utf8_encode($link),
 					'message' => utf8_encode($message),
 					'name' => utf8_encode($name),

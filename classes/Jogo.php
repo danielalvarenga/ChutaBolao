@@ -176,10 +176,10 @@ class Jogo {
 	function getGolstime2(){
 		return $this->golsTime2;
 	}
-	function getCodtime1(){
+	function getCodTime1(){
 		return $this->codTime1;
 	}
-	function getCodtime2(){
+	function getCodTime2(){
 		return $this->codTime2;
 	}
 	function getDataInicioApostas(){

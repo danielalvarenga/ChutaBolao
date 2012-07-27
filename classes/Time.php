@@ -20,10 +20,16 @@ class Time{
 	 * @var RendimentoTime[]
 	 */
 	protected $rendimentosCampeonatos;
+	
+	/**
+	 * @ManyToOne(targetEntity="Pais", inversedBy="times", cascade={"persist"})
+	 */
+	protected $pais;
 
-	function __construct($nomeTime, $escudo){
+	function __construct($nomeTime, $escudo, $pais){
 		$this->setNomeTime($nomeTime);
 		$this->setEscudo($escudo);
+		$this->pais = $pais;
 		$this->rendimentosCampeonatos = new ArrayCollection();
 	}
 
@@ -49,6 +55,10 @@ class Time{
 	
 	function getEscudo(){
 		return $this->escudo;
+	}
+	
+	function getPais(){
+		return $this->pais;
 	}
 	
 	function getRendimentosCampeonatos(){

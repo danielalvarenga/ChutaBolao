@@ -37,7 +37,7 @@ class Log{
 		return $this->quantidade;
 	}
 	function setData(){
-		$dataAgora = criarDateTime("now");
+		$dataAgora = $this->criarDateTime("now");
 		$data = $dataAgora->format( "Y-m-d H:i:s" );
 		$this->data = $data;
 	}

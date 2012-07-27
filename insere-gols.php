@@ -7,12 +7,12 @@ require "funcoes-insere-gols.php";
 if (isset($_POST['jogo'])) {
 	
 	$codJogo = $_POST['jogo'];
-	$jogo = $entityManager->find("Jogo", $codJogo);
+	$jogo = buscaObjeto("Jogo", $codJogo);
 	
 	$codTime1 = $jogo->getCodTime1();
 	$codTime2 = $jogo->getCodTime2();
-	$time1 = $entityManager->find("Time", $codTime1);
-	$time2 = $entityManager->find("Time", $codTime2);
+	$time1 = buscaObjeto("Time", $codTime1);
+	$time2 = buscaObjeto("Time", $codTime2);
 	
 	
 	if(isset($_POST['golsTime1']) && isset($_POST['golsTime2'])){
@@ -152,7 +152,7 @@ inserir gols
 		<h2 align="center">Resultado</h2>
 	<form method="POST" action="">
 	 	<p align="center"><?php echo $time1->getNomeTime()?> 
-	 	<select name="golsTime1">';
+	 	<select name="golsTime1">
 	 		<option value="NULL"></OPTION>
 			<?php
 				for($gols = 0 ; $gols < 100 ; $gols++ ){

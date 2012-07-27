@@ -13,8 +13,8 @@ $golsTime1 = 89;
 $golsTime2 = 88;
 
 //Para testar finalização do Campeonato
-$finalizaRodada = false;
-$finalizaCampeonato = false;
+$finalizaRodada = true;
+$finalizaCampeonato = true;
 
 $enter = "<br/>";
 
@@ -29,14 +29,15 @@ try{
 	
 		$nome1 = "Time de Teste 1";
 		$caminho_imagem1 = "imagens/teste/time1-teste.png";
+		$pais = buscaObjeto("Pais", 76);
 		
-		$time1 = new Time($nome1, $caminho_imagem1);
+		$time1 = new Time($nome1, $caminho_imagem1, $pais);
 		salvaBancoDados($time1);
 		
 		$nome2 = "Time de Teste 2";
 		$caminho_imagem2 = "imagens/teste/time2-teste.png";
 		
-		$time2 = new Time($nome2, $caminho_imagem2);
+		$time2 = new Time($nome2, $caminho_imagem2, $pais);
 		salvaBancoDados($time2);
 		
 		$conn->commit();
@@ -137,7 +138,7 @@ try{
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$user_id = "100000885523518";
+		$user_id = "123";
 		$primeiroNomeUsuario = 'Usuario que Acerta o Placar';
 		$segundoNomeUsuario = 'Silva Beltrano';
 		$emailUsuario = 'email-teste@hotmail.com';
@@ -159,7 +160,7 @@ try{
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$user_id = "100000885523519";
+		$user_id = "1234";
 		$primeiroNomeUsuario = 'Usuario que Acerta Time Ganhador';
 		$segundoNomeUsuario = 'Silva Beltrano';
 		$emailUsuario = 'email-teste@hotmail.com';
@@ -181,7 +182,7 @@ try{
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$user_id = "100000885523520";
+		$user_id = "12345";
 		$primeiroNomeUsuario = 'Usuario que Acerta o Placar Invertido';
 		$segundoNomeUsuario = 'Silva Beltrano';
 		$emailUsuario = 'email-teste@hotmail.com';
@@ -203,7 +204,7 @@ try{
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$user_id = "100000885523521";
+		$user_id = "123456";
 		$primeiroNomeUsuario = 'Usuario que Erra o Placar';
 		$segundoNomeUsuario = 'Silva Beltrano';
 		$emailUsuario = 'email-teste@hotmail.com';
@@ -308,11 +309,7 @@ try{
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		if($finalizaRodada){
-			$jogo2->setResultado(2, 1);
-			atualizaBancoDados($jogo2);
-		}
-		if($finalizaCampeonato){
+		if($finalizaRodada || $finalizaCampeonato){
 			$jogo2->setResultado(2, 1);
 			atualizaBancoDados($jogo2);
 		}
@@ -331,6 +328,7 @@ try{
 		atualizaBancoDados($rendimentoTime2);
 			
 		$numRodada = $jogo->getRodada()->getNumRodada();
+
 		$codJogo = $jogo->getCodJogo();
 		
 		$dql = "SELECT a FROM Aposta a WHERE a.jogo = $codJogo";
@@ -469,7 +467,7 @@ try{
 		
 		//REMOVE TODOS OS OBJETOS
 		
-/*		$entityManager->remove($usuario1);
+		$entityManager->remove($usuario1);
 		$entityManager->remove($usuario2);
 		$entityManager->remove($usuario3);
 		$entityManager->remove($usuario4);
@@ -477,7 +475,7 @@ try{
 		$entityManager->remove($time1);
 		$entityManager->remove($time2);
 		$entityManager->flush();
-*/		
+		
 		$conn->commit();
 	} catch(Exception $e) {
 		$conn->rollback();

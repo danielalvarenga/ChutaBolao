@@ -541,7 +541,7 @@ a {
 
 .nomeTimeChutes{
 	float: left;
-	width: 110px;
+	width: 105px;
 	
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
@@ -1148,7 +1148,7 @@ a.ranking{
 
 .nomeTimeChutesFeitos{
 	float: left;
-	width: 122px;
+	width: 120px;
 	
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
@@ -1606,7 +1606,7 @@ a.menuCampeonatos{
 	box-shadow: 0px 0px 12px #000000;*/
 	
 	margin-top: 5px;
-	margin-right: 6px;
+	margin-right: 5px;
 	margin-bottom: 5px;
 	margin-left: 6px;
 	

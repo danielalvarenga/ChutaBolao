@@ -3,97 +3,39 @@ $charsetArray[1] = 'utf-8';
 $charsetArray[2] = 'ISO-8859-1';
 $charset = $charsetArray[2];
 header('Content-type: text/html; charset='.$charset);
+//include 'config.php';
 require "bootstrap.php";
 require 'metodos-bd.php';
-/*require_once 'FacebookApi/facebook.php';
 
-$app_id = '233715530059546';
-$app_secret = '0fa65b36e29b5ba8f774827028f67317';
-$config = array(
-		'appId' => $app_id,
-		'secret' => $app_secret,);
-$facebook = new Facebook($config);
-$user_id = $facebook->getUser();
-*/
-
-$user_id = "100003616428848";
-$primeiroNomeUsuario = 'Daniel';
-$segundoNomeUsuario = 'Alvarenga Lima';
-$emailUsuario = 'alvarenga_daniel@hotmail.com';
-$tokenUsuario = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
-
-
-if ($user_id) {
-	try {
-		//$user_profile = $facebook->api('/me');
-		
-		$conn = $entityManager->getConnection();
-		$conn->beginTransaction();
-		try{
-		
-			$usuario = $entityManager->find("Usuario", $user_id);
-			
-			$conn->commit();
-		} catch(Exception $e) {
-			desfazTransacao($e);
-			echo $e->getMessage() . "<br/><font color=red>Nï¿½o localizado usuï¿½rio no Banco de Dados.</font><br/>";
-		}
-		$conn->close();
-			
-		if(($usuario instanceof Usuario) == false){
-			
-			$conn = $entityManager->getConnection();
-			$conn->beginTransaction();
-			try{
-				/*
-				$primeiroNomeUsuario = utf8_decode($user_profile['first_name']);
-				$segundoNomeUsuario = utf8_decode($user_profile['last_name']);
-				$emailUsuario = $user_profile['email'];
-				$tokenUsuario = $facebook->getAccessToken();
-				*/
-				$usuario = new Usuario($user_id, $tokenUsuario, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
-				salvaBancoDados($usuario);
-				$pontuacaoGeral = new PontuacaoGeral($usuario);
-				salvaBancoDados($pontuacaoGeral);
-				
-			$conn->commit();
-			} catch(Exception $e) {
-				desfazTransacao($e);
-				echo $e->getMessage() . "<br/><font color=red>Nï¿½o gravado usuï¿½rio no Banco de Dados.</font><br/>";
-			}
-			$conn->close();
-			/*
-			$message = 'Agora vou mostrar quem entende de futebol! =D';
-			$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/chuta-bolao-logo.png';
-			$link = 'http://apps.facebook.com/chutabolao';
-			$name = $primeiroNomeUsuario.' agora "Chuta Bolï¿½o"';
-			$caption = 'Seu time vai ganhar esse Campeonato?';
-			$description = 'Faï¿½a seus Chutes e acerte o placar dos melhores jogos do Campeonato.';
-			$ret_obj = $facebook->api('/me/feed', 'POST',	array(
-					'link' => $link,
-					'message' => $message,
-					'name' => $name,
-					'picture' => $picture,
-					'caption' => $caption,
-					'description' => $description
-			));
-			*/
-		}
-		
-	} catch (FacebookApiException $e) {
-		echo '<pre>'.htmlspecialchars(print_r($e, true)).'</pre>';
-		$user = null;
-	}
+$user_id = "100000885523518";			
+$usuario = buscaObjeto("Usuario", $user_id);
+	
+if($usuario instanceof Usuario){
 }
-if(isset($_REQUEST['request_ids'])) {
-	$requestIDs = explode(',' , $_REQUEST['request_ids']);
-	foreach($requestIDs as $requestID) {
-		try {
-			$delete_success = $facebook->api('/' . $requestID, 'DELETE');
-		} catch(FacebookAPIException $e) {
-			error_log($e);
-		}
+else{
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
+		$primeiroNomeUsuario = 'Daniel';
+		$segundoNomeUsuario = 'Alvarenga Lima';
+		$emailUsuario = 'alvarenga_daniel@hotmail.com';
+		$token = 'AAADUkCMlzxoBAAde2WKyZAMFkBgDMxuGcNoXsZB37g3eiPRVGe2nQXTIbN0StDRO2Bh4xf2mCHZBfOSQOp9qbAbpFMhqp2amsijqxK5GhLnMfRr8Ycl';
+		$usuario = new Usuario($user_id, $token, $primeiroNomeUsuario, $segundoNomeUsuario, $emailUsuario);
+		salvaBancoDados($usuario);
+		$pontuacaoGeral = new PontuacaoGeral($usuario);
+		salvaBancoDados($pontuacaoGeral);
+		
+		$conn->commit();
+	} catch(Exception $e) {
+		desfazTransacao($e);
 	}
+	
+	$message = 'Agora vou mostrar quem entende de futebol! =D';
+	$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/chuta-bolao-logo.png';
+	$link = 'http://apps.facebook.com/chutabolao';
+	$name = $primeiroNomeUsuario.' agora "Chuta Bolão"';
+	$caption = 'Seu time vai ganhar esse Campeonato?';
+	$description = 'Faça seus Chutes e acerte o placar dos melhores jogos do Campeonato.';
 }
 ?>
 <?php require"links_index.php"?>
@@ -221,16 +163,16 @@ switch ($conteudo){
 		
 		<div id="boxMenu">
 			<div id="ts_tabmenu">
-	        <ul>
-				<li id="li_tsmenu1"><a href="index-teste.php?conteudo=home" title="Home"><strong>Conquistas</strong></a></li>
-				<li id="li_tsmenu2"><a href="index-teste.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
-				<!--  <li id="li_tsmenu3"><a href="index-teste.php?conteudo=classificacao" title="Classificaï¿½ï¿½o"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
-				<li id="li_tsmenu4"><a href="index-teste.php?conteudo=convites" title="Convites"><strong>Convites</strong></a></li>
-				<li id="li_tsmenu5"><a href="index-teste.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
-				<li id="li_tsmenu6"><a href="index-teste.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
-				<li id="li_tsmenu7"><a href="index-teste.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>
-				<li id="li_tsmenu8"><a href="index-teste.php?conteudo=como-funciona" title="Como Funciona"><strong>Como&nbsp;Funciona</strong></a></li>
-	        </ul>
+		        <ul>
+					<li id="li_tsmenu1"><a href="index-teste.php?conteudo=home" title="Home"><strong>Início</strong></a></li>
+					<li id="li_tsmenu2"><a href="index-teste.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
+					<!--  <li id="li_tsmenu3"><a href="index-teste.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
+					<!--  <li id="li_tsmenu4"><a href="index-teste.php?conteudo=convites" title="Convites"><strong>Desafie</strong></a></li>  -->
+					<li id="li_tsmenu5"><a href="index-teste.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
+					<li id="li_tsmenu6"><a href="index-teste.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
+					<li id="li_tsmenu7"><a href="index-teste.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>
+					<li id="li_tsmenu8"><a href="index-teste.php?conteudo=como-funciona" title="Como Funciona"><strong>Como&nbsp;Funciona</strong></a></li>		
+		        </ul>
 	        </div>
 		</div>
 		
@@ -240,35 +182,8 @@ switch ($conteudo){
 		</div>
 		
 		<div id="rodape">
-				Copyright © 2012
+				Copyright ©  2012
 			</div>
-		</div>
-	
-<script>   
-/*	
-      window.fbAsyncInit = function() {
-        FB.init({
-         appId: '<?php// echo $facebook->getAppID() ?>', 
-          cookie: true, 
-          xfbml: true,
-          oauth: true
-        });
-        FB.Event.subscribe('auth.login', function(response) {
-          window.location.reload();
-        });
-        FB.Event.subscribe('auth.logout', function(response) {
-          window.location.reload();
-        });
-      };
-      (function() {
-        var e = document.createElement('script'); e.async = true;
-        e.src = document.location.protocol +
-          '//connect.facebook.net/en_US/all.js';
-        document.getElementById('fb-root').appendChild(e);
-      }());
-      */
-</script>
-		
+		</div>		
 </body>
 </html>
-

@@ -41,8 +41,9 @@ cadastro de jogo
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		if(isset($_POST['campeonato'])){ ?>
+		if(isset($_POST['campeonato']) && isset($_POST['tipo'])){ ?>
 			<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
+			<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
 			<?php
 			$campeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
 			echo '<b>Campeonato:</b> '.$campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato().

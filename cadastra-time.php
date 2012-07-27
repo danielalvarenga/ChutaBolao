@@ -2,6 +2,7 @@
 include "valida_cookies.inc";
 require "bootstrap.php";
 require 'metodos-bd.php';
+require_once "lib/WideImage.php";
 
 if(isset($_POST['time'])){
 	$conn = $entityManager->getConnection();
@@ -15,7 +16,7 @@ if(isset($_POST['time'])){
 		removeBancoDados($time);
 		unlink("$escudo");
 		echo "<script> alert('Excluído time com o nome $nomeTime com código $codTime')
-		location = ('cadastra-campeonato.php');
+		location = ('cadastra-time.php');
 		</script>";
 		
 		$conn->commit();
@@ -36,62 +37,75 @@ if(isset($_POST['nome'])){
 			location = ('cadastra-time.php');
 			</script>";
 		}
+		elseif(empty($_POST['pais'])){
+			echo "<script> alert('Campo \"País\" obrigatorio!')
+			location = ('cadastra-time.php');
+			</script>";
+		}
 		else{
-			$nome = $_POST['nome'];
-			$imagem = $_FILES["escudo"];
+			if(empty($_POST['uf'])){
+				$nome = $_POST['nome'];
+			}
+			else{
+				$uf = $_POST['uf'];
+				$nome = $_POST['nome'].'-'.strtoupper($uf);
+			}
+			
+			$codPais = $_POST['pais'];
+			$pais = buscaObjeto("Pais", $codPais);
+			
+			$imagem = $_FILES['escudo'];
 			// Se a foto estiver sido selecionada
 			if (!empty($imagem["name"])) {
-			
-				// Largura máxima em pixels
-				$largura = 47;
-				// Altura máxima em pixels
-				$altura = 47;
 	
-				$dimensoes = getimagesize($imagem["tmp_name"]);
-	
-				if($dimensoes[0] <= $largura && $dimensoes[1] <= $altura){
-					$dqlTime = "SELECT t FROM Time t WHERE t.nomeTime = '$nome'";
-					$times = consultaDqlMaxResult(1, $dqlTime);
-					$contador = 0;
-					foreach($times as $time) {
-						if($time instanceof Time){
-							$contador++;
-						}
-					}
-					if($contador == 0){
-						// Pega extensão da imagem
-						preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $imagem["name"], $ext);
-						
-						$nomeUrlEscudo = strtolower(trim(
-										str_replace('é', 'e',
-										str_replace('ó', 'o',
-										str_replace('á', 'a', 
-										str_replace('í', 'i', 
-										str_replace('ú', 'u', 
-										str_replace('ê', 'e', 
-										str_replace('ô', 'o', 
-										str_replace('â', 'a', 
-										str_replace('õ', 'o',
-										str_replace('ã', 'a',
-										str_replace(' ', '-', $nome)
-												)))))))))))).$largura.'x'.$altura;
-						
-						// Gera um nome único para a imagem
-						$nome_imagem = $nomeUrlEscudo."." . $ext[1];
-				
-						// Caminho de onde ficará a imagem
-						$caminho_imagem = "imagens/escudos/" . $nome_imagem;
-				
-						// Faz o upload da imagem para seu respectivo caminho
-						move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
-						
-						$time = new Time($nome, $caminho_imagem);
-						salvaBancoDados($time);
-						}
-					else{
-						echo "<font color='red'><b>Este time já existe.</b></font>";
+				$dqlTime = "SELECT t FROM Time t WHERE t.nomeTime = '$nome'";
+				$times = consultaDqlMaxResult(1, $dqlTime);
+				$contador = 0;
+				foreach($times as $time) {
+					if($time instanceof Time){
+						$contador++;
 					}
 				}
+				if($contador == 0){
+					$largura = 47;
+					$altura = 47;
+					
+					$caminho_imagem = 'imagens/escudos/'.
+									strtolower(trim(
+									str_replace('é', 'e',
+									str_replace('ó', 'o',
+									str_replace('á', 'a', 
+									str_replace('í', 'i', 
+									str_replace('ú', 'u', 
+									str_replace('ê', 'e', 
+									str_replace('ô', 'o', 
+									str_replace('â', 'a', 
+									str_replace('õ', 'o',
+									str_replace('ã', 'a',
+									str_replace('ä', 'a',
+									str_replace('ë', 'e',
+									str_replace('ï', 'i',
+									str_replace('ö', 'o',
+									str_replace('ü', 'u',
+									str_replace(' ', '-', $nome)
+											))))))))))))))))).$largura.'x'.$altura.'.png';
+			
+					// Faz o upload da imagem para seu respectivo caminho
+					move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
+					
+					//Muda o tamanho da imagem e salva novamente
+					$imagemObj = WideImage::load($caminho_imagem);
+					$imagemExata = $imagemObj->resize('47', '47','inside','any');
+					$imagemExata->saveToFile($caminho_imagem, null, 80);
+					$imagemObj->destroy();
+					
+					$time = new Time($nome, $caminho_imagem, $pais);
+					salvaBancoDados($time);
+					}
+				else{
+					echo "<font color='red'><b>Este time já existe.</b></font>";
+				}
+				
 			}
 		}
 		
@@ -117,26 +131,39 @@ cadastro de time
 	<form action="" method="POST" enctype="multipart/form-data">
 			
 			<p>Nome: <input type="text" name="nome" size="60"></p>
+			<p>UF (somente se necessário): <input type="text" name="uf" size="3"></p>
+			<?php
+			$conn = $entityManager->getConnection();
+			$conn->beginTransaction();
+			try{
+				$dql = "SELECT p FROM Pais p ORDER BY p.nomePais ASC";
+				$paises = consultaDql($dql);
+				$conn->commit();
+			} catch(Exception $e) {
+				$conn->rollback();
+				echo $e->getMessage() . "<br/><font color=red>Não foi possível apagar os dados. Verifique o Banco de Dados.</font><br/>";
+			}
+			$conn->close();
+			?>
+			<p>País: 
+				<select size="1" name="pais">
+				<?php 
+					foreach($paises as $pais) {
+						echo "<option value=".$pais->getCodPais().">".$pais->getNomePais()."</option>";
+					}
+				?>
+				</select>
+			 </p>
            	<p>Escudo: <input type="file" name="escudo"/></p>
             <p><input type="submit" name="salvar" value="Salvar" /></p>
     </form>
-    
-		<h3><p> Instruções para inserir </p> </h3>
-		
-		<p>1. Não importa se você irá inserir em minúscula ou maiuscula.
-		<br>2.Não inserir nenhum tipo de acento.
-		<br>2. Insira o nome do time seguido de traço e sigla do estado do time.
-		<br>3. Se o time for extrangeiro inserir a sigla do país.</p>
-		<p>5. Exemplo de inserção:</p>
-		<p>Time do Brasil: "comercial-pi"
-		<br>Time extrageiro: "milan-ita"</p>
-		
 		
 		<h2>Times Cadastrados</h2>
 <table border="1">
 	<tr vertical-align="middle" align="center">
 		<td>Código</td>
 		<td>Time</td>
+		<td>País</td>
 		<td>Escudo</td>
 		<td></td>
 	</tr>
@@ -149,6 +176,7 @@ cadastro de time
 			echo '<tr vertical-align="middle" align="center">
 					<td>'.$time->getCodtime().'</td>
 					<td>'.$time->getNometime().'</td>
+					<td>'.$time->getPais()->getNomePais().'</td>
 					<td><img src="'.$time->getEscudo().'"></td>
 					<td>
 						<form method="POST" action="">

@@ -191,14 +191,14 @@ if(isset($_POST[0])){
 				$caption = 'Mostre que você sabe mais!';
 				$description = "Jogo em ".$jogo->getDataLogica().". Faça seu chute até ".$jogo->getDataLogicaFimApostas();
 				
-					$ret_obj = $facebook->api('/me/feed', 'POST',	array(
-					 		'link' => utf8_encode($link),
-							'name' => utf8_encode($name),
-							'picture' => $picture,
-							'caption' => utf8_encode($caption),
-							'description' => utf8_encode($description)
-					 ));
-				 $contadorPublicacoesMural++;
+/*				$ret_obj = $facebook->api('/'.$user_id.'/feed', 'POST',	array(
+				 		'link' => utf8_encode($link),
+						'name' => utf8_encode($name),
+						'picture' => $picture,
+						'caption' => utf8_encode($caption),
+						'description' => utf8_encode($description)
+				 ));
+*/				 $contadorPublicacoesMural++;
 			}
 			elseif ($dataAgora > $dataFimApostas){
 				$time1 = buscaObjeto("Time", $jogo->getCodtime1());

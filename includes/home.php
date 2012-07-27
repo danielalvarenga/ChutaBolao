@@ -1,12 +1,13 @@
 <div id="homeTimesFavoritos">
 <?php 
-
-$dql = "SELECT t FROM Time t WHERE t.nomeTime <> 'Boca Juniors' ORDER BY t.nomeTime ASC";
-$times = consultaDqlMaxResult(20, $dql);
+$pais = buscaObjeto("Pais", 76);
+$times = $pais->getTimes();
 foreach($times as $time) {
-	?>
-	<img class="timeFavorito" src="<?php echo $time->getEscudo();?>">
-	<?php 
+	if($time instanceof Time){
+		?>
+		<img class="timeFavorito" src="<?php echo $time->getEscudo();?>">
+		<?php
+	} 
 }
 ?>
 </div>

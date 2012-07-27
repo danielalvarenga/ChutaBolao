@@ -4,15 +4,13 @@ require ('bootstrap.php');
 
 function consultaDql($dql){
 	global $entityManager;
-	$conn = $entityManager->getConnection();
-	$conn->beginTransaction();
 	try{
 		$query= $entityManager->createQuery($dql);
 		$retorna= $query->getResult();
-		$conn->commit();
+		
 	} catch(Exception $e) {
-		$conn->rollback();
-		$erro = $e->getMessage().' - consultaDql('.$dql.')';
+		$erroE = $e->getMessage();
+		$erro = "$erroE - consultaDql()";
 		salvaLogErro($erro);
 	}
 	return $retorna;
@@ -20,16 +18,14 @@ function consultaDql($dql){
 
 function consultaDqlMaxResult($quantidade,$dql){
 	global $entityManager;
-	$conn = $entityManager->getConnection();
-	$conn->beginTransaction();
 	try{
 		$query= $entityManager->createQuery($dql);
 		$query->setMaxResults($quantidade);
 		$retorna= $query->getResult();
-		$conn->commit();
+		
 	} catch(Exception $e) {
-		$conn->rollback();
-		$erro = $e->getMessage().' - consultaDqlMaxResult('.$quantidade.','.$dql.')';
+		$erroE = $e->getMessage();
+		$erro = "$erroE - consultaDqlMaxResult('.$quantidade.','.$dql.')";
 		salvaLogErro($erro);
 	}
 	return $retorna;
@@ -37,14 +33,10 @@ function consultaDqlMaxResult($quantidade,$dql){
 
 function buscaObjeto($classe, $id){
 	global $entityManager;
-	$conn = $entityManager->getConnection();
-	$conn->beginTransaction();
 	try{
 		$objeto = $entityManager->find($classe, $id);
-		$conn->commit();
 	} catch(Exception $e) {
-		$conn->rollback();
-		$erro = $e->getMessage().' - buscaObjeto('.$classe.', id)';
+		$erroE = $e->getMessage(); $erro = "$erroE - buscaObjeto('.$classe.', id)";
 		salvaLogErro($erro);
 	}
 	return $objeto;
@@ -52,46 +44,39 @@ function buscaObjeto($classe, $id){
 
 function salvaBancoDados($objeto){
 	global $entityManager;
-	$conn = $entityManager->getConnection();
-	$conn->beginTransaction();
 	try{
 		$entityManager->persist($objeto);
 		$entityManager->flush();
-		$conn->commit();
+		
 	} catch(Exception $e) {
-		$conn->rollback();
-		$erro = $e->getMessage().' - salvaBancoDados('.$objeto.')';
+		$erroE = $e->getMessage();
+		$erro = "$erroE - salvaBancoDados(objeto)";
 		salvaLogErro($erro);
 	}
 }
 
 function removeBancoDados($objeto){
 	global $entityManager;
-	$conn = $entityManager->getConnection();
-	$conn->beginTransaction();
 	try{
 		$entityManager->remove($objeto);
 		$entityManager->flush();
-		$conn->commit();
+		
 	} catch(Exception $e) {
-		$conn->rollback();
-		$erro = $e->getMessage().' - removeBancoDados('.$objeto.')';
+		$erroE = $e->getMessage();
+		$erro = "$erroE - removeBancoDados(objeto)";
 		salvaLogErro($erro);
 	}
 }
 
-function atualizaBancoDados($atualizado){
+function atualizaBancoDados($objeto){
 	global $entityManager;
-	global $entityManager;
-	$conn = $entityManager->getConnection();
-	$conn->beginTransaction();
 	try{
-		$entityManager->merge($atualizado);
+		$entityManager->merge($objeto);
 		$entityManager->flush();
-		$conn->commit();
+		
 	} catch(Exception $e) {
-		$conn->rollback();
-		$erro = $e->getMessage().' - removeBancoDados('.$objeto.')';
+		$erroE = $e->getMessage();
+		$erro = "$erroE - removeBancoDados($objeto)";
 		salvaLogErro($erro);
 	}
 }
@@ -104,21 +89,25 @@ function desfazTransacao($e){
 }
 
 function salvaLogErro($erro){
+	global $entityManager;
+	echo $erro;
 	$dql = "SELECT l FROM Log l WHERE l.descricao = '$erro'";
-	$logs = consultaDql($dql);
-	if($logs <> NULL){
-		foreach ($logs as $log){
-			if($log instanceof Log){
-				$log->incrementaQuantidade();
-				atualizaBancoDados($log);
-			}
+	$query= $entityManager->createQuery($dql);
+	$logs= $query->getResult();
+	$naoExiste = true;
+	foreach ($logs as $log){
+		if($log instanceof Log){
+			$naoExiste = false;
+			$log->incrementaQuantidade();
+			$entityManager->merge($log);
+			$entityManager->flush();
 		}
 	}
-	else{
+	if($naoExiste){
 		$log = new Log($erro);
-		salvaBancoDados($log);
+		$entityManager->persist($log);
+		$entityManager->flush();
 	}
-	echo("<script> top.location.href='index.php'</script>");
 }
 
 ?>

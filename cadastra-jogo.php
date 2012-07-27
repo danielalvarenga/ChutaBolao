@@ -61,9 +61,8 @@ try{
 				<body>
 				
 					<h1>Cadastrar novo Jogo</h1>
-				
+
 				<p>
-				
 				<form method="POST" action="cadastra-jogo2.php">
 						
 					<p>Escolha o Campeonato:
@@ -88,6 +87,13 @@ try{
 						?>		
 					</select>
 					<a href="cadastra-campeonato.php">Cadastrar novo Campeonato</a>
+					</p>
+					<p>Tipo de Campeonato: 
+					<select name="tipo">
+						<option></option>
+						<option value="nacional">Nacional</option>
+						<option value="mundial">Mundial</option>
+					</select>
 					</p>
 					<p><input type="submit" value="Próximo" name="passo1"></p>
 				</form>

@@ -34,13 +34,57 @@ else{
 	echo '<p align="center">Você não escolheu um Campeonato e uma rodada. <br/>
 	<a href="cadastra-jogo.php">Escolher</a></p>';
 }
-		
-if (isset($_POST['codtime1'])) {
+
+if (isset($_POST['selecao1']) && isset($_POST['selecao2'])) {
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$codTime1 = $_POST['codtime1'];
-		$codTime2 = $_POST['codtime2'];
+		$pais1 = buscaObjeto("Pais", $_POST['selecao1']);
+		$nomePais1 = $pais1->getNomePais();
+		$dql = "SELECT t FROM Time t WHERE t.nomeTime = '$nomePais1'";
+		$times1 = consultaDqlMaxResult(1, $dql);
+		if($times1 <> NULL){
+			foreach ($times1 as $time1){
+				$codTime1 = $time1->getCodTime();
+			}
+		}
+		else{
+			$time1 = new Time($nomePais1, $pais1->getBandeira(), $pais1);
+			salvaBancoDados($time1);
+			$codTime1 = $time1->getCodTime();
+		}
+
+		$pais2 = buscaObjeto("Pais", $_POST['selecao2']);
+		$nomePais2 = $pais2->getNomePais();
+		$dql = "SELECT t FROM Time t WHERE t.nomeTime = '$nomePais2'";
+		$times2 = consultaDqlMaxResult(1, $dql);
+		if($times2 <> NULL){
+			foreach ($times2 as $time2){
+				$codTime2 = $time2->getCodTime();
+			}
+		}
+		else{
+			$time2 = new Time($nomePais2, $pais2->getBandeira(), $pais2);
+			salvaBancoDados($time2);
+			$codTime2 = $time2->getCodTime();
+		}
+		$conn->commit();
+	} catch(Exception $e) {
+		$conn->rollback();
+		echo $e->getMessage() . "<br/><font color=red>Não foi possível gravar os dados. Verifique o Banco de Dados.</font><br/>";
+	}
+	$conn->close();
+}
+elseif (isset($_POST['codtime1']) && isset($_POST['codtime2'])) {
+	$codTime1 = $_POST['codtime1'];
+	$codTime2 = $_POST['codtime2'];
+}
+
+		
+if (isset($codTime1) && isset($codTime2)) {
+	$conn = $entityManager->getConnection();
+	$conn->beginTransaction();
+	try{
 		$codCampeonato = $_POST['campeonato'];
 		
 		$data = $_POST['ano'].'-'.$_POST['mes'].'-'.$_POST['dia'].' '.$_POST['hora'].':'.$_POST['minuto'].':00';
@@ -55,71 +99,107 @@ if (isset($_POST['codtime1'])) {
 		$queryJ = $entityManager->createQuery($dqlJogo);
 		$jogos = consultaDql($dqlJogo);
 		
-		$time1 = $entityManager->find("Time", $_POST['codtime1']);
-		$time2 = $entityManager->find("Time", $_POST['codtime2']);
-		
-		// Cria a imagem de publicação do jogo
-		$urlEscudosJogo = 'imagens/jogos/'.
-					strtolower(trim(
-					str_replace('é', 'e',
-					str_replace('ó', 'o',
-					str_replace('á', 'a', 
-					str_replace('í', 'i', 
-					str_replace('ú', 'u', 
-					str_replace('ê', 'e', 
-					str_replace('ô', 'o', 
-					str_replace('â', 'a', 
-					str_replace('õ', 'o',
-					str_replace('ã', 'a',
-					str_replace(' ', '-', $time1->getNomeTime()
-							)))))))))))))
-					.'x'.
-					strtolower(trim(
-					str_replace('é', 'e',
-					str_replace('ó', 'o',
-					str_replace('á', 'a', 
-					str_replace('í', 'i', 
-					str_replace('ú', 'u', 
-					str_replace('ê', 'e', 
-					str_replace('ô', 'o', 
-					str_replace('â', 'a', 
-					str_replace('õ', 'o',
-					str_replace('ã', 'a',
-					str_replace(' ', '-', $time2->getNomeTime()
-							)))))))))))))
-					.'.png';
-		$escudo1 = WideImage::load($time1->getEscudo());
-		$escudo2 = WideImage::load($time2->getEscudo());
-		$letraX = WideImage::load('imagens/jogos/x.png');
-			
-		$escudo1->resizeCanvas( 90, 90, 0, 'top', null, 'any', false);
-		$escudo2->resizeCanvas( 90, 90, 'right', 'botton', null, 'any', false);
-			
-		$escudosJogo = $escudo1->resizeCanvas( 90, 90, 0, 'top', null, 'any', false)
-		->merge($escudo2, "right", "bottom", 100)->merge($letraX);
-		
-		// Salva a imagem em um novo arquivo com 80% de qualidade
-		$escudosJogo->saveToFile($urlEscudosJogo, null, 80);
-		// Limpa a imagem da memória
-		$escudo1->destroy();
-		$escudo2->destroy();
-		$letraX->destroy();
-		
-		//---------------------------------------------------------------------------------
-	
 		if($jogos <> NULL){
-				echo '<font color="red"><b>Este jogo já existe.</b></font><br/>';
+			echo '<font color="red"><b>Este jogo já existe.</b></font><br/>';
 		} else{
-					
-		// Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato
+		
+			$time1 = $entityManager->find("Time", $codTime1);
+			$time2 = $entityManager->find("Time", $codTime2);
+			
+			// Cria a imagem de publicação do jogo
+			$urlEscudosJogo = 'imagens/jogos/'.
+						strtolower(trim(
+						str_replace('Á', 'a',
+						str_replace('É', 'e',
+						str_replace('Í', 'i',
+						str_replace('Ó', 'o',
+						str_replace('Ú', 'u',
+						str_replace('Â', 'a',
+						str_replace('Ê', 'e',
+						str_replace('Î', 'i',
+						str_replace('Ô', 'o',
+						str_replace('Û', 'u',
+						str_replace('é', 'e',
+						str_replace('ó', 'o',
+						str_replace('á', 'a', 
+						str_replace('í', 'i', 
+						str_replace('ú', 'u', 
+						str_replace('ê', 'e',
+						str_replace('û', 'u',
+						str_replace('ô', 'o',
+						str_replace('î', 'i',
+						str_replace('â', 'a', 
+						str_replace('õ', 'o',
+						str_replace('ã', 'a',
+						str_replace('ä', 'a',
+						str_replace('ë', 'e',
+						str_replace('ï', 'i',
+						str_replace('ö', 'o',
+						str_replace('ü', 'u',
+						str_replace(' ', '-',
+						$time1->getNomeTime()
+								))))))))))))))))))))))))))))))
+						.'x'.
+						strtolower(trim(
+						str_replace('Á', 'a',
+						str_replace('É', 'e',
+						str_replace('Í', 'i',
+						str_replace('Ó', 'o',
+						str_replace('Ú', 'u',
+						str_replace('Â', 'a',
+						str_replace('Ê', 'e',
+						str_replace('Î', 'i',
+						str_replace('Ô', 'o',
+						str_replace('Û', 'u',
+						str_replace('é', 'e',
+						str_replace('ó', 'o',
+						str_replace('á', 'a', 
+						str_replace('í', 'i', 
+						str_replace('ú', 'u', 
+						str_replace('ê', 'e',
+						str_replace('û', 'u',
+						str_replace('ô', 'o',
+						str_replace('î', 'i',
+						str_replace('â', 'a', 
+						str_replace('õ', 'o',
+						str_replace('ã', 'a',
+						str_replace('ä', 'a',
+						str_replace('ë', 'e',
+						str_replace('ï', 'i',
+						str_replace('ö', 'o',
+						str_replace('ü', 'u',
+						str_replace(' ', '-',
+						$time2->getNomeTime()
+								))))))))))))))))))))))))))))))
+						.'.png';
+			$escudo1 = WideImage::load($time1->getEscudo());
+			$escudo2 = WideImage::load($time2->getEscudo());
+			$letraX = WideImage::load('imagens/jogos/x.png');
+				
+			$escudo1->resizeCanvas( 90, 90, 0, 'top', null, 'any', false);
+			$escudo2->resizeCanvas( 90, 90, 'right', 'botton', null, 'any', false);
+				
+			$escudosJogo = $escudo1->resizeCanvas( 90, 90, 0, 'top', null, 'any', false)
+			->merge($escudo2, "right", "bottom", 100)->merge($letraX);
+			
+			// Salva a imagem em um novo arquivo com 80% de qualidade
+			$escudosJogo->saveToFile($urlEscudosJogo, null, 80);
+			// Limpa a imagem da memória
+			$escudo1->destroy();
+			$escudo2->destroy();
+			$letraX->destroy();
+			
+			//---------------------------------------------------------------------------------
+						
+			// Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato
 					
 				$rendimentoTime1 = $entityManager->find("RendimentoTime", array(
 						"campeonato" => $_POST['campeonato'],
-						"time" => $_POST['codtime1']
+						"time" => $codTime1
 						));
 				$rendimentoTime2 = $entityManager->find("RendimentoTime", array(
 						"campeonato" => $_POST['campeonato'],
-						"time" => $_POST['codtime2']
+						"time" => $codTime2
 						));
 					
 				if(!$rendimentoTime1 instanceof RendimentoTime){
@@ -132,7 +212,7 @@ if (isset($_POST['codtime1'])) {
 					}
 		// -------------------------------------------------------------------------------------------------------------------
 				
-				$jogo = new Jogo($data,$objRodada,$_POST['codtime1'],$_POST['codtime2'], $objCampeonato, $urlEscudosJogo);
+				$jogo = new Jogo($data,$objRodada,$codTime1,$codTime2, $objCampeonato, $urlEscudosJogo);
 				salvaBancoDados($jogo);
 				}
 		$conn->commit();
@@ -142,6 +222,7 @@ if (isset($_POST['codtime1'])) {
 	}
 	$conn->close();
 }
+
 	
 
 ?>
@@ -159,9 +240,10 @@ cadastro de jogo
 
 <form method="POST" action="">					
 	<?php
-	if(isset($_POST['rodada']) && isset($_POST['campeonato'])){ ?>
+	if(isset($_POST['rodada']) && isset($_POST['campeonato']) && isset($_POST['tipo'])){ ?>
 		<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
 		<input type="hidden" name="rodada" value="<?php echo $_POST['rodada'];?>">
+		<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
 		<?php
 		echo '<b>Campeonato:</b> '.$objCampeonato->getNomeCampeonato().' '.$objCampeonato->getAnoCampeonato().'<br/>';
 		echo '<b>Rodada:</b> '.$objRodada->getNumRodada().
@@ -233,36 +315,74 @@ cadastro de jogo
 				};
 			?>
 		</select></p>
-		<?php 
-				$time1 = "SELECT t FROM time t ORDER BY t.nomeTime ASC";
-				$times = consultaDql($time1);
+		<?php
+		$tipoCampeonato = $_POST['tipo'];
+		if($tipoCampeonato == "nacional"){
+			$dql = "SELECT t FROM Time t ORDER BY t.nomeTime ASC";
+			$times = consultaDql($dql);
+			?>
+			<p>Time1: 
+				<select size="1" name="codtime1">
+				<option></option>
+				<?php 
+					foreach($times as $time1) {
+						if($time1->getNomeTime() != $time1->getPais()->getNomePais()){
+							echo "<option value=".$time1->getCodTime().">".$time1->getNomeTime()."</option>";
+						}
+					}
+				?>
+				</select>
+			 </p>
+			 <p>Time2: 
+				<select size="1" name="codtime2">
+				<option></option>
+				<?php
+					foreach($times as $time2) {
+						if($time2->getNomeTime() != $time2->getPais()->getNomePais()){				
+							echo "<option value=".$time2->getCodTime().">".$time2->getNomeTime()."</option>";
+						}
+					}
+				?>
+				</select>
+			  </p>
+		<?php
+		}
+		elseif($tipoCampeonato == "mundial"){
+			$dql = "SELECT p FROM Pais p ORDER BY p.nomePais ASC";
+			$selecoes = consultaDql($dql);
+			?>
+						<p>Seleção 1: 
+							<select size="1" name="selecao1">
+							<option></option>
+							<?php 
+								foreach($selecoes as $selecao1) {
+									echo "<option value=".$selecao1->getCodPais().">".$selecao1->getNomePais()."</option>";
+								}
+							?>
+							</select>
+						 </p>
+						 <p>Seleção 2: 
+							<select size="1" name="selecao2">
+							<option></option>
+							<?php
+								foreach($selecoes as $selecao2) {
+									echo "<option value=".$selecao2->getCodPais().">".$selecao2->getNomePais()."</option>";
+								}
+							?>
+							</select>
+						  </p>
+		<?php
+		}
+		
 		?>
-		<p>Time1: 
-			<select size="1" name="codtime1">
-			<?php 
-				foreach($times as $time1) {
-					echo "<option value=".$time1->getCodTime().">".$time1->getNomeTime()."</option>";
-				}
-			?>
-			</select>
-		 </p>
-		 <p>Time2: 
-			<select size="1" name="codtime2">
-			<?php
-				foreach($times as $time2) {
-					$ctcod = $time2->getCodTime();
-					
-					echo "<option value=".$time2->getCodTime().">".$time2->getNomeTime()."</option>";
-				}
-			?>
-			</select>
-		  </p>
-	<?php }?>
-  <p><input type="submit" value="Gravar" name="B1"></p>
+  <p><input type="submit" value="Salvar Jogo" name="salvarJogo"></p>
 </form>
 
 </p>
-
+		<?php
+		}
+		
+		?>
 
 <h2>Jogos Cadastrados</h2>
 <table border="1">
