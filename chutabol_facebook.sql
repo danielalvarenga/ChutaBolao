@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `rendimentotime` (
 --
 
 CREATE TABLE IF NOT EXISTS `rodada` (
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL,
   `status` set('ativa','finalizada') DEFAULT NULL,
   `campeonato_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`,`campeonato_id`),

@@ -3,7 +3,7 @@ require "bootstrap.php";
 
 
 if(!isset($_POST['campeonatoMenu'])){
-	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
+	$dql = "SELECT c FROM Campeonato c WHERE c.status='ativo' ORDER BY c.codCampeonato DESC";
 	$campeonatos= consultaDql($dql);
 	
 	$classeGeral='todosAtivo';

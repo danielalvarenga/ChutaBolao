@@ -8,7 +8,7 @@ function opcaoUsuario(){
 }
 
 if(!isset($_POST['campeonatoMenu'])){
-	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.status='ativo'";
+	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.status='ativo' ORDER BY c.codCampeonato DESC";
 	$classeGeral='todosAtivo';
 }
 else{
@@ -160,25 +160,27 @@ if(isset($_POST[0])){
 					}
 				}
 			}
-				
+			$time1 = buscaObjeto("Time", $jogo->getCodtime1());
+			$time2 = buscaObjeto("Time", $jogo->getCodtime2());
+			if(($time1->getNomeTime() == "Brasil") || ($time2->getNomeTime() == "Brasil")){
+				if($contadorPublicacoesMural > 3){
+					$contadorPublicacoesMural = 3;
+				}
+			}
 			if($publica && $contadorPublicacoesMural <= 3){
 				if($palpite_time1_jogo > $palpite_time2_jogo){
-					$time1 = buscaObjeto("Time", $jogo->getCodtime1());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
 					x  '.$palpite_time2_jogo.'
 					para o '.$time1->getNomeTime();
 				}
 				elseif($palpite_time1_jogo < $palpite_time2_jogo){
-					$time2 = buscaObjeto("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time2_jogo.'
 					x  '.$palpite_time1_jogo.'
 					para o '.$time2->getNomeTime();
 				}
 				elseif($palpite_time1_jogo == $palpite_time2_jogo){
-					$time1 = buscaObjeto("Time", $jogo->getCodtime1());
-					$time2 = buscaObjeto("Time", $jogo->getCodtime2());
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'
 					x  '.$palpite_time2_jogo.'
@@ -191,14 +193,14 @@ if(isset($_POST[0])){
 				$caption = 'Mostre que você sabe mais!';
 				$description = "Jogo em ".$jogo->getDataLogica().". Faça seu chute até ".$jogo->getDataLogicaFimApostas();
 				
-/*				$ret_obj = $facebook->api('/'.$user_id.'/feed', 'POST',	array(
+				$ret_obj = $facebook->api('/'.$user_id.'/feed', 'POST',	array(
 				 		'link' => utf8_encode($link),
 						'name' => utf8_encode($name),
 						'picture' => $picture,
 						'caption' => utf8_encode($caption),
 						'description' => utf8_encode($description)
 				 ));
-*/				 $contadorPublicacoesMural++;
+				 $contadorPublicacoesMural++;
 			}
 			elseif ($dataAgora > $dataFimApostas){
 				$time1 = buscaObjeto("Time", $jogo->getCodtime1());
@@ -235,6 +237,8 @@ if(isset($contador) || isset($contador1)){
 		<?php
 	}
 }
+
+
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
 try{
@@ -250,9 +254,11 @@ try{
 			$opcaoVazia='';
 			
 			//Essa parte do codigo busca os jogos cadastradas dentro do banco de dados.
-
-			$dql = "SELECT j FROM Jogo j WHERE'$dataAtual'>= j.dataInicioApostas AND '$dataAtual
-			'<=j.dataFimApostas AND j.campeonato=".$campeonato->getCodCampeonato()." ORDER BY j.dataJogo ASC";
+			$codCampeonato = $campeonato->getCodCampeonato();
+			$dql = "SELECT j FROM Jogo j WHERE j.dataInicioApostas <= '$dataAtual' 
+			AND j.dataFimApostas >= '$dataAtual'
+			AND j.campeonato = '$codCampeonato'
+			ORDER BY j.dataJogo ASC";
 			$jogos = consultaDql($dql);
 
 			//Aqui esta testando se a busca voltou com algum jogo ou nao

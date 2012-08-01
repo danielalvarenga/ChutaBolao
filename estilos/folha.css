@@ -1488,6 +1488,7 @@ a.menuCampeonatos{
 .campeonatoAtivo{
 	float: left;
 	width: 45%;
+	height: 145px;
 	
 	background-color: #ff3300;
 	
@@ -1519,6 +1520,7 @@ a.menuCampeonatos{
 .campeonatoInativo{
 	float: left;
 	width: 45%;
+	height: 145px;
 	
 	background-color: #ffffcc;
 	cursor:pointer;
@@ -1551,6 +1553,7 @@ a.menuCampeonatos{
 .campeonatoInativo:hover {
 	float: left;
 	width: 45%;
+	height: 145px;
 	
 	background-color: #ff3300;
 	cursor:pointer;

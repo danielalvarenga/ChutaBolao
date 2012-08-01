@@ -2,11 +2,13 @@
 <?php 
 $pais = buscaObjeto("Pais", 76);
 $times = $pais->getTimes();
+$qtd = 1;
 foreach($times as $time) {
-	if($time instanceof Time){
+	if(($time instanceof Time) && ($qtd <=20) && ($time->getNomeTime() != "Brasil")){
 		?>
 		<img class="timeFavorito" src="<?php echo $time->getEscudo();?>">
 		<?php
+		$qtd++;
 	} 
 }
 ?>
@@ -150,7 +152,7 @@ $conn->close();
 <div id="menuCampeonatos">
 		<h3 class="titulo">Dê seus Chutes</h3>
 		<?php
-		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
+		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato DESC";
 		$campeonatos = consultaDql($dql);
 		foreach($campeonatos as $campeonato) {
 			if($campeonato instanceof Campeonato){
@@ -161,7 +163,7 @@ $conn->close();
 					}
 				}
 				?>
-				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="index.php?conteudo=chutes" method="POST">
+				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="index-fb.php?conteudo=chutes" method="POST">
 					<button class="<?php echo $classe;?>" type="submit" name="campeonatoMenu" value="<?php echo $campeonato->getCodCampeonato();?>">
 						<span class="nomeCampeonato">
 							Dê seu Chute

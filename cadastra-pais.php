@@ -18,8 +18,8 @@ if(isset($_POST['mudaimg'])){
 
 		$pais = buscaObjeto("Pais", $codPais);
 		$nome = $pais->getNomePais();
-		$largura = "47";
-		$altura = "47";
+		$largura = "48";
+		$altura = "48";
 			
 		$caminho_imagem = 'imagens/bandeiras/bandeira'.'-'.
 				strtolower(trim(
@@ -50,17 +50,28 @@ if(isset($_POST['mudaimg'])){
 				str_replace('ï', 'i',
 				str_replace('ö', 'o',
 				str_replace('ü', 'u',
+				str_replace('ç', 'c',
+				str_replace('Ç', 'c',
+				str_replace('(', '-',
+				str_replace(')', '-',
+				str_replace('[', '-',
+				str_replace(']', '-',
+				str_replace('{', '-',
+				str_replace('}', '-',
+				str_replace('/', '-',
+				str_replace('\\', '-',
+				str_replace('|', '-',
 				str_replace(' ', '-',
 				$nome)
-				))))))))))))))))))))))))))))).$largura.'x'.$altura.'.png';
+				)))))))))))))))))))))))))))))))))))))))).$largura.'x'.$altura.'.png';
 			
 		move_uploaded_file($imagem["tmp_name"], $caminho_imagem);
 			
-		$imagemObj = WideImage::load($caminho_imagem);
+	/*	$imagemObj = WideImage::load($caminho_imagem);
 		$imagemExata = $imagemObj->resize($largura, $altura,'inside','any');
-		$imagemExata->saveToFile($caminho_imagem, null, 80);
+		$imagemExata->saveToFile($caminho_imagem, null, 100);
 		$imagemObj->destroy();
-			
+	*/		
 		$pais->setBandeira($caminho_imagem);
 		atualizaBancoDados($pais);
 

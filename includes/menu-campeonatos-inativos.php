@@ -1,6 +1,6 @@
 <div id="menuCampeonatos">
 <?php
-$dql = "SELECT c FROM Campeonato c WHERE c.status = 'finalizado' ORDER BY c.codCampeonato ASC";
+$dql = "SELECT c FROM Campeonato c WHERE c.status = 'finalizado' ORDER BY c.codCampeonato DESC";
 $campeonatos = consultaDql($dql);
 foreach($campeonatos as $campeonato) {
 	if($campeonato instanceof Campeonato){

@@ -367,6 +367,9 @@ try{
 		$rodada = buscaObjeto("Rodada", array(
 				"numRodada" => $numRodada,
 				"campeonato" => $campeonato->getCodCampeonato()));
+		echo 'Rodada: '.$rodada->getNumRodada().'<br/>';
+		echo 'Campeonato: '.$rodada->getCampeonato()->getNomeCampeonato().'<br/>';
+		echo 'Status: '.$rodada->getStatus().'<br/>';
 		echo 'Rodada '.$rodada->getNumRodada().' '.$rodada->getStatus().$enter;
 		echo $campeonato->getNomeCampeonato().' '.$campeonato->getStatus().$enter.$enter;
 		

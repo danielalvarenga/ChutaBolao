@@ -117,7 +117,15 @@ require 'metodos-bd.php';
 			
 			$qtdJogosRodada = sizeof($jogosTodos);
 			if($qtdJogosPassados == $qtdJogosRodada){
-				$jogo->getRodada()->finalizaStatus();
+				echo 'Campeonato: '.$jogo->getCampeonato()->getNomeCampeonato().'<br/>';
+				$rodada = buscaObjeto("Rodada", array(
+						"numRodada" => $numRodada,
+						"campeonato" => $campeonato));
+				$rodada->finalizaStatus();
+				atualizaBancoDados($rodada);
+				echo 'Rodada: '.$rodada->getNumRodada().'<br/>';
+				echo 'Campeonato: '.$rodada->getCampeonato()->getNomeCampeonato().'<br/>';
+				echo 'Status: '.$rodada->getStatus().'<br/>';
 				atribuiMedalhasRodada($numRodada, $jogo);
 				atualizaClassificacaoMedalhasCampeonato($jogo);
 				atualizaClassificacaoMedalhasGeral();
@@ -196,28 +204,28 @@ for ($i=0 ; $i < $contador ; $i++){
 				
 		function atualizaClassificacaoMedalhasGeral(){
 			
-$contador=0;
-$armazenaPontos[0]=null;
-$armazenaPosicao[0]=null;
-
-$dql = "SELECT p FROM PontuacaoGeral p GROUP BY p.pontosMedalhasGeral ORDER BY p.pontosMedalhasGeral DESC";
-$pontuacoesGerais = consultaDql($dql);
-
-foreach ($pontuacoesGerais as $pontuacaoGeral){
-	if($pontuacaoGeral instanceof PontuacaoGeral){
-		$armazenaPontos[$contador]=$pontuacaoGeral->getPontosMedalhasGeral();
-		$armazenaPosicao[$contador]=$contador+1;
-		$contador++;	
+	$contador=0;
+	$armazenaPontos[0]=null;
+	$armazenaPosicao[0]=null;
+	
+	$dql = "SELECT p FROM PontuacaoGeral p GROUP BY p.pontosMedalhasGeral ORDER BY p.pontosMedalhasGeral DESC";
+	$pontuacoesGerais = consultaDql($dql);
+	
+	foreach ($pontuacoesGerais as $pontuacaoGeral){
+		if($pontuacaoGeral instanceof PontuacaoGeral){
+			$armazenaPontos[$contador]=$pontuacaoGeral->getPontosMedalhasGeral();
+			$armazenaPosicao[$contador]=$contador+1;
+			$contador++;	
+				}
 			}
-		}
-		for ($i = 0 ;$i < $contador ; $i++){
-			$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosMedalhasGeral=".$armazenaPontos[$i];
-			$pontuacoesGerais = consultaDql($dql);
-
-			foreach ($pontuacoesGerais as $pontuacaoGeral){
-				if($pontuacaoGeral instanceof PontuacaoGeral){
-					$pontuacaoGeral->setClassificacaoMedalhasGeral(	$armazenaPosicao[$i]);
-					atualizaBancoDados($pontuacaoGeral);
+			for ($i = 0 ;$i < $contador ; $i++){
+				$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosMedalhasGeral=".$armazenaPontos[$i];
+				$pontuacoesGerais = consultaDql($dql);
+	
+				foreach ($pontuacoesGerais as $pontuacaoGeral){
+					if($pontuacaoGeral instanceof PontuacaoGeral){
+						$pontuacaoGeral->setClassificacaoMedalhasGeral(	$armazenaPosicao[$i]);
+						atualizaBancoDados($pontuacaoGeral);
 					}
 				}
 			}

@@ -41,7 +41,7 @@ else{
 	$classeGeral='todosInativo';
 }
 $tituloMenu = 'Rankings Disponíveis';
-$todosMenu = 'Todos';
+$todosMenu = 'Geral';
 
 ?>
 <div id="colunaEsquerda">

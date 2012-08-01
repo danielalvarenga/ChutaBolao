@@ -136,9 +136,20 @@ if (isset($codTime1) && isset($codTime2)) {
 						str_replace('ï', 'i',
 						str_replace('ö', 'o',
 						str_replace('ü', 'u',
+						str_replace('ç', 'c',
+						str_replace('Ç', 'c',
+						str_replace('(', '-',
+						str_replace(')', '-',
+						str_replace('[', '-',
+						str_replace(']', '-',
+						str_replace('{', '-',
+						str_replace('}', '-',
+						str_replace('/', '-',
+						str_replace('\\', '-',
+						str_replace('|', '-',
 						str_replace(' ', '-',
 						$time1->getNomeTime()
-								))))))))))))))))))))))))))))))
+								)))))))))))))))))))))))))))))))))))))))))
 						.'x'.
 						strtolower(trim(
 						str_replace('Á', 'a',
@@ -168,9 +179,20 @@ if (isset($codTime1) && isset($codTime2)) {
 						str_replace('ï', 'i',
 						str_replace('ö', 'o',
 						str_replace('ü', 'u',
+						str_replace('ç', 'c',
+						str_replace('Ç', 'c',
+						str_replace('(', '-',
+						str_replace(')', '-',
+						str_replace('[', '-',
+						str_replace(']', '-',
+						str_replace('{', '-',
+						str_replace('}', '-',
+						str_replace('/', '-',
+						str_replace('\\', '-',
+						str_replace('|', '-',
 						str_replace(' ', '-',
 						$time2->getNomeTime()
-								))))))))))))))))))))))))))))))
+								)))))))))))))))))))))))))))))))))))))))))
 						.'.png';
 			$escudo1 = WideImage::load($time1->getEscudo());
 			$escudo2 = WideImage::load($time2->getEscudo());
