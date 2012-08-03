@@ -168,39 +168,40 @@ require 'metodos-bd.php';
 					
 		function atualizaClassificacaoMedalhasCampeonato($jogo){
 			
-$contador=0;
-$armazenaPontos[0]=null;
-$armazenaPosicao[0]=null;
-
-			$dql = "SELECT p FROM PremiosUsuario p WHERE
-					p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
-					ORDER BY p.pontosMedalhas DESC";
-$premiosUsuarios = consultaDql($dql);
-
-foreach ($premiosUsuarios as $premiosUsuario){
-	if($premiosUsuario instanceof PremiosUsuario){
-		$armazenaPontos[$contador]=$premiosUsuario->getPontosMedalhas();
-		$armazenaPosicao[$contador]=$contador+1;
-		$contador++;
+			$contador=0;
+			$armazenaPontos[0]=null;
+			$armazenaPosicao[0]=null;
 			
-		}	
-	}
-
-for ($i=0 ; $i < $contador ; $i++){
-	$dql = "SELECT p FROM PremiosUsuario p WHERE
-						p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
-						AND p.pontosMedalhas=".$armazenaPontos[$i] ;
-	$premiosUsuarios = consultaDql($dql);
-
-	foreach ($premiosUsuarios as $premiosUsuario){
-		if($premiosUsuario instanceof PremiosUsuario){
-			$premiosUsuario->setClassificacaoMedalhas($armazenaPosicao[$i]);
-			atualizaBancoDados($premiosUsuario);
-				
+						$dql = "SELECT p FROM PremiosUsuario p WHERE
+								p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+								GROUP BY p.pontosMedalhas
+								ORDER BY p.pontosMedalhas DESC";
+			$premiosUsuarios = consultaDql($dql);
+			
+			foreach ($premiosUsuarios as $premiosUsuario){
+				if($premiosUsuario instanceof PremiosUsuario){
+					$armazenaPontos[$contador]=$premiosUsuario->getPontosMedalhas();
+					$armazenaPosicao[$contador]=$contador+1;
+					$contador++;
+						
+					}	
 				}
-			}
-		}
-	}
+			
+			for ($i=0 ; $i < $contador ; $i++){
+				$dql = "SELECT p FROM PremiosUsuario p WHERE
+									p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+									AND p.pontosMedalhas=".$armazenaPontos[$i] ;
+				$premiosUsuarios = consultaDql($dql);
+			
+				foreach ($premiosUsuarios as $premiosUsuario){
+					if($premiosUsuario instanceof PremiosUsuario){
+						$premiosUsuario->setClassificacaoMedalhas($armazenaPosicao[$i]);
+						atualizaBancoDados($premiosUsuario);
+							
+							}
+						}
+					}
+				}
 				
 		function atualizaClassificacaoMedalhasGeral(){
 			

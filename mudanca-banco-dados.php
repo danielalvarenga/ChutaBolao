@@ -1,7 +1,5 @@
 <?php
 require ("bootstrap.php");
-require 'metodos-bd.php';
+require "funcoes-insere-gols.php";
 
-$log = new Log("oi");
-salvaBancoDados($log);
 ?>

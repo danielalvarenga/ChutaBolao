@@ -13,7 +13,7 @@ Class Rodada{
 	/**
 	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rodadas", cascade={"persist"})
 	 */
-	private $campeonato;
+	protected $campeonato;
 	
 	/**
 	 * @OneToMany(targetEntity="Jogo", mappedBy="rodada", cascade={"persist"})

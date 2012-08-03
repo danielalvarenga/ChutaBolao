@@ -12,12 +12,12 @@ class ContadorAposta{
 	/**
 	* @Id @ManyToOne(targetEntity="Campeonato", inversedBy="contadorCampeonato")
 	*/
-	private $campeonato;
+	protected $campeonato;
 	
 	/**
 	* @Id @ManyToOne(targetEntity="Jogo", inversedBy="contadorJogo")
 	*/
-	private $jogo;
+	protected  $jogo;
 	
 	function __construct($opcaoCadastrada,$campeonato,$jogo){
 		$this->opcaoCadastrada=$opcaoCadastrada;

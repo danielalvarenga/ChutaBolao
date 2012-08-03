@@ -274,7 +274,7 @@ ALTER TABLE `contadoraposta`
 --
 ALTER TABLE `jogo`
   ADD CONSTRAINT `FK_jogo_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_jogo_rodada` FOREIGN KEY (`rodada_id`) REFERENCES `rodada` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_jogo_rodada` FOREIGN KEY (`rodada_id`, `campeonato_id`) REFERENCES `rodada` (`id`, `campeonato_id`) ON DELETE CASCADE,
 
 --
 -- Restrições para a tabela `pontuacaogeral`

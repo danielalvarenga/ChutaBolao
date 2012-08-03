@@ -225,20 +225,6 @@ if(isset($_POST[0])){
 ?>
 <div id="colunaEsquerda">
 <?php
-if(isset($contador) || isset($contador1)){
-	if($contador>0){
-		?>
-		<p class="aviso">Aposta realizada com sucesso</p>
-		<?php 
-	}
-	if($contador1>0){
-		?>
-		<p class="aviso">Aposta atualizada com sucesso</p>
-		<?php
-	}
-}
-
-
 $conn = $entityManager->getConnection();
 $conn->beginTransaction();
 try{
@@ -403,3 +389,13 @@ $conn->close();
 <div id="colunaDireita">
 <?php include "includes/menu-campeonatos-ativos.php";?>
 </div>
+<?php
+if(isset($contador) || isset($contador1)){
+	if($contador>0){
+		echo "<script> alert('Aposta realizada com sucesso.');</script>";
+	}
+	if($contador1>0){
+		echo "<script> alert('Aposta atualizada com sucesso.');</script>";
+	}
+}
+?>

@@ -27,13 +27,13 @@ class Campeonato {
 	* @OneToMany(targetEntity="Rodada", mappedBy="campeonato", cascade={"persist"})
 	* @var Rodada[]
 	*/
-	private $rodadas;
+	protected $rodadas;
 
 	/**
 	* @OneToMany(targetEntity="ContadorAposta", mappedBy="campeonato", cascade={"persist"})
 	* @var ContadorAposta[]
 	*/
-	private $contadorCampeonato;
+	protected $contadorCampeonato;
 	
 	/**
 	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="rodada", cascade={"persist"})
