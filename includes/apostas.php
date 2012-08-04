@@ -236,7 +236,9 @@ try{
 	$campeonatos=consultaDql($dqlMenu);
 	foreach ($campeonatos as $campeonato){
 		if($campeonato instanceof Campeonato){
-
+			?>
+			<h3 class="titulo"><?php echo $campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato();?></h3>
+			<?php 
 			$opcaoVazia='';
 			
 			//Essa parte do codigo busca os jogos cadastradas dentro do banco de dados.
@@ -253,7 +255,6 @@ try{
 				$semChutes = false;
 				?>
 				<div id="jogos">
-					<h3 class="titulo"><?php echo $campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato();?></h3>
 					<form action="" method="POST" >
 				<?php
 				$contadorArray=0;
@@ -364,15 +365,13 @@ try{
 				<div class="divisoriaCampeonatos"></div>
 				<?php
 			}
-		}
-		if($semChutes){
-			?>
-			<p class="aviso">
-				Não existem jogos liberados no momento.<br/>
-				O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br/>
-				Volte amanhã para conferir novamente.</p>
-			<?php
-			break;
+			if($semChutes){
+				?>
+				<p class="aviso">
+					Aguardando novos jogos.<br/>
+					O início dos chutes começa sempre 2 dias antes de cada jogo e encerra 1 hora antes.<br/></p>
+				<?php
+			}
 		}
 	}
 	$conn->commit();
