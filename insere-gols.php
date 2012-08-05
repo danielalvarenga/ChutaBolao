@@ -67,7 +67,6 @@ if (isset($_POST['jogo'])) {
 					atualizaBancoDados($aposta);
 					
 					//Atualiza PremiosUsuario do Usuário no Campeonato
-					
 					$premiosUsuario = $entityManager->find("PremiosUsuario", array(
 						"campeonato" =>	$jogo->getCampeonato()->getCodCampeonato(),
 						"usuario" => $aposta->getUsuario()->getIdUsuario()
@@ -82,8 +81,19 @@ if (isset($_POST['jogo'])) {
 							"rodada" => $numRodada,
 							"usuario" => $aposta->getUsuario()->getIdUsuario()
 					));
-					$pontuacaoRodada->calculaPontosRodada($aposta->getPontosAposta());
-					atualizaBancoDados($pontuacaoRodada);
+					$pontosAposta = $aposta->getPontosAposta();
+					if($pontuacaoRodada instanceof PontuacaoRodada){
+						$pontuacaoRodada->calculaPontosRodada($pontosAposta);
+						atualizaBancoDados($pontuacaoRodada);
+					}
+					else{
+						$campeonato = $jogo->getCampeonato();
+						$usuario = $aposta->getUsuario();
+						$rodada = $jogo->getRodada();
+						$pontuacaoRodada = new PontuacaoRodada($rodada, $campeonato, $usuario);
+						$pontuacaoRodada->calculaPontosRodada($pontosAposta);
+						salvaBancoDados($pontuacaoRodada);
+					}
 					
 					//Atualiza PontosGeral de cada Usuário
 					

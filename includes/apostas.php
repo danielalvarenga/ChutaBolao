@@ -8,7 +8,7 @@ function opcaoUsuario(){
 }
 
 if(!isset($_POST['campeonatoMenu'])){
-	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.status='ativo' ORDER BY c.codCampeonato DESC";
+	$dqlMenu = "SELECT c FROM Campeonato c WHERE c.status='ativo' ORDER BY c.codCampeonato ASC";
 	$classeGeral='todosAtivo';
 }
 else{
@@ -59,7 +59,8 @@ if(isset($_POST[0])){
 						"usuario" => $user_id
 				));
 				if(!$pontuacaoRodada instanceof PontuacaoRodada){
-					$pontuacaoRodada = new PontuacaoRodada($jogo->getRodada(), $campeonato, $usuario);
+					$rodada = $jogo->getRodada();
+					$pontuacaoRodada = new PontuacaoRodada($rodada, $campeonato, $usuario);
 					salvaBancoDados($pontuacaoRodada);
 					}
 					
