@@ -65,12 +65,15 @@ try{
 						//Aqui esta testando se a busca voltou com alguma aposta ou nao
 						$golsTime1 = $aposta->getJogo()->getGolstime1();
 						$golsTime2 = $aposta->getJogo()->getGolstime2();
-						if(($golsTime1 == NULL) && ($golsTime2 == NULL)){
+						
+						if(($golsTime1 === NULL) && ($golsTime2 === NULL)){
 							$resultado = 'AGUARDANDO RESULTADO REAL';
 						}
 						else{
 							$resultado = 'O RESULTADO REAL FOI '.$golsTime1.' X '.$golsTime2;
 						}
+						
+						//$resultado = 'O RESULTADO REAL FOI '.$golsTime1.' X '.$golsTime2;
 						?>
 						
 							<span class="dataJogo">Realizado em <?php echo $aposta->getJogo()->getDataLogica();?></span>

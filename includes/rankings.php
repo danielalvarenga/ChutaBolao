@@ -161,5 +161,8 @@ else{
 ?>
 </div>
 <div id="colunaDireita">
-<?php include "includes/menu-campeonatos-ativos.php";?>
+<?php
+include "includes/menu-campeonatos-ativos.php";
+include "includes/menu-campeonatos-inativos.php";
+?>
 </div>

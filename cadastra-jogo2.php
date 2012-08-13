@@ -107,38 +107,40 @@ cadastro de jogo
 		foreach($jogos as $jogo) {
 		
 			if($jogo instanceof Jogo){
-			
-				$codTime1 = $jogo->getCodtime1();
+				if($jogo->getCampeonato()->getStatus() != "finalizado"){
 				
-				$codTime2 = $jogo->getCodtime2();
-				
-				$time1 = $entityManager->find("Time", $codTime1);
-				
-				$time2 = $entityManager->find("Time", $codTime2);
-				
-				echo '<tr vertical-align="middle" align="center">
-						<td>'.$jogo->getDatajogo().'</td>
-						<td>'.$jogo->getCampeonato()->getNomeCampeonato().' '.$jogo->getCampeonato()->getAnoCampeonato().'</td>
-						<td>'.$jogo->getRodada()->getNumRodada().'</td>
-						<td>'.$time1->getNomeTime().'</td>
-						<td>'.$time2->getNomeTime().'</td>
-						<td>
-								<img src="'.$jogo->getEscudosJogo().'">
-						</td>
-						<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
-						<td>'.$jogo->getDataInicioApostas().'</td>
-						<td>'.$jogo->getDataFimApostas().'</td>
-						<td>
-							<form method="POST" action="insere-gols.php">
-							<input type="hidden" name="jogo" value='.$jogo->getCodjogo().'>
-							<input type="submit" name="insere-gols" value="Inserir Gols"><br/>
-							</form>
-							<form method="POST" action="">
-							<input type="hidden" name="jogoExcluir" value='.$jogo->getCodjogo().'>
-							<input type="submit" name="excluir" value="Excluir"><br/>
-							</form>
-						</td>
-					</tr>';
+					$codTime1 = $jogo->getCodtime1();
+					
+					$codTime2 = $jogo->getCodtime2();
+					
+					$time1 = $entityManager->find("Time", $codTime1);
+					
+					$time2 = $entityManager->find("Time", $codTime2);
+					
+					echo '<tr vertical-align="middle" align="center">
+							<td>'.$jogo->getDatajogo().'</td>
+							<td>'.$jogo->getCampeonato()->getNomeCampeonato().' '.$jogo->getCampeonato()->getAnoCampeonato().'</td>
+							<td>'.$jogo->getRodada()->getNumRodada().'</td>
+							<td>'.$time1->getNomeTime().'</td>
+							<td>'.$time2->getNomeTime().'</td>
+							<td>
+									<img src="'.$jogo->getEscudosJogo().'">
+							</td>
+							<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
+							<td>'.$jogo->getDataInicioApostas().'</td>
+							<td>'.$jogo->getDataFimApostas().'</td>
+							<td>
+								<form method="POST" action="insere-gols.php">
+								<input type="hidden" name="jogo" value='.$jogo->getCodjogo().'>
+								<input type="submit" name="insere-gols" value="Inserir Gols"><br/>
+								</form>
+								<form method="POST" action="">
+								<input type="hidden" name="jogoExcluir" value='.$jogo->getCodjogo().'>
+								<input type="submit" name="excluir" value="Excluir"><br/>
+								</form>
+							</td>
+						</tr>';
+				}
 			}
 		}
 		$conn->commit();

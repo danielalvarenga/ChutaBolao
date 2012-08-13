@@ -14,7 +14,7 @@ require_once 'FacebookApi/facebook.php';
 if($_SESSION["facebook_token"]==""){//verificamos se existe uma conexão com o face.
 	$state = md5(uniqid(rand(), TRUE));//geramos um id unico
 	$dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" . $app_id . "&redirect_uri=".urlencode($url_app . "conector_facebook.php")."&scope=email,publish_stream&state=".$state;
-	echo("<script> top.location.href='" . $dialog_url . "'</script>");//redirecionamos o usuario para a página de login
+	echo("<script> top.location.href='$dialog_url'</script>");//redirecionamos o usuario para a página de login
 }else{
 	$config = array(
 			'appId' => $app_id,
@@ -38,6 +38,7 @@ if($_SESSION["facebook_token"]==""){//verificamos se existe uma conexão com o fa
 		$dados_usuario = json_decode(proxy("https://graph.facebook.com/me/?access_token=".$token),true);
 		//print_r($dados_usuario);
 		$user_id = $dados_usuario['id'];
+		
 		try {				
 			$usuario = buscaObjeto("Usuario", $user_id);
 				
@@ -67,7 +68,7 @@ if($_SESSION["facebook_token"]==""){//verificamos se existe uma conexão com o fa
 				
 				$message = 'Agora vou mostrar quem entende de futebol! =D';
 				$picture = 'http://www.chutabolao.com.br/facebook/imagens/publicacoes/chuta-bolao-logo.png';
-				$link = 'http://apps.facebook.com/chutabolao';
+				$link = 'http://apps.facebook.com/chutabolao/?'.$user_id;
 				$name = $primeiroNomeUsuario.' agora "Chuta Bolão"';
 				$caption = 'Seu time vai ganhar esse Campeonato?';
 				$description = 'Faça seus Chutes e acerte o placar dos melhores jogos do Campeonato.';

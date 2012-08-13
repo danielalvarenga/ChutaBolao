@@ -58,11 +58,12 @@ if(isset($_POST[0])){
 						"rodada" => $jogo->getRodada()->getNumRodada(),
 						"usuario" => $user_id
 				));
-				if(!$pontuacaoRodada instanceof PontuacaoRodada){
+				if(!($pontuacaoRodada instanceof PontuacaoRodada)){
 					$rodada = $jogo->getRodada();
 					$pontuacaoRodada = new PontuacaoRodada($rodada, $campeonato, $usuario);
 					salvaBancoDados($pontuacaoRodada);
 					}
+
 					
 				//Cria um objeto PremiosUsuario para o Usuario no Campeonato do Jogo que apostou se ainda nÃƒÂ£o existir
 	
@@ -190,7 +191,8 @@ if(isset($_POST[0])){
 				}
 
 				$picture = 'http://www.chutabolao.com.br/facebook/'.$jogo->getEscudosJogo();
-				$link = 'http://apps.facebook.com/chutabolao';
+				$link = 'http://apps.facebook.com/chutabolao/?'.$usuario->getIdUsuario().'-'.
+					$palpite_time1_jogo.'x'.$palpite_time2_jogo.'-'.$time1->getNomeTime().'-'.$time2->getNomeTime();
 				$caption = 'Mostre que você sabe mais!';
 				$description = "Jogo em ".$jogo->getDataLogica().". Faça seu chute até ".$jogo->getDataLogicaFimApostas();
 				
@@ -201,6 +203,7 @@ if(isset($_POST[0])){
 						'caption' => utf8_encode($caption),
 						'description' => utf8_encode($description)
 				 ));
+				 
 				 $contadorPublicacoesMural++;
 			}
 			elseif ($dataAgora > $dataFimApostas){
@@ -392,10 +395,10 @@ $conn->close();
 <?php
 if(isset($contador) || isset($contador1)){
 	if($contador>0){
-		echo "<script> alert('Aposta realizada com sucesso.');</script>";
+		echo "<script> alert('Aposta realizada com sucesso.'); </script>";
 	}
 	if($contador1>0){
-		echo "<script> alert('Aposta atualizada com sucesso.');</script>";
+		echo "<script> alert('Aposta atualizada com sucesso.'); </script>";
 	}
 }
 ?>

@@ -163,7 +163,7 @@ $conn->close();
 					}
 				}
 				?>
-				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="index-fb.php?conteudo=chutes" method="POST">
+				<form name="<?php echo 'form'.$campeonato->getCodCampeonato();?>" action="index.php?conteudo=chutes" method="POST">
 					<button class="<?php echo $classe;?>" type="submit" name="campeonatoMenu" value="<?php echo $campeonato->getCodCampeonato();?>">
 						<span class="nomeCampeonato">
 							Dê seu Chute

@@ -9,10 +9,10 @@ if($_GET["code"]){
 	$token_de_acesso = str_replace('access_token=','',$response);	
 	@session_start();
 	$_SESSION["facebook_token"]=$token_de_acesso;  
-	echo("<script> top.location.href='https://apps.facebook.com/chutabolao/?status=ok'</script>");
+	echo("<script> top.location.href='https://apps.facebook.com/chutabolao';</script>");
 
 }else{
-echo("<script> top.location.href='https://apps.facebook.com/chutabolao/?code=erro'</script>");	
+echo("<script> top.location.href='https://apps.facebook.com/chutabolao';</script>");	
 }
 
 ?>
