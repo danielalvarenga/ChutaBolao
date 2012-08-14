@@ -120,6 +120,7 @@ if (isset($_POST['jogo'])) {
 		$conn->close();
 		
 	}
+	echo("<script> top.location.href='cadastra-jogo.php';</script>");
 
 ?>
 <html>

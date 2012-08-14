@@ -82,64 +82,95 @@ cadastro de jogo
 	
 
 	<h2>Jogos Cadastrados</h2>
-	<table border="1">
-		<tr vertical-align="middle" align="center">
-			<td>Data</td>
-			<td>Campeonato</td>
-			<td>Rodada</td>
-			<td>Time1</td>
-			<td>Time2</td>
-			<td>Escudos</td>
-			<td>Resultado</td>
-			<td>Início de Apostas</td>
-			<td>Fim de Apostas</td>
-			<td></td>
-		</tr>
-	
-<?php
-	$conn = $entityManager->getConnection();
-	$conn->beginTransaction();
-	try{
-		$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.campeonato DESC";
-		
-		$jogos = consultaDql($dqlJogo);
-			
-		foreach($jogos as $jogo) {
-		
-			if($jogo instanceof Jogo){
-				if($jogo->getCampeonato()->getStatus() != "finalizado"){
+				<table border="1">
+					<tr vertical-align="middle" align="center">
+						<td>Data</td>
+						<td>Campeonato</td>
+						<td>Rodada</td>
+						<td>Escudos</td>
+						<td>Resultado</td>
+						<td>Início de Apostas</td>
+						<td>Fim de Apostas</td>
+						<td></td>
+					</tr>
 				
-					$codTime1 = $jogo->getCodtime1();
+			<?php
+			$conn = $entityManager->getConnection();
+			$conn->beginTransaction();
+			try{
+				$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.campeonato DESC";
+				
+				$jogos = consultaDql($dqlJogo);
 					
-					$codTime2 = $jogo->getCodtime2();
+				foreach($jogos as $jogo) {
+				
+					if($jogo instanceof Jogo){
+						if($jogo->getCampeonato()->getStatus() != "finalizado"){
 					
-					$time1 = $entityManager->find("Time", $codTime1);
-					
-					$time2 = $entityManager->find("Time", $codTime2);
-					
-					echo '<tr vertical-align="middle" align="center">
-							<td>'.$jogo->getDatajogo().'</td>
-							<td>'.$jogo->getCampeonato()->getNomeCampeonato().' '.$jogo->getCampeonato()->getAnoCampeonato().'</td>
-							<td>'.$jogo->getRodada()->getNumRodada().'</td>
-							<td>'.$time1->getNomeTime().'</td>
-							<td>'.$time2->getNomeTime().'</td>
-							<td>
-									<img src="'.$jogo->getEscudosJogo().'">
-							</td>
-							<td>'.$jogo->getGolstime1().' X '.$jogo->getGolstime2().'</td>
-							<td>'.$jogo->getDataInicioApostas().'</td>
-							<td>'.$jogo->getDataFimApostas().'</td>
-							<td>
-								<form method="POST" action="insere-gols.php">
-								<input type="hidden" name="jogo" value='.$jogo->getCodjogo().'>
-								<input type="submit" name="insere-gols" value="Inserir Gols"><br/>
-								</form>
-								<form method="POST" action="">
-								<input type="hidden" name="jogoExcluir" value='.$jogo->getCodjogo().'>
-								<input type="submit" name="excluir" value="Excluir"><br/>
-								</form>
-							</td>
-						</tr>';
+							$codTime1 = $jogo->getCodtime1();
+							
+							$codTime2 = $jogo->getCodtime2();
+							
+							$time1 = $entityManager->find("Time", $codTime1);
+							
+							$time2 = $entityManager->find("Time", $codTime2);
+							
+							?>
+								<tr vertical-align="middle" align="center">
+									<td><?php echo $jogo->getDatajogo();?></td>
+									<td><?php echo $jogo->getCampeonato()->getNomeCampeonato();?> 
+										<?php echo $jogo->getCampeonato()->getAnoCampeonato();?>
+									</td>
+									<td><?php echo $jogo->getRodada()->getNumRodada();?></td>
+									<td>
+											<img src="<?php echo $jogo->getEscudosJogo();?>">
+									</td>
+									<td>
+										<?php
+										if(($jogo->getGolstime1() === NULL) && ($jogo->getGolstime2() === NULL)){
+										?>
+											<form method="POST" action="insere-gols.php">
+											 	<p align="center"><?php echo $time1->getNomeTime();?> 
+											 	<select name="golsTime1">
+											 		<option value="<?php echo $jogo->getGolstime1();?>"><?php echo $jogo->getGolstime1();?></OPTION>
+													<?php
+														for($gols = 0 ; $gols < 100 ; $gols++ ){
+															echo "<option value=$gols>$gols</option>";
+														};
+													?>
+												</select>
+												 X 
+												<select name="golsTime2">
+													<option value="<?php echo $jogo->getGolstime2();?>"><?php echo $jogo->getGolstime2();?></OPTION>
+													<?php
+														for($gols = 0 ; $gols < 100 ; $gols++ ){
+															echo "<option value=$gols>$gols</option>";
+														};
+													?>
+												</select> <?php echo $time2->getNomeTime();?>
+												<br/>
+												<input type="hidden" name="jogo" value=<?php echo $jogo->getCodJogo();?>>
+												<input type="submit" name="registra-resultado" value="Registrar Resultado"><br/>
+												</p>
+											</form>
+										<?php
+										}
+										else{
+											echo $time1->getNomeTime().' '.$jogo->getGolstime1().' X '.
+												$jogo->getGolstime2().' '.$time2->getNomeTime();
+										}
+										?>
+									</td>
+									<td><?php echo $jogo->getDataInicioApostas();?></td>
+									<td><?php echo $jogo->getDataFimApostas();?></td>
+									<td>
+										<form method="POST" action="">
+										<input type="hidden" name="jogoExcluir" value="<?php echo $jogo->getCodjogo();?>">
+										<input type="submit" name="excluir" value="Excluir"><br/>
+										</form>
+									</td>
+								</tr>
+							<?php
 				}
 			}
 		}

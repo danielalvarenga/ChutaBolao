@@ -105,27 +105,31 @@ require 'metodos-bd.php';
 		function verificaFimRodada($numRodada, $jogo){
 			$campeonato = $jogo->getCampeonato()->getCodCampeonato();
 			$dql = "SELECT j FROM Jogo j WHERE j.rodada = '$numRodada'
-					AND j.campeonato ='$campeonato'
-					AND j.golsTime1 >= 0";
-			$jogosPassados =consultaDql($dql);
+					AND j.campeonato = '$campeonato'
+					ORDER BY j.golsTime1 ASC";
+			$jogos = consultaDqlMaxResult(1, $dql);
 			
-			$qtdJogosPassados = sizeof($jogosPassados);
-
-			$dql = "SELECT j FROM Jogo j WHERE j.rodada = '$numRodada'
-			AND j.campeonato ='$campeonato'";
-			$jogosTodos = consultaDql($dql);
+			$finalizado = true;
+			foreach ($jogos as $jogo){
+				$golsTime1 = $jogo->getGolstime1();
+				$golsTime2 = $jogo->getGolstime2();
+				if(($golsTime1 === NULL) && ($golsTime2 === NULL)){
+					$finalizado = false;
+				}
+			}
 			
-			$qtdJogosRodada = sizeof($jogosTodos);
-			if($qtdJogosPassados == $qtdJogosRodada){
-				echo 'Campeonato: '.$jogo->getCampeonato()->getNomeCampeonato().'<br/>';
+			if($finalizado){
+				//echo 'Campeonato: '.$jogo->getCampeonato()->getNomeCampeonato().'<br/>';
 				$rodada = buscaObjeto("Rodada", array(
 						"numRodada" => $numRodada,
 						"campeonato" => $campeonato));
 				$rodada->finalizaStatus();
 				atualizaBancoDados($rodada);
+				/*
 				echo 'Rodada: '.$rodada->getNumRodada().'<br/>';
 				echo 'Campeonato: '.$rodada->getCampeonato()->getNomeCampeonato().'<br/>';
 				echo 'Status: '.$rodada->getStatus().'<br/>';
+				*/
 				atribuiMedalhasRodada($numRodada, $jogo);
 				atualizaClassificacaoMedalhasCampeonato($jogo);
 				atualizaClassificacaoMedalhasGeral();
@@ -205,18 +209,18 @@ require 'metodos-bd.php';
 				
 		function atualizaClassificacaoMedalhasGeral(){
 			
-	$contador=0;
-	$armazenaPontos[0]=null;
-	$armazenaPosicao[0]=null;
-	
-	$dql = "SELECT p FROM PontuacaoGeral p GROUP BY p.pontosMedalhasGeral ORDER BY p.pontosMedalhasGeral DESC";
-	$pontuacoesGerais = consultaDql($dql);
-	
-	foreach ($pontuacoesGerais as $pontuacaoGeral){
-		if($pontuacaoGeral instanceof PontuacaoGeral){
-			$armazenaPontos[$contador]=$pontuacaoGeral->getPontosMedalhasGeral();
-			$armazenaPosicao[$contador]=$contador+1;
-			$contador++;	
+			$contador=0;
+			$armazenaPontos[0]=null;
+			$armazenaPosicao[0]=null;
+			
+			$dql = "SELECT p FROM PontuacaoGeral p GROUP BY p.pontosMedalhasGeral ORDER BY p.pontosMedalhasGeral DESC";
+			$pontuacoesGerais = consultaDql($dql);
+			
+			foreach ($pontuacoesGerais as $pontuacaoGeral){
+				if($pontuacaoGeral instanceof PontuacaoGeral){
+					$armazenaPontos[$contador]=$pontuacaoGeral->getPontosMedalhasGeral();
+					$armazenaPosicao[$contador]=$contador+1;
+					$contador++;	
 				}
 			}
 			for ($i = 0 ;$i < $contador ; $i++){
@@ -236,19 +240,20 @@ require 'metodos-bd.php';
 			if($numRodada == $jogo->getCampeonato()->getQuantidadeRodadas()){
 				
 				$campeonato = $jogo->getCampeonato()->getCodCampeonato();
+				$dql = "SELECT j FROM Jogo j WHERE j.campeonato = '$campeonato'
+						ORDER BY j.golsTime1 ASC";
+				$jogos = consultaDqlMaxResult(1, $dql);
 				
-				$dql = "SELECT j FROM Jogo j WHERE j.campeonato ='$campeonato'
-				AND j.golsTime1 >= 0";
-				$jogosPassados = consultaDql($dql);
-					
-				$qtdJogosPassados = sizeof($jogosPassados);
-					
-				$dql = "SELECT j FROM Jogo j WHERE j.campeonato ='$campeonato'";
-				$jogosTodos = consultaDql($dql);
-					
-				$qtdJogosCampeonato = sizeof($jogosTodos);
-					
-				if($qtdJogosPassados == $qtdJogosCampeonato){
+				$finalizado = true;
+				foreach ($jogos as $jogo){
+					$golsTime1 = $jogo->getGolstime1();
+					$golsTime2 = $jogo->getGolstime2();
+					if(($golsTime1 === NULL) && ($golsTime2 === NULL)){
+						$finalizado = false;
+					}
+				}
+				
+				if($finalizado){
 					atualizaChuteirasCampeonato($jogo);
 					atribuiTrofeuCampeonato($jogo);
 				}
