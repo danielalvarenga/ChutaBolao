@@ -4,6 +4,17 @@ require "bootstrap.php";
 require 'metodos-bd.php';
 require_once "lib/WideImage.php";
 
+if(empty($_POST['campeonato'])){
+	echo "<script> alert('Você não informou o nome do Campeonato.')
+	location = ('cadastra-jogo.php');
+	</script>";
+}
+elseif(empty($_POST['rodada'])){
+	echo "<script> alert('Você não informou o número da Rodada.')
+	location = ('cadastra-jogo.php');
+	</script>";
+}
+
 if(isset($_POST['excluir'])){
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
@@ -251,12 +262,12 @@ if (isset($codTime1) && isset($codTime2)) {
 <html>
 <head>
 <title>
-cadastro de jogo
+Cadastro de Jogos e Resultados
 </title>
 </head>
 <body>
 
-	<h1>Cadastrar novo Jogo</h1>
+	<h1>Cadastro de Jogos e Resultados</h1>
 
 <p>
 
@@ -407,6 +418,54 @@ cadastro de jogo
 		?>
 
 <h2>Jogos Cadastrados</h2>
+<?php
+$numRodada = $_POST['rodada'];
+$codCampeonato = $_POST['campeonato'];
+if($numRodada == 1){
+	$rodadaAnterior = $numRodada;
+}
+else{
+	$rodadaAnterior = $numRodada-1;
+}
+if($numRodada == $objCampeonato->getQuantidadeRodadas()){
+	$rodadaPosterior = $numRodada;
+}
+else{
+	$rodadaPosterior = $numRodada+1;
+}
+
+?>
+				<table>
+					<tr>
+						<td>
+							<form method="POST" action="cadastra-jogo3.php">
+								<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
+								<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
+								<input type="hidden" name="rodada" value="<?php echo $rodadaAnterior;?>">
+								<input type="submit" value="Ir para Rodada <?php echo $rodadaAnterior;?>" name="anterior">
+							</form>
+						</td>
+						<td>
+							<form method="POST" action="cadastra-jogo3.php">
+								<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
+								<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
+								<input type="hidden" name="rodada" value="<?php echo $numRodada;?>">
+								<input type="submit" value="Todos os Jogos do Campeonato" name="todos">
+							</form>
+						</td>
+						<td>
+							<form method="POST" action="cadastra-jogo3.php">
+								<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
+								<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
+								<input type="hidden" name="rodada" value="<?php echo $rodadaPosterior;?>">
+								<input type="submit" value="Ir para Rodada <?php echo $rodadaPosterior;?>" name="posterior">
+							</form>
+						</td>
+					</tr>
+				</table>
+
+
+
 				<table border="1">
 					<tr vertical-align="middle" align="center">
 						<td>Data</td>
@@ -423,7 +482,15 @@ cadastro de jogo
 			$conn = $entityManager->getConnection();
 			$conn->beginTransaction();
 			try{
-				$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.campeonato DESC";
+				if(isset($_POST['todos'])){
+					$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.rodada ASC";
+				}
+				else{
+					$dqlJogo = "SELECT j FROM Jogo j WHERE j.campeonato = '$codCampeonato'
+					AND j.rodada = '$numRodada'
+					ORDER BY j.dataJogo ASC";
+				}
+				
 				
 				$jogos = consultaDql($dqlJogo);
 					
@@ -431,31 +498,28 @@ cadastro de jogo
 				
 					if($jogo instanceof Jogo){
 						if($jogo->getCampeonato()->getStatus() != "finalizado"){
-					
-							$codTime1 = $jogo->getCodtime1();
 							
-							$codTime2 = $jogo->getCodtime2();
-							
-							$time1 = $entityManager->find("Time", $codTime1);
-							
-							$time2 = $entityManager->find("Time", $codTime2);
+							$time1 = $entityManager->find("Time", $jogo->getCodtime1());
+							$time2 = $entityManager->find("Time", $jogo->getCodtime2());
 							
 							?>
 								<tr vertical-align="middle" align="center">
-									<td><?php echo $jogo->getDatajogo();?></td>
+									<td><?php echo $jogo->getDataLogica();?></td>
 									<td><?php echo $jogo->getCampeonato()->getNomeCampeonato();?> 
 										<?php echo $jogo->getCampeonato()->getAnoCampeonato();?>
 									</td>
 									<td><?php echo $jogo->getRodada()->getNumRodada();?></td>
 									<td>
-											<img src="<?php echo $jogo->getEscudosJogo();?>">
+											<img src="<?php echo $jogo->getEscudosJogo();?>" width="50px" height="50px">
 									</td>
 									<td>
 										<?php
 										if(($jogo->getGolstime1() === NULL) && ($jogo->getGolstime2() === NULL)){
 										?>
 											<form method="POST" action="insere-gols.php">
-											 	<p align="center"><?php echo $time1->getNomeTime();?> 
+											 	<p align="center">
+											 	<?php echo $time1->getNomeTime().' ';?>
+											 	<img class="escudoTime" src="<?php echo $time1->getEscudo();?>" width="25px" height="25px"> 
 											 	<select name="golsTime1">
 											 		<option value="<?php echo $jogo->getGolstime1();?>"><?php echo $jogo->getGolstime1();?></OPTION>
 													<?php
@@ -472,10 +536,12 @@ cadastro de jogo
 															echo "<option value=$gols>$gols</option>";
 														};
 													?>
-												</select> <?php echo $time2->getNomeTime();?>
+												</select>
+												<img class="escudoTime" src="<?php echo $time2->getEscudo();?>" width="25px" height="25px"> 
+												<?php echo ' '.$time2->getNomeTime();?>
 												<br/>
-												<input type="hidden" name="jogo" value=<?php echo $jogo->getCodJogo();?>>
-												<input type="submit" name="registra-resultado" value="Registrar Resultado"><br/>
+												<input type="hidden" name="jogo" value="<?php echo $jogo->getCodJogo();?>">
+												<input type="submit" name="registra-resultado" value="Registrar Resultado">
 												</p>
 											</form>
 										<?php
@@ -486,8 +552,8 @@ cadastro de jogo
 										}
 										?>
 									</td>
-									<td><?php echo $jogo->getDataInicioApostas();?></td>
-									<td><?php echo $jogo->getDataFimApostas();?></td>
+									<td><?php echo $jogo->getDataLogicaInicioApostas();?></td>
+									<td><?php echo $jogo->getDataLogicaFimApostas();?></td>
 									<td>
 										<form method="POST" action="">
 										<input type="hidden" name="jogoExcluir" value="<?php echo $jogo->getCodjogo();?>">

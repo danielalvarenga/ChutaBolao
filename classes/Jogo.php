@@ -102,9 +102,9 @@ class Jogo {
 	}
 	
 	function setResultado($golsTime1, $golsTime2){
-		if (($golsTime1 != "NULL")&&($golsTime2 != "NULL")){
-			$this->golsTime1=$golsTime1;
-			$this->golsTime2=$golsTime2;
+		if (($golsTime1 != "NULL") && ($golsTime2 != "NULL")){
+			$this->golsTime1 = $golsTime1;
+			$this->golsTime2 = $golsTime2;
 		}
 		else {
 			$this->golsTime1 = NULL;
@@ -239,7 +239,10 @@ class Jogo {
 		$dataLogicaFimApostas = $this->criarDateTime($this->getDataFimApostas());
 		return $dataLogicaFimApostas->format( "d/m/Y" )." às ".$dataLogicaFimApostas->format( "H:i" );
 	}
-	
+	function getDataLogicaInicioApostas(){
+		$dataLogicaInicioApostas = $this->criarDateTime($this->getDataInicioApostas());
+		return $dataLogicaInicioApostas->format( "d/m/Y" )." às ".$dataLogicaInicioApostas->format( "H:i" );
+	}
 
 }
 ?>

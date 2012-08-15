@@ -1,6 +1,15 @@
 <?php
 require "bootstrap.php";
 require 'metodos-bd.php';
+		
+		function atualizaRendimentoTime($jogo, $time, $golsPro, $golsContra){
+			$rendimentoTime = buscaObjeto("RendimentoTime", array(
+					"time" => $time->getCodTime(),
+					"campeonato" => $jogo->getCampeonato()->getCodCampeonato()
+			));
+			$rendimentoTime->calculaRendimentoTime($golsPro, $golsContra);
+			atualizaBancoDados($rendimentoTime);
+		}
 
 		function atualizaClassificacaoPontosGeral(){
 			
