@@ -3,17 +3,17 @@ include "valida_cookies.inc";
 require "bootstrap.php";			
 require 'metodos-bd.php';
 
-if(empty($_POST['campeonato'])){
+if(empty($_GET['campeonato'])){
 	echo "<script> alert('Você não informou o nome do Campeonato.')
 	location = ('cadastra-jogo.php');
 	</script>";
 }
 
-if(isset($_POST['excluir'])){
+if(isset($_GET['excluir'])){
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$jogoExcluir = $entityManager->find("Jogo", $_POST['jogoExcluir']);
+		$jogoExcluir = $entityManager->find("Jogo", $_GET['jogoExcluir']);
 		$imgJogo = $jogoExcluir->getEscudosJogo();
 		removeBancoDados($jogoExcluir);
 		unlink("$imgJogo");
@@ -41,21 +41,21 @@ Cadastro de Jogos e Resultados
 
 <p>
 
-<form method="POST" action="cadastra-jogo3.php">
+<form method="GET" action="cadastra-jogo3.php">
   
 	<?php
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		if(isset($_POST['campeonato']) && isset($_POST['tipo'])){ ?>
-			<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
-			<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
+		if(isset($_GET['campeonato']) && isset($_GET['tipo'])){ ?>
+			<input type="hidden" name="campeonato" value="<?php echo $_GET['campeonato'];?>">
+			<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
 			<?php
-			$campeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
+			$campeonato = $entityManager->find("Campeonato", $_GET['campeonato']);
 			echo '<b>Campeonato:</b> '.$campeonato->getNomeCampeonato().' '.$campeonato->getAnoCampeonato().
 					'<br/><font size="1"><a href="cadastra-jogo.php">Escolher outro Campeonato</a></font></p>';
 		
-			$dqlR = 'SELECT r FROM Rodada r WHERE r.campeonato = '.$_POST['campeonato'].'ORDER BY r.numRodada ASC';
+			$dqlR = 'SELECT r FROM Rodada r WHERE r.campeonato = '.$_GET['campeonato'].'ORDER BY r.numRodada ASC';
 			$rodadas = consultaDql($dqlR);
 			?>
 			<p>Escolha a Rodada: 

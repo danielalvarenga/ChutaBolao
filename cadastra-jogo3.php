@@ -4,22 +4,22 @@ require "bootstrap.php";
 require 'metodos-bd.php';
 require_once "lib/WideImage.php";
 
-if(empty($_POST['campeonato'])){
+if(empty($_GET['campeonato'])){
 	echo "<script> alert('Você não informou o nome do Campeonato.')
 	location = ('cadastra-jogo.php');
 	</script>";
 }
-elseif(empty($_POST['rodada'])){
+elseif(empty($_GET['rodada'])){
 	echo "<script> alert('Você não informou o número da Rodada.')
 	location = ('cadastra-jogo.php');
 	</script>";
 }
 
-if(isset($_POST['excluir'])){
+if(isset($_GET['excluir'])){
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$jogoExcluir = $entityManager->find("Jogo", $_POST['jogoExcluir']);
+		$jogoExcluir = $entityManager->find("Jogo", $_GET['jogoExcluir']);
 		$imgJogo = $jogoExcluir->getEscudosJogo();
 		removeBancoDados($jogoExcluir);
 		unlink("$imgJogo");
@@ -34,11 +34,11 @@ if(isset($_POST['excluir'])){
 	$conn->close();
 }
 
-if(isset($_POST['rodada']) && isset($_POST['campeonato'])){
-	$objCampeonato = $entityManager->find("Campeonato", $_POST['campeonato']);
+if(isset($_GET['rodada']) && isset($_GET['campeonato'])){
+	$objCampeonato = $entityManager->find("Campeonato", $_GET['campeonato']);
 	$objRodada = $entityManager->find("Rodada", array(
-			"numRodada" => $_POST['rodada'],
-			"campeonato" => $_POST['campeonato']
+			"numRodada" => $_GET['rodada'],
+			"campeonato" => $_GET['campeonato']
 	));
 }
 else{
@@ -46,11 +46,11 @@ else{
 	<a href="cadastra-jogo.php">Escolher</a></p>';
 }
 
-if (isset($_POST['selecao1']) && isset($_POST['selecao2'])) {
+if (isset($_GET['selecao1']) && isset($_GET['selecao2'])) {
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$pais1 = buscaObjeto("Pais", $_POST['selecao1']);
+		$pais1 = buscaObjeto("Pais", $_GET['selecao1']);
 		$nomePais1 = $pais1->getNomePais();
 		$dql = "SELECT t FROM Time t WHERE t.nomeTime = '$nomePais1'";
 		$times1 = consultaDqlMaxResult(1, $dql);
@@ -65,7 +65,7 @@ if (isset($_POST['selecao1']) && isset($_POST['selecao2'])) {
 			$codTime1 = $time1->getCodTime();
 		}
 
-		$pais2 = buscaObjeto("Pais", $_POST['selecao2']);
+		$pais2 = buscaObjeto("Pais", $_GET['selecao2']);
 		$nomePais2 = $pais2->getNomePais();
 		$dql = "SELECT t FROM Time t WHERE t.nomeTime = '$nomePais2'";
 		$times2 = consultaDqlMaxResult(1, $dql);
@@ -86,9 +86,9 @@ if (isset($_POST['selecao1']) && isset($_POST['selecao2'])) {
 	}
 	$conn->close();
 }
-elseif (isset($_POST['codtime1']) && isset($_POST['codtime2'])) {
-	$codTime1 = $_POST['codtime1'];
-	$codTime2 = $_POST['codtime2'];
+elseif (isset($_GET['codtime1']) && isset($_GET['codtime2'])) {
+	$codTime1 = $_GET['codtime1'];
+	$codTime2 = $_GET['codtime2'];
 }
 
 		
@@ -96,9 +96,9 @@ if (isset($codTime1) && isset($codTime2)) {
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$codCampeonato = $_POST['campeonato'];
+		$codCampeonato = $_GET['campeonato'];
 		
-		$data = $_POST['ano'].'-'.$_POST['mes'].'-'.$_POST['dia'].' '.$_POST['hora'].':'.$_POST['minuto'].':00';
+		$data = $_GET['ano'].'-'.$_GET['mes'].'-'.$_GET['dia'].' '.$_GET['hora'].':'.$_GET['minuto'].':00';
 		$dataJogo = new DateTime(''.$data.'', new DateTimeZone('America/Sao_Paulo'));
 		$dataJogoString = $dataJogo->format( "Y-m-d H:i:s" );
 		
@@ -227,11 +227,11 @@ if (isset($codTime1) && isset($codTime2)) {
 			// Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato
 					
 				$rendimentoTime1 = $entityManager->find("RendimentoTime", array(
-						"campeonato" => $_POST['campeonato'],
+						"campeonato" => $_GET['campeonato'],
 						"time" => $codTime1
 						));
 				$rendimentoTime2 = $entityManager->find("RendimentoTime", array(
-						"campeonato" => $_POST['campeonato'],
+						"campeonato" => $_GET['campeonato'],
 						"time" => $codTime2
 						));
 					
@@ -271,12 +271,12 @@ Cadastro de Jogos e Resultados
 
 <p>
 
-<form method="POST" action="">					
+<form method="GET" action="">					
 	<?php
-	if(isset($_POST['rodada']) && isset($_POST['campeonato']) && isset($_POST['tipo'])){ ?>
-		<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
-		<input type="hidden" name="rodada" value="<?php echo $_POST['rodada'];?>">
-		<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
+	if(isset($_GET['rodada']) && isset($_GET['campeonato']) && isset($_GET['tipo'])){ ?>
+		<input type="hidden" name="campeonato" value="<?php echo $_GET['campeonato'];?>">
+		<input type="hidden" name="rodada" value="<?php echo $_GET['rodada'];?>">
+		<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
 		<?php
 		echo '<b>Campeonato:</b> '.$objCampeonato->getNomeCampeonato().' '.$objCampeonato->getAnoCampeonato().'<br/>';
 		echo '<b>Rodada:</b> '.$objRodada->getNumRodada().
@@ -349,7 +349,7 @@ Cadastro de Jogos e Resultados
 			?>
 		</select></p>
 		<?php
-		$tipoCampeonato = $_POST['tipo'];
+		$tipoCampeonato = $_GET['tipo'];
 		if($tipoCampeonato == "nacional"){
 			$dql = "SELECT t FROM Time t ORDER BY t.nomeTime ASC";
 			$times = consultaDql($dql);
@@ -419,8 +419,8 @@ Cadastro de Jogos e Resultados
 
 <h2>Jogos Cadastrados</h2>
 <?php
-$numRodada = $_POST['rodada'];
-$codCampeonato = $_POST['campeonato'];
+$numRodada = $_GET['rodada'];
+$codCampeonato = $_GET['campeonato'];
 if($numRodada == 1){
 	$rodadaAnterior = $numRodada;
 }
@@ -438,25 +438,25 @@ else{
 				<table>
 					<tr>
 						<td>
-							<form method="POST" action="cadastra-jogo3.php">
-								<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
-								<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
+							<form method="GET" action="cadastra-jogo3.php">
+								<input type="hidden" nGET"campeonato" value="<?php echo $_GET['campeonato'];?>">
+								<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
 								<input type="hidden" name="rodada" value="<?php echo $rodadaAnterior;?>">
 								<input type="submit" value="Ir para Rodada <?php echo $rodadaAnterior;?>" name="anterior">
 							</form>
 						</td>
 						<td>
-							<form method="POST" action="cadastra-jogo3.php">
-								<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
-								<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
+							<form method="GET" action="cadastra-jogo3.php">
+								<input type="hidden" name="campeonato" value="<?php echo $_GET['campeonato'];?>">
+								<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
 								<input type="hidden" name="rodada" value="<?php echo $numRodada;?>">
 								<input type="submit" value="Todos os Jogos do Campeonato" name="todos">
 							</form>
 						</td>
 						<td>
-							<form method="POST" action="cadastra-jogo3.php">
-								<input type="hidden" name="campeonato" value="<?php echo $_POST['campeonato'];?>">
-								<input type="hidden" name="tipo" value="<?php echo $_POST['tipo'];?>">
+							<form method="GET" action="cadastra-jogo3.php">
+								<input type="hidden" name="campeonato" value="<?php echo $_GET['campeonato'];?>">
+								<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
 								<input type="hidden" name="rodada" value="<?php echo $rodadaPosterior;?>">
 								<input type="submit" value="Ir para Rodada <?php echo $rodadaPosterior;?>" name="posterior">
 							</form>
@@ -482,7 +482,7 @@ else{
 			$conn = $entityManager->getConnection();
 			$conn->beginTransaction();
 			try{
-				if(isset($_POST['todos'])){
+				if(isset($_GET['todos'])){
 					$dqlJogo = "SELECT j FROM Jogo j ORDER BY j.rodada ASC";
 				}
 				else{
@@ -516,7 +516,7 @@ else{
 										<?php
 										if(($jogo->getGolstime1() === NULL) && ($jogo->getGolstime2() === NULL)){
 										?>
-											<form method="POST" action="insere-gols.php">
+											<form method="GET" action="insere-gols.php">
 											 	<p align="center">
 											 	<?php echo $time1->getNomeTime().' ';?>
 											 	<img class="escudoTime" src="<?php echo $time1->getEscudo();?>" width="25px" height="25px"> 
@@ -540,6 +540,7 @@ else{
 												<img class="escudoTime" src="<?php echo $time2->getEscudo();?>" width="25px" height="25px"> 
 												<?php echo ' '.$time2->getNomeTime();?>
 												<br/>
+												<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
 												<input type="hidden" name="jogo" value="<?php echo $jogo->getCodJogo();?>">
 												<input type="submit" name="registra-resultado" value="Registrar Resultado">
 												</p>
@@ -555,7 +556,7 @@ else{
 									<td><?php echo $jogo->getDataLogicaInicioApostas();?></td>
 									<td><?php echo $jogo->getDataLogicaFimApostas();?></td>
 									<td>
-										<form method="POST" action="">
+										<form method="GET" action="">
 										<input type="hidden" name="jogoExcluir" value="<?php echo $jogo->getCodjogo();?>">
 										<input type="submit" name="excluir" value="Excluir"><br/>
 										</form>

@@ -4,13 +4,13 @@ require "bootstrap.php";
 require "funcoes-insere-gols.php";
 
 
-if (isset($_POST['jogo'])) {
+if (isset($_GET['jogo'])) {
 	
-	$jogo = buscaObjeto("Jogo", $_POST['jogo']);
+	$jogo = buscaObjeto("Jogo", $_GET['jogo']);
 	$time1 = buscaObjeto("Time", $jogo->getCodTime1());
 	$time2 = buscaObjeto("Time", $jogo->getCodTime2());
 		
-	if(isset($_POST['golsTime1']) && isset($_POST['golsTime2'])){
+	if(isset($_GET['golsTime1']) && isset($_GET['golsTime2'])){
 		
 		$conn = $entityManager->getConnection();
 		$conn->beginTransaction();
@@ -18,8 +18,8 @@ if (isset($_POST['jogo'])) {
 		
 		// Atualiza resultado do jogo com os gols
 		
-			$golsTime1 = $_POST['golsTime1'];
-			$golsTime2 = $_POST['golsTime2'];
+			$golsTime1 = $_GET['golsTime1'];
+			$golsTime2 = $_GET['golsTime2'];
 			
 			$jogo->setResultado($golsTime1, $golsTime2);
 			atualizaBancoDados($jogo);
@@ -98,15 +98,17 @@ if (isset($_POST['jogo'])) {
 			$mensagem = $e->getMessage();
 			echo("<script>
 					alert(\"Não foi possível gravar os dados.\n$mensagem\");
-					location.href='cadastra-jogo.php';
+					location.href='cadastra-jogo3.php?campeonato=$codCampeonato&tipo=$tipo&rodada=$numRodada';
 					</script>");
 		}
 		$conn->close();
 		
 	}
+	$codCampeonato = $jogo->getCampeonato()->getCodCampeonato();
+	$tipo = $_GET['tipo'];
 	echo("<script>
 			alert(\"O resultado do Jogo e todas as apostas foram atualizadas.\");
-			location.href='cadastra-jogo.php';
+			location.href='cadastra-jogo3.php?campeonato=$codCampeonato&tipo=$tipo&rodada=$numRodada';
 		</script>");
 }
 ?>

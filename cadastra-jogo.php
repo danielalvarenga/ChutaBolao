@@ -3,11 +3,11 @@ include "valida_cookies.inc";
 require "bootstrap.php";
 require 'metodos-bd.php';
 
-if(isset($_POST['excluir'])){
+if(isset($_GET['excluir'])){
 	$conn = $entityManager->getConnection();
 	$conn->beginTransaction();
 	try{
-		$jogoExcluir = $entityManager->find("Jogo", $_POST['jogoExcluir']);
+		$jogoExcluir = $entityManager->find("Jogo", $_GET['jogoExcluir']);
 		$imgJogo = $jogoExcluir->getEscudosJogo();
 		removeBancoDados($jogoExcluir);
 		unlink("$imgJogo");
@@ -63,7 +63,7 @@ try{
 					<h1>Cadastro de Jogos e Resultados</h1>
 
 				<p>
-				<form method="POST" action="cadastra-jogo2.php">
+				<form method="GET" action="cadastra-jogo2.php">
 						
 					<p>Escolha o Campeonato:
 					<select size="1" name="campeonato">
