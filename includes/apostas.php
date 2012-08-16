@@ -395,10 +395,10 @@ $conn->close();
 <?php
 if(isset($contador) || isset($contador1)){
 	if($contador>0){
-		echo "<script> alert('Aposta realizada com sucesso.'); </script>";
+		echo "<script> alert('Chute realizado com sucesso.'); </script>";
 	}
 	if($contador1>0){
-		echo "<script> alert('Aposta atualizada com sucesso.'); </script>";
+		echo "<script> alert('Chute atualizado com sucesso.'); </script>";
 	}
 }
 ?>
