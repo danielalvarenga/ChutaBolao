@@ -439,7 +439,7 @@ else{
 					<tr>
 						<td>
 							<form method="GET" action="cadastra-jogo3.php">
-								<input type="hidden" nGET"campeonato" value="<?php echo $_GET['campeonato'];?>">
+								<input type="hidden" name="campeonato" value="<?php echo $_GET['campeonato'];?>">
 								<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
 								<input type="hidden" name="rodada" value="<?php echo $rodadaAnterior;?>">
 								<input type="submit" value="Ir para Rodada <?php echo $rodadaAnterior;?>" name="anterior">
