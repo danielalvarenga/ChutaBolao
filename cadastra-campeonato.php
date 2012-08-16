@@ -182,14 +182,6 @@ cadastro de time
             <p>Logo do Campeonato: <input type="file" name="logo"/></p>
             <p><input type="submit" name="salvar" value="Salvar" /></p>
     </form>
-    
-		<h3><p> Instruções para inserir </p> </h3>
-		
-		<p>1. Não importa se você irá inserir em minúscula ou maiuscula.
-		<br>2.Não inserir nenhum tipo de acento.
-		<br>3.Entre um nome e outro insira anderline.</p>
-		<p>4. Exemplo de inserção:</p>
-		<p>Nome do campeonato: "campeonato_brasileiro"</p>
 		
 			<h2>Campeonatos Cadastrados</h2>
 <table border="1">

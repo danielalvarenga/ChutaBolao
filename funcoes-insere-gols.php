@@ -128,17 +128,17 @@ require 'metodos-bd.php';
 			}
 			
 			if($finalizado){
-				//echo 'Campeonato: '.$jogo->getCampeonato()->getNomeCampeonato().'<br/>';
+				echo 'Campeonato: '.$jogo->getCampeonato()->getNomeCampeonato().'<br/>';
 				$rodada = buscaObjeto("Rodada", array(
 						"numRodada" => $numRodada,
 						"campeonato" => $campeonato));
 				$rodada->finalizaStatus();
 				atualizaBancoDados($rodada);
-				/*
+				
 				echo 'Rodada: '.$rodada->getNumRodada().'<br/>';
 				echo 'Campeonato: '.$rodada->getCampeonato()->getNomeCampeonato().'<br/>';
 				echo 'Status: '.$rodada->getStatus().'<br/>';
-				*/
+				
 				atribuiMedalhasRodada($numRodada, $jogo);
 				atualizaClassificacaoMedalhasCampeonato($jogo);
 				atualizaClassificacaoMedalhasGeral();
