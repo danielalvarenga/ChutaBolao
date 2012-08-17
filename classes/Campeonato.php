@@ -24,43 +24,43 @@ class Campeonato {
 	private $urlLogo;
 	
 	/**
-	* @OneToMany(targetEntity="Rodada", mappedBy="campeonato", cascade={"persist"})
+	* @OneToMany(targetEntity="Rodada", mappedBy="campeonato", cascade={"persist", "remove"})
 	* @var Rodada[]
 	*/
 	protected $rodadas;
 
 	/**
-	* @OneToMany(targetEntity="ContadorAposta", mappedBy="campeonato", cascade={"persist"})
+	* @OneToMany(targetEntity="ContadorAposta", mappedBy="campeonato", cascade={"persist", "remove"})
 	* @var ContadorAposta[]
 	*/
 	protected $contadorCampeonato;
 	
 	/**
-	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="rodada", cascade={"persist"})
+	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="rodada", cascade={"persist", "remove"})
 	 * @var PontuacaoRodada[]
 	 */
 	protected $pontuacaoRodadas;
 	
 	/**
-	* @OneToMany(targetEntity="Aposta", mappedBy="campeonato", cascade={"persist"})
+	* @OneToMany(targetEntity="Aposta", mappedBy="campeonato", cascade={"persist", "remove"})
 	* @var Aposta[]
 	*/
 	protected $apostasCampeonato;
 	
 	/**
-	* @OneToMany(targetEntity="Jogo", mappedBy="campeonato", cascade={"persist"})
+	* @OneToMany(targetEntity="Jogo", mappedBy="campeonato", cascade={"persist", "remove"})
 	* @var Jogo[]
 	*/
 	protected $jogosCampeonato;
 	
 	/**
-	* @OneToMany(targetEntity="PremiosUsuario", mappedBy="campeonato", cascade={"persist"})
+	* @OneToMany(targetEntity="PremiosUsuario", mappedBy="campeonato", cascade={"persist", "remove"})
 	* @var PremiosUsuario[]
 	*/
 	protected $premiacoesCampeonato;
 	
 	/**
-	 * @OneToMany(targetEntity="RendimentoTime", mappedBy="campeonato", cascade={"persist"})
+	 * @OneToMany(targetEntity="RendimentoTime", mappedBy="campeonato", cascade={"persist", "remove"})
 	 * @var RendimentoTime[]
 	 */
 	protected $rendimentosTimes;

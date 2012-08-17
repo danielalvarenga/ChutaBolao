@@ -17,10 +17,10 @@ class Jogo {
 	/** @Column(type="integer")*/
 	private $codTime2;
 	
-	/** @Column(type="integer")*/
+	/** @Column(type="integer", nullable=true)*/
 	private $golsTime1;
 	
-	/** @Column(type="integer")*/
+	/** @Column(type="integer", nullable=true)*/
 	private $golsTime2;
 	
 	/** @Column(type="string")*/
@@ -38,13 +38,13 @@ class Jogo {
 	protected $rodada;
 	
 	/**
-	* @OneToMany(targetEntity="Aposta", mappedBy="jogo", cascade={"persist"})
+	* @OneToMany(targetEntity="Aposta", mappedBy="jogo", cascade={"persist", "remove"})
 	* @var Aposta[]
 	*/
 	protected $apostasJogo = null;
 	
 	/**
-	* @OneToMany(targetEntity="ContadorAposta", mappedBy="jogo", cascade={"persist"})
+	* @OneToMany(targetEntity="ContadorAposta", mappedBy="jogo", cascade={"persist", "remove"})
 	* @var ContadorAposta[]
 	*/
 	protected $contadorJogo ;

@@ -1,67 +1,692 @@
--- phpMyAdmin SQL Dump
--- version 3.4.10.1
--- http://www.phpmyadmin.net
---
--- Servidor: localhost
--- Tempo de Gera√ß√£o: 16/08/2012 √†s 18h00min
--- Vers√£o do Servidor: 5.0.91
--- Vers√£o do PHP: 5.3.15
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Banco de Dados: `chutabol_facebook`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `admin`
---
-
-CREATE TABLE IF NOT EXISTS `admin` (
-  `nome` varchar(255) NOT NULL,
-  `login` varchar(20) NOT NULL,
-  `senha` varchar(20) NOT NULL,
-  PRIMARY KEY  (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `admin`
---
 
 INSERT INTO `admin` (`nome`, `login`, `senha`) VALUES
 ('Administrador', 'chutabolao', 'corporativa');
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `aposta`
---
 
-CREATE TABLE IF NOT EXISTS `aposta` (
-  `usuario_id` bigint(20) NOT NULL default '0',
-  `campeonato_id` int(255) NOT NULL default '0',
-  `jogo_id` int(11) NOT NULL default '0',
-  `apostaGolsTime1` int(11) default NULL,
-  `apostaGolsTime2` int(11) default NULL,
-  `pontosAposta` int(11) default NULL,
-  PRIMARY KEY  (`usuario_id`,`campeonato_id`,`jogo_id`),
-  KEY `usuario_id` (`usuario_id`),
-  KEY `campeonato_id` (`campeonato_id`),
-  KEY `jogo_id` (`jogo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `aposta`
---
+
+INSERT INTO `pais` (`sigla2letras`, `sigla3letras`, `id`, `nomePais`, `bandeira`) VALUES
+('AF', 'AFG', 4, 'Afeganist„o', 'imagens/bandeiras/bandeira-afeganistao47x47.png'),
+('AL', 'ALB', 8, 'Alb‚nia', 'imagens/bandeiras/bandeira-albania47x47.png'),
+('AQ', 'ATA', 10, 'Ant·rctida', NULL),
+('DZ', 'DZA', 12, 'ArgÈlia', 'imagens/bandeiras/bandeira-argelia47x47.png'),
+('AS', 'ASM', 16, 'Samoa Americana', 'imagens/bandeiras/bandeira-samoa-americana47x47.png'),
+('AD', 'AND', 20, 'Andorra', 'imagens/bandeiras/bandeira-andorra47x47.png'),
+('AO', 'AGO', 24, 'Angola', 'imagens/bandeiras/bandeira-angola47x47.png'),
+('AG', 'ATG', 28, 'Antigua e Barbuda', 'imagens/bandeiras/bandeira-antigua-e-barbuda47x47.png'),
+('AZ', 'AZE', 31, 'Azerbaij„o', 'imagens/bandeiras/bandeira-azerbaijao47x47.png'),
+('AR', 'ARG', 32, 'Argentina', 'imagens/bandeiras/bandeira-argentina47x47.png'),
+('AU', 'AUS', 36, 'Austr·lia', 'imagens/bandeiras/bandeira-australia47x47.png'),
+('AT', 'AUT', 40, '¡ustria', 'imagens/bandeiras/bandeira-austria47x47.png'),
+('BS', 'BHS', 44, 'Bahamas', 'imagens/bandeiras/bandeira-bahamas47x47.png'),
+('BH', 'BHR', 48, 'Bahrain', 'imagens/bandeiras/bandeira-bahrain47x47.png'),
+('BD', 'BGD', 50, 'Bangladesh', 'imagens/bandeiras/bandeira-bangladesh47x47.png'),
+('AM', 'ARM', 51, 'ArmÈnia', 'imagens/bandeiras/bandeira-armenia47x47.png'),
+('BB', 'BRB', 52, 'Barbados', 'imagens/bandeiras/bandeira-barbados47x47.png'),
+('BE', 'BEL', 56, 'BÈlgica', 'imagens/bandeiras/bandeira-belgica47x47.png'),
+('BM', 'BMU', 60, 'Bermuda', 'imagens/bandeiras/bandeira-bermuda47x47.png'),
+('BT', 'BTN', 64, 'But„o', 'imagens/bandeiras/bandeira-butao47x47.png'),
+('BO', 'BOL', 68, 'BolÌvia', 'imagens/bandeiras/bandeira-bolivia47x47.png'),
+('BA', 'BIH', 70, 'BÛsnia-Herzegovina', 'imagens/bandeiras/bandeira-bosnia-herzegovina47x47.png'),
+('BW', 'BWA', 72, 'Botswana', 'imagens/bandeiras/bandeira-botswana47x47.png'),
+('BV', 'BVT', 74, 'Bouvet, Ilha', NULL),
+('BR', 'BRA', 76, 'Brasil', 'imagens/bandeiras/bandeira-brasil48x48.png'),
+('BZ', 'BLZ', 84, 'Belize', 'imagens/bandeiras/bandeira-belize47x47.png'),
+('IO', 'IOT', 86, 'TerritÛrio Brit‚nico do Oceano Õndico', NULL),
+('SB', 'SLB', 90, 'Salom„o, Ilhas', NULL),
+('VG', 'VGB', 92, 'Virgens Brit‚nicas, Ilhas', NULL),
+('BN', 'BRN', 96, 'Brunei', NULL),
+('BG', 'BGR', 100, 'Bulg·ria', NULL),
+('MM', 'MMR', 104, 'Myanmar (antiga Birm‚nia)', NULL),
+('BI', 'BDI', 108, 'Burundi', NULL),
+('BY', 'BLR', 112, 'Bielo-R˙ssia (Belarus)', 'imagens/bandeiras/bandeira-bielo-russia48x48.png'),
+('KH', 'KHM', 116, 'Cambodja', NULL),
+('CM', 'CMR', 120, 'Camarıes', NULL),
+('CA', 'CAN', 124, 'Canad·', NULL),
+('CV', 'CPV', 132, 'Cabo Verde', NULL),
+('KY', 'CYM', 136, 'Cayman, Ilhas', NULL),
+('CF', 'CAF', 140, 'Centro-africana, Rep˙blica', NULL),
+('LK', 'LKA', 144, 'Sri Lanka', NULL),
+('TD', 'TCD', 148, 'Chade', NULL),
+('CL', 'CHL', 152, 'Chile', NULL),
+('CN', 'CHN', 156, 'China', NULL),
+('TW', 'TWN', 158, 'Taiwan', NULL),
+('CX', 'CXR', 162, 'Christmas, Ilha', NULL),
+('CC', 'CCK', 166, 'Cocos, Ilhas', NULL),
+('CO', 'COL', 170, 'ColÙmbia', NULL),
+('KM', 'COM', 174, 'Comores', NULL),
+('YT', 'MYT', 175, 'Mayotte', NULL),
+('CG', 'COG', 178, 'Congo, Rep˙blica do', NULL),
+('CD', 'COD', 180, 'Congo, Rep˙blica Democr·tica do (antigo Zaire)', NULL),
+('CK', 'COK', 184, 'Cook, Ilhas', NULL),
+('CR', 'CRI', 188, 'Costa Rica', NULL),
+('HR', 'HRV', 191, 'Cro·cia', NULL),
+('CU', 'CUB', 192, 'Cuba', NULL),
+('CY', 'CYP', 196, 'Chipre', NULL),
+('CZ', 'CZE', 203, 'Checa, Rep˙blica', NULL),
+('BJ', 'BEN', 204, 'Benin', 'imagens/bandeiras/bandeira-benin47x47.png'),
+('DK', 'DNK', 208, 'Dinamarca', NULL),
+('DM', 'DMA', 212, 'Dominica', NULL),
+('DO', 'DOM', 214, 'Dominicana, Rep˙blica', NULL),
+('EC', 'ECU', 218, 'Equador', NULL),
+('SV', 'SLV', 222, 'El Salvador', NULL),
+('GQ', 'GNQ', 226, 'GuinÈ Equatorial', NULL),
+('ET', 'ETH', 231, 'EtiÛpia', NULL),
+('ER', 'ERI', 232, 'Eritreia', NULL),
+('EE', 'EST', 233, 'EstÛnia', NULL),
+('FO', 'FRO', 234, 'Faroe, Ilhas', NULL),
+('FK', 'FLK', 238, 'Malvinas, Ilhas (Falkland)', NULL),
+('GS', 'SGS', 239, 'GeÛrgia do Sul e Sandwich do Sul, Ilhas', NULL),
+('FJ', 'FJI', 242, 'Fiji', NULL),
+('FI', 'FIN', 246, 'Finl‚ndia', NULL),
+('AX', 'ALA', 248, '≈land, Ilhas', NULL),
+('FR', 'FRA', 250, 'FranÁa', NULL),
+('GF', 'GUF', 254, 'Guiana Francesa', NULL),
+('PF', 'PYF', 258, 'PolinÈsia Francesa', NULL),
+('TF', 'ATF', 260, 'Terras Austrais e Ant·rticas Francesas (TAAF)', NULL),
+('DJ', 'DJI', 262, 'Djibouti', NULL),
+('GA', 'GAB', 266, 'Gab„o', 'imagens/bandeiras/bandeira-gabao48x48.png'),
+('GE', 'GEO', 268, 'GeÛrgia', NULL),
+('GM', 'GMB', 270, 'G‚mbia', NULL),
+('PS', 'PSE', 275, 'Palestina', NULL),
+('DE', 'DEU', 276, 'Alemanha', NULL),
+('GH', 'GHA', 288, 'Gana', NULL),
+('GI', 'GIB', 292, 'Gibraltar', NULL),
+('KI', 'KIR', 296, 'Kiribati', NULL),
+('GR', 'GRC', 300, 'GrÈcia', NULL),
+('GL', 'GRL', 304, 'Gronel‚ndia', NULL),
+('GD', 'GRD', 308, 'Grenada', NULL),
+('GP', 'GLP', 312, 'Guadeloupe', NULL),
+('GU', 'GUM', 316, 'Guam', NULL),
+('GT', 'GTM', 320, 'Guatemala', NULL),
+('GN', 'GIN', 324, 'GuinÈ-Conacri', NULL),
+('GY', 'GUY', 328, 'Guiana', NULL),
+('HT', 'HTI', 332, 'Haiti', NULL),
+('HM', 'HMD', 334, 'Heard e Ilhas McDonald, Ilha', NULL),
+('VA', 'VAT', 336, 'Vaticano', NULL),
+('HN', 'HND', 340, 'Honduras', 'imagens/bandeiras/bandeira-honduras48x48.png'),
+('HK', 'HKG', 344, 'Hong Kong', NULL),
+('HU', 'HUN', 348, 'Hungria', NULL),
+('IS', 'ISL', 352, 'Isl‚ndia', NULL),
+('IN', 'IND', 356, 'Õndia', NULL),
+('ID', 'IDN', 360, 'IndonÈsia', NULL),
+('IR', 'IRN', 364, 'Ir„o', NULL),
+('IQ', 'IRQ', 368, 'Iraque', NULL),
+('IE', 'IRL', 372, 'Irlanda', NULL),
+('IL', 'ISR', 376, 'Israel', NULL),
+('IT', 'ITA', 380, 'It·lia', NULL),
+('CI', 'CIV', 384, 'Costa do Marfim', NULL),
+('JM', 'JAM', 388, 'Jamaica', NULL),
+('JP', 'JPN', 392, 'Jap„o', 'imagens/bandeiras/bandeira-japao48x48.png'),
+('KZ', 'KAZ', 398, 'Cazaquist„o', NULL),
+('JO', 'JOR', 400, 'Jord‚nia', NULL),
+('KE', 'KEN', 404, 'QuÈnia', NULL),
+('KP', 'PRK', 408, 'Coreia, Rep˙blica Democr·tica da (Coreia do Norte)', NULL),
+('KR', 'KOR', 410, 'Coreia do Sul', 'imagens/bandeiras/bandeira-coreia-do-sul48x48.png'),
+('KW', 'KWT', 414, 'Kuwait', NULL),
+('KG', 'KGZ', 417, 'Quirguist„o', NULL),
+('LA', 'LAO', 418, 'Laos', NULL),
+('LB', 'LBN', 422, 'LÌbano', NULL),
+('LS', 'LSO', 426, 'Lesoto', NULL),
+('LV', 'LVA', 428, 'LetÛnia', NULL),
+('LR', 'LBR', 430, 'LibÈria', NULL),
+('LY', 'LBY', 434, 'LÌbia', NULL),
+('LI', 'LIE', 438, 'Liechtenstein', NULL),
+('LT', 'LTU', 440, 'Litu‚nia', NULL),
+('LU', 'LUX', 442, 'Luxemburgo', NULL),
+('MO', 'MAC', 446, 'Macau', NULL),
+('MG', 'MDG', 450, 'Madag·scar', NULL),
+('MW', 'MWI', 454, 'Malawi', NULL),
+('MY', 'MYS', 458, 'Mal·sia', NULL),
+('MV', 'MDV', 462, 'Maldivas', NULL),
+('ML', 'MLI', 466, 'Mali', NULL),
+('MT', 'MLT', 470, 'Malta', NULL),
+('MQ', 'MTQ', 474, 'Martinica', NULL),
+('MR', 'MRT', 478, 'Maurit‚nia', NULL),
+('MU', 'MUS', 480, 'MaurÌcia', NULL),
+('MX', 'MEX', 484, 'MÈxico', 'imagens/bandeiras/bandeira-mexico48x48.png'),
+('MC', 'MCO', 492, 'MÛnaco', NULL),
+('MN', 'MNG', 496, 'MongÛlia', NULL),
+('MD', 'MDA', 498, 'Mold·via', NULL),
+('ME', 'MNE', 499, 'Montenegro', NULL),
+('MS', 'MSR', 500, 'Montserrat', NULL),
+('MA', 'MAR', 504, 'Marrocos', 'imagens/bandeiras/bandeira-marrocos48x48.png'),
+('MZ', 'MOZ', 508, 'MoÁambique', NULL),
+('OM', 'OMN', 512, 'Oman', NULL),
+('NA', 'NAM', 516, 'NamÌbia', NULL),
+('NR', 'NRU', 520, 'Nauru', NULL),
+('NP', 'NPL', 524, 'Nepal', NULL),
+('NL', 'NLD', 528, 'PaÌses Baixos (Holanda)', NULL),
+('AN', 'ANT', 530, 'Antilhas Holandesas', NULL),
+('AW', 'ABW', 533, 'Aruba', 'imagens/bandeiras/bandeira-aruba47x47.png'),
+('NC', 'NCL', 540, 'Nova CaledÛnia', NULL),
+('VU', 'VUT', 548, 'Vanuatu', NULL),
+('NZ', 'NZL', 554, 'Nova Zel‚ndia', 'imagens/bandeiras/bandeira-nova-zelandia48x48.png'),
+('NI', 'NIC', 558, 'Nicar·gua', NULL),
+('NE', 'NER', 562, 'NÌger', NULL),
+('NG', 'NGA', 566, 'NigÈria', NULL),
+('NU', 'NIU', 570, 'Niue', NULL),
+('NF', 'NFK', 574, 'Norfolk, Ilha', NULL),
+('NO', 'NOR', 578, 'Noruega', NULL),
+('MP', 'MNP', 580, 'Marianas Setentrionais', NULL),
+('UM', 'UMI', 581, 'Menores Distantes dos Estados Unidos, Ilhas', NULL),
+('FM', 'FSM', 583, 'MicronÈsia, Estados Federados da', NULL),
+('MH', 'MHL', 584, 'Marshall, Ilhas', NULL),
+('PW', 'PLW', 585, 'Palau', NULL),
+('PK', 'PAK', 586, 'Paquist„o', NULL),
+('PA', 'PAN', 591, 'Panam·', NULL),
+('PG', 'PNG', 598, 'Papua-Nova GuinÈ', NULL),
+('PY', 'PRY', 600, 'Paraguai', NULL),
+('PE', 'PER', 604, 'Peru', NULL),
+('PH', 'PHL', 608, 'Filipinas', NULL),
+('PN', 'PCN', 612, 'Pitcairn', NULL),
+('PL', 'POL', 616, 'PolÛnia', NULL),
+('PT', 'PRT', 620, 'Portugal', NULL),
+('GW', 'GNB', 624, 'GuinÈ-Bissau', NULL),
+('TL', 'TLS', 626, 'Timor-Leste', NULL),
+('PR', 'PRI', 630, 'Porto Rico', NULL),
+('QA', 'QAT', 634, 'Qatar', NULL),
+('RE', 'REU', 638, 'Reuni„o', NULL),
+('RO', 'ROU', 642, 'RomÈnia', NULL),
+('RU', 'RUS', 643, 'R˙ssia', NULL),
+('RW', 'RWA', 646, 'Ruanda', NULL),
+('SH', 'SHN', 654, 'Santa Helena', NULL),
+('KN', 'KNA', 659, 'S„o CristÛv„o e NÈvis (Saint Kitts e Nevis)', NULL),
+('AI', 'AIA', 660, 'Anguilla', 'imagens/bandeiras/bandeira-anguilla47x47.png'),
+('LC', 'LCA', 662, 'Santa L˙cia', NULL),
+('PM', 'SPM', 666, 'Saint Pierre et Miquelon', NULL),
+('VC', 'VCT', 670, 'S„o Vicente e Granadinas', NULL),
+('SM', 'SMR', 674, 'San Marino', NULL),
+('ST', 'STP', 678, 'S„o TomÈ e PrÌncipe', NULL),
+('SA', 'SAU', 682, 'Ar·bia Saudita', NULL),
+('SN', 'SEN', 686, 'Senegal', 'imagens/bandeiras/bandeira-senegal48x48.png'),
+('RS', 'SRB', 688, 'SÈrvia', NULL),
+('SC', 'SYC', 690, 'Seychelles', NULL),
+('SL', 'SLE', 694, 'Serra Leoa', NULL),
+('SG', 'SGP', 702, 'Singapura', NULL),
+('SK', 'SVK', 703, 'Eslov·quia', NULL),
+('VN', 'VNM', 704, 'Vietname', NULL),
+('SI', 'SVN', 705, 'EslovÈnia', NULL),
+('SO', 'SOM', 706, 'Som·lia', NULL),
+('ZA', 'ZAF', 710, '¡frica do Sul', NULL),
+('ZW', 'ZWE', 716, 'Zimbabwe', NULL),
+('ES', 'ESP', 724, 'Espanha', 'imagens/bandeiras/bandeira-espanha48x48.png'),
+('EH', 'ESH', 732, 'Saara Ocidental', NULL),
+('SD', 'SDN', 736, 'Sud„o', NULL),
+('SR', 'SUR', 740, 'Suriname', NULL),
+('SJ', 'SJM', 744, 'Svalbard e Jan Mayen', NULL),
+('SZ', 'SWZ', 748, 'Suazil‚ndia', NULL),
+('SE', 'SWE', 752, 'SuÈcia', NULL),
+('CH', 'CHE', 756, 'SuÌÁa', 'imagens/bandeiras/bandeira-suica48x48.png'),
+('SY', 'SYR', 760, 'SÌria', NULL),
+('TJ', 'TJK', 762, 'Tajiquist„o', NULL),
+('TH', 'THA', 764, 'Tail‚ndia', NULL),
+('TG', 'TGO', 768, 'Togo', NULL),
+('TK', 'TKL', 772, 'Toquelau', NULL),
+('TO', 'TON', 776, 'Tonga', NULL),
+('TT', 'TTO', 780, 'Trindade e Tobago', NULL),
+('AE', 'ARE', 784, 'Emiratos ¡rabes Unidos', 'imagens/bandeiras/bandeira-emiratos-arabes-unidos48x48.png'),
+('TN', 'TUN', 788, 'TunÌsia', NULL),
+('TR', 'TUR', 792, 'Turquia', NULL),
+('TM', 'TKM', 795, 'Turquemenist„o', NULL),
+('TC', 'TCA', 796, 'Turks e Caicos', NULL),
+('TV', 'TUV', 798, 'Tuvalu', NULL),
+('UG', 'UGA', 800, 'Uganda', NULL),
+('UA', 'UKR', 804, 'Ucr‚nia', NULL),
+('MK', 'MKD', 807, 'MacedÛnia, Rep˙blica da', NULL),
+('EG', 'EGY', 818, 'Egito', 'imagens/bandeiras/bandeira-egito48x48.png'),
+('GB', 'GBR', 826, 'Reino Unido', 'imagens/bandeiras/bandeira-reino-unido48x48.png'),
+('GG', 'GGY', 831, 'Guernsey', NULL),
+('JE', 'JEY', 832, 'Jersey', NULL),
+('IM', 'IMN', 833, 'Man, Ilha de', NULL),
+('TZ', 'TZA', 834, 'Tanz‚nia', NULL),
+('US', 'USA', 840, 'Estados Unidos da AmÈrica', NULL),
+('VI', 'VIR', 850, 'Virgens Americanas, Ilhas', NULL),
+('BF', 'BFA', 854, 'Burkina Faso', NULL),
+('UY', 'URY', 858, 'Uruguai', 'imagens/bandeiras/bandeira-uruguai48x48.png'),
+('UZ', 'UZB', 860, 'Usbequist„o', NULL),
+('VE', 'VEN', 862, 'Venezuela', NULL),
+('WF', 'WLF', 876, 'Wallis e Futuna', NULL),
+('WS', 'WSM', 882, 'Samoa (Samoa Ocidental)', NULL),
+('YE', 'YEM', 887, 'IÈmen', NULL),
+('ZM', 'ZMB', 894, 'Z‚mbia', NULL);
+
+
+
+
+
+
+
+INSERT INTO `campeonato` (`id`, `nomeCampeonato`, `anoCampeonato`, `quantidadeRodadas`, `urlLogo`, `status`) VALUES
+(1, 'Brasileir„o sÈrie A', 2012, 38, 'imagens/logo-campeonatos/brasileirao-serie-a-2012-90x90.png', 'ativo'),
+(2, 'Brasileir„o sÈrie B', 2012, 38, 'imagens/logo-campeonatos/brasileirao-serie-b-2012-90x90.png', 'ativo'),
+(3, 'OlimpÌadas', 2012, 4, 'imagens/logo-campeonatos/olimpiadas-2012-90x90.png', 'finalizado');
+
+
+
+
+
+INSERT INTO `rodada` (`id`, `status`, `campeonato_id`) VALUES
+(1, 'ativa', 1),
+(1, 'ativa', 2),
+(1, 'finalizada', 3),
+(2, 'ativa', 1),
+(2, 'ativa', 2),
+(2, 'finalizada', 3),
+(3, 'ativa', 1),
+(3, 'ativa', 2),
+(3, 'finalizada', 3),
+(4, 'ativa', 1),
+(4, 'ativa', 2),
+(4, 'finalizada', 3),
+(5, 'ativa', 1),
+(5, 'ativa', 2),
+(6, 'ativa', 1),
+(6, 'ativa', 2),
+(7, 'ativa', 1),
+(7, 'ativa', 2),
+(8, 'ativa', 1),
+(8, 'ativa', 2),
+(9, 'ativa', 1),
+(9, 'ativa', 2),
+(10, 'ativa', 1),
+(10, 'ativa', 2),
+(11, 'ativa', 1),
+(11, 'ativa', 2),
+(12, 'finalizada', 1),
+(12, 'ativa', 2),
+(13, 'finalizada', 1),
+(13, 'ativa', 2),
+(14, 'ativa', 1),
+(14, 'ativa', 2),
+(15, 'ativa', 1),
+(15, 'finalizada', 2),
+(16, 'ativa', 1),
+(16, 'finalizada', 2),
+(17, 'ativa', 1),
+(17, 'finalizada', 2),
+(18, 'ativa', 1),
+(18, 'ativa', 2),
+(19, 'ativa', 1),
+(19, 'ativa', 2),
+(20, 'ativa', 1),
+(20, 'ativa', 2),
+(21, 'ativa', 1),
+(21, 'ativa', 2),
+(22, 'ativa', 1),
+(22, 'ativa', 2),
+(23, 'ativa', 1),
+(23, 'ativa', 2),
+(24, 'ativa', 1),
+(24, 'ativa', 2),
+(25, 'ativa', 1),
+(25, 'ativa', 2),
+(26, 'ativa', 1),
+(26, 'ativa', 2),
+(27, 'ativa', 1),
+(27, 'ativa', 2),
+(28, 'ativa', 1),
+(28, 'ativa', 2),
+(29, 'ativa', 1),
+(29, 'ativa', 2),
+(30, 'ativa', 1),
+(30, 'ativa', 2),
+(31, 'ativa', 1),
+(31, 'ativa', 2),
+(32, 'ativa', 1),
+(32, 'ativa', 2),
+(33, 'ativa', 1),
+(33, 'ativa', 2),
+(34, 'ativa', 1),
+(34, 'ativa', 2),
+(35, 'ativa', 1),
+(35, 'ativa', 2),
+(36, 'ativa', 1),
+(36, 'ativa', 2),
+(37, 'ativa', 1),
+(37, 'ativa', 2),
+(38, 'ativa', 1),
+(38, 'ativa', 2);
+
+
+
+
+
+INSERT INTO `time` (`id`, `nomeTime`, `escudo`, `pais_id`) VALUES
+(1, 'AtlÈtico-go', 'imagens/escudos/atletico-go47x47.png', 76),
+(2, 'AtlÈtico-mg', 'imagens/escudos/atletico-mg47x47.png', 76),
+(3, 'Bahia', 'imagens/escudos/bahia47x47.png', 76),
+(4, 'Botafogo', 'imagens/escudos/botafogo47x47.png', 76),
+(5, 'Corinthians', 'imagens/escudos/corinthians47x47.png', 76),
+(6, 'Coritiba', 'imagens/escudos/coritiba47x47.png', 76),
+(7, 'Cruzeiro', 'imagens/escudos/cruzeiro47x47.png', 76),
+(8, 'Figueirense', 'imagens/escudos/figueirense47x47.png', 76),
+(9, 'Flamengo', 'imagens/escudos/flamengo47x47.png', 76),
+(10, 'Fluminense', 'imagens/escudos/fluminense47x47.png', 76),
+(11, 'GrÍmio', 'imagens/escudos/gremio47x47.png', 76),
+(12, 'Internacional', 'imagens/escudos/internacional47x47.png', 76),
+(13, 'N·utico', 'imagens/escudos/nautico47x47.png', 76),
+(14, 'Palmeiras', 'imagens/escudos/palmeiras47x47.png', 76),
+(15, 'Ponte Preta', 'imagens/escudos/ponte-preta47x47.png', 76),
+(16, 'Portuguesa-sp', 'imagens/escudos/portuguesa-sp47x47.png', 76),
+(17, 'Santos', 'imagens/escudos/santos47x47.png', 76),
+(18, 'S„o Paulo', 'imagens/escudos/sao-paulo47x47.png', 76),
+(19, 'Sport', 'imagens/escudos/sport47x47.png', 76),
+(20, 'Vasco', 'imagens/escudos/vasco47x47.png', 76),
+(21, 'Egito', 'imagens/bandeiras/bandeira-egito48x48.png', 818),
+(22, 'Nova Zel‚ndia', 'imagens/bandeiras/bandeira-nova-zelandia48x48.png', 554),
+(23, 'MÈxico', 'imagens/bandeiras/bandeira-mexico48x48.png', 484),
+(24, 'Gab„o', 'imagens/bandeiras/bandeira-gabao48x48.png', 266),
+(25, 'Brasil', 'imagens/bandeiras/bandeira-brasil48x48.png', 76),
+(26, 'Bielo-r˙ssia', 'imagens/bandeiras/bandeira-bielo-russia48x48.png', 112),
+(27, 'Senegal', 'imagens/bandeiras/bandeira-senegal48x48.png', 686),
+(28, 'Uruguai', 'imagens/bandeiras/bandeira-uruguai48x48.png', 858),
+(29, 'Jap„o', 'imagens/bandeiras/bandeira-japao48x48.png', 392),
+(30, 'Marrocos', 'imagens/bandeiras/bandeira-marrocos48x48.png', 504),
+(31, 'Coreia do Sul', 'imagens/bandeiras/bandeira-coreia-do-sul48x48.png', 410),
+(32, 'SuÌÁa', 'imagens/bandeiras/bandeira-suica48x48.png', 756),
+(33, 'Espanha', 'imagens/bandeiras/bandeira-espanha48x48.png', 724),
+(34, 'Honduras', 'imagens/bandeiras/bandeira-honduras48x48.png', 340),
+(35, 'Reino Unido', 'imagens/bandeiras/bandeira-reino-unido48x48.png', 826),
+(36, 'Emiratos ¡rabes Unidos', 'imagens/bandeiras/bandeira-emiratos-arabes-unidos48x48.png', 784),
+(37, 'Abc', 'imagens/escudos/abc47x47.png', 76),
+(38, 'AmÈrica-mg', 'imagens/escudos/america-mg47x47.png', 76),
+(39, 'AmÈrica-rn', 'imagens/escudos/america-rn47x47.png', 76),
+(40, 'Asa', 'imagens/escudos/asa47x47.png', 76),
+(41, 'AtlÈtico-pr', 'imagens/escudos/atletico-pr47x47.png', 76),
+(42, 'AvaÌ', 'imagens/escudos/avai47x47.png', 76),
+(43, 'Barueri', 'imagens/escudos/barueri47x47.png', 76),
+(44, 'Boa Esporte', 'imagens/escudos/boa-esporte47x47.png', 76),
+(45, 'Bragantino', 'imagens/escudos/bragantino47x47.png', 76),
+(46, 'Cear·', 'imagens/escudos/ceara47x47.png', 76),
+(47, 'Crb', 'imagens/escudos/crb47x47.png', 76),
+(48, 'Crici˙ma', 'imagens/escudos/criciuma47x47.png', 76),
+(49, 'Goi·s', 'imagens/escudos/goias47x47.png', 76),
+(50, 'Guarani', 'imagens/escudos/guarani47x47.png', 76),
+(51, 'Guaratinguet·', 'imagens/escudos/guaratingueta47x47.png', 76),
+(52, 'Ipatinga', 'imagens/escudos/ipatinga47x47.png', 76),
+(53, 'Joinville', 'imagens/escudos/joinville47x47.png', 76),
+(54, 'Paran·', 'imagens/escudos/parana47x47.png', 76),
+(55, 'S„o Caetano', 'imagens/escudos/sao-caetano47x47.png', 76),
+(56, 'VitÛria', 'imagens/escudos/vitoria47x47.png', 76);
+
+
+
+
+
+INSERT INTO `usuario` (`id`, `tokenUsuario`, `primeiroNomeUsuario`, `segundoNomeUsuario`, `emailUsuario`) VALUES
+(533424116, 'AAADUkCMlzxoBAAGoHw2ZAbxZBT6b7nqlSdMZAg9Id3S9LG0wUINUB7TZCfa2lgH3eWhlRGoB1ytOu4QEshuQ8jxqZB1Ct8WDmvPq46RIVkwZDZD', 'Jonhnny', 'Weslley', 'jonhnnyweslley@gmail.com'),
+(836971939, 'AAADUkCMlzxoBAFgEjpMZAA7PSKtVZB5SbOKbq7DT363ZBAzjSA6nSiZCTQBZAA1Az2EWZBZAI0jLY9cM0WVB8sSAa2stv18m5s4ZB6BmjFrVQgZDZD&expires=5183998', 'Itallo', 'Victor', 'itallovic@gmail.com'),
+(1058463556, 'AAADUkCMlzxoBALIrK6TZB2iynHidStTnlyPKiDzhC3cpUE7SrFfMLXCWCZAMKQakT7xSfbiboFOdWFtcczTKkZC1BPv70V2r6ipTkLutNB4HfM74cZBW', 'Deyvid', 'Yury', 'deyvidyury@yahoo.com.br'),
+(1061637097, 'AAADUkCMlzxoBAJdBsFB3ZBSmf34mG2Hh4Yq2u4t17gXclyIZB3btmui7XcYZCXcqdSgIfMzuH0IfOKjDS8jJcT3SpTq9VmhRyWCoTZBPy1DFlx8CVvz9', 'Sebasti„o', 'Rodrigues', 'tiaoricardo@gmail.com'),
+(1130122019, 'AAADUkCMlzxoBANdBEb8p2ZBAaBzLSI0FytnDfoUFfZBR55Qan2oTrCeFSsjVuzRtWZA5nZAYFLJZAANj6jfVjObumpI3Yu2B4WCwUdNJSywZDZD&expires=5169622', 'Bruno', 'Mendes', 'bsednem@hotmail.com'),
+(1145531078, 'AAADUkCMlzxoBANUMlKgRKRarMMHWWpBtVONiV0ZAuxsQSZCuXb14jrYttmwbeipYgpm24X0rrnAZAa3M8wsyNDDTsprpq6tPdMAWxMC8wZDZD&expires=5183998', 'Felipe', 'Rocha', 'bandeirafelipe_3@hotmail.com'),
+(1274882878, 'AAADUkCMlzxoBAB5fPkD9XZAZAi9horBAmty76FLKaqDvW5UBWMlzViW2itFtN1i2qfvGZAZCGhg1xpmNUGufsIuy48FIeV8XMu2HlQcAiwZDZD&expires=5183998', 'Paulo', 'Henrique', 'phenriquemoura@gmail.com'),
+(1374603026, 'AAADUkCMlzxoBAH59xRPx5Vix7onDtxDZCuLWdcAFzDdZBZBYxnBWkgwkKwQbApR4kOMUzsDdeg7SAOSjM5BI6FVvLhaoRZCYXxluGZCB71mG4ytbfecFm', 'Themistocles', 'Waquim', 'themistocleswaquim@hotmail.com'),
+(1391412645, 'AAADUkCMlzxoBANGBZBSfHzGYnP2Gna7g2hSYAWt6ZCqr87ZA90MWZAyvtoH3rWEbPip8UXMZB2W8HQlb6bLCqTCGHxS8t37QboH4OhAy7PQQnT8jZC06Cp', 'Denise', 'Stephany', 'deni12346@hotmail.com'),
+(1471646998, 'AAADUkCMlzxoBAMqspFkHqsS48i9ZC6PEH1nSfOxrtpkDZCLxdZBb3JZAecB6UulVFKu10lULYkg0PWlVBA9wu3Nd4eGSzjPTo0lBZBTfmpgZDZD&expires=5183998', 'Nadyson', 'Felipe', 'nadyson-felipe@hotmail.com'),
+(1512773485, 'AAADUkCMlzxoBAHpB4WibiN7ZBnCWcWKg8qjoVEYgV3jjflpf0U9WlTrEazy8MN3XY7qptZB1ip6VhOXvGaYWGyZAlBKc1SwORbJyOpgdAZDZD&expires=5183998', 'M·ximo', 'Henrique', 'malchik_cerberus@hotmail.com'),
+(1614334792, 'AAADUkCMlzxoBAL69tdzWXpJApIYZBQAeFV2m61X5KfuP101ZCoasQgZBwPdrWwWDstZAfaNQBBq77I9K9bRkuyf5wRbCYikC3JqGtArHuVZAsqSH7fsic', 'Italo', 'Veloso', 'italoplus@gmail.com'),
+(1686162406, 'AAADUkCMlzxoBAM8LhcU3BlkpUb8gR0H7C9z54A6icRLfdc1THX2lr3ZAh8OpHaWb1qn2OXZAPq0r7pjEcJeX5DU1azsmJRZAGTNgMHj1AZDZD&expires=5109940', 'Alan', 'Andrade', 'alanparkcaus@hotmail.com'),
+(1757276749, 'AAADUkCMlzxoBAM4ZCPXvno8ZBGZAigElpYMNBFMs6D2TRWQo9Tw1fyraOK49ZABFeWngZBeVtmQaidvwAZC1k1qqEFV6KQvIhHydXjVfISRc8MZBra6nCaN', 'Eliana', 'Pessoa', 'elipesn@hotmail.com'),
+(1775683722, 'AAADUkCMlzxoBAIuHEx1uW7SERxTK80X4v4SGe2eeFNZAdw2U1ZB4rnZBI8dZAjVqFliCTEvFKK9a6lnp5P2FexlijDkiS9l2LGU5SERYYwZDZD&expires=5183998', 'Wesley', 'Martins', 'wesley_marque@hotmail.com'),
+(1816162455, 'AAADUkCMlzxoBAGanOJ1BWYDoWNvkRvRIB5ZB6Rg157V485Sx2yJjA6SjKC7gDNZAitgaRvqQkaBOVxzZCcVZBeIxzx8XajmBQusOqRTD9QL3RjJOL6ZB9', 'Larissa', 'Pessoa', 'larissapessoal@gmail.com'),
+(1824737972, 'AAADUkCMlzxoBABTfdeAwGeADaZBdOU1Rulus53cZAPKbVOWTUapyuarJ5MhiQ1aPP6h9jCLJ29V0kOWxKrja32fV6LhEnpy05dClZBqTE1GatjNdCyG', 'Luana', 'Santana', 'luanasantana@live.com'),
+(89015000002679, 'AAADUkCMlzxoBAEtC8ehzFoHTvGRUwL6bWEAnguGDWmknlaVNhzPefODZC4y0bvI4TIZBER9RkCtR3HFpnQkuXbcpu1QNgtgbcioJhlgwZDZD&expires=5183999', 'Sandra', 'Fallersen', 'wbxutrmcig_1344009670@tfbnw.net'),
+(100000037362683, 'AAADUkCMlzxoBAFebLEW60kQtDFFWwKLF5XnfhhNZCJ80qbXAlLfm7OszyQUyAB1CjpKrcNXDrtdVcIm5njNSM3ZAUlcNuqqGwBGI9fJAZDZD&expires=5183998', 'JosÈ Arlan', 'Marinho Morais', 'ze_harlan@hotmail.com'),
+(100000039271259, 'AAADUkCMlzxoBAMAkwX1WeNMkv1FWv4LJltw5EB4kJzLkZAKAuVBBPvZBFUnxOfZBfsKGtNWg6VRZA6pVlsG09fhZBflCTRc4ALHGZAqe0XoAZDZD&expires=5183998', 'Camila', 'Guimar„es', 'camila@osmosqueteiros.com.br'),
+(100000050242782, 'AAADUkCMlzxoBAMkesdjdJtL2697VZBh2GgcpZCjPm5Fwkhfu7JcnUyrfXgXTpMamJP88WZBiHug72fSeve3pL0K2YDPycirMFM7OSywigZDZD&expires=5183999', 'Tania', 'Mendes', 'tmfb_ump@hotmail.com'),
+(100000093729132, 'AAADUkCMlzxoBAOlycErlsZC5PZAjycAa200GX0ox18RfcrtMrZC9utwhajW8fI6PcnJ9p3QtAJwhja7GSJjZCqIZCLG6eKasqtBrCvldamKtXwmjltMfH', 'Eduardo', 'Frota', 'edu-frota@hotmail.com'),
+(100000122625619, 'AAADUkCMlzxoBAGv8hNX7MRrDOJSnUcPyZANZAIf3VH2DZAjOBUdlAAI18YA9qjUYZBG5NuWW4MwTdm7siEZAWwqiZBkHFz7CedPNX0WO4HogZDZD&expires=5183999', 'Thonny', 'Cleuton', 'thonnycleuton@hotmail.com'),
+(100000122921991, 'AAADUkCMlzxoBACEszpdExEtHTu13hkZAKnFkc2rJWD0ZCV0ZBeT0N3P3OEWTo7jwqxf2yaUtI9YfWzs1sztbZCKRsv84Bn2ilZC6ZChQGIBnxCRZBjmbmVc', 'Bruno', 'Serra', 'bruno.serra.halac@gmail.com'),
+(100000156321743, 'AAADUkCMlzxoBANGSxwFxJypmpiAPrH9h1FZAYxbgQ3b7XQZCqxTSVKWkejar3K6PRV65bznUEjrnJc3zZCIC6hewW2uvbCMgDhh4fgrLAZDZD&expires=5103624', 'Augusto', 'Melo', 'augusto_henrique@hotmail.com'),
+(100000203239974, 'AAADUkCMlzxoBAPSUMiMh0R2e5NlncCh8MNEhoVSvFemmet4ZBdioVIO8MGGy1WMiAsp5oF3V81yg72Wzx4PxdFaNIadsi4Cz4vLDtmJa9seE1flXe', 'Danielle', 'Monteiro', 'danisamon@gmail.com'),
+(100000311206037, 'AAADUkCMlzxoBAEUopraZBCYgrKKJ1uuyb8hWzfeWIvNq2wTyLFPzhPZCLuarxS5EYnliecvvzqxKngiBjrGkkIC71lOoQKYfcP7fCJbV1UvaZAeHz7ZB', 'Dogival', 'Morais', 'dogival_600@hotmail.com'),
+(100000321727785, 'AAADUkCMlzxoBAIPWq5EjTmYs4Y9ZAILGwElxCnd79QmZB8EcbjqHZArOrgeljSJn4n3DhJXZBbc8s0lArrLYOZAXZBlw9LPCZBODBA2KC6nTmuZA5iJ2061N', 'Francisco', 'Rocha', 'fmarcosrocha@gmail.com'),
+(100000400064551, 'AAADUkCMlzxoBAK8YG4sQ3f5K7q2yyjwRROEU3coj4KKGLxVjBr1svtQ7adFarSHiOA7ct5mcHYxRmuxhqzZAHZAfyZAOcvYFcLVlF49JgZDZD&expires=5183997', 'Jose Hamilton', 'Leal Jr.', 'satoescariote@hotmail.com'),
+(100000448355914, 'AAADUkCMlzxoBAEHfzWZCN5n6FKk6qhyM8iFzKFdaVhVHcqVicjK7vcqT5UZCPmkoyBfZAA0bwF4J4Wr0lmc6WRFEFQYHZC5Hk6P1839egAZDZD&expires=5183999', 'Matheus', 'Pazette', 'matheuspazettejpa@hotmail.com'),
+(100000631447400, 'AAADUkCMlzxoBAMdCwHiUTjCxJFsDsIDxcBMLdvPKC1eVnAA4iNWgxBxbhvXmesKCnFfFeMHghdtgnuoXlVElEQsoSkMlwOD9zZCW6RwZDZD&expires=5183998', 'Ely', 'Miranda', 'elyvation@gmail.com'),
+(100000665046502, 'AAADUkCMlzxoBAN3EtucscEP6RFoeFameHKdepJ2MaFJIfZBUSkmeuJR4sU9ZAWJZCcdZBa2K3ZCJO4uQnMgYv88b9nVU0xiHCKJJiavorlQZDZD&expires=5183998', 'Marcos', 'Paulo', 'mp3_jt3@hotmail.com'),
+(100000695999057, 'AAADUkCMlzxoBAKcScftRCYd4qcDN5mGTp0C3O6v8fd1bT42a3m2EYjXkJoJDZAW0FmRP0DwmFNwkoo6d4iIWjoRyV5Vz6VMJG0K9BYgZDZD&expires=5183998', 'Allana', 'Batista', 'allanacunha07@hotmail.com'),
+(100000698131637, 'AAADUkCMlzxoBAOWF371ycJmNWKeEJyExsAJwcZB0JiryREsfBmbZAcZBOnufhuVCjCWx82k2SB2AX6HTiHGPDiwHq1kbyK30SuUCXBheAZDZD&expires=5183998', 'Thiago', 'Chaves', 'thiagodesck@hotmail.com'),
+(100000765192683, 'AAADUkCMlzxoBAIeiHzHZBSmLfpmltV9BZBemZBc8P0GZAE8WoLwBhkPxZAKsfi6iqYLZC4CJT5M08bKcCx8fheOfIv9dq95eCHW7prsMJKDwZDZD&expires=5183998', 'Pedro', 'Santana', 'pedro_camisa1dosinesio@hotmail.com'),
+(100000851489041, 'AAADUkCMlzxoBAHl9gka5bRMBofduH2za85dmtrDUd2KHnZAbbZBAtvuRfZA6tn6Gq0szquPnf7GXCb9ciNONSciBzWjzbGBH61B0x0NCgZDZD&expires=5183994', 'Ulisses', 'Santana', 'ulissespk@hotmail.com'),
+(100000877692701, 'AAADUkCMlzxoBAE289VgEftEZAB6hrcSZB0TnilFpeHKVZBpGxsTtJriZArhw0p1KQergxv2TnZCHZCfZBepD0LZAk2pfIZCOj1ibBmVDrfZBQXfgZDZD&expires=5130794', 'Judson', 'De Araujo Barbosa', 'judsonbauer@hotmail.com'),
+(100000885523518, 'AAADUkCMlzxoBANO7UlSWoVupynd5zNXBSEtzsYcQSUcRVPTJmgjuDQXueiDyniwZBJ7PyFWEq0tAUf2QcXXiAXZBkTG9vCGUjPoluTsgZDZD&expires=5183999', 'Daniel', 'Alvarenga Lima', 'alvarenga_daniel@hotmail.com'),
+(100000893179119, 'AAADUkCMlzxoBAOgbmoZCpOT12SpsU3qpmg8dkwcC09E2QFuyMpzfdBpal8difCsZAGGoyA7dlMjeIZCkrjKkpxfaZCOVYuS9DuAIOrniJQZDZD&expires=5183998', 'Pablo Cunha', 'Almeida', 'p31918@hotmail.com'),
+(100000963789848, 'AAADUkCMlzxoBALgoVZCMLxjZCfuRNQzCBIG4m4mZBy6KZBECY5fiLK9ABojt7UFyUMxIcy2XekPZBXFo0miMGlEli61vTUJW0NuKy8P1kXwZDZD&expires=5183998', 'Deo', 'Junior', 'deonjr@gmail.com'),
+(100000967155326, 'AAADUkCMlzxoBAIoZA18mYtTCbXYM5C7reC2tUCZBqHMy6LxDq3ZBADWBzpblAtolZAAEBDZAM3P0vwxOkEAeOD5EtWts884DtKeBUrqxSsJp95xG1WJuC', 'Silvestre', 'Filho', 'sfilho23@hotmail.com'),
+(100000973543518, 'AAADUkCMlzxoBACC0INwkNbVeV4pZAda79zcV1snQDK36Kb9Ikt95kVbMxF8ky4Y0fTgNek6VoUPZCNFnZASEHiUoLsUARflAJ4oD03pjQZDZD&expires=5183998', 'Hermeson', 'Soares', 'tri_maluco@hotmail.com'),
+(100000989429009, 'AAADUkCMlzxoBAKZBOS4N2DREVVGxQZAN7kC8v2jljRqzzkNRQjl3IDVoc7BNlXf3RBq6DMMbox3xCRjGHHUZArAziUWW0o6ZCcVpWfM68QZDZD&expires=5183998', 'Italo', 'Alvarenga', 'italo-alvarenga@hotmail.com'),
+(100001000359183, 'AAADUkCMlzxoBAGxQJmkAYNQxIBNZBvbfyhx27QsvhpiADAF7aTrvV3lYNqr5Smt59j3uJ8He7UuIGFGwfJnhpUDst9xmmpx1tl006kIzBw7GFtKSJ', 'Jo„o Paulo', 'Barros', 'joaopaulodesousa@gmail.com'),
+(100001134523722, 'AAADUkCMlzxoBAJZAOG0LBdZBOrkk0ZAtZAwmb47oXbHMitBRQ8Ee2niia5JZBEctVrtWZB2cuGEJCEY3VnRJpCDtqA5C1QFGBZAhD4e5zQ6AAZDZD&expires=5183998', 'Rosana', 'Lima', 'rosanalimaferraz@hotmail.com'),
+(100001204752179, 'AAADUkCMlzxoBAPoUKENXnpOpJ3YG1EAJM5Tiwu60P7TAKqheRGNbnu4X3ZB1llgy864Xl7P2gRzZABgTu64FFeZBeVBA4lhPCSrpKBfTwZDZD&expires=5138521', 'Devisson', 'Almeida', 'devisson1920@hotmail.com'),
+(100001221347835, 'AAADUkCMlzxoBAMi39KppfHdaHdVquaGaroRVnCurmZAM1gPBtUyiv8MEkXxoTBqcHNQYr8tne9nuJZAQTTKGTQY4nXrzXfcqO9j5RuWgZDZD&expires=5183997', 'Jose', 'Felipe', 'j.felipeoliveira@hotmail.com'),
+(100001241134861, 'AAADUkCMlzxoBAF80uhdZA5TGCDtfloZASSxnUhYAYFAFk5XfrzZBZASEn96hyAmGPOGuKrZCqGx8FRrbMjfPAwxKbxA0tB2l12174CWdnrQZDZD&expires=5105016', 'Anderson', 'Lopes', 'anderson.lopees@hotmail.com'),
+(100001248078738, 'AAADUkCMlzxoBAAZBd3Br5NLnfvwk4XyRvjaMFjHWs7SO2SiRcK01Tz5KfLnVyDOZCTtgONJOlVuAw7b1PuBX3m5SbVRprwhZABkFsHFhwZDZD&expires=5140925', 'Pablo', 'Henrique', 'ph-santo2@hotmail.com'),
+(100001280191253, 'AAADUkCMlzxoBAHSyziEWwJqAJ4rGXph5ZAsNtZBMdeGHMh7CAYOeQUZAZAsXPojTGKUwYtAy4CFZCg6dOtiJrbXMNFBlCu2izAIwhIZC9DRQZDZD&expires=5183999', 'Manoel', 'Barbosa', 'barbosarepresentante@hotmail.com'),
+(100001296264371, 'AAADUkCMlzxoBAMrYuMUZAAkUMBiluZBRLtiCLKmek8niE7ICUxP7MBFN6455rsW71wGVXkuWJbauxKrI7aM58Bla8XFXD6y3bkhxEjogZDZD&expires=5183998', 'JÈssica', 'Mendes', 'jesklaisa@gmail.com'),
+(100001458131223, 'AAADUkCMlzxoBAGs5yBNIWluds5irdKRQg4BFjLDoZCcNCuy1W1NCfILApZBz4dgq1BSwK8hZBzhrKQkoVll1HCZAgYx2GTH954PZBw0gMtgZDZD&expires=5183998', 'Kelson', 'Silva', 'kelson_f@hotmail.com'),
+(100001543841823, 'AAADUkCMlzxoBADoPZC7ZAM41ZCIJR0k5HGdRjhTm8YJeOXn2ZBkccp4QPE6YQzTm4LelLZCQBOSDV4oWRVubqwbc1GAtaisc2X5fj6HCnkeZAtcXkwRXhK', 'Luana', 'Brand„o', 'luanabr@gmail.com'),
+(100001599862159, 'AAADUkCMlzxoBAMqOlaIdBcuDbLjuMWNwA0UeKhyRhjvB7iiDZB3hOfzWlFAKoCL2orn2ZARM2dah9dRKEI0Nrk04oXVuywOZB7EOX2csAZDZD&expires=5183998', 'Erick', 'Passos', 'erickpassos@gmail.com'),
+(100001602968614, 'AAADUkCMlzxoBAOmzT9B2jbgEEXxUt0OgtieC5JSsRMhNR7SiLwAJnjVCnEDPzzquOzrcfKzXVUdZCfhvvZBGFLsmL7vi3j97eqMSZCM8QZDZD&expires=5183999', 'Plenna', 'SoluÁıes', 'plennasolucoes@live.com'),
+(100001635562343, 'AAADUkCMlzxoBAHFKKSZCYD3mlZBc2dKrHfwkEPdF9iBZASZBj8sFb41HQs31pLkhi5Li98fZA9elqRZAkGDWETfCSuCXXNXUaZBQPZBoDc75uAZDZD&expires=5183997', 'Raphael', 'Tataia', 'luizph_sm@hotmail.com'),
+(100001644476049, 'AAADUkCMlzxoBAEDjY7nTu3DM3I9cidgowm9uZC4dG4EUE3dWIWzw1cqJzFxW8wSGWmoP0BkysUhr51hG95xoCBB7xfZA6IrYROa8JaXAZDZD&expires=5183998', 'Livia', 'Pessoa Lima', 'liviapessoa6@hotmail.com'),
+(100001768068026, 'AAADUkCMlzxoBAEOjbqLPbKxas6Wn53nan0YxZC5jZB3ayi3EqF9g5KKplUiM4WsZAkOVupO81UufeomqJZAEoZBVoWFuIU4XaKsZBf7icKqgZDZD&expires=5183999', 'Kevin Andres', 'Cascante UmaÒa', 'kevincascante1@hotmail.com'),
+(100001822348142, 'AAADUkCMlzxoBANZAG6i3lBdf5obOwBPEZB83bgbWo4sH5S661minK3r8ZBCChH60PYiZBk6ot5hkgnvgv9bfivQt15fpixhYvlCY57VHkQZDZD&expires=5101316', 'Marcos', 'Alexandre', 'marcosalexandre03@hotmail.com'),
+(100001946749940, 'AAADUkCMlzxoBANpQG3LKZCQlqZBATNgFpJS1mrVni958kOgoGWAeNeI8ZC6icmflpQ6b17xGZBPHqeBDxz3OjZA8PnZAXZC8SgTyj4eyGyNV0lgxsz2c8F0', 'Gl·uber', 'Abreu', 'glauberiury@hotmail.com'),
+(100001966645651, 'AAADUkCMlzxoBAESWn5pP03prdlbWKkKf3A2SzdZAq9XZA9vijQxjbQxUcCIuZAZC0AUzdnimPXivXCBU2uGBZC8hPSx8jikjkUIV9ahSpcwZDZD&expires=5183998', 'Hivina E', 'Lenon', 'lenon_lemos@hotmail.com'),
+(100001984735537, 'AAADUkCMlzxoBAGZB10WIWyGgqKuvNDZB2e71P6aIlj943BxaDmBk3CgXvcBB5hMVtKQUZBxQkvhZBMZBLX1c4XSyvkZAEUXn4ZBPUNcYgwiZBQZDZD&expires=5183998', 'Marcelo', 'Bandeira da Silva', 'marcelob100@hotmail.com'),
+(100002018572350, 'AAADUkCMlzxoBAO2COR3gtipCHK1hsj9rcJlpjNMHJMI0bSF2ZBNxqqdujrNhXwiMEWj0AFhPOD6GH0XaZBe22ym9KZAUG2CaUpqiQnYuAZDZD&expires=5183997', 'Mauro', 'CÈsar', 'maurocesarfilho@hotmail.com'),
+(100002046119323, 'AAADUkCMlzxoBAH8UbAPzzySIzFbYxYu6etQlHvD2Gk2FxO4QXusvNQSTpA25bbo1Jxhfo7YgLX3CRgpcZBeh2VK4R3l5AObRrHBcZA1nqgQXbSzkPl', 'AÈcio', 'Santos', 'aecio.solando@gmail.com'),
+(100002166343141, 'AAADUkCMlzxoBAPbTicfneHp8ECDQQ4xO8hJgrXYlIuuqIZAKM4qFQZB4g0EZBmOJGyOtuQvwxiy2qEIahJARZC4oZB9zwkczAcyAh4ZAQhn3aIxdoFntUV', 'Atanio', 'Emerson', 'atanioemerson@gmail.com'),
+(100002174001777, 'AAADUkCMlzxoBACCfcwEZBHu2ADjKFBKYZA4wxiVeeP4KZBaqISPrqZCH8SzHFZAKZBr9Gygv8rTNzcmwsW8WyZCpPGHU2uSzskrtn5F6RcZB1AZDZD&expires=5183998', 'Paulo', 'Vin√≠cius', 'p-aulovinicius1@hotmail.com'),
+(100002230741006, 'AAADUkCMlzxoBAD0prFhw9BSwAH8ZA829RdaO8hwAm3tRNYxk3gvj7CcuukrDX9HWH3nYYZBZCp7xZCpZBsKUfIdNailc900GAvLpHoSmBGwZDZD&expires=5183998', 'Douglas', 'Santos', 'dodo.canalha@hotmail.com'),
+(100002241529666, 'AAADUkCMlzxoBANhYHcoplsCAAR4l2rkR7aDXL9i3wUdxZAuWYv8nIloZCmSZBgVQcIs3X6g9ppK1AwoIN9RtzZB7VvkZCXdknQT7EM05JRla2reOUyQNZB', 'Filipe', 'Raiz', 'filiperaiz@gmail.com'),
+(100002296771053, 'AAADUkCMlzxoBAO23EpGcrJLkZC42756445WequXSwTZBFzshAarjpO6NcEZA4JXnEfn8YmNrimCtRNwzaXogaUk1e4WrWNmXerjJcaYzwZDZD&expires=5183998', 'Roney', 'Lira', 'roneylira@hotmail.com'),
+(100002305103714, 'AAADUkCMlzxoBAA5cGRHjyE6jqM7T9MiyiX7di7vHl01yx2hCLVoIhByIZBMOlcmwbU1YGGTW912ydlPqpjRKh7dRDac8ZB7r6KCt0WU0xASjxPmlWM', 'Carlos Eduardo', 'Silva Araujo', 'carloseduardo.araujo@hotmail.com'),
+(100002322151330, 'AAADUkCMlzxoBAHkGunyNt0VHw9R3mcGZCablPVkRQpUmbVnc09cUAf9Vqn4b6GwJZCYIWKFgHbZABjDiETF1UGz0aewwBeUM9Edabp4mAZDZD&expires=5183999', 'Tales', 'Noronha', 'taleshnoronha@hotmail.com'),
+(100002402880745, 'AAADUkCMlzxoBACZB6YGPZCSlrtKQGVcYfQZBEZBOZA5o2ELJUITM4E2t85zLvioDCZAgcwHvr4c1oBuMKgRLZCnO6IkZAVcGZCZC9GfwTiyDcrxwZDZD&expires=5183998', 'Jardson', 'Gadelha Nobre', 'jardsongadelha@hotmail.com'),
+(100002427769999, 'AAADUkCMlzxoBAEvQFQVuHZBZA1xqqUZC7TZBUZAkQmUIp6MXwr8q9hnpq6obM7NXa4XuRfICSXH5hp1zC10s9ZCiKEqk3KbwbueyTYSuO0jNDq6on20h1S', 'Willames', 'Silva', 'willames_silva_ribeiro@hotmail.com'),
+(100002428967554, 'AAADUkCMlzxoBAIhA9W6Ag0HVjJiqZBFj2QLdBJxfgz9A44ZAwhbJfZADPsSVYWDTFZBodaAveUzvCYbpbCNt5HZCeMBdmfi383uxrmsLJgQZDZD&expires=5183999', 'Jo„o', 'Pedro', 'joaopedro201141@hotmail.com'),
+(100002450230439, 'AAADUkCMlzxoBADZBaBmZBZCPWLkJoZAwty7zJPTIZAqPBaDufps7a0fWD6Dxy9n6lwUgKjBmWpqMpoGu7L9GLG7yr4mZB0LMKIA1weZCIfbQQZDZD&expires=5183999', 'Higor', 'Santos', 'higor_saopaulino@hotmail.com'),
+(100002526182567, 'AAADUkCMlzxoBAPQnViPTkZA5pxLJYOia4wi01pVdO9Ta5yMaOU2bnqcaOs6I8tWk3e8rxCE1iRh6F3vilZA8AkSUTZBHwbwXDDAE3VfWba8SN179vJm', 'Paulo', 'Machado', 'paulohigachi@hotmail.com'),
+(100002531003680, 'AAADUkCMlzxoBAHJLR2IWTRwHW28ZB8ntkz695JGLogHttGElAbx456MZBYCZC2HsQ2TcrbFFlXLsD9hYvh9KbVihqxSeknlZBASEVVQqBAZDZD&expires=5183999', 'Juan', 'Robaina', 'juan-robaina@hotmail.com'),
+(100002540438249, 'AAADUkCMlzxoBAIZBfhXgLs2JnDNvRRQLc75OIuNmTfzZASKBf965uyGD4H5OpNzc2ltZCZBgcUeCm2jFiHHBdPTWszVNfbGOXvyaTrXqEwZDZD&expires=5183998', 'Davi', 'Alvarenga', 'davialvarenga@hotmail.com'),
+(100002561910346, 'AAADUkCMlzxoBAA5Q3dKdvFYqSMKOZBV6vpLZAZALx5CnxSwZCdjZC0vyMl7ZBzohWBsqQGrcND5ZBq8VL7GurEBQu2gepvhKKbnM11pHsZBIhAZDZD&expires=5183997', 'Yuri', 'Peixoto', 'yurigostozao@hotmail.com'),
+(100002575172443, 'AAADUkCMlzxoBAJnkYtuZAU431TCBrmnWcWxQhkwp0wqI96RCBBFi3s6bXHZCVSlkSGOivX8HljdTcyQ42aUAzse872cpzgDmlNQEwENQZDZD&expires=5183998', 'Venancio', 'Castro', 'ven-ancio@hotmail.com'),
+(100002645401521, 'AAADUkCMlzxoBAFrUKegfk2DuGmZAHjlzEL798wzAWZARGe20RupV5810nWjodhB9tG9bamnhkpL3ij7Rb9kWCUv4x5Jbf7RbJTA1vcIQZDZD&expires=5183998', 'Ramon', 'De Oliveira Silva', 'ramonpalestrino@hotmail.com'),
+(100002647094215, 'AAADUkCMlzxoBAM63V6xNv1Kj3j8ZCuiTz3ccUegNJxW2AYgns4XNRDExiGOMo5rMuVCntNwuPHiZBseN7Rz3sWkDPvcgiiMhlcJkuKDAZDZD&expires=5183998', 'Lauro', 'Amaral', 'lauro-gatinho16@hotmail.com'),
+(100002667370452, 'AAADUkCMlzxoBAFZALc91cxjm7jq7pQkljtXijM279kZAWZA9cDQxEdZAKka1mjdRjOTyVRTz7BW2KjgrGLI2bhqgZCay98X5LQ2CaRCHZA0gZDZD&expires=5183999', 'Guiga', 'Oliveira', 'guilhermeratinho.oliveira@hotmail.com'),
+(100002739440357, 'AAADUkCMlzxoBANMpr81antW2JG8go7tMESIIGiqQtyN4w57ENDXh520CtDZAHCspusmxSL5FIwAeIGlZAGh7nhXWVpHX5iPyZBkK85lKgZDZD&expires=5183999', 'Marcos', 'Vinicios', 'marquinhos_vasco2011@hotmail.com'),
+(100002755402115, 'AAADUkCMlzxoBAJoHKtYCsi3kHAWmzj4BOeiKAlWnFHBVP0A8ffIPDKkdVFGYfxMGdxwAGV0E6GXEBtOj74LOsqq9EKHnHLNScJwdwQZDZD&expires=5183999', 'Saray', 'Villalobos', 'sarayvilla09@hotmail.com'),
+(100002821308942, 'AAADUkCMlzxoBAFFJZBgYJ704sJSgZAxxN4qjaDBUjxtjRXfaw04QzrWLbAziqQRSpXKAg3gSAcfjR1dSJ0pFoEtQZC4XvGc6Dwm11z3BwZDZD&expires=5183993', 'Mateus', 'Vinicius Tomazela', 'matheustomazela@gmail.com'),
+(100002859559876, 'AAADUkCMlzxoBADoDeLk6CxmloakBuMoJgaN28ZBVNKPCp7it5Q427m1FtJ6SLRykchoTNU5M5Lvw1o6z2FC1a9e26aZCqbqyh1MLo5ZCAZDZD&expires=5183998', 'Renato', 'Calle Arredondo', 'renabacan@hotmail.com'),
+(100002911831338, 'AAADUkCMlzxoBAN9dogDxDvM8ypu2mnZCWRHAfCtdJFZBXsmrfna2yXfZA76it3bgqxGvFDgVWMTmfLlZCaHZAOsFQM7SfBySWSYKLgxl3NwZDZD&expires=5183998', 'Elton', 'Junior', 'eltonsjunior@hotmail.com'),
+(100002950669625, 'AAADUkCMlzxoBAN3Do2wwY6zd6sl6myEqGZBrS2gBG25Bd4rHVA0SdM4ZCA7Ww6NtTvw1H1UY3bJhEyxEhiRZBwFAwHye5X2hlCAWWOXlgZDZD&expires=5183999', 'Vitor', 'Morais', 'joaovictor97_vieira@hotmail.com'),
+(100003026521581, 'AAADUkCMlzxoBAF2artYogsNtMEiBSaM8UGc1qlqSMDPuvCi1FmpP0YHMl1ZBfeN5KKcrvSooImEkiQwRQTjeinYUoIswN6kpgHkgzRAZDZD&expires=5183998', 'Mateus', 'Rodrigues', 'romat_pereira@hotmail.com'),
+(100003039426484, 'AAADUkCMlzxoBALjhow02wZCQUfXAK8sjphXvNvjZATeAGtFQImYHocXZCZBFB60ZCR674wqZAT7ZBYytU8ZCI2i3PDCIIB6CXivnfVWWAYuLAQZDZD&expires=5183998', 'Talisson', 'Ferreira', 'su.baza@hotmail.com'),
+(100003137584745, 'AAADUkCMlzxoBAOjZAfOZAcfd9kqYqy04jARZBu8M16y7q8BSzeZCbNKC1xZAPdSyygjH6T7ZB1kJDZBzx8CJ6ay1c7qKZADIKJFgXlkxjGZAlZAwZDZD&expires=5125820', 'Allan', 'Santana', 'allan_os2@hotmail.com'),
+(100003200405633, 'AAADUkCMlzxoBADN7FNQuLrzIXwI6tvgUcOAuEZAYIrgsAp5cAOqsSYinpyf5N9nVPezpcv1X9gyIiM0VMQVuljcbouRtVAXZA8r4gAGgZDZD&expires=5183999', 'Eduardo', 'Moraes', 'eduardo_moraes_@live.com'),
+(100003221698105, 'AAADUkCMlzxoBAEopmjvODr9QQgttTCFeN3FL12G4I313NIMVGi67XAiT0BMlRwssAe0A7wrnQdjOmI1sLzm749nwVXZAxilYdqx7w5AZDZD&expires=5183998', 'Clecio', 'Sousa', 'clecio_css@hotmail.com'),
+(100003243261927, 'AAADUkCMlzxoBAADHaY5pDSRr3woZCHi5dePCVORyCUo3ao2RV1xZAyvIiAT7QdJimHZAk57D5EZCHHCXEQBq0Lay6D24mixAZCiiZAQHL63wZDZD&expires=5183998', 'Lucas Isaac', 'Amaral Moreira', 'lucasisaac_10@hotmail.com'),
+(100003339146992, 'AAADUkCMlzxoBAKZCn7BOzsyocLtw2yl2fIj7fZAyaxxYPwqKZAH3ozIpAWZC4GfCWRoS7939PpelNJKZAZB4dkjhRZAVMh0Hxja5BSCl1aQTgZDZD&expires=5183998', 'Izah', 'Santos', 'soizahan@hotmail.com'),
+(100003377283426, 'AAADUkCMlzxoBAPnXRthNMJJk0Uex9tDJynwaA4hINUoftNABeEkOAkZCETLZCSk1rIJorvi5AJEVRZCskWNZAv5fB4hzWNWSB4ZBXy8kWWAZDZD&expires=5183998', 'Gabriel', 'Martins', 'biel.city@hotmail.com.br'),
+(100003450831660, 'AAADUkCMlzxoBAP0qKMHxliE4dT5uIMgNXQA3LQOxImMEu8jLcKJBtQyYPCMErzUy339ZBhfOXJGJsDySKMYCIb34Bdw3RGAbcVmnYeAZDZD&expires=5183997', 'Caio', 'Vinicius', 'caio.10.vinicius.ilha@hotmail.com'),
+(100003467166654, 'AAADUkCMlzxoBACY6RBqxMpZCdmcdyxPvbVvCi09ayoOkEmMEBRKYwlEvvQfTFHPQgZAbVUXyCrwfqekDepGZBthHCmFj38OLhn86PpEmgZDZD&expires=5183998', 'Leonardo', 'Silveira', 'leonardoaugustussilveirakuhnen@hotmail.com'),
+(100003476093190, 'AAADUkCMlzxoBALCcSFiiYl8svM4xOE7sSWJOmKhNXBoIzB9tZBgKNs4T2vZBNiuLPZA4ODtswRE4sQqZC8974Yr4O4Mxs2415qHZCGSBCtAZDZD&expires=5183999', 'Thiago', 'Santos', 'thiagruts@hotmail.com'),
+(100003489131091, 'AAADUkCMlzxoBAE3M4ZCZCYQovhBLK4aJ6QuvWzP21H8zrnHS115ljdbGw8TjKnVUyA1y3vxoMvjpS4MLfshZAaJzjikZBtnk4SywhfqNigZDZD&expires=5107960', 'Daniel', 'Santos', 'daniel.jago@hotmail.com'),
+(100003493015109, 'AAADUkCMlzxoBAFFi48ZBkVZCvMC7kUTFMLz8QSxkejQ75IuTI2CJ00sx5yxrvIeTHGvtiM1W6fLiV7s2PsDzSVwhZARZCRBiiCqRZARcrFAZDZD&expires=5183998', 'Jardel', 'Barbosa', 'jardellbarbosa@hotmail.com'),
+(100003527600324, 'AAADUkCMlzxoBAFsXq8bwujjF6P51Mj6sdgYyMZBlinoGQz1QS8FAa482f7hSk0ceNRJ5btSBWtZBuwg6EVZCZBWVkyN7lIlyjsyo7ZCjBIAZDZD&expires=5183997', 'RÙmulo', 'Noronha', 'r-noronha@hotmail.com'),
+(100003537970612, 'AAADUkCMlzxoBAN3MAGxN8g0UZAEBJqRFL0RR12Tk0cXHG7P2UCDQSE8fPZBFGr6Kwz5NgsfqqLlBw8d3uQGSeKCyoZCSlUS7nyOYZC8XqAZDZD&expires=5183998', 'Richard Marks', 'Silva', 'richardmarksjp@hotmail.com'),
+(100003558519211, 'AAADUkCMlzxoBANTaJ301VuYMfuFEoZBeRYd3Rn8e0egf017cwPtCQxehL8XCuMci66946nmLldQZC8DZCgu7UozLqnDF3X0ZCqRVTJRsDQZDZD&expires=5183998', 'Atos', 'Borges', 'atosapolo@hotmail.com'),
+(100003560743021, 'AAADUkCMlzxoBAPV4vbkaHwoFFwzJOZC8I6Q0nMDbkv0RwjBcEbDKUTFEtuGgLqJZAAL1pandmCSY1CSVpHSmaANu95AouhQRlB9dLv0gZDZD&expires=5183998', 'Luiz', 'Felipe', 'fel.pe.buiu@gmail.com'),
+(100003563078838, 'AAADUkCMlzxoBAC9zJ3kbLaSi2ZB4pF7SP1wYrdyKcAEwIfUpSV6V4Vc2ZBX858KCmZAHZA6At7mZC6MMQOW3BZCqpXd6sqfs1iwic0oZCdZABwZDZD&expires=5183998', 'Tiago', 'Tavares de Melo', 'tiago.melo190@hotmail.com'),
+(100003616428848, 'AAADUkCMlzxoBAIL5xGe4dFZAu9vmi9McAd8BBVsI4aMZBGSgRR9ZC3mPPvD4VV8RHcnvqLkBx2arGSfgJmVmRIGE8q85SBEhJfY1ZCZBa9QZDZD&expires=5183978', 'Rondinele', 'de Castro', 'rondineledecastro@gmail.com'),
+(100003654227143, 'AAADUkCMlzxoBAJAZBprTe2TE1mZC93LYLwMDr6JKIq3Rl685T65IoCam7toqiGYTl4URZAl7SmogpuTfZCbKKLzbHQE0Cy00KV2zHyvaiwZDZD&expires=5183998', 'Ryan', 'Danilo', 'ryandanilo07@hotmail.com'),
+(100003660012064, 'AAADUkCMlzxoBAApw0Ok631PYCDqYxtN0I66ZB7lVTHZByG4Hmo8VPG2GKBwH5ZA2tSwwjk5MVXIHR4TTqCVEvDmoBndO8azUeHaeON6LCVe7RQJx1qo', 'Auth', 'User', NULL),
+(100003700180063, 'AAADUkCMlzxoBADraN3gMyOQJpVVu1yoaRnBvaLPsGjZBR915wUvMo6pTqZBCn93wWtvB9ZAFkd0UTZB3poivZA2rxPcIKoBYJBms1mGVZCkwZDZD&expires=5183998', 'Danilo', 'Jord„o', 'danilojordao1@gmail.com'),
+(100003715017558, 'AAADUkCMlzxoBALHWtkDk39ITzgKdTsWIbBH7LknmYFbdWVRtccsYk2NF2JejZByMC60qnbo0vsog4EtrbJXdxxcP7VISfu0gKL3GulXH3bw7iyhjE&expires=4246', 'Daniel', 'Alves De Sousa Neto', 'danielneto_sjj@hotmail.com'),
+(100003722117751, 'AAADUkCMlzxoBAMQcZAYiVMjZCKtRz3koYdpqks21g7dwfPeYjJFLYGgI0ZAyZCeuBn5ZCE77YS0OsDHZApP5jBLiqBDjj1XayhM3FRc2ZA1bwZDZD&expires=5183999', 'Julio', 'Lima', 'juliomanoloko@hotmail.com'),
+(100003733881875, 'AAADUkCMlzxoBAEx5ZCxkhhQ17EydK2AU8JQfwKUZBPwqP2KrwPXByKUEYZB4eXDBzoXbewwdNz1xoY95ASqXu23Pq8oZAof9qMViqWHhEgZDZD&expires=5183998', 'Ruhan', 'Hulk', 'ruhanilda@hotmail.com'),
+(100003738584069, 'AAADUkCMlzxoBAAlVIIZAsfJen2HegHFo8sB35CnUcJZCZClix1k22M7XWZAWlsGbj8PMqdF5xkHiX7fc24E3M2FPjqXQ7iomMbjNz4cs1wZDZD&expires=5183999', 'Andre', 'Luiz', 'jurubeba.andre@hotmail.com'),
+(100003765722157, 'AAADUkCMlzxoBACya454ZB012c0OlNZArNBRvqXBud3hgfZCyUU7CfstkZCIkTKZAokPZB6BVIwEiMSrvAM6SdlVJbdG0JquZBJgJ9kO6GS0qAZDZD&expires=5113730', 'Everson', 'Alves', 'everson_alves98@hotmail.com'),
+(100003771295205, 'AAADUkCMlzxoBAPKqLyFLcBEKGvJZAYhf2XIjSazNpvQzMckJDHyVIqmEMIN7rwQZC9mFA8oY6TuC7CO1nw9CbRfd2SDrkjAxUDkpgBlQZDZD&expires=5183985', 'Erick', 'Moreira', 'erickmcr@hotmail.com'),
+(100003779970287, 'AAADUkCMlzxoBACE4zN2dMAikjiv62p2Bq4HslJgOPIW94KZAwZBV5DJTzLC6KL06pggNzf3fRXVMXKjZCwoL7sV1MBVc45NUVOPdJ2kSQZDZD&expires=5183998', 'Feernando', 'Rafael', 'fernandorafaell11@hotmail.com'),
+(100003808389507, 'AAADUkCMlzxoBAOhZAopni8vQedEFigBsfU4pgVndDUmy02IQ4qMMWZBv7WGlW0VLdZAlp715OzthIe1FfUjIojZC8lqoEAWtJ8RfG9mZCcwZDZD&expires=5183998', 'Jo„o Marcos', 'Santos', 'j.marcosdafielpv@gmail.com'),
+(100003813769940, 'AAADUkCMlzxoBAEE3j8PbZAR8UZAbk09zjieuXVS2BxPVhHLnxKmQ5ZAqos3VavZC99ZA3F0I9FfCDTTQxJQmltY9ENexWpYOOV7bdFTbAwQZDZD&expires=5183999', 'Israel', 'Araujo', 'araujo_israel@ymail.com'),
+(100003844397409, 'AAADUkCMlzxoBAATHCcWN5qDK5fjKYCWdrXlgXWHffO5054TmyTuXfb2o3vyLaFqsaxFe7ALhi36v0MHrZAzaHZAA57ZCPiLVXXID5v3lgZDZD&expires=5183998', 'Matheus', 'Dos Santos Lopes', 'lojinhadomatheus@gmail.com'),
+(100003885405841, 'AAADUkCMlzxoBAJhvZCDQMrCybriABeti2hywo7dtNpj6bYluqwvVskGEKuKHY2kfd8lZBb7pIwv5CrjrkpmfDB11WrZAa1mok7hKGqMyAZDZD&expires=5183998', 'Breno', 'Serra', 'breno.serra@bol.com.br'),
+(100003896785794, 'AAADUkCMlzxoBADxlYdqKvhqBemrdQ2MuxrmW9vBZCOIfIG1ppx4ddMlyjPY4XzpmygWnnbZApA1cjs4GVJUm26DLek0QfYPt1SsmlfVQW07a2nSxIk', 'J˙lio CÈsar', 'da Silva', 'juliocesar.silva00@gmail.com'),
+(100003923322140, 'AAADUkCMlzxoBABTBHcBtZAohFVZBFEF0Q8exJEo8dEnWwZAIR2G61Td3xn93QZA3HnRuxgHXhMhy2wCCAWE0PZCF5zAyQQwt4lvQSA6wCwQZDZD&expires=5183999', 'Brandon', 'Juarez', 'gorrion_brann@hotmail.com'),
+(100003946673571, 'AAADUkCMlzxoBAIEVRLMBFQG3cXrUDflIo1XOFgBQJk2g91ZAy3xBcY8kOLbO8V1ONHcV5Push4s2d3MfStgZA7L4AnNgCfBFn2hKOtNwZDZD&expires=5183998', 'Mesut', 'Ozil', 'mesutozil.ozil@hotmail.com'),
+(100004005918354, 'AAADUkCMlzxoBAGlC1QFrxTAqaChDavmkQ0cRZBDNcnZBu1XqrrFNZBsshykCc6OeThqQInRTXOHg5bsBtTAEclW19R8jVlJvzZBmRCuxKQZDZD&expires=5155834', 'Jo„o', 'Pedro', 'menegaverdao@hotmail.com'),
+(100004013875958, 'AAADUkCMlzxoBANzf1z1QbQV1Dm8PTlrNBxN8J8NKOJDZAQHPW1wQ8jMQAhBZCjNyPmUxKd6AV2UCtkz1QpfCdEZBPhviFNb7KWRqrNlJwZDZD&expires=5183998', 'Juan Felipe', 'Marin Molina', 'marinmotors@hotmail.com'),
+(100004020859628, 'AAADUkCMlzxoBAOuzZCaeqwZAgrGYkElH1BJiS7qS01uZCgQtFYVneb2NlhaTTj1IneWRV76pzNqAebsdv2xFys46RNKfbsk1xzAyNEZCywZDZD&expires=5183998', 'Marcio Cesar Simonatto Juninho', 'J√∫nior', 'mc_simonatto@gmail.com'),
+(100004046302666, 'AAADUkCMlzxoBAK5SMLtq2zwHTSMZAcCr23tOjVzzWNWowe0ZB88ngriZCR6Eto3eGev1479l8KmycIrXlxJduQynVUYBP0ZAFCY7rZAkknAZDZD&expires=5183997', 'Fernando', 'Dantas', 'fernando_dantass@hotmail.com'),
+(100004069275214, 'AAADUkCMlzxoBAL1slhjnI3P16C1ZCoS8k7D9ZB9oUMTl188O2uMAC5XVzTtEsoZAMeGg2hTw4ZCXLdxLUczfZB3F4pFoyoVqOnwaKbiqZA8QZDZD&expires=5183998', 'Lucas Alves De', 'Lima', '_lucaslima33@hotmail.com'),
+(100004078609786, 'AAADUkCMlzxoBALXHSCgzpBMt4HrmK8Ynto9o1LbEfElGHEiL1vVjXeZBKhx1kTHc8XEN7wckcsZBZA8LHYJdXEyrjTdjAqFOIxkfaspk4rImgo5aICW', 'Harry', 'Fallerman', NULL),
+(100004099369679, 'AAADUkCMlzxoBACWFky3T6dzzhU6PbJkze1OoL4TpKnlsTttMe7ISJUnryP7NUinol3xDIgGNYfcbN0TI3oIwnZB9WC46IsZAzhTrdecZAqsoltX7Fsv', 'Bob', 'Valtchanovman', NULL),
+(100004101589014, 'AAADUkCMlzxoBACSxrCTiZC8ZB0ELBOTh5Sdq7X3GooQO8kWyrt8akcvB01qhtn7m08G4ZAf2ibK11mimfGdKHvsHbRp5cqeKz2jQVs46QZDZD&expires=5183999', 'Jarlison', 'Silva', 'jarlison.manoel141@gmail.com'),
+(100004132051229, 'AAADUkCMlzxoBANaLgsIqu6rpdpXXyZCp7Se7QZB4BppMIcMPPk1UmqAct9zuieckom9O5PZBbaDN9sZByDTs9YunmqlPT2hwFVho4YV0PQZDZD&expires=5183998', 'Igor', 'Pazza', 'manoiigorgato@hotmail.com'),
+(100004162299409, 'AAADUkCMlzxoBAFpqZB1D8djLztBOSIUitvYKk1wGEdZBPdoZAk81AcDlnXPiCO6dqBtGsZAFIyOqEdUmVHEjZC5dkyt324ZB6iNZBHooEgRoUyJhHZAZAMzIH&expires=5038', 'Teylor', 'Luis', 'teylorluis@hotmail.com'),
+(100004166701503, 'AAADUkCMlzxoBALZCqmBrxFWpX0vxqJDAyxmLjgvpv80IoxIWlEGQb1rMN5jSEI9pRLw2bYRA4w5LLIXjDSqZCZAqFHhtFyiR0GyG6zmsQZDZD&expires=5183823', 'Leonardo', 'Severo', 'leonardo.severo2001@hotmail.com');
+
+
+
+
+
+INSERT INTO `jogo` (`id`, `campeonato_id`, `rodada_id`, `dataJogo`, `codTime1`, `codTime2`, `golsTime1`, `golsTime2`, `dataInicioApostas`, `dataFimApostas`, `escudosJogo`) VALUES
+(1, 1, 12, '2012-07-25 19:30:00', 15, 19, 1, 1, '2012-07-23 00:00:00', '2012-07-25 18:30:00', 'imagens/jogos/ponte-pretaxsport.png'),
+(2, 1, 12, '2012-07-25 19:30:00', 8, 12, 0, 1, '2012-07-23 00:00:00', '2012-07-25 18:30:00', 'imagens/jogos/figueirensexinternacional.png'),
+(3, 1, 12, '2012-07-25 20:30:00', 20, 4, 1, 0, '2012-07-23 00:00:00', '2012-07-25 19:30:00', 'imagens/jogos/vascoxbotafogo.png'),
+(4, 1, 12, '2012-07-25 20:30:00', 13, 6, 3, 4, '2012-07-23 00:00:00', '2012-07-25 19:30:00', 'imagens/jogos/nauticoxcoritiba.png'),
+(5, 1, 12, '2012-07-25 21:50:00', 5, 7, 2, 0, '2012-07-23 00:00:00', '2012-07-25 20:50:00', 'imagens/jogos/corinthiansxcruzeiro.png'),
+(6, 1, 12, '2012-07-25 21:50:00', 11, 10, 1, 0, '2012-07-23 00:00:00', '2012-07-25 20:50:00', 'imagens/jogos/gremioxfluminense.png'),
+(7, 1, 12, '2012-07-25 21:50:00', 1, 18, 4, 3, '2012-07-23 00:00:00', '2012-07-25 20:50:00', 'imagens/jogos/atletico-goxsao-paulo.png'),
+(8, 1, 12, '2012-07-26 21:00:00', 9, 16, 0, 0, '2012-07-24 00:00:00', '2012-07-26 20:00:00', 'imagens/jogos/flamengoxportuguesa-sp.png'),
+(9, 1, 12, '2012-07-26 21:00:00', 14, 3, 0, 2, '2012-07-24 00:00:00', '2012-07-26 20:00:00', 'imagens/jogos/palmeirasxbahia.png'),
+(10, 1, 12, '2012-07-26 21:00:00', 2, 17, 2, 0, '2012-07-24 00:00:00', '2012-07-26 20:00:00', 'imagens/jogos/atletico-mgxsantos.png'),
+(11, 1, 13, '2012-07-28 18:30:00', 12, 20, 0, 0, '2012-07-26 00:00:00', '2012-07-28 17:30:00', 'imagens/jogos/internacionalxvasco.png'),
+(12, 1, 13, '2012-07-28 18:30:00', 6, 11, 2, 1, '2012-07-26 00:00:00', '2012-07-28 17:30:00', 'imagens/jogos/coritibaxgremio.png'),
+(13, 1, 13, '2012-07-28 21:00:00', 4, 8, 1, 0, '2012-07-26 00:00:00', '2012-07-28 20:00:00', 'imagens/jogos/botafogoxfigueirense.png'),
+(14, 1, 13, '2012-07-29 16:00:00', 10, 2, 0, 0, '2012-07-27 00:00:00', '2012-07-29 15:00:00', 'imagens/jogos/fluminensexatletico-mg.png'),
+(15, 1, 13, '2012-07-29 16:00:00', 18, 9, 4, 1, '2012-07-27 00:00:00', '2012-07-29 15:00:00', 'imagens/jogos/sao-pauloxflamengo.png'),
+(16, 1, 13, '2012-07-29 16:00:00', 19, 1, 0, 0, '2012-07-27 00:00:00', '2012-07-29 15:00:00', 'imagens/jogos/sportxatletico-go.png'),
+(17, 1, 13, '2012-07-29 16:00:00', 3, 5, 0, 0, '2012-07-27 00:00:00', '2012-07-29 15:00:00', 'imagens/jogos/bahiaxcorinthians.png'),
+(18, 1, 13, '2012-07-29 18:30:00', 17, 15, 2, 1, '2012-07-27 00:00:00', '2012-07-29 17:30:00', 'imagens/jogos/santosxponte-preta.png'),
+(19, 1, 13, '2012-07-29 18:30:00', 7, 14, 2, 1, '2012-07-27 00:00:00', '2012-07-29 17:30:00', 'imagens/jogos/cruzeiroxpalmeiras.png'),
+(20, 1, 13, '2012-07-29 18:30:00', 16, 13, 3, 1, '2012-07-27 00:00:00', '2012-07-29 17:30:00', 'imagens/jogos/portuguesa-spxnautico.png'),
+(21, 1, 14, '2012-09-26 21:00:00', 9, 2, NULL, NULL, '2012-09-24 00:00:00', '2012-09-26 20:00:00', 'imagens/jogos/flamengoxatletico-mg.png'),
+(22, 1, 14, '2012-08-04 18:30:00', 14, 12, 0, 1, '2012-08-02 00:00:00', '2012-08-04 17:30:00', 'imagens/jogos/palmeirasxinternacional.png'),
+(23, 1, 14, '2012-08-04 18:30:00', 1, 4, 1, 2, '2012-08-02 00:00:00', '2012-08-04 17:30:00', 'imagens/jogos/atletico-goxbotafogo.png'),
+(24, 1, 14, '2012-08-04 21:00:00', 16, 8, 2, 0, '2012-08-02 00:00:00', '2012-08-04 20:00:00', 'imagens/jogos/portuguesa-spxfigueirense.png'),
+(25, 1, 14, '2012-08-05 16:00:00', 20, 5, 0, 0, '2012-08-03 00:00:00', '2012-08-05 15:00:00', 'imagens/jogos/vascoxcorinthians.png'),
+(26, 1, 14, '2012-08-05 16:00:00', 18, 19, 1, 0, '2012-08-03 00:00:00', '2012-08-05 15:00:00', 'imagens/jogos/sao-pauloxsport.png'),
+(27, 1, 14, '2012-08-05 16:00:00', 11, 3, 3, 1, '2012-08-03 00:00:00', '2012-08-05 15:00:00', 'imagens/jogos/gremioxbahia.png'),
+(28, 1, 14, '2012-08-05 16:00:00', 6, 10, 0, 2, '2012-08-03 00:00:00', '2012-08-05 15:00:00', 'imagens/jogos/coritibaxfluminense.png'),
+(29, 1, 14, '2012-08-05 18:30:00', 7, 15, 1, 2, '2012-08-03 00:00:00', '2012-08-05 17:30:00', 'imagens/jogos/cruzeiroxponte-preta.png'),
+(30, 1, 14, '2012-08-05 18:30:00', 13, 17, 3, 0, '2012-08-03 00:00:00', '2012-08-05 17:30:00', 'imagens/jogos/nauticoxsantos.png'),
+(31, 3, 1, '2012-07-29 08:00:00', 21, 22, 1, 1, '2012-07-27 00:00:00', '2012-07-29 07:00:00', 'imagens/jogos/egitoxnova-zelandia.png'),
+(32, 3, 1, '2012-07-29 10:30:00', 23, 24, 2, 0, '2012-07-27 00:00:00', '2012-07-29 09:30:00', 'imagens/jogos/mexicoxgabao.png'),
+(33, 3, 1, '2012-07-29 11:00:00', 25, 26, 3, 1, '2012-07-27 00:00:00', '2012-07-29 10:00:00', 'imagens/jogos/brasilxbielo-russia.png'),
+(34, 3, 1, '2012-07-29 13:00:00', 27, 28, 2, 0, '2012-07-27 00:00:00', '2012-07-29 12:00:00', 'imagens/jogos/senegalxuruguai.png'),
+(35, 3, 1, '2012-07-29 13:00:00', 29, 30, 1, 0, '2012-07-27 00:00:00', '2012-07-29 12:00:00', 'imagens/jogos/japaoxmarrocos.png'),
+(36, 3, 1, '2012-07-29 13:15:00', 31, 32, 2, 1, '2012-07-27 00:00:00', '2012-07-29 12:15:00', 'imagens/jogos/coreia-do-sulxsuica.png'),
+(37, 3, 1, '2012-07-29 15:45:00', 33, 34, 0, 1, '2012-07-27 00:00:00', '2012-07-29 14:45:00', 'imagens/jogos/espanhaxhonduras.png'),
+(38, 3, 1, '2012-07-29 15:45:00', 35, 36, 3, 1, '2012-07-27 00:00:00', '2012-07-29 14:45:00', 'imagens/jogos/reino-unidoxemiratos-arabes-unidos.png'),
+(39, 3, 1, '2012-08-01 10:30:00', 21, 26, 3, 1, '2012-07-30 00:00:00', '2012-08-01 09:30:00', 'imagens/jogos/egitoxbielo-russia.png'),
+(40, 3, 1, '2012-08-01 10:30:00', 25, 22, 3, 0, '2012-07-30 00:00:00', '2012-08-01 09:30:00', 'imagens/jogos/brasilxnova-zelandia.png'),
+(41, 3, 1, '2012-08-01 13:00:00', 33, 30, 0, 0, '2012-07-30 00:00:00', '2012-08-01 12:00:00', 'imagens/jogos/espanhaxmarrocos.png'),
+(42, 3, 1, '2012-08-01 13:00:00', 29, 34, 0, 0, '2012-07-30 00:00:00', '2012-08-01 12:00:00', 'imagens/jogos/japaoxhonduras.png'),
+(43, 3, 1, '2012-08-01 13:00:00', 31, 24, 0, 0, '2012-07-30 00:00:00', '2012-08-01 12:00:00', 'imagens/jogos/coreia-do-sulxgabao.png'),
+(44, 3, 1, '2012-08-01 13:00:00', 23, 32, 1, 0, '2012-07-30 00:00:00', '2012-08-01 12:00:00', 'imagens/jogos/mexicoxsuica.png'),
+(45, 3, 1, '2012-08-01 15:45:00', 35, 28, 1, 0, '2012-07-30 00:00:00', '2012-08-01 14:45:00', 'imagens/jogos/reino-unidoxuruguai.png'),
+(46, 3, 1, '2012-08-01 15:45:00', 27, 36, 1, 1, '2012-07-30 00:00:00', '2012-08-01 14:45:00', 'imagens/jogos/senegalxemiratos-arabes-unidos.png'),
+(47, 3, 2, '2012-08-04 08:00:00', 29, 21, 3, 0, '2012-08-02 00:00:00', '2012-08-04 07:00:00', 'imagens/jogos/japaoxegito.png'),
+(48, 3, 2, '2012-08-04 10:30:00', 23, 27, 4, 2, '2012-08-02 00:00:00', '2012-08-04 09:30:00', 'imagens/jogos/mexicoxsenegal.png'),
+(49, 3, 2, '2012-08-04 13:00:00', 25, 34, 3, 2, '2012-08-02 00:00:00', '2012-08-04 12:00:00', 'imagens/jogos/brasilxhonduras.png'),
+(50, 3, 2, '2012-08-04 15:30:00', 35, 31, 1, 1, '2012-08-02 00:00:00', '2012-08-04 14:30:00', 'imagens/jogos/reino-unidoxcoreia-do-sul.png'),
+(51, 3, 3, '2012-08-07 13:00:00', 29, 23, 1, 3, '2012-08-05 00:00:00', '2012-08-07 12:00:00', 'imagens/jogos/japaoxmexico.png'),
+(52, 3, 3, '2012-08-07 15:45:00', 25, 31, 3, 0, '2012-08-05 00:00:00', '2012-08-07 14:45:00', 'imagens/jogos/brasilxcoreia-do-sul.png'),
+(53, 2, 16, '2012-08-07 21:00:00', 39, 41, 0, 2, '2012-08-05 00:00:00', '2012-08-07 20:00:00', 'imagens/jogos/america-rnxatletico-pr.png'),
+(54, 2, 16, '2012-08-07 21:00:00', 45, 52, 0, 2, '2012-08-05 00:00:00', '2012-08-07 20:00:00', 'imagens/jogos/bragantinoxipatinga.png'),
+(55, 2, 16, '2012-08-07 21:00:00', 42, 37, 3, 1, '2012-08-05 00:00:00', '2012-08-07 20:00:00', 'imagens/jogos/avaixabc.png'),
+(56, 2, 16, '2012-08-10 21:00:00', 46, 43, 2, 0, '2012-08-08 00:00:00', '2012-08-10 20:00:00', 'imagens/jogos/cearaxbarueri.png'),
+(57, 2, 16, '2012-08-10 21:00:00', 40, 50, 1, 0, '2012-08-08 00:00:00', '2012-08-10 20:00:00', 'imagens/jogos/asaxguarani.png'),
+(58, 2, 16, '2012-08-11 16:20:00', 49, 44, 2, 0, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/goiasxboa-esporte.png'),
+(59, 2, 16, '2012-08-11 16:20:00', 55, 48, 1, 1, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/sao-caetanoxcriciuma.png'),
+(60, 2, 16, '2012-08-11 16:20:00', 51, 53, 0, 3, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/guaratinguetaxjoinville.png'),
+(61, 2, 16, '2012-08-11 16:20:00', 38, 56, 1, 2, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/america-mgxvitoria.png'),
+(62, 2, 16, '2012-08-11 16:20:00', 54, 47, 4, 0, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/paranaxcrb.png'),
+(63, 1, 15, '2012-08-08 19:30:00', 19, 20, 0, 2, '2012-08-06 00:00:00', '2012-08-08 18:30:00', 'imagens/jogos/sportxvasco.png'),
+(64, 1, 15, '2012-08-08 19:30:00', 12, 13, 0, 0, '2012-08-06 00:00:00', '2012-08-08 18:30:00', 'imagens/jogos/internacionalxnautico.png'),
+(65, 1, 15, '2012-08-08 20:30:00', 5, 1, 1, 1, '2012-08-06 00:00:00', '2012-08-08 19:30:00', 'imagens/jogos/corinthiansxatletico-go.png'),
+(66, 1, 15, '2012-08-08 20:30:00', 3, 16, 0, 0, '2012-08-06 00:00:00', '2012-08-08 19:30:00', 'imagens/jogos/bahiaxportuguesa-sp.png'),
+(67, 1, 15, '2012-08-08 21:50:00', 17, 7, 4, 2, '2012-08-06 00:00:00', '2012-08-08 20:50:00', 'imagens/jogos/santosxcruzeiro.png'),
+(68, 1, 15, '2012-08-08 21:50:00', 8, 9, 0, 2, '2012-08-06 00:00:00', '2012-08-08 20:50:00', 'imagens/jogos/figueirensexflamengo.png'),
+(69, 1, 15, '2012-08-08 21:50:00', 4, 14, 1, 2, '2012-08-06 00:00:00', '2012-08-08 20:50:00', 'imagens/jogos/botafogoxpalmeiras.png'),
+(70, 1, 15, '2012-08-09 21:00:00', 2, 6, 1, 0, '2012-08-07 00:00:00', '2012-08-09 20:00:00', 'imagens/jogos/atletico-mgxcoritiba.png'),
+(71, 1, 15, '2012-08-09 21:00:00', 15, 11, 0, 0, '2012-08-07 00:00:00', '2012-08-09 20:00:00', 'imagens/jogos/ponte-pretaxgremio.png'),
+(72, 1, 15, '2012-08-09 21:00:00', 10, 18, 2, 1, '2012-08-07 00:00:00', '2012-08-09 20:00:00', 'imagens/jogos/fluminensexsao-paulo.png'),
+(73, 3, 4, '2012-08-10 10:45:00', 29, 31, 0, 2, '2012-08-08 00:00:00', '2012-08-10 09:45:00', 'imagens/jogos/japaoxcoreia-do-sul.png'),
+(74, 3, 4, '2012-08-11 11:00:00', 25, 23, 1, 2, '2012-08-09 00:00:00', '2012-08-11 10:00:00', 'imagens/jogos/brasilxmexico.png'),
+(75, 1, 16, '2012-08-11 18:30:00', 17, 1, 2, 2, '2012-08-09 00:00:00', '2012-08-11 17:30:00', 'imagens/jogos/santosxatletico-go.png'),
+(76, 1, 16, '2012-08-11 18:30:00', 19, 8, 0, 1, '2012-08-09 00:00:00', '2012-08-11 17:30:00', 'imagens/jogos/sportxfigueirense.png'),
+(77, 1, 16, '2012-08-11 18:30:00', 3, 7, 0, 1, '2012-08-09 00:00:00', '2012-08-11 17:30:00', 'imagens/jogos/bahiaxcruzeiro.png'),
+(78, 1, 16, '2012-08-11 21:00:00', 9, 13, 2, 0, '2012-08-09 00:00:00', '2012-08-11 20:00:00', 'imagens/jogos/flamengoxnautico.png'),
+(79, 1, 16, '2012-08-12 16:00:00', 12, 15, 2, 1, '2012-08-10 00:00:00', '2012-08-12 15:00:00', 'imagens/jogos/internacionalxponte-preta.png'),
+(80, 1, 16, '2012-08-12 16:00:00', 18, 11, 1, 2, '2012-08-10 00:00:00', '2012-08-12 15:00:00', 'imagens/jogos/sao-pauloxgremio.png'),
+(81, 1, 16, '2012-08-12 16:00:00', 2, 20, 1, 0, '2012-08-10 00:00:00', '2012-08-12 15:00:00', 'imagens/jogos/atletico-mgxvasco.png'),
+(82, 1, 16, '2012-08-12 16:00:00', 6, 5, 1, 2, '2012-08-10 00:00:00', '2012-08-12 15:00:00', 'imagens/jogos/coritibaxcorinthians.png'),
+(83, 1, 16, '2012-08-12 18:30:00', 10, 14, 1, 0, '2012-08-10 00:00:00', '2012-08-12 17:30:00', 'imagens/jogos/fluminensexpalmeiras.png'),
+(84, 1, 16, '2012-08-12 18:30:00', 16, 4, 1, 1, '2012-08-10 00:00:00', '2012-08-12 17:30:00', 'imagens/jogos/portuguesa-spxbotafogo.png'),
+(85, 2, 17, '2012-08-14 19:30:00', 53, 45, 1, 0, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/joinvillexbragantino.png'),
+(86, 2, 17, '2012-08-14 19:30:00', 56, 51, 2, 0, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/vitoriaxguaratingueta.png'),
+(87, 2, 17, '2012-08-14 19:30:00', 48, 39, 4, 3, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/criciumaxamerica-rn.png'),
+(88, 2, 17, '2012-08-14 19:30:00', 52, 54, 2, 0, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/ipatingaxparana.png'),
+(89, 2, 17, '2012-08-14 19:30:00', 47, 46, 0, 2, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/crbxceara.png'),
+(90, 2, 17, '2012-08-14 21:50:00', 44, 55, 1, 3, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/boa-esportexsao-caetano.png'),
+(91, 2, 17, '2012-08-14 21:50:00', 50, 42, 0, 2, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/guaranixavai.png'),
+(92, 2, 17, '2012-08-14 21:50:00', 37, 38, 0, 2, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/abcxamerica-mg.png'),
+(93, 2, 17, '2012-08-14 21:50:00', 43, 49, 2, 0, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/baruerixgoias.png'),
+(94, 2, 17, '2012-08-14 21:50:00', 41, 40, 1, 0, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/atletico-prxasa.png'),
+(95, 1, 17, '2012-08-15 19:30:00', 11, 16, 1, 2, '2012-08-13 00:00:00', '2012-08-15 18:30:00', 'imagens/jogos/gremioxportuguesa-sp.png'),
+(96, 1, 17, '2012-08-15 19:30:00', 7, 10, 1, 1, '2012-08-13 00:00:00', '2012-08-15 18:30:00', 'imagens/jogos/cruzeiroxfluminense.png'),
+(97, 1, 17, '2012-08-15 20:30:00', 1, 2, 1, 1, '2012-08-13 00:00:00', '2012-08-15 19:30:00', 'imagens/jogos/atletico-goxatletico-mg.png'),
+(98, 1, 17, '2012-08-15 20:30:00', 15, 3, 0, 2, '2012-08-13 00:00:00', '2012-08-15 19:30:00', 'imagens/jogos/ponte-pretaxbahia.png'),
+(99, 1, 17, '2012-08-15 21:50:00', 4, 19, 2, 0, '2012-08-13 00:00:00', '2012-08-15 20:50:00', 'imagens/jogos/botafogoxsport.png'),
+(100, 1, 17, '2012-08-15 21:50:00', 14, 9, 1, 0, '2012-08-13 00:00:00', '2012-08-15 20:50:00', 'imagens/jogos/palmeirasxflamengo.png'),
+(101, 1, 17, '2012-08-15 21:50:00', 13, 18, 3, 0, '2012-08-13 00:00:00', '2012-08-15 20:50:00', 'imagens/jogos/nauticoxsao-paulo.png'),
+(102, 1, 17, '2012-08-16 21:00:00', 20, 6, NULL, NULL, '2012-08-14 00:00:00', '2012-08-16 20:00:00', 'imagens/jogos/vascoxcoritiba.png'),
+(103, 1, 17, '2012-08-16 21:00:00', 5, 12, NULL, NULL, '2012-08-14 00:00:00', '2012-08-16 20:00:00', 'imagens/jogos/corinthiansxinternacional.png'),
+(104, 1, 17, '2012-08-16 21:00:00', 8, 17, NULL, NULL, '2012-08-14 00:00:00', '2012-08-16 20:00:00', 'imagens/jogos/figueirensexsantos.png'),
+(105, 2, 18, '2012-08-17 19:30:00', 56, 53, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 18:30:00', 'imagens/jogos/vitoriaxjoinville.png'),
+(106, 2, 18, '2012-08-17 21:00:00', 51, 52, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 20:00:00', 'imagens/jogos/guaratinguetaxipatinga.png'),
+(107, 2, 18, '2012-08-17 21:00:00', 50, 47, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 20:00:00', 'imagens/jogos/guaranixcrb.png'),
+(108, 2, 18, '2012-08-17 21:00:00', 42, 43, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 20:00:00', 'imagens/jogos/avaixbarueri.png'),
+(109, 2, 18, '2012-08-17 21:50:00', 38, 39, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 20:50:00', 'imagens/jogos/america-mgxamerica-rn.png'),
+(110, 2, 18, '2012-08-18 16:20:00', 41, 48, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 15:20:00', 'imagens/jogos/atletico-prxcriciuma.png'),
+(111, 2, 18, '2012-08-18 16:20:00', 49, 55, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 15:20:00', 'imagens/jogos/goiasxsao-caetano.png'),
+(112, 2, 18, '2012-08-18 16:20:00', 37, 44, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 15:20:00', 'imagens/jogos/abcxboa-esporte.png'),
+(113, 2, 18, '2012-08-18 16:20:00', 45, 46, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 15:20:00', 'imagens/jogos/bragantinoxceara.png'),
+(114, 2, 18, '2012-08-18 21:00:00', 40, 54, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 20:00:00', 'imagens/jogos/asaxparana.png'),
+(115, 1, 18, '2012-08-18 18:30:00', 13, 3, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 17:30:00', 'imagens/jogos/nauticoxbahia.png'),
+(116, 1, 18, '2012-08-18 18:30:00', 10, 19, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 17:30:00', 'imagens/jogos/fluminensexsport.png'),
+(117, 1, 18, '2012-08-18 21:00:00', 18, 15, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 20:00:00', 'imagens/jogos/sao-pauloxponte-preta.png'),
+(118, 1, 18, '2012-08-19 16:00:00', 17, 5, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 15:00:00', 'imagens/jogos/santosxcorinthians.png'),
+(119, 1, 18, '2012-08-19 16:00:00', 2, 4, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 15:00:00', 'imagens/jogos/atletico-mgxbotafogo.png'),
+(120, 1, 18, '2012-08-19 16:00:00', 6, 7, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 15:00:00', 'imagens/jogos/coritibaxcruzeiro.png'),
+(121, 1, 18, '2012-08-19 16:00:00', 11, 8, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 15:00:00', 'imagens/jogos/gremioxfigueirense.png'),
+(122, 1, 18, '2012-08-19 18:30:00', 16, 12, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 17:30:00', 'imagens/jogos/portuguesa-spxinternacional.png'),
+(123, 1, 18, '2012-08-19 18:30:00', 9, 20, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 17:30:00', 'imagens/jogos/flamengoxvasco.png'),
+(125, 1, 18, '2012-08-19 18:30:00', 1, 14, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 17:30:00', 'imagens/jogos/atletico-goxpalmeiras.png');
+
+
+
 
 INSERT INTO `aposta` (`usuario_id`, `campeonato_id`, `jogo_id`, `apostaGolsTime1`, `apostaGolsTime2`, `pontosAposta`) VALUES
 (836971939, 1, 8, 0, 0, 10),
@@ -1360,50 +1985,9 @@ INSERT INTO `aposta` (`usuario_id`, `campeonato_id`, `jogo_id`, `apostaGolsTime1
 (100004162299409, 2, 93, 0, 2, 2),
 (100004162299409, 2, 94, 2, 1, 5);
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `campeonato`
---
 
-CREATE TABLE IF NOT EXISTS `campeonato` (
-  `id` int(11) NOT NULL auto_increment,
-  `nomeCampeonato` varchar(255) default NULL,
-  `anoCampeonato` int(11) default NULL,
-  `quantidadeRodadas` int(11) default NULL,
-  `urlLogo` text,
-  `status` set('ativo','finalizado') default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
---
--- Extraindo dados da tabela `campeonato`
---
-
-INSERT INTO `campeonato` (`id`, `nomeCampeonato`, `anoCampeonato`, `quantidadeRodadas`, `urlLogo`, `status`) VALUES
-(1, 'Brasileir√£o s√©rie A', 2012, 38, 'imagens/logo-campeonatos/brasileirao-serie-a-2012-90x90.png', 'ativo'),
-(2, 'Brasileir√£o s√©rie B', 2012, 38, 'imagens/logo-campeonatos/brasileirao-serie-b-2012-90x90.png', 'ativo'),
-(3, 'Olimp√≠adas', 2012, 4, 'imagens/logo-campeonatos/olimpiadas-2012-90x90.png', 'finalizado');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `contadoraposta`
---
-
-CREATE TABLE IF NOT EXISTS `contadoraposta` (
-  `id` varchar(255) NOT NULL default '',
-  `campeonato_id` int(11) NOT NULL default '0',
-  `jogo_id` int(11) NOT NULL default '0',
-  `quantidadeApostas` int(11) default NULL,
-  PRIMARY KEY  (`id`,`campeonato_id`,`jogo_id`),
-  KEY `campeonato_id` (`campeonato_id`),
-  KEY `jogo_id` (`jogo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `contadoraposta`
---
 
 INSERT INTO `contadoraposta` (`id`, `campeonato_id`, `jogo_id`, `quantidadeApostas`) VALUES
 ('0  X  0', 1, 1, 2),
@@ -2170,473 +2754,20 @@ INSERT INTO `contadoraposta` (`id`, `campeonato_id`, `jogo_id`, `quantidadeApost
 ('9  X  0', 2, 105, 1),
 ('9  X  7', 2, 94, 1);
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `jogo`
---
 
-CREATE TABLE IF NOT EXISTS `jogo` (
-  `id` int(11) NOT NULL auto_increment,
-  `campeonato_id` int(11) default NULL,
-  `rodada_id` int(11) default NULL,
-  `dataJogo` varchar(50) default NULL,
-  `codTime1` int(11) default NULL,
-  `codTime2` int(11) default NULL,
-  `golsTime1` int(11) default NULL,
-  `golsTime2` int(11) default NULL,
-  `dataInicioApostas` datetime default NULL,
-  `dataFimApostas` datetime default NULL,
-  `escudosJogo` text,
-  PRIMARY KEY  (`id`),
-  KEY `campeonato_id` (`campeonato_id`),
-  KEY `rodada_id` (`rodada_id`),
-  KEY `FK_jogo_rodada` (`rodada_id`,`campeonato_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ;
 
---
--- Extraindo dados da tabela `jogo`
---
 
-INSERT INTO `jogo` (`id`, `campeonato_id`, `rodada_id`, `dataJogo`, `codTime1`, `codTime2`, `golsTime1`, `golsTime2`, `dataInicioApostas`, `dataFimApostas`, `escudosJogo`) VALUES
-(1, 1, 12, '2012-07-25 19:30:00', 15, 19, 1, 1, '2012-07-23 00:00:00', '2012-07-25 18:30:00', 'imagens/jogos/ponte-pretaxsport.png'),
-(2, 1, 12, '2012-07-25 19:30:00', 8, 12, 0, 1, '2012-07-23 00:00:00', '2012-07-25 18:30:00', 'imagens/jogos/figueirensexinternacional.png'),
-(3, 1, 12, '2012-07-25 20:30:00', 20, 4, 1, 0, '2012-07-23 00:00:00', '2012-07-25 19:30:00', 'imagens/jogos/vascoxbotafogo.png'),
-(4, 1, 12, '2012-07-25 20:30:00', 13, 6, 3, 4, '2012-07-23 00:00:00', '2012-07-25 19:30:00', 'imagens/jogos/nauticoxcoritiba.png'),
-(5, 1, 12, '2012-07-25 21:50:00', 5, 7, 2, 0, '2012-07-23 00:00:00', '2012-07-25 20:50:00', 'imagens/jogos/corinthiansxcruzeiro.png'),
-(6, 1, 12, '2012-07-25 21:50:00', 11, 10, 1, 0, '2012-07-23 00:00:00', '2012-07-25 20:50:00', 'imagens/jogos/gremioxfluminense.png'),
-(7, 1, 12, '2012-07-25 21:50:00', 1, 18, 4, 3, '2012-07-23 00:00:00', '2012-07-25 20:50:00', 'imagens/jogos/atletico-goxsao-paulo.png'),
-(8, 1, 12, '2012-07-26 21:00:00', 9, 16, 0, 0, '2012-07-24 00:00:00', '2012-07-26 20:00:00', 'imagens/jogos/flamengoxportuguesa-sp.png'),
-(9, 1, 12, '2012-07-26 21:00:00', 14, 3, 0, 2, '2012-07-24 00:00:00', '2012-07-26 20:00:00', 'imagens/jogos/palmeirasxbahia.png'),
-(10, 1, 12, '2012-07-26 21:00:00', 2, 17, 2, 0, '2012-07-24 00:00:00', '2012-07-26 20:00:00', 'imagens/jogos/atletico-mgxsantos.png'),
-(11, 1, 13, '2012-07-28 18:30:00', 12, 20, 0, 0, '2012-07-26 00:00:00', '2012-07-28 17:30:00', 'imagens/jogos/internacionalxvasco.png'),
-(12, 1, 13, '2012-07-28 18:30:00', 6, 11, 2, 1, '2012-07-26 00:00:00', '2012-07-28 17:30:00', 'imagens/jogos/coritibaxgremio.png'),
-(13, 1, 13, '2012-07-28 21:00:00', 4, 8, 1, 0, '2012-07-26 00:00:00', '2012-07-28 20:00:00', 'imagens/jogos/botafogoxfigueirense.png'),
-(14, 1, 13, '2012-07-29 16:00:00', 10, 2, 0, 0, '2012-07-27 00:00:00', '2012-07-29 15:00:00', 'imagens/jogos/fluminensexatletico-mg.png'),
-(15, 1, 13, '2012-07-29 16:00:00', 18, 9, 4, 1, '2012-07-27 00:00:00', '2012-07-29 15:00:00', 'imagens/jogos/sao-pauloxflamengo.png'),
-(16, 1, 13, '2012-07-29 16:00:00', 19, 1, 0, 0, '2012-07-27 00:00:00', '2012-07-29 15:00:00', 'imagens/jogos/sportxatletico-go.png'),
-(17, 1, 13, '2012-07-29 16:00:00', 3, 5, 0, 0, '2012-07-27 00:00:00', '2012-07-29 15:00:00', 'imagens/jogos/bahiaxcorinthians.png'),
-(18, 1, 13, '2012-07-29 18:30:00', 17, 15, 2, 1, '2012-07-27 00:00:00', '2012-07-29 17:30:00', 'imagens/jogos/santosxponte-preta.png'),
-(19, 1, 13, '2012-07-29 18:30:00', 7, 14, 2, 1, '2012-07-27 00:00:00', '2012-07-29 17:30:00', 'imagens/jogos/cruzeiroxpalmeiras.png'),
-(20, 1, 13, '2012-07-29 18:30:00', 16, 13, 3, 1, '2012-07-27 00:00:00', '2012-07-29 17:30:00', 'imagens/jogos/portuguesa-spxnautico.png'),
-(21, 1, 14, '2012-09-26 21:00:00', 9, 2, NULL, NULL, '2012-09-24 00:00:00', '2012-09-26 20:00:00', 'imagens/jogos/flamengoxatletico-mg.png'),
-(22, 1, 14, '2012-08-04 18:30:00', 14, 12, 0, 1, '2012-08-02 00:00:00', '2012-08-04 17:30:00', 'imagens/jogos/palmeirasxinternacional.png'),
-(23, 1, 14, '2012-08-04 18:30:00', 1, 4, 1, 2, '2012-08-02 00:00:00', '2012-08-04 17:30:00', 'imagens/jogos/atletico-goxbotafogo.png'),
-(24, 1, 14, '2012-08-04 21:00:00', 16, 8, 2, 0, '2012-08-02 00:00:00', '2012-08-04 20:00:00', 'imagens/jogos/portuguesa-spxfigueirense.png'),
-(25, 1, 14, '2012-08-05 16:00:00', 20, 5, 0, 0, '2012-08-03 00:00:00', '2012-08-05 15:00:00', 'imagens/jogos/vascoxcorinthians.png'),
-(26, 1, 14, '2012-08-05 16:00:00', 18, 19, 1, 0, '2012-08-03 00:00:00', '2012-08-05 15:00:00', 'imagens/jogos/sao-pauloxsport.png'),
-(27, 1, 14, '2012-08-05 16:00:00', 11, 3, 3, 1, '2012-08-03 00:00:00', '2012-08-05 15:00:00', 'imagens/jogos/gremioxbahia.png'),
-(28, 1, 14, '2012-08-05 16:00:00', 6, 10, 0, 2, '2012-08-03 00:00:00', '2012-08-05 15:00:00', 'imagens/jogos/coritibaxfluminense.png'),
-(29, 1, 14, '2012-08-05 18:30:00', 7, 15, 1, 2, '2012-08-03 00:00:00', '2012-08-05 17:30:00', 'imagens/jogos/cruzeiroxponte-preta.png'),
-(30, 1, 14, '2012-08-05 18:30:00', 13, 17, 3, 0, '2012-08-03 00:00:00', '2012-08-05 17:30:00', 'imagens/jogos/nauticoxsantos.png'),
-(31, 3, 1, '2012-07-29 08:00:00', 21, 22, 1, 1, '2012-07-27 00:00:00', '2012-07-29 07:00:00', 'imagens/jogos/egitoxnova-zelandia.png'),
-(32, 3, 1, '2012-07-29 10:30:00', 23, 24, 2, 0, '2012-07-27 00:00:00', '2012-07-29 09:30:00', 'imagens/jogos/mexicoxgabao.png'),
-(33, 3, 1, '2012-07-29 11:00:00', 25, 26, 3, 1, '2012-07-27 00:00:00', '2012-07-29 10:00:00', 'imagens/jogos/brasilxbielo-russia.png'),
-(34, 3, 1, '2012-07-29 13:00:00', 27, 28, 2, 0, '2012-07-27 00:00:00', '2012-07-29 12:00:00', 'imagens/jogos/senegalxuruguai.png'),
-(35, 3, 1, '2012-07-29 13:00:00', 29, 30, 1, 0, '2012-07-27 00:00:00', '2012-07-29 12:00:00', 'imagens/jogos/japaoxmarrocos.png'),
-(36, 3, 1, '2012-07-29 13:15:00', 31, 32, 2, 1, '2012-07-27 00:00:00', '2012-07-29 12:15:00', 'imagens/jogos/coreia-do-sulxsuica.png'),
-(37, 3, 1, '2012-07-29 15:45:00', 33, 34, 0, 1, '2012-07-27 00:00:00', '2012-07-29 14:45:00', 'imagens/jogos/espanhaxhonduras.png'),
-(38, 3, 1, '2012-07-29 15:45:00', 35, 36, 3, 1, '2012-07-27 00:00:00', '2012-07-29 14:45:00', 'imagens/jogos/reino-unidoxemiratos-arabes-unidos.png'),
-(39, 3, 1, '2012-08-01 10:30:00', 21, 26, 3, 1, '2012-07-30 00:00:00', '2012-08-01 09:30:00', 'imagens/jogos/egitoxbielo-russia.png'),
-(40, 3, 1, '2012-08-01 10:30:00', 25, 22, 3, 0, '2012-07-30 00:00:00', '2012-08-01 09:30:00', 'imagens/jogos/brasilxnova-zelandia.png'),
-(41, 3, 1, '2012-08-01 13:00:00', 33, 30, 0, 0, '2012-07-30 00:00:00', '2012-08-01 12:00:00', 'imagens/jogos/espanhaxmarrocos.png'),
-(42, 3, 1, '2012-08-01 13:00:00', 29, 34, 0, 0, '2012-07-30 00:00:00', '2012-08-01 12:00:00', 'imagens/jogos/japaoxhonduras.png'),
-(43, 3, 1, '2012-08-01 13:00:00', 31, 24, 0, 0, '2012-07-30 00:00:00', '2012-08-01 12:00:00', 'imagens/jogos/coreia-do-sulxgabao.png'),
-(44, 3, 1, '2012-08-01 13:00:00', 23, 32, 1, 0, '2012-07-30 00:00:00', '2012-08-01 12:00:00', 'imagens/jogos/mexicoxsuica.png'),
-(45, 3, 1, '2012-08-01 15:45:00', 35, 28, 1, 0, '2012-07-30 00:00:00', '2012-08-01 14:45:00', 'imagens/jogos/reino-unidoxuruguai.png'),
-(46, 3, 1, '2012-08-01 15:45:00', 27, 36, 1, 1, '2012-07-30 00:00:00', '2012-08-01 14:45:00', 'imagens/jogos/senegalxemiratos-arabes-unidos.png'),
-(47, 3, 2, '2012-08-04 08:00:00', 29, 21, 3, 0, '2012-08-02 00:00:00', '2012-08-04 07:00:00', 'imagens/jogos/japaoxegito.png'),
-(48, 3, 2, '2012-08-04 10:30:00', 23, 27, 4, 2, '2012-08-02 00:00:00', '2012-08-04 09:30:00', 'imagens/jogos/mexicoxsenegal.png'),
-(49, 3, 2, '2012-08-04 13:00:00', 25, 34, 3, 2, '2012-08-02 00:00:00', '2012-08-04 12:00:00', 'imagens/jogos/brasilxhonduras.png'),
-(50, 3, 2, '2012-08-04 15:30:00', 35, 31, 1, 1, '2012-08-02 00:00:00', '2012-08-04 14:30:00', 'imagens/jogos/reino-unidoxcoreia-do-sul.png'),
-(51, 3, 3, '2012-08-07 13:00:00', 29, 23, 1, 3, '2012-08-05 00:00:00', '2012-08-07 12:00:00', 'imagens/jogos/japaoxmexico.png'),
-(52, 3, 3, '2012-08-07 15:45:00', 25, 31, 3, 0, '2012-08-05 00:00:00', '2012-08-07 14:45:00', 'imagens/jogos/brasilxcoreia-do-sul.png'),
-(53, 2, 16, '2012-08-07 21:00:00', 39, 41, 0, 2, '2012-08-05 00:00:00', '2012-08-07 20:00:00', 'imagens/jogos/america-rnxatletico-pr.png'),
-(54, 2, 16, '2012-08-07 21:00:00', 45, 52, 0, 2, '2012-08-05 00:00:00', '2012-08-07 20:00:00', 'imagens/jogos/bragantinoxipatinga.png'),
-(55, 2, 16, '2012-08-07 21:00:00', 42, 37, 3, 1, '2012-08-05 00:00:00', '2012-08-07 20:00:00', 'imagens/jogos/avaixabc.png'),
-(56, 2, 16, '2012-08-10 21:00:00', 46, 43, 2, 0, '2012-08-08 00:00:00', '2012-08-10 20:00:00', 'imagens/jogos/cearaxbarueri.png'),
-(57, 2, 16, '2012-08-10 21:00:00', 40, 50, 1, 0, '2012-08-08 00:00:00', '2012-08-10 20:00:00', 'imagens/jogos/asaxguarani.png'),
-(58, 2, 16, '2012-08-11 16:20:00', 49, 44, 2, 0, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/goiasxboa-esporte.png'),
-(59, 2, 16, '2012-08-11 16:20:00', 55, 48, 1, 1, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/sao-caetanoxcriciuma.png'),
-(60, 2, 16, '2012-08-11 16:20:00', 51, 53, 0, 3, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/guaratinguetaxjoinville.png'),
-(61, 2, 16, '2012-08-11 16:20:00', 38, 56, 1, 2, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/america-mgxvitoria.png'),
-(62, 2, 16, '2012-08-11 16:20:00', 54, 47, 4, 0, '2012-08-09 00:00:00', '2012-08-11 15:20:00', 'imagens/jogos/paranaxcrb.png'),
-(63, 1, 15, '2012-08-08 19:30:00', 19, 20, 0, 2, '2012-08-06 00:00:00', '2012-08-08 18:30:00', 'imagens/jogos/sportxvasco.png'),
-(64, 1, 15, '2012-08-08 19:30:00', 12, 13, 0, 0, '2012-08-06 00:00:00', '2012-08-08 18:30:00', 'imagens/jogos/internacionalxnautico.png'),
-(65, 1, 15, '2012-08-08 20:30:00', 5, 1, 1, 1, '2012-08-06 00:00:00', '2012-08-08 19:30:00', 'imagens/jogos/corinthiansxatletico-go.png'),
-(66, 1, 15, '2012-08-08 20:30:00', 3, 16, 0, 0, '2012-08-06 00:00:00', '2012-08-08 19:30:00', 'imagens/jogos/bahiaxportuguesa-sp.png'),
-(67, 1, 15, '2012-08-08 21:50:00', 17, 7, 4, 2, '2012-08-06 00:00:00', '2012-08-08 20:50:00', 'imagens/jogos/santosxcruzeiro.png'),
-(68, 1, 15, '2012-08-08 21:50:00', 8, 9, 0, 2, '2012-08-06 00:00:00', '2012-08-08 20:50:00', 'imagens/jogos/figueirensexflamengo.png'),
-(69, 1, 15, '2012-08-08 21:50:00', 4, 14, 1, 2, '2012-08-06 00:00:00', '2012-08-08 20:50:00', 'imagens/jogos/botafogoxpalmeiras.png'),
-(70, 1, 15, '2012-08-09 21:00:00', 2, 6, 1, 0, '2012-08-07 00:00:00', '2012-08-09 20:00:00', 'imagens/jogos/atletico-mgxcoritiba.png'),
-(71, 1, 15, '2012-08-09 21:00:00', 15, 11, 0, 0, '2012-08-07 00:00:00', '2012-08-09 20:00:00', 'imagens/jogos/ponte-pretaxgremio.png'),
-(72, 1, 15, '2012-08-09 21:00:00', 10, 18, 2, 1, '2012-08-07 00:00:00', '2012-08-09 20:00:00', 'imagens/jogos/fluminensexsao-paulo.png'),
-(73, 3, 4, '2012-08-10 10:45:00', 29, 31, 0, 2, '2012-08-08 00:00:00', '2012-08-10 09:45:00', 'imagens/jogos/japaoxcoreia-do-sul.png'),
-(74, 3, 4, '2012-08-11 11:00:00', 25, 23, 1, 2, '2012-08-09 00:00:00', '2012-08-11 10:00:00', 'imagens/jogos/brasilxmexico.png'),
-(75, 1, 16, '2012-08-11 18:30:00', 17, 1, 2, 2, '2012-08-09 00:00:00', '2012-08-11 17:30:00', 'imagens/jogos/santosxatletico-go.png'),
-(76, 1, 16, '2012-08-11 18:30:00', 19, 8, 0, 1, '2012-08-09 00:00:00', '2012-08-11 17:30:00', 'imagens/jogos/sportxfigueirense.png'),
-(77, 1, 16, '2012-08-11 18:30:00', 3, 7, 0, 1, '2012-08-09 00:00:00', '2012-08-11 17:30:00', 'imagens/jogos/bahiaxcruzeiro.png'),
-(78, 1, 16, '2012-08-11 21:00:00', 9, 13, 2, 0, '2012-08-09 00:00:00', '2012-08-11 20:00:00', 'imagens/jogos/flamengoxnautico.png'),
-(79, 1, 16, '2012-08-12 16:00:00', 12, 15, 2, 1, '2012-08-10 00:00:00', '2012-08-12 15:00:00', 'imagens/jogos/internacionalxponte-preta.png'),
-(80, 1, 16, '2012-08-12 16:00:00', 18, 11, 1, 2, '2012-08-10 00:00:00', '2012-08-12 15:00:00', 'imagens/jogos/sao-pauloxgremio.png'),
-(81, 1, 16, '2012-08-12 16:00:00', 2, 20, 1, 0, '2012-08-10 00:00:00', '2012-08-12 15:00:00', 'imagens/jogos/atletico-mgxvasco.png'),
-(82, 1, 16, '2012-08-12 16:00:00', 6, 5, 1, 2, '2012-08-10 00:00:00', '2012-08-12 15:00:00', 'imagens/jogos/coritibaxcorinthians.png'),
-(83, 1, 16, '2012-08-12 18:30:00', 10, 14, 1, 0, '2012-08-10 00:00:00', '2012-08-12 17:30:00', 'imagens/jogos/fluminensexpalmeiras.png'),
-(84, 1, 16, '2012-08-12 18:30:00', 16, 4, 1, 1, '2012-08-10 00:00:00', '2012-08-12 17:30:00', 'imagens/jogos/portuguesa-spxbotafogo.png'),
-(85, 2, 17, '2012-08-14 19:30:00', 53, 45, 1, 0, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/joinvillexbragantino.png'),
-(86, 2, 17, '2012-08-14 19:30:00', 56, 51, 2, 0, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/vitoriaxguaratingueta.png'),
-(87, 2, 17, '2012-08-14 19:30:00', 48, 39, 4, 3, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/criciumaxamerica-rn.png'),
-(88, 2, 17, '2012-08-14 19:30:00', 52, 54, 2, 0, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/ipatingaxparana.png'),
-(89, 2, 17, '2012-08-14 19:30:00', 47, 46, 0, 2, '2012-08-12 00:00:00', '2012-08-14 18:30:00', 'imagens/jogos/crbxceara.png'),
-(90, 2, 17, '2012-08-14 21:50:00', 44, 55, 1, 3, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/boa-esportexsao-caetano.png'),
-(91, 2, 17, '2012-08-14 21:50:00', 50, 42, 0, 2, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/guaranixavai.png'),
-(92, 2, 17, '2012-08-14 21:50:00', 37, 38, 0, 2, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/abcxamerica-mg.png'),
-(93, 2, 17, '2012-08-14 21:50:00', 43, 49, 2, 0, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/baruerixgoias.png'),
-(94, 2, 17, '2012-08-14 21:50:00', 41, 40, 1, 0, '2012-08-12 00:00:00', '2012-08-14 20:50:00', 'imagens/jogos/atletico-prxasa.png'),
-(95, 1, 17, '2012-08-15 19:30:00', 11, 16, 1, 2, '2012-08-13 00:00:00', '2012-08-15 18:30:00', 'imagens/jogos/gremioxportuguesa-sp.png'),
-(96, 1, 17, '2012-08-15 19:30:00', 7, 10, 1, 1, '2012-08-13 00:00:00', '2012-08-15 18:30:00', 'imagens/jogos/cruzeiroxfluminense.png'),
-(97, 1, 17, '2012-08-15 20:30:00', 1, 2, 1, 1, '2012-08-13 00:00:00', '2012-08-15 19:30:00', 'imagens/jogos/atletico-goxatletico-mg.png'),
-(98, 1, 17, '2012-08-15 20:30:00', 15, 3, 0, 2, '2012-08-13 00:00:00', '2012-08-15 19:30:00', 'imagens/jogos/ponte-pretaxbahia.png'),
-(99, 1, 17, '2012-08-15 21:50:00', 4, 19, 2, 0, '2012-08-13 00:00:00', '2012-08-15 20:50:00', 'imagens/jogos/botafogoxsport.png'),
-(100, 1, 17, '2012-08-15 21:50:00', 14, 9, 1, 0, '2012-08-13 00:00:00', '2012-08-15 20:50:00', 'imagens/jogos/palmeirasxflamengo.png'),
-(101, 1, 17, '2012-08-15 21:50:00', 13, 18, 3, 0, '2012-08-13 00:00:00', '2012-08-15 20:50:00', 'imagens/jogos/nauticoxsao-paulo.png'),
-(102, 1, 17, '2012-08-16 21:00:00', 20, 6, NULL, NULL, '2012-08-14 00:00:00', '2012-08-16 20:00:00', 'imagens/jogos/vascoxcoritiba.png'),
-(103, 1, 17, '2012-08-16 21:00:00', 5, 12, NULL, NULL, '2012-08-14 00:00:00', '2012-08-16 20:00:00', 'imagens/jogos/corinthiansxinternacional.png'),
-(104, 1, 17, '2012-08-16 21:00:00', 8, 17, NULL, NULL, '2012-08-14 00:00:00', '2012-08-16 20:00:00', 'imagens/jogos/figueirensexsantos.png'),
-(105, 2, 18, '2012-08-17 19:30:00', 56, 53, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 18:30:00', 'imagens/jogos/vitoriaxjoinville.png'),
-(106, 2, 18, '2012-08-17 21:00:00', 51, 52, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 20:00:00', 'imagens/jogos/guaratinguetaxipatinga.png'),
-(107, 2, 18, '2012-08-17 21:00:00', 50, 47, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 20:00:00', 'imagens/jogos/guaranixcrb.png'),
-(108, 2, 18, '2012-08-17 21:00:00', 42, 43, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 20:00:00', 'imagens/jogos/avaixbarueri.png'),
-(109, 2, 18, '2012-08-17 21:50:00', 38, 39, NULL, NULL, '2012-08-15 00:00:00', '2012-08-17 20:50:00', 'imagens/jogos/america-mgxamerica-rn.png'),
-(110, 2, 18, '2012-08-18 16:20:00', 41, 48, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 15:20:00', 'imagens/jogos/atletico-prxcriciuma.png'),
-(111, 2, 18, '2012-08-18 16:20:00', 49, 55, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 15:20:00', 'imagens/jogos/goiasxsao-caetano.png'),
-(112, 2, 18, '2012-08-18 16:20:00', 37, 44, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 15:20:00', 'imagens/jogos/abcxboa-esporte.png'),
-(113, 2, 18, '2012-08-18 16:20:00', 45, 46, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 15:20:00', 'imagens/jogos/bragantinoxceara.png'),
-(114, 2, 18, '2012-08-18 21:00:00', 40, 54, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 20:00:00', 'imagens/jogos/asaxparana.png'),
-(115, 1, 18, '2012-08-18 18:30:00', 13, 3, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 17:30:00', 'imagens/jogos/nauticoxbahia.png'),
-(116, 1, 18, '2012-08-18 18:30:00', 10, 19, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 17:30:00', 'imagens/jogos/fluminensexsport.png'),
-(117, 1, 18, '2012-08-18 21:00:00', 18, 15, NULL, NULL, '2012-08-16 00:00:00', '2012-08-18 20:00:00', 'imagens/jogos/sao-pauloxponte-preta.png'),
-(118, 1, 18, '2012-08-19 16:00:00', 17, 5, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 15:00:00', 'imagens/jogos/santosxcorinthians.png'),
-(119, 1, 18, '2012-08-19 16:00:00', 2, 4, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 15:00:00', 'imagens/jogos/atletico-mgxbotafogo.png'),
-(120, 1, 18, '2012-08-19 16:00:00', 6, 7, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 15:00:00', 'imagens/jogos/coritibaxcruzeiro.png'),
-(121, 1, 18, '2012-08-19 16:00:00', 11, 8, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 15:00:00', 'imagens/jogos/gremioxfigueirense.png'),
-(122, 1, 18, '2012-08-19 18:30:00', 16, 12, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 17:30:00', 'imagens/jogos/portuguesa-spxinternacional.png'),
-(123, 1, 18, '2012-08-19 18:30:00', 9, 20, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 17:30:00', 'imagens/jogos/flamengoxvasco.png'),
-(125, 1, 18, '2012-08-19 18:30:00', 1, 14, NULL, NULL, '2012-08-17 00:00:00', '2012-08-19 17:30:00', 'imagens/jogos/atletico-goxpalmeiras.png');
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `log`
---
-
-CREATE TABLE IF NOT EXISTS `log` (
-  `id` int(11) NOT NULL auto_increment,
-  `descricao` text,
-  `data` datetime default NULL,
-  `quantidade` int(11) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Extraindo dados da tabela `log`
---
 
 INSERT INTO `log` (`id`, `descricao`, `data`, `quantidade`) VALUES
 (1, 'The identifier idUsuario is missing for a query of Usuario - buscaObjeto(Usuario, id)', '2012-08-11 13:34:22', 1);
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `pais`
---
 
-CREATE TABLE IF NOT EXISTS `pais` (
-  `sigla2letras` char(2) default NULL,
-  `sigla3letras` char(3) default NULL,
-  `id` int(11) NOT NULL auto_increment,
-  `nomePais` varchar(255) default NULL,
-  `bandeira` text,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=895 ;
 
---
--- Extraindo dados da tabela `pais`
---
 
-INSERT INTO `pais` (`sigla2letras`, `sigla3letras`, `id`, `nomePais`, `bandeira`) VALUES
-('AF', 'AFG', 4, 'Afeganist√£o', 'imagens/bandeiras/bandeira-afeganistao47x47.png'),
-('AL', 'ALB', 8, 'Alb√¢nia', 'imagens/bandeiras/bandeira-albania47x47.png'),
-('AQ', 'ATA', 10, 'Ant√°rctida', NULL),
-('DZ', 'DZA', 12, 'Arg√©lia', 'imagens/bandeiras/bandeira-argelia47x47.png'),
-('AS', 'ASM', 16, 'Samoa Americana', 'imagens/bandeiras/bandeira-samoa-americana47x47.png'),
-('AD', 'AND', 20, 'Andorra', 'imagens/bandeiras/bandeira-andorra47x47.png'),
-('AO', 'AGO', 24, 'Angola', 'imagens/bandeiras/bandeira-angola47x47.png'),
-('AG', 'ATG', 28, 'Antigua e Barbuda', 'imagens/bandeiras/bandeira-antigua-e-barbuda47x47.png'),
-('AZ', 'AZE', 31, 'Azerbaij√£o', 'imagens/bandeiras/bandeira-azerbaijao47x47.png'),
-('AR', 'ARG', 32, 'Argentina', 'imagens/bandeiras/bandeira-argentina47x47.png'),
-('AU', 'AUS', 36, 'Austr√°lia', 'imagens/bandeiras/bandeira-australia47x47.png'),
-('AT', 'AUT', 40, '√Åustria', 'imagens/bandeiras/bandeira-austria47x47.png'),
-('BS', 'BHS', 44, 'Bahamas', 'imagens/bandeiras/bandeira-bahamas47x47.png'),
-('BH', 'BHR', 48, 'Bahrain', 'imagens/bandeiras/bandeira-bahrain47x47.png'),
-('BD', 'BGD', 50, 'Bangladesh', 'imagens/bandeiras/bandeira-bangladesh47x47.png'),
-('AM', 'ARM', 51, 'Arm√©nia', 'imagens/bandeiras/bandeira-armenia47x47.png'),
-('BB', 'BRB', 52, 'Barbados', 'imagens/bandeiras/bandeira-barbados47x47.png'),
-('BE', 'BEL', 56, 'B√©lgica', 'imagens/bandeiras/bandeira-belgica47x47.png'),
-('BM', 'BMU', 60, 'Bermuda', 'imagens/bandeiras/bandeira-bermuda47x47.png'),
-('BT', 'BTN', 64, 'But√£o', 'imagens/bandeiras/bandeira-butao47x47.png'),
-('BO', 'BOL', 68, 'Bol√≠via', 'imagens/bandeiras/bandeira-bolivia47x47.png'),
-('BA', 'BIH', 70, 'B√≥snia-Herzegovina', 'imagens/bandeiras/bandeira-bosnia-herzegovina47x47.png'),
-('BW', 'BWA', 72, 'Botswana', 'imagens/bandeiras/bandeira-botswana47x47.png'),
-('BV', 'BVT', 74, 'Bouvet, Ilha', NULL),
-('BR', 'BRA', 76, 'Brasil', 'imagens/bandeiras/bandeira-brasil48x48.png'),
-('BZ', 'BLZ', 84, 'Belize', 'imagens/bandeiras/bandeira-belize47x47.png'),
-('IO', 'IOT', 86, 'Territ√≥rio Brit√¢nico do Oceano √çndico', NULL),
-('SB', 'SLB', 90, 'Salom√£o, Ilhas', NULL),
-('VG', 'VGB', 92, 'Virgens Brit√¢nicas, Ilhas', NULL),
-('BN', 'BRN', 96, 'Brunei', NULL),
-('BG', 'BGR', 100, 'Bulg√°ria', NULL),
-('MM', 'MMR', 104, 'Myanmar (antiga Birm√¢nia)', NULL),
-('BI', 'BDI', 108, 'Burundi', NULL),
-('BY', 'BLR', 112, 'Bielo-R√∫ssia (Belarus)', 'imagens/bandeiras/bandeira-bielo-russia48x48.png'),
-('KH', 'KHM', 116, 'Cambodja', NULL),
-('CM', 'CMR', 120, 'Camar√µes', NULL),
-('CA', 'CAN', 124, 'Canad√°', NULL),
-('CV', 'CPV', 132, 'Cabo Verde', NULL),
-('KY', 'CYM', 136, 'Cayman, Ilhas', NULL),
-('CF', 'CAF', 140, 'Centro-africana, Rep√∫blica', NULL),
-('LK', 'LKA', 144, 'Sri Lanka', NULL),
-('TD', 'TCD', 148, 'Chade', NULL),
-('CL', 'CHL', 152, 'Chile', NULL),
-('CN', 'CHN', 156, 'China', NULL),
-('TW', 'TWN', 158, 'Taiwan', NULL),
-('CX', 'CXR', 162, 'Christmas, Ilha', NULL),
-('CC', 'CCK', 166, 'Cocos, Ilhas', NULL),
-('CO', 'COL', 170, 'Col√¥mbia', NULL),
-('KM', 'COM', 174, 'Comores', NULL),
-('YT', 'MYT', 175, 'Mayotte', NULL),
-('CG', 'COG', 178, 'Congo, Rep√∫blica do', NULL),
-('CD', 'COD', 180, 'Congo, Rep√∫blica Democr√°tica do (antigo Zaire)', NULL),
-('CK', 'COK', 184, 'Cook, Ilhas', NULL),
-('CR', 'CRI', 188, 'Costa Rica', NULL),
-('HR', 'HRV', 191, 'Cro√°cia', NULL),
-('CU', 'CUB', 192, 'Cuba', NULL),
-('CY', 'CYP', 196, 'Chipre', NULL),
-('CZ', 'CZE', 203, 'Checa, Rep√∫blica', NULL),
-('BJ', 'BEN', 204, 'Benin', 'imagens/bandeiras/bandeira-benin47x47.png'),
-('DK', 'DNK', 208, 'Dinamarca', NULL),
-('DM', 'DMA', 212, 'Dominica', NULL),
-('DO', 'DOM', 214, 'Dominicana, Rep√∫blica', NULL),
-('EC', 'ECU', 218, 'Equador', NULL),
-('SV', 'SLV', 222, 'El Salvador', NULL),
-('GQ', 'GNQ', 226, 'Guin√© Equatorial', NULL),
-('ET', 'ETH', 231, 'Eti√≥pia', NULL),
-('ER', 'ERI', 232, 'Eritreia', NULL),
-('EE', 'EST', 233, 'Est√≥nia', NULL),
-('FO', 'FRO', 234, 'Faroe, Ilhas', NULL),
-('FK', 'FLK', 238, 'Malvinas, Ilhas (Falkland)', NULL),
-('GS', 'SGS', 239, 'Ge√≥rgia do Sul e Sandwich do Sul, Ilhas', NULL),
-('FJ', 'FJI', 242, 'Fiji', NULL),
-('FI', 'FIN', 246, 'Finl√¢ndia', NULL),
-('AX', 'ALA', 248, '√Öland, Ilhas', NULL),
-('FR', 'FRA', 250, 'Fran√ßa', NULL),
-('GF', 'GUF', 254, 'Guiana Francesa', NULL),
-('PF', 'PYF', 258, 'Polin√©sia Francesa', NULL),
-('TF', 'ATF', 260, 'Terras Austrais e Ant√°rticas Francesas (TAAF)', NULL),
-('DJ', 'DJI', 262, 'Djibouti', NULL),
-('GA', 'GAB', 266, 'Gab√£o', 'imagens/bandeiras/bandeira-gabao48x48.png'),
-('GE', 'GEO', 268, 'Ge√≥rgia', NULL),
-('GM', 'GMB', 270, 'G√¢mbia', NULL),
-('PS', 'PSE', 275, 'Palestina', NULL),
-('DE', 'DEU', 276, 'Alemanha', NULL),
-('GH', 'GHA', 288, 'Gana', NULL),
-('GI', 'GIB', 292, 'Gibraltar', NULL),
-('KI', 'KIR', 296, 'Kiribati', NULL),
-('GR', 'GRC', 300, 'Gr√©cia', NULL),
-('GL', 'GRL', 304, 'Gronel√¢ndia', NULL),
-('GD', 'GRD', 308, 'Grenada', NULL),
-('GP', 'GLP', 312, 'Guadeloupe', NULL),
-('GU', 'GUM', 316, 'Guam', NULL),
-('GT', 'GTM', 320, 'Guatemala', NULL),
-('GN', 'GIN', 324, 'Guin√©-Conacri', NULL),
-('GY', 'GUY', 328, 'Guiana', NULL),
-('HT', 'HTI', 332, 'Haiti', NULL),
-('HM', 'HMD', 334, 'Heard e Ilhas McDonald, Ilha', NULL),
-('VA', 'VAT', 336, 'Vaticano', NULL),
-('HN', 'HND', 340, 'Honduras', 'imagens/bandeiras/bandeira-honduras48x48.png'),
-('HK', 'HKG', 344, 'Hong Kong', NULL),
-('HU', 'HUN', 348, 'Hungria', NULL),
-('IS', 'ISL', 352, 'Isl√¢ndia', NULL),
-('IN', 'IND', 356, '√çndia', NULL),
-('ID', 'IDN', 360, 'Indon√©sia', NULL),
-('IR', 'IRN', 364, 'Ir√£o', NULL),
-('IQ', 'IRQ', 368, 'Iraque', NULL),
-('IE', 'IRL', 372, 'Irlanda', NULL),
-('IL', 'ISR', 376, 'Israel', NULL),
-('IT', 'ITA', 380, 'It√°lia', NULL),
-('CI', 'CIV', 384, 'Costa do Marfim', NULL),
-('JM', 'JAM', 388, 'Jamaica', NULL),
-('JP', 'JPN', 392, 'Jap√£o', 'imagens/bandeiras/bandeira-japao48x48.png'),
-('KZ', 'KAZ', 398, 'Cazaquist√£o', NULL),
-('JO', 'JOR', 400, 'Jord√¢nia', NULL),
-('KE', 'KEN', 404, 'Qu√©nia', NULL),
-('KP', 'PRK', 408, 'Coreia, Rep√∫blica Democr√°tica da (Coreia do Norte)', NULL),
-('KR', 'KOR', 410, 'Coreia do Sul', 'imagens/bandeiras/bandeira-coreia-do-sul48x48.png'),
-('KW', 'KWT', 414, 'Kuwait', NULL),
-('KG', 'KGZ', 417, 'Quirguist√£o', NULL),
-('LA', 'LAO', 418, 'Laos', NULL),
-('LB', 'LBN', 422, 'L√≠bano', NULL),
-('LS', 'LSO', 426, 'Lesoto', NULL),
-('LV', 'LVA', 428, 'Let√≥nia', NULL),
-('LR', 'LBR', 430, 'Lib√©ria', NULL),
-('LY', 'LBY', 434, 'L√≠bia', NULL),
-('LI', 'LIE', 438, 'Liechtenstein', NULL),
-('LT', 'LTU', 440, 'Litu√¢nia', NULL),
-('LU', 'LUX', 442, 'Luxemburgo', NULL),
-('MO', 'MAC', 446, 'Macau', NULL),
-('MG', 'MDG', 450, 'Madag√°scar', NULL),
-('MW', 'MWI', 454, 'Malawi', NULL),
-('MY', 'MYS', 458, 'Mal√°sia', NULL),
-('MV', 'MDV', 462, 'Maldivas', NULL),
-('ML', 'MLI', 466, 'Mali', NULL),
-('MT', 'MLT', 470, 'Malta', NULL),
-('MQ', 'MTQ', 474, 'Martinica', NULL),
-('MR', 'MRT', 478, 'Maurit√¢nia', NULL),
-('MU', 'MUS', 480, 'Maur√≠cia', NULL),
-('MX', 'MEX', 484, 'M√©xico', 'imagens/bandeiras/bandeira-mexico48x48.png'),
-('MC', 'MCO', 492, 'M√≥naco', NULL),
-('MN', 'MNG', 496, 'Mong√≥lia', NULL),
-('MD', 'MDA', 498, 'Mold√°via', NULL),
-('ME', 'MNE', 499, 'Montenegro', NULL),
-('MS', 'MSR', 500, 'Montserrat', NULL),
-('MA', 'MAR', 504, 'Marrocos', 'imagens/bandeiras/bandeira-marrocos48x48.png'),
-('MZ', 'MOZ', 508, 'Mo√ßambique', NULL),
-('OM', 'OMN', 512, 'Oman', NULL),
-('NA', 'NAM', 516, 'Nam√≠bia', NULL),
-('NR', 'NRU', 520, 'Nauru', NULL),
-('NP', 'NPL', 524, 'Nepal', NULL),
-('NL', 'NLD', 528, 'Pa√≠ses Baixos (Holanda)', NULL),
-('AN', 'ANT', 530, 'Antilhas Holandesas', NULL),
-('AW', 'ABW', 533, 'Aruba', 'imagens/bandeiras/bandeira-aruba47x47.png'),
-('NC', 'NCL', 540, 'Nova Caled√≥nia', NULL),
-('VU', 'VUT', 548, 'Vanuatu', NULL),
-('NZ', 'NZL', 554, 'Nova Zel√¢ndia', 'imagens/bandeiras/bandeira-nova-zelandia48x48.png'),
-('NI', 'NIC', 558, 'Nicar√°gua', NULL),
-('NE', 'NER', 562, 'N√≠ger', NULL),
-('NG', 'NGA', 566, 'Nig√©ria', NULL),
-('NU', 'NIU', 570, 'Niue', NULL),
-('NF', 'NFK', 574, 'Norfolk, Ilha', NULL),
-('NO', 'NOR', 578, 'Noruega', NULL),
-('MP', 'MNP', 580, 'Marianas Setentrionais', NULL),
-('UM', 'UMI', 581, 'Menores Distantes dos Estados Unidos, Ilhas', NULL),
-('FM', 'FSM', 583, 'Micron√©sia, Estados Federados da', NULL),
-('MH', 'MHL', 584, 'Marshall, Ilhas', NULL),
-('PW', 'PLW', 585, 'Palau', NULL),
-('PK', 'PAK', 586, 'Paquist√£o', NULL),
-('PA', 'PAN', 591, 'Panam√°', NULL),
-('PG', 'PNG', 598, 'Papua-Nova Guin√©', NULL),
-('PY', 'PRY', 600, 'Paraguai', NULL),
-('PE', 'PER', 604, 'Peru', NULL),
-('PH', 'PHL', 608, 'Filipinas', NULL),
-('PN', 'PCN', 612, 'Pitcairn', NULL),
-('PL', 'POL', 616, 'Pol√≥nia', NULL),
-('PT', 'PRT', 620, 'Portugal', NULL),
-('GW', 'GNB', 624, 'Guin√©-Bissau', NULL),
-('TL', 'TLS', 626, 'Timor-Leste', NULL),
-('PR', 'PRI', 630, 'Porto Rico', NULL),
-('QA', 'QAT', 634, 'Qatar', NULL),
-('RE', 'REU', 638, 'Reuni√£o', NULL),
-('RO', 'ROU', 642, 'Rom√©nia', NULL),
-('RU', 'RUS', 643, 'R√∫ssia', NULL),
-('RW', 'RWA', 646, 'Ruanda', NULL),
-('SH', 'SHN', 654, 'Santa Helena', NULL),
-('KN', 'KNA', 659, 'S√£o Crist√≥v√£o e N√©vis (Saint Kitts e Nevis)', NULL),
-('AI', 'AIA', 660, 'Anguilla', 'imagens/bandeiras/bandeira-anguilla47x47.png'),
-('LC', 'LCA', 662, 'Santa L√∫cia', NULL),
-('PM', 'SPM', 666, 'Saint Pierre et Miquelon', NULL),
-('VC', 'VCT', 670, 'S√£o Vicente e Granadinas', NULL),
-('SM', 'SMR', 674, 'San Marino', NULL),
-('ST', 'STP', 678, 'S√£o Tom√© e Pr√≠ncipe', NULL),
-('SA', 'SAU', 682, 'Ar√°bia Saudita', NULL),
-('SN', 'SEN', 686, 'Senegal', 'imagens/bandeiras/bandeira-senegal48x48.png'),
-('RS', 'SRB', 688, 'S√©rvia', NULL),
-('SC', 'SYC', 690, 'Seychelles', NULL),
-('SL', 'SLE', 694, 'Serra Leoa', NULL),
-('SG', 'SGP', 702, 'Singapura', NULL),
-('SK', 'SVK', 703, 'Eslov√°quia', NULL),
-('VN', 'VNM', 704, 'Vietname', NULL),
-('SI', 'SVN', 705, 'Eslov√©nia', NULL),
-('SO', 'SOM', 706, 'Som√°lia', NULL),
-('ZA', 'ZAF', 710, '√Åfrica do Sul', NULL),
-('ZW', 'ZWE', 716, 'Zimbabwe', NULL),
-('ES', 'ESP', 724, 'Espanha', 'imagens/bandeiras/bandeira-espanha48x48.png'),
-('EH', 'ESH', 732, 'Saara Ocidental', NULL),
-('SD', 'SDN', 736, 'Sud√£o', NULL),
-('SR', 'SUR', 740, 'Suriname', NULL),
-('SJ', 'SJM', 744, 'Svalbard e Jan Mayen', NULL),
-('SZ', 'SWZ', 748, 'Suazil√¢ndia', NULL),
-('SE', 'SWE', 752, 'Su√©cia', NULL),
-('CH', 'CHE', 756, 'Su√≠√ßa', 'imagens/bandeiras/bandeira-suica48x48.png'),
-('SY', 'SYR', 760, 'S√≠ria', NULL),
-('TJ', 'TJK', 762, 'Tajiquist√£o', NULL),
-('TH', 'THA', 764, 'Tail√¢ndia', NULL),
-('TG', 'TGO', 768, 'Togo', NULL),
-('TK', 'TKL', 772, 'Toquelau', NULL),
-('TO', 'TON', 776, 'Tonga', NULL),
-('TT', 'TTO', 780, 'Trindade e Tobago', NULL),
-('AE', 'ARE', 784, 'Emiratos √Årabes Unidos', 'imagens/bandeiras/bandeira-emiratos-arabes-unidos48x48.png'),
-('TN', 'TUN', 788, 'Tun√≠sia', NULL),
-('TR', 'TUR', 792, 'Turquia', NULL),
-('TM', 'TKM', 795, 'Turquemenist√£o', NULL),
-('TC', 'TCA', 796, 'Turks e Caicos', NULL),
-('TV', 'TUV', 798, 'Tuvalu', NULL),
-('UG', 'UGA', 800, 'Uganda', NULL),
-('UA', 'UKR', 804, 'Ucr√¢nia', NULL),
-('MK', 'MKD', 807, 'Maced√≥nia, Rep√∫blica da', NULL),
-('EG', 'EGY', 818, 'Egito', 'imagens/bandeiras/bandeira-egito48x48.png'),
-('GB', 'GBR', 826, 'Reino Unido', 'imagens/bandeiras/bandeira-reino-unido48x48.png'),
-('GG', 'GGY', 831, 'Guernsey', NULL),
-('JE', 'JEY', 832, 'Jersey', NULL),
-('IM', 'IMN', 833, 'Man, Ilha de', NULL),
-('TZ', 'TZA', 834, 'Tanz√¢nia', NULL),
-('US', 'USA', 840, 'Estados Unidos da Am√©rica', NULL),
-('VI', 'VIR', 850, 'Virgens Americanas, Ilhas', NULL),
-('BF', 'BFA', 854, 'Burkina Faso', NULL),
-('UY', 'URY', 858, 'Uruguai', 'imagens/bandeiras/bandeira-uruguai48x48.png'),
-('UZ', 'UZB', 860, 'Usbequist√£o', NULL),
-('VE', 'VEN', 862, 'Venezuela', NULL),
-('WF', 'WLF', 876, 'Wallis e Futuna', NULL),
-('WS', 'WSM', 882, 'Samoa (Samoa Ocidental)', NULL),
-('YE', 'YEM', 887, 'I√©men', NULL),
-('ZM', 'ZMB', 894, 'Z√¢mbia', NULL);
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `pontuacaogeral`
---
-
-CREATE TABLE IF NOT EXISTS `pontuacaogeral` (
-  `usuario_id` bigint(20) NOT NULL default '0',
-  `acertosPlacarGeral` int(11) default NULL,
-  `acertosTimeGanhadorGeral` int(11) default NULL,
-  `acertosPlacarInvertidoGeral` int(11) default NULL,
-  `errosPlacarGeral` int(11) default NULL,
-  `pontosGeral` int(11) default NULL,
-  `classificacaoGeral` int(11) default NULL,
-  `pontosMedalhasGeral` int(11) default NULL,
-  `classificacaoMedalhasGeral` int(11) default NULL,
-  `medalhasOuroGeral` int(11) default NULL,
-  `medalhasPrataGeral` int(11) default NULL,
-  `medalhasBronzeGeral` int(11) default NULL,
-  `trofeus` int(11) default NULL,
-  PRIMARY KEY  (`usuario_id`),
-  KEY `usuario_id` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `pontuacaogeral`
---
 
 INSERT INTO `pontuacaogeral` (`usuario_id`, `acertosPlacarGeral`, `acertosTimeGanhadorGeral`, `acertosPlacarInvertidoGeral`, `errosPlacarGeral`, `pontosGeral`, `classificacaoGeral`, `pontosMedalhasGeral`, `classificacaoMedalhasGeral`, `medalhasOuroGeral`, `medalhasPrataGeral`, `medalhasBronzeGeral`, `trofeus`) VALUES
 (533424116, 0, 0, 0, 0, 0, 37, 0, 12, 0, 0, 0, 0),
@@ -2776,28 +2907,10 @@ INSERT INTO `pontuacaogeral` (`usuario_id`, `acertosPlacarGeral`, `acertosTimeGa
 (100004162299409, 5, 10, 3, 6, 106, 7, 128, 10, 0, 1, 0, 0),
 (100004166701503, 0, 0, 0, 0, 0, 37, 0, 12, 0, 0, 0, 0);
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `pontuacaorodada`
---
 
-CREATE TABLE IF NOT EXISTS `pontuacaorodada` (
-  `usuario_id` bigint(20) NOT NULL default '0',
-  `campeonato_id` int(11) NOT NULL default '0',
-  `rodada_id` int(11) NOT NULL default '0',
-  `pontosRodada` int(11) default NULL,
-  `classificacaoRodada` int(11) default NULL,
-  PRIMARY KEY  (`usuario_id`,`campeonato_id`,`rodada_id`),
-  KEY `usuario_id` (`usuario_id`),
-  KEY `campeonato_id` (`campeonato_id`),
-  KEY `rodada_id` (`rodada_id`),
-  KEY `FK_pontuacaoRodada_rodada` (`rodada_id`,`campeonato_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `pontuacaorodada`
---
+
 
 INSERT INTO `pontuacaorodada` (`usuario_id`, `campeonato_id`, `rodada_id`, `pontosRodada`, `classificacaoRodada`) VALUES
 (836971939, 1, 12, 10, 10),
@@ -3020,39 +3133,11 @@ INSERT INTO `pontuacaorodada` (`usuario_id`, `campeonato_id`, `rodada_id`, `pont
 (100004162299409, 1, 17, 22, 4),
 (100004162299409, 2, 17, 49, 2);
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `premiosusuario`
---
 
-CREATE TABLE IF NOT EXISTS `premiosusuario` (
-  `usuario_id` bigint(20) NOT NULL default '0',
-  `campeonato_id` int(11) NOT NULL default '0',
-  `codTimeFavorito` int(11) default NULL,
-  `acertosPlacar` int(11) default NULL,
-  `acertosTimeGanhador` int(11) default NULL,
-  `acertosPlacarInvertido` int(11) default NULL,
-  `errosPlacar` int(11) default NULL,
-  `pontosCampeonato` int(11) default NULL,
-  `pontosMedalhas` int(11) default NULL,
-  `classificacaoCampeonato` int(11) default NULL,
-  `classificacaoMedalhas` int(11) default NULL,
-  `medalhasOuro` int(11) default NULL,
-  `medalhasPrata` int(11) default NULL,
-  `medalhasBronze` int(11) default NULL,
-  `chuteirasOuro` int(11) default NULL,
-  `chuteirasPrata` int(11) default NULL,
-  `chuteirasBronze` int(11) default NULL,
-  `trofeu` int(11) default '0',
-  PRIMARY KEY  (`usuario_id`,`campeonato_id`),
-  KEY `usuario_id` (`usuario_id`),
-  KEY `campeonato_id` (`campeonato_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `premiosusuario`
---
+
+
 
 INSERT INTO `premiosusuario` (`usuario_id`, `campeonato_id`, `codTimeFavorito`, `acertosPlacar`, `acertosTimeGanhador`, `acertosPlacarInvertido`, `errosPlacar`, `pontosCampeonato`, `pontosMedalhas`, `classificacaoCampeonato`, `classificacaoMedalhas`, `medalhasOuro`, `medalhasPrata`, `medalhasBronze`, `chuteirasOuro`, `chuteirasPrata`, `chuteirasBronze`, `trofeu`) VALUES
 (836971939, 1, NULL, 2, 4, 0, 8, 40, 0, 18, 5, 0, 0, 0, 0, 0, 0, 0),
@@ -3189,31 +3274,11 @@ INSERT INTO `premiosusuario` (`usuario_id`, `campeonato_id`, `codTimeFavorito`, 
 (100004162299409, 1, NULL, 2, 7, 1, 3, 57, 0, 10, 5, 0, 0, 0, 0, 0, 0, 0),
 (100004162299409, 2, NULL, 3, 3, 2, 3, 49, 128, 3, 2, 0, 1, 0, 0, 0, 0, 0);
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `rendimentotime`
---
 
-CREATE TABLE IF NOT EXISTS `rendimentotime` (
-  `campeonato_id` int(11) NOT NULL default '0',
-  `time_id` int(11) NOT NULL default '0',
-  `vitorias` int(11) default NULL,
-  `derrotas` int(11) default NULL,
-  `empates` int(11) default NULL,
-  `golsPro` int(11) default NULL,
-  `golsContra` int(11) default NULL,
-  `pontos` int(11) default NULL,
-  `saldoGols` int(11) default NULL,
-  `classificacao` int(11) default NULL,
-  PRIMARY KEY  (`campeonato_id`,`time_id`),
-  KEY `time_id` (`time_id`),
-  KEY `campeonato_id` (`campeonato_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `rendimentotime`
---
+
+
 
 INSERT INTO `rendimentotime` (`campeonato_id`, `time_id`, `vitorias`, `derrotas`, `empates`, `golsPro`, `golsContra`, `pontos`, `saldoGols`, `classificacao`) VALUES
 (1, 1, 1, 1, 4, 9, 9, 7, 0, NULL),
@@ -3273,406 +3338,5 @@ INSERT INTO `rendimentotime` (`campeonato_id`, `time_id`, `vitorias`, `derrotas`
 (3, 35, 2, 0, 1, 5, 2, 7, 3, NULL),
 (3, 36, 0, 1, 1, 2, 4, 1, -2, NULL);
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `rodada`
---
 
-CREATE TABLE IF NOT EXISTS `rodada` (
-  `id` int(11) NOT NULL default '0',
-  `status` set('ativa','finalizada') default NULL,
-  `campeonato_id` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`,`campeonato_id`),
-  KEY `campeonato_id` (`campeonato_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `rodada`
---
-
-INSERT INTO `rodada` (`id`, `status`, `campeonato_id`) VALUES
-(1, 'ativa', 1),
-(1, 'ativa', 2),
-(1, 'finalizada', 3),
-(2, 'ativa', 1),
-(2, 'ativa', 2),
-(2, 'finalizada', 3),
-(3, 'ativa', 1),
-(3, 'ativa', 2),
-(3, 'finalizada', 3),
-(4, 'ativa', 1),
-(4, 'ativa', 2),
-(4, 'finalizada', 3),
-(5, 'ativa', 1),
-(5, 'ativa', 2),
-(6, 'ativa', 1),
-(6, 'ativa', 2),
-(7, 'ativa', 1),
-(7, 'ativa', 2),
-(8, 'ativa', 1),
-(8, 'ativa', 2),
-(9, 'ativa', 1),
-(9, 'ativa', 2),
-(10, 'ativa', 1),
-(10, 'ativa', 2),
-(11, 'ativa', 1),
-(11, 'ativa', 2),
-(12, 'finalizada', 1),
-(12, 'ativa', 2),
-(13, 'finalizada', 1),
-(13, 'ativa', 2),
-(14, 'ativa', 1),
-(14, 'ativa', 2),
-(15, 'ativa', 1),
-(15, 'finalizada', 2),
-(16, 'ativa', 1),
-(16, 'finalizada', 2),
-(17, 'ativa', 1),
-(17, 'finalizada', 2),
-(18, 'ativa', 1),
-(18, 'ativa', 2),
-(19, 'ativa', 1),
-(19, 'ativa', 2),
-(20, 'ativa', 1),
-(20, 'ativa', 2),
-(21, 'ativa', 1),
-(21, 'ativa', 2),
-(22, 'ativa', 1),
-(22, 'ativa', 2),
-(23, 'ativa', 1),
-(23, 'ativa', 2),
-(24, 'ativa', 1),
-(24, 'ativa', 2),
-(25, 'ativa', 1),
-(25, 'ativa', 2),
-(26, 'ativa', 1),
-(26, 'ativa', 2),
-(27, 'ativa', 1),
-(27, 'ativa', 2),
-(28, 'ativa', 1),
-(28, 'ativa', 2),
-(29, 'ativa', 1),
-(29, 'ativa', 2),
-(30, 'ativa', 1),
-(30, 'ativa', 2),
-(31, 'ativa', 1),
-(31, 'ativa', 2),
-(32, 'ativa', 1),
-(32, 'ativa', 2),
-(33, 'ativa', 1),
-(33, 'ativa', 2),
-(34, 'ativa', 1),
-(34, 'ativa', 2),
-(35, 'ativa', 1),
-(35, 'ativa', 2),
-(36, 'ativa', 1),
-(36, 'ativa', 2),
-(37, 'ativa', 1),
-(37, 'ativa', 2),
-(38, 'ativa', 1),
-(38, 'ativa', 2);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `time`
---
-
-CREATE TABLE IF NOT EXISTS `time` (
-  `id` int(11) NOT NULL auto_increment,
-  `nomeTime` varchar(255) default NULL,
-  `escudo` text,
-  `pais_id` int(11) NOT NULL default '76',
-  PRIMARY KEY  (`id`),
-  KEY `pais_id` (`pais_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
-
---
--- Extraindo dados da tabela `time`
---
-
-INSERT INTO `time` (`id`, `nomeTime`, `escudo`, `pais_id`) VALUES
-(1, 'Atl√©tico-go', 'imagens/escudos/atletico-go47x47.png', 76),
-(2, 'Atl√©tico-mg', 'imagens/escudos/atletico-mg47x47.png', 76),
-(3, 'Bahia', 'imagens/escudos/bahia47x47.png', 76),
-(4, 'Botafogo', 'imagens/escudos/botafogo47x47.png', 76),
-(5, 'Corinthians', 'imagens/escudos/corinthians47x47.png', 76),
-(6, 'Coritiba', 'imagens/escudos/coritiba47x47.png', 76),
-(7, 'Cruzeiro', 'imagens/escudos/cruzeiro47x47.png', 76),
-(8, 'Figueirense', 'imagens/escudos/figueirense47x47.png', 76),
-(9, 'Flamengo', 'imagens/escudos/flamengo47x47.png', 76),
-(10, 'Fluminense', 'imagens/escudos/fluminense47x47.png', 76),
-(11, 'Gr√™mio', 'imagens/escudos/gremio47x47.png', 76),
-(12, 'Internacional', 'imagens/escudos/internacional47x47.png', 76),
-(13, 'N√°utico', 'imagens/escudos/nautico47x47.png', 76),
-(14, 'Palmeiras', 'imagens/escudos/palmeiras47x47.png', 76),
-(15, 'Ponte Preta', 'imagens/escudos/ponte-preta47x47.png', 76),
-(16, 'Portuguesa-sp', 'imagens/escudos/portuguesa-sp47x47.png', 76),
-(17, 'Santos', 'imagens/escudos/santos47x47.png', 76),
-(18, 'S√£o Paulo', 'imagens/escudos/sao-paulo47x47.png', 76),
-(19, 'Sport', 'imagens/escudos/sport47x47.png', 76),
-(20, 'Vasco', 'imagens/escudos/vasco47x47.png', 76),
-(21, 'Egito', 'imagens/bandeiras/bandeira-egito48x48.png', 818),
-(22, 'Nova Zel√¢ndia', 'imagens/bandeiras/bandeira-nova-zelandia48x48.png', 554),
-(23, 'M√©xico', 'imagens/bandeiras/bandeira-mexico48x48.png', 484),
-(24, 'Gab√£o', 'imagens/bandeiras/bandeira-gabao48x48.png', 266),
-(25, 'Brasil', 'imagens/bandeiras/bandeira-brasil48x48.png', 76),
-(26, 'Bielo-r√∫ssia', 'imagens/bandeiras/bandeira-bielo-russia48x48.png', 112),
-(27, 'Senegal', 'imagens/bandeiras/bandeira-senegal48x48.png', 686),
-(28, 'Uruguai', 'imagens/bandeiras/bandeira-uruguai48x48.png', 858),
-(29, 'Jap√£o', 'imagens/bandeiras/bandeira-japao48x48.png', 392),
-(30, 'Marrocos', 'imagens/bandeiras/bandeira-marrocos48x48.png', 504),
-(31, 'Coreia do Sul', 'imagens/bandeiras/bandeira-coreia-do-sul48x48.png', 410),
-(32, 'Su√≠√ßa', 'imagens/bandeiras/bandeira-suica48x48.png', 756),
-(33, 'Espanha', 'imagens/bandeiras/bandeira-espanha48x48.png', 724),
-(34, 'Honduras', 'imagens/bandeiras/bandeira-honduras48x48.png', 340),
-(35, 'Reino Unido', 'imagens/bandeiras/bandeira-reino-unido48x48.png', 826),
-(36, 'Emiratos √Årabes Unidos', 'imagens/bandeiras/bandeira-emiratos-arabes-unidos48x48.png', 784),
-(37, 'Abc', 'imagens/escudos/abc47x47.png', 76),
-(38, 'Am√©rica-mg', 'imagens/escudos/america-mg47x47.png', 76),
-(39, 'Am√©rica-rn', 'imagens/escudos/america-rn47x47.png', 76),
-(40, 'Asa', 'imagens/escudos/asa47x47.png', 76),
-(41, 'Atl√©tico-pr', 'imagens/escudos/atletico-pr47x47.png', 76),
-(42, 'Ava√≠', 'imagens/escudos/avai47x47.png', 76),
-(43, 'Barueri', 'imagens/escudos/barueri47x47.png', 76),
-(44, 'Boa Esporte', 'imagens/escudos/boa-esporte47x47.png', 76),
-(45, 'Bragantino', 'imagens/escudos/bragantino47x47.png', 76),
-(46, 'Cear√°', 'imagens/escudos/ceara47x47.png', 76),
-(47, 'Crb', 'imagens/escudos/crb47x47.png', 76),
-(48, 'Crici√∫ma', 'imagens/escudos/criciuma47x47.png', 76),
-(49, 'Goi√°s', 'imagens/escudos/goias47x47.png', 76),
-(50, 'Guarani', 'imagens/escudos/guarani47x47.png', 76),
-(51, 'Guaratinguet√°', 'imagens/escudos/guaratingueta47x47.png', 76),
-(52, 'Ipatinga', 'imagens/escudos/ipatinga47x47.png', 76),
-(53, 'Joinville', 'imagens/escudos/joinville47x47.png', 76),
-(54, 'Paran√°', 'imagens/escudos/parana47x47.png', 76),
-(55, 'S√£o Caetano', 'imagens/escudos/sao-caetano47x47.png', 76),
-(56, 'Vit√≥ria', 'imagens/escudos/vitoria47x47.png', 76);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `usuario`
---
-
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `id` bigint(20) NOT NULL default '0',
-  `tokenUsuario` varchar(255) default NULL,
-  `primeiroNomeUsuario` varchar(255) default NULL,
-  `segundoNomeUsuario` varchar(255) default NULL,
-  `emailUsuario` varchar(255) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `usuario`
---
-
-INSERT INTO `usuario` (`id`, `tokenUsuario`, `primeiroNomeUsuario`, `segundoNomeUsuario`, `emailUsuario`) VALUES
-(533424116, 'AAADUkCMlzxoBAAGoHw2ZAbxZBT6b7nqlSdMZAg9Id3S9LG0wUINUB7TZCfa2lgH3eWhlRGoB1ytOu4QEshuQ8jxqZB1Ct8WDmvPq46RIVkwZDZD', 'Jonhnny', 'Weslley', 'jonhnnyweslley@gmail.com'),
-(836971939, 'AAADUkCMlzxoBAFgEjpMZAA7PSKtVZB5SbOKbq7DT363ZBAzjSA6nSiZCTQBZAA1Az2EWZBZAI0jLY9cM0WVB8sSAa2stv18m5s4ZB6BmjFrVQgZDZD&expires=5183998', 'Itallo', 'Victor', 'itallovic@gmail.com'),
-(1058463556, 'AAADUkCMlzxoBALIrK6TZB2iynHidStTnlyPKiDzhC3cpUE7SrFfMLXCWCZAMKQakT7xSfbiboFOdWFtcczTKkZC1BPv70V2r6ipTkLutNB4HfM74cZBW', 'Deyvid', 'Yury', 'deyvidyury@yahoo.com.br'),
-(1061637097, 'AAADUkCMlzxoBAJdBsFB3ZBSmf34mG2Hh4Yq2u4t17gXclyIZB3btmui7XcYZCXcqdSgIfMzuH0IfOKjDS8jJcT3SpTq9VmhRyWCoTZBPy1DFlx8CVvz9', 'Sebasti√£o', 'Rodrigues', 'tiaoricardo@gmail.com'),
-(1130122019, 'AAADUkCMlzxoBANdBEb8p2ZBAaBzLSI0FytnDfoUFfZBR55Qan2oTrCeFSsjVuzRtWZA5nZAYFLJZAANj6jfVjObumpI3Yu2B4WCwUdNJSywZDZD&expires=5169622', 'Bruno', 'Mendes', 'bsednem@hotmail.com'),
-(1145531078, 'AAADUkCMlzxoBANUMlKgRKRarMMHWWpBtVONiV0ZAuxsQSZCuXb14jrYttmwbeipYgpm24X0rrnAZAa3M8wsyNDDTsprpq6tPdMAWxMC8wZDZD&expires=5183998', 'Felipe', 'Rocha', 'bandeirafelipe_3@hotmail.com'),
-(1274882878, 'AAADUkCMlzxoBAB5fPkD9XZAZAi9horBAmty76FLKaqDvW5UBWMlzViW2itFtN1i2qfvGZAZCGhg1xpmNUGufsIuy48FIeV8XMu2HlQcAiwZDZD&expires=5183998', 'Paulo', 'Henrique', 'phenriquemoura@gmail.com'),
-(1374603026, 'AAADUkCMlzxoBAH59xRPx5Vix7onDtxDZCuLWdcAFzDdZBZBYxnBWkgwkKwQbApR4kOMUzsDdeg7SAOSjM5BI6FVvLhaoRZCYXxluGZCB71mG4ytbfecFm', 'Themistocles', 'Waquim', 'themistocleswaquim@hotmail.com'),
-(1391412645, 'AAADUkCMlzxoBANGBZBSfHzGYnP2Gna7g2hSYAWt6ZCqr87ZA90MWZAyvtoH3rWEbPip8UXMZB2W8HQlb6bLCqTCGHxS8t37QboH4OhAy7PQQnT8jZC06Cp', 'Denise', 'Stephany', 'deni12346@hotmail.com'),
-(1471646998, 'AAADUkCMlzxoBAMqspFkHqsS48i9ZC6PEH1nSfOxrtpkDZCLxdZBb3JZAecB6UulVFKu10lULYkg0PWlVBA9wu3Nd4eGSzjPTo0lBZBTfmpgZDZD&expires=5183998', 'Nadyson', 'Felipe', 'nadyson-felipe@hotmail.com'),
-(1512773485, 'AAADUkCMlzxoBAHpB4WibiN7ZBnCWcWKg8qjoVEYgV3jjflpf0U9WlTrEazy8MN3XY7qptZB1ip6VhOXvGaYWGyZAlBKc1SwORbJyOpgdAZDZD&expires=5183998', 'M√°ximo', 'Henrique', 'malchik_cerberus@hotmail.com'),
-(1614334792, 'AAADUkCMlzxoBAL69tdzWXpJApIYZBQAeFV2m61X5KfuP101ZCoasQgZBwPdrWwWDstZAfaNQBBq77I9K9bRkuyf5wRbCYikC3JqGtArHuVZAsqSH7fsic', 'Italo', 'Veloso', 'italoplus@gmail.com'),
-(1686162406, 'AAADUkCMlzxoBAM8LhcU3BlkpUb8gR0H7C9z54A6icRLfdc1THX2lr3ZAh8OpHaWb1qn2OXZAPq0r7pjEcJeX5DU1azsmJRZAGTNgMHj1AZDZD&expires=5109940', 'Alan', 'Andrade', 'alanparkcaus@hotmail.com'),
-(1757276749, 'AAADUkCMlzxoBAM4ZCPXvno8ZBGZAigElpYMNBFMs6D2TRWQo9Tw1fyraOK49ZABFeWngZBeVtmQaidvwAZC1k1qqEFV6KQvIhHydXjVfISRc8MZBra6nCaN', 'Eliana', 'Pessoa', 'elipesn@hotmail.com'),
-(1775683722, 'AAADUkCMlzxoBAIuHEx1uW7SERxTK80X4v4SGe2eeFNZAdw2U1ZB4rnZBI8dZAjVqFliCTEvFKK9a6lnp5P2FexlijDkiS9l2LGU5SERYYwZDZD&expires=5183998', 'Wesley', 'Martins', 'wesley_marque@hotmail.com'),
-(1816162455, 'AAADUkCMlzxoBAGanOJ1BWYDoWNvkRvRIB5ZB6Rg157V485Sx2yJjA6SjKC7gDNZAitgaRvqQkaBOVxzZCcVZBeIxzx8XajmBQusOqRTD9QL3RjJOL6ZB9', 'Larissa', 'Pessoa', 'larissapessoal@gmail.com'),
-(1824737972, 'AAADUkCMlzxoBABTfdeAwGeADaZBdOU1Rulus53cZAPKbVOWTUapyuarJ5MhiQ1aPP6h9jCLJ29V0kOWxKrja32fV6LhEnpy05dClZBqTE1GatjNdCyG', 'Luana', 'Santana', 'luanasantana@live.com'),
-(89015000002679, 'AAADUkCMlzxoBAEtC8ehzFoHTvGRUwL6bWEAnguGDWmknlaVNhzPefODZC4y0bvI4TIZBER9RkCtR3HFpnQkuXbcpu1QNgtgbcioJhlgwZDZD&expires=5183999', 'Sandra', 'Fallersen', 'wbxutrmcig_1344009670@tfbnw.net'),
-(100000037362683, 'AAADUkCMlzxoBAFebLEW60kQtDFFWwKLF5XnfhhNZCJ80qbXAlLfm7OszyQUyAB1CjpKrcNXDrtdVcIm5njNSM3ZAUlcNuqqGwBGI9fJAZDZD&expires=5183998', 'Jos√© Arlan', 'Marinho Morais', 'ze_harlan@hotmail.com'),
-(100000039271259, 'AAADUkCMlzxoBAMAkwX1WeNMkv1FWv4LJltw5EB4kJzLkZAKAuVBBPvZBFUnxOfZBfsKGtNWg6VRZA6pVlsG09fhZBflCTRc4ALHGZAqe0XoAZDZD&expires=5183998', 'Camila', 'Guimar√£es', 'camila@osmosqueteiros.com.br'),
-(100000050242782, 'AAADUkCMlzxoBAMkesdjdJtL2697VZBh2GgcpZCjPm5Fwkhfu7JcnUyrfXgXTpMamJP88WZBiHug72fSeve3pL0K2YDPycirMFM7OSywigZDZD&expires=5183999', 'Tania', 'Mendes', 'tmfb_ump@hotmail.com'),
-(100000093729132, 'AAADUkCMlzxoBAOlycErlsZC5PZAjycAa200GX0ox18RfcrtMrZC9utwhajW8fI6PcnJ9p3QtAJwhja7GSJjZCqIZCLG6eKasqtBrCvldamKtXwmjltMfH', 'Eduardo', 'Frota', 'edu-frota@hotmail.com'),
-(100000122625619, 'AAADUkCMlzxoBAGv8hNX7MRrDOJSnUcPyZANZAIf3VH2DZAjOBUdlAAI18YA9qjUYZBG5NuWW4MwTdm7siEZAWwqiZBkHFz7CedPNX0WO4HogZDZD&expires=5183999', 'Thonny', 'Cleuton', 'thonnycleuton@hotmail.com'),
-(100000122921991, 'AAADUkCMlzxoBACEszpdExEtHTu13hkZAKnFkc2rJWD0ZCV0ZBeT0N3P3OEWTo7jwqxf2yaUtI9YfWzs1sztbZCKRsv84Bn2ilZC6ZChQGIBnxCRZBjmbmVc', 'Bruno', 'Serra', 'bruno.serra.halac@gmail.com'),
-(100000156321743, 'AAADUkCMlzxoBANGSxwFxJypmpiAPrH9h1FZAYxbgQ3b7XQZCqxTSVKWkejar3K6PRV65bznUEjrnJc3zZCIC6hewW2uvbCMgDhh4fgrLAZDZD&expires=5103624', 'Augusto', 'Melo', 'augusto_henrique@hotmail.com'),
-(100000203239974, 'AAADUkCMlzxoBAPSUMiMh0R2e5NlncCh8MNEhoVSvFemmet4ZBdioVIO8MGGy1WMiAsp5oF3V81yg72Wzx4PxdFaNIadsi4Cz4vLDtmJa9seE1flXe', 'Danielle', 'Monteiro', 'danisamon@gmail.com'),
-(100000311206037, 'AAADUkCMlzxoBAEUopraZBCYgrKKJ1uuyb8hWzfeWIvNq2wTyLFPzhPZCLuarxS5EYnliecvvzqxKngiBjrGkkIC71lOoQKYfcP7fCJbV1UvaZAeHz7ZB', 'Dogival', 'Morais', 'dogival_600@hotmail.com'),
-(100000321727785, 'AAADUkCMlzxoBAIPWq5EjTmYs4Y9ZAILGwElxCnd79QmZB8EcbjqHZArOrgeljSJn4n3DhJXZBbc8s0lArrLYOZAXZBlw9LPCZBODBA2KC6nTmuZA5iJ2061N', 'Francisco', 'Rocha', 'fmarcosrocha@gmail.com'),
-(100000400064551, 'AAADUkCMlzxoBAK8YG4sQ3f5K7q2yyjwRROEU3coj4KKGLxVjBr1svtQ7adFarSHiOA7ct5mcHYxRmuxhqzZAHZAfyZAOcvYFcLVlF49JgZDZD&expires=5183997', 'Jose Hamilton', 'Leal Jr.', 'satoescariote@hotmail.com'),
-(100000448355914, 'AAADUkCMlzxoBAEHfzWZCN5n6FKk6qhyM8iFzKFdaVhVHcqVicjK7vcqT5UZCPmkoyBfZAA0bwF4J4Wr0lmc6WRFEFQYHZC5Hk6P1839egAZDZD&expires=5183999', 'Matheus', 'Pazette', 'matheuspazettejpa@hotmail.com'),
-(100000631447400, 'AAADUkCMlzxoBAMdCwHiUTjCxJFsDsIDxcBMLdvPKC1eVnAA4iNWgxBxbhvXmesKCnFfFeMHghdtgnuoXlVElEQsoSkMlwOD9zZCW6RwZDZD&expires=5183998', 'Ely', 'Miranda', 'elyvation@gmail.com'),
-(100000665046502, 'AAADUkCMlzxoBAN3EtucscEP6RFoeFameHKdepJ2MaFJIfZBUSkmeuJR4sU9ZAWJZCcdZBa2K3ZCJO4uQnMgYv88b9nVU0xiHCKJJiavorlQZDZD&expires=5183998', 'Marcos', 'Paulo', 'mp3_jt3@hotmail.com'),
-(100000695999057, 'AAADUkCMlzxoBAKcScftRCYd4qcDN5mGTp0C3O6v8fd1bT42a3m2EYjXkJoJDZAW0FmRP0DwmFNwkoo6d4iIWjoRyV5Vz6VMJG0K9BYgZDZD&expires=5183998', 'Allana', 'Batista', 'allanacunha07@hotmail.com'),
-(100000698131637, 'AAADUkCMlzxoBAOWF371ycJmNWKeEJyExsAJwcZB0JiryREsfBmbZAcZBOnufhuVCjCWx82k2SB2AX6HTiHGPDiwHq1kbyK30SuUCXBheAZDZD&expires=5183998', 'Thiago', 'Chaves', 'thiagodesck@hotmail.com'),
-(100000765192683, 'AAADUkCMlzxoBAIeiHzHZBSmLfpmltV9BZBemZBc8P0GZAE8WoLwBhkPxZAKsfi6iqYLZC4CJT5M08bKcCx8fheOfIv9dq95eCHW7prsMJKDwZDZD&expires=5183998', 'Pedro', 'Santana', 'pedro_camisa1dosinesio@hotmail.com'),
-(100000851489041, 'AAADUkCMlzxoBAHl9gka5bRMBofduH2za85dmtrDUd2KHnZAbbZBAtvuRfZA6tn6Gq0szquPnf7GXCb9ciNONSciBzWjzbGBH61B0x0NCgZDZD&expires=5183994', 'Ulisses', 'Santana', 'ulissespk@hotmail.com'),
-(100000877692701, 'AAADUkCMlzxoBAE289VgEftEZAB6hrcSZB0TnilFpeHKVZBpGxsTtJriZArhw0p1KQergxv2TnZCHZCfZBepD0LZAk2pfIZCOj1ibBmVDrfZBQXfgZDZD&expires=5130794', 'Judson', 'De Araujo Barbosa', 'judsonbauer@hotmail.com'),
-(100000885523518, 'AAADUkCMlzxoBANO7UlSWoVupynd5zNXBSEtzsYcQSUcRVPTJmgjuDQXueiDyniwZBJ7PyFWEq0tAUf2QcXXiAXZBkTG9vCGUjPoluTsgZDZD&expires=5183999', 'Daniel', 'Alvarenga Lima', 'alvarenga_daniel@hotmail.com'),
-(100000893179119, 'AAADUkCMlzxoBAOgbmoZCpOT12SpsU3qpmg8dkwcC09E2QFuyMpzfdBpal8difCsZAGGoyA7dlMjeIZCkrjKkpxfaZCOVYuS9DuAIOrniJQZDZD&expires=5183998', 'Pablo Cunha', 'Almeida', 'p31918@hotmail.com'),
-(100000963789848, 'AAADUkCMlzxoBALgoVZCMLxjZCfuRNQzCBIG4m4mZBy6KZBECY5fiLK9ABojt7UFyUMxIcy2XekPZBXFo0miMGlEli61vTUJW0NuKy8P1kXwZDZD&expires=5183998', 'Deo', 'Junior', 'deonjr@gmail.com'),
-(100000967155326, 'AAADUkCMlzxoBAIoZA18mYtTCbXYM5C7reC2tUCZBqHMy6LxDq3ZBADWBzpblAtolZAAEBDZAM3P0vwxOkEAeOD5EtWts884DtKeBUrqxSsJp95xG1WJuC', 'Silvestre', 'Filho', 'sfilho23@hotmail.com'),
-(100000973543518, 'AAADUkCMlzxoBACC0INwkNbVeV4pZAda79zcV1snQDK36Kb9Ikt95kVbMxF8ky4Y0fTgNek6VoUPZCNFnZASEHiUoLsUARflAJ4oD03pjQZDZD&expires=5183998', 'Hermeson', 'Soares', 'tri_maluco@hotmail.com'),
-(100000989429009, 'AAADUkCMlzxoBAKZBOS4N2DREVVGxQZAN7kC8v2jljRqzzkNRQjl3IDVoc7BNlXf3RBq6DMMbox3xCRjGHHUZArAziUWW0o6ZCcVpWfM68QZDZD&expires=5183998', 'Italo', 'Alvarenga', 'italo-alvarenga@hotmail.com'),
-(100001000359183, 'AAADUkCMlzxoBAGxQJmkAYNQxIBNZBvbfyhx27QsvhpiADAF7aTrvV3lYNqr5Smt59j3uJ8He7UuIGFGwfJnhpUDst9xmmpx1tl006kIzBw7GFtKSJ', 'Jo√£o Paulo', 'Barros', 'joaopaulodesousa@gmail.com'),
-(100001134523722, 'AAADUkCMlzxoBAJZAOG0LBdZBOrkk0ZAtZAwmb47oXbHMitBRQ8Ee2niia5JZBEctVrtWZB2cuGEJCEY3VnRJpCDtqA5C1QFGBZAhD4e5zQ6AAZDZD&expires=5183998', 'Rosana', 'Lima', 'rosanalimaferraz@hotmail.com'),
-(100001204752179, 'AAADUkCMlzxoBAPoUKENXnpOpJ3YG1EAJM5Tiwu60P7TAKqheRGNbnu4X3ZB1llgy864Xl7P2gRzZABgTu64FFeZBeVBA4lhPCSrpKBfTwZDZD&expires=5138521', 'Devisson', 'Almeida', 'devisson1920@hotmail.com'),
-(100001221347835, 'AAADUkCMlzxoBAMi39KppfHdaHdVquaGaroRVnCurmZAM1gPBtUyiv8MEkXxoTBqcHNQYr8tne9nuJZAQTTKGTQY4nXrzXfcqO9j5RuWgZDZD&expires=5183997', 'Jose', 'Felipe', 'j.felipeoliveira@hotmail.com'),
-(100001241134861, 'AAADUkCMlzxoBAF80uhdZA5TGCDtfloZASSxnUhYAYFAFk5XfrzZBZASEn96hyAmGPOGuKrZCqGx8FRrbMjfPAwxKbxA0tB2l12174CWdnrQZDZD&expires=5105016', 'Anderson', 'Lopes', 'anderson.lopees@hotmail.com'),
-(100001248078738, 'AAADUkCMlzxoBAAZBd3Br5NLnfvwk4XyRvjaMFjHWs7SO2SiRcK01Tz5KfLnVyDOZCTtgONJOlVuAw7b1PuBX3m5SbVRprwhZABkFsHFhwZDZD&expires=5140925', 'Pablo', 'Henrique', 'ph-santo2@hotmail.com'),
-(100001280191253, 'AAADUkCMlzxoBAHSyziEWwJqAJ4rGXph5ZAsNtZBMdeGHMh7CAYOeQUZAZAsXPojTGKUwYtAy4CFZCg6dOtiJrbXMNFBlCu2izAIwhIZC9DRQZDZD&expires=5183999', 'Manoel', 'Barbosa', 'barbosarepresentante@hotmail.com'),
-(100001296264371, 'AAADUkCMlzxoBAMrYuMUZAAkUMBiluZBRLtiCLKmek8niE7ICUxP7MBFN6455rsW71wGVXkuWJbauxKrI7aM58Bla8XFXD6y3bkhxEjogZDZD&expires=5183998', 'J√©ssica', 'Mendes', 'jesklaisa@gmail.com'),
-(100001458131223, 'AAADUkCMlzxoBAGs5yBNIWluds5irdKRQg4BFjLDoZCcNCuy1W1NCfILApZBz4dgq1BSwK8hZBzhrKQkoVll1HCZAgYx2GTH954PZBw0gMtgZDZD&expires=5183998', 'Kelson', 'Silva', 'kelson_f@hotmail.com'),
-(100001543841823, 'AAADUkCMlzxoBADoPZC7ZAM41ZCIJR0k5HGdRjhTm8YJeOXn2ZBkccp4QPE6YQzTm4LelLZCQBOSDV4oWRVubqwbc1GAtaisc2X5fj6HCnkeZAtcXkwRXhK', 'Luana', 'Brand√£o', 'luanabr@gmail.com'),
-(100001599862159, 'AAADUkCMlzxoBAMqOlaIdBcuDbLjuMWNwA0UeKhyRhjvB7iiDZB3hOfzWlFAKoCL2orn2ZARM2dah9dRKEI0Nrk04oXVuywOZB7EOX2csAZDZD&expires=5183998', 'Erick', 'Passos', 'erickpassos@gmail.com'),
-(100001602968614, 'AAADUkCMlzxoBAOmzT9B2jbgEEXxUt0OgtieC5JSsRMhNR7SiLwAJnjVCnEDPzzquOzrcfKzXVUdZCfhvvZBGFLsmL7vi3j97eqMSZCM8QZDZD&expires=5183999', 'Plenna', 'Solu√ß√µes', 'plennasolucoes@live.com'),
-(100001635562343, 'AAADUkCMlzxoBAHFKKSZCYD3mlZBc2dKrHfwkEPdF9iBZASZBj8sFb41HQs31pLkhi5Li98fZA9elqRZAkGDWETfCSuCXXNXUaZBQPZBoDc75uAZDZD&expires=5183997', 'Raphael', 'Tataia', 'luizph_sm@hotmail.com'),
-(100001644476049, 'AAADUkCMlzxoBAEDjY7nTu3DM3I9cidgowm9uZC4dG4EUE3dWIWzw1cqJzFxW8wSGWmoP0BkysUhr51hG95xoCBB7xfZA6IrYROa8JaXAZDZD&expires=5183998', 'Livia', 'Pessoa Lima', 'liviapessoa6@hotmail.com'),
-(100001768068026, 'AAADUkCMlzxoBAEOjbqLPbKxas6Wn53nan0YxZC5jZB3ayi3EqF9g5KKplUiM4WsZAkOVupO81UufeomqJZAEoZBVoWFuIU4XaKsZBf7icKqgZDZD&expires=5183999', 'Kevin Andres', 'Cascante Uma√±a', 'kevincascante1@hotmail.com'),
-(100001822348142, 'AAADUkCMlzxoBANZAG6i3lBdf5obOwBPEZB83bgbWo4sH5S661minK3r8ZBCChH60PYiZBk6ot5hkgnvgv9bfivQt15fpixhYvlCY57VHkQZDZD&expires=5101316', 'Marcos', 'Alexandre', 'marcosalexandre03@hotmail.com'),
-(100001946749940, 'AAADUkCMlzxoBANpQG3LKZCQlqZBATNgFpJS1mrVni958kOgoGWAeNeI8ZC6icmflpQ6b17xGZBPHqeBDxz3OjZA8PnZAXZC8SgTyj4eyGyNV0lgxsz2c8F0', 'Gl√°uber', 'Abreu', 'glauberiury@hotmail.com'),
-(100001966645651, 'AAADUkCMlzxoBAESWn5pP03prdlbWKkKf3A2SzdZAq9XZA9vijQxjbQxUcCIuZAZC0AUzdnimPXivXCBU2uGBZC8hPSx8jikjkUIV9ahSpcwZDZD&expires=5183998', 'Hivina E', 'Lenon', 'lenon_lemos@hotmail.com'),
-(100001984735537, 'AAADUkCMlzxoBAGZB10WIWyGgqKuvNDZB2e71P6aIlj943BxaDmBk3CgXvcBB5hMVtKQUZBxQkvhZBMZBLX1c4XSyvkZAEUXn4ZBPUNcYgwiZBQZDZD&expires=5183998', 'Marcelo', 'Bandeira da Silva', 'marcelob100@hotmail.com'),
-(100002018572350, 'AAADUkCMlzxoBAO2COR3gtipCHK1hsj9rcJlpjNMHJMI0bSF2ZBNxqqdujrNhXwiMEWj0AFhPOD6GH0XaZBe22ym9KZAUG2CaUpqiQnYuAZDZD&expires=5183997', 'Mauro', 'C√©sar', 'maurocesarfilho@hotmail.com'),
-(100002046119323, 'AAADUkCMlzxoBAH8UbAPzzySIzFbYxYu6etQlHvD2Gk2FxO4QXusvNQSTpA25bbo1Jxhfo7YgLX3CRgpcZBeh2VK4R3l5AObRrHBcZA1nqgQXbSzkPl', 'A√©cio', 'Santos', 'aecio.solando@gmail.com'),
-(100002166343141, 'AAADUkCMlzxoBAPbTicfneHp8ECDQQ4xO8hJgrXYlIuuqIZAKM4qFQZB4g0EZBmOJGyOtuQvwxiy2qEIahJARZC4oZB9zwkczAcyAh4ZAQhn3aIxdoFntUV', 'Atanio', 'Emerson', 'atanioemerson@gmail.com'),
-(100002174001777, 'AAADUkCMlzxoBACCfcwEZBHu2ADjKFBKYZA4wxiVeeP4KZBaqISPrqZCH8SzHFZAKZBr9Gygv8rTNzcmwsW8WyZCpPGHU2uSzskrtn5F6RcZB1AZDZD&expires=5183998', 'Paulo', 'Vin√É¬≠cius', 'p-aulovinicius1@hotmail.com'),
-(100002230741006, 'AAADUkCMlzxoBAD0prFhw9BSwAH8ZA829RdaO8hwAm3tRNYxk3gvj7CcuukrDX9HWH3nYYZBZCp7xZCpZBsKUfIdNailc900GAvLpHoSmBGwZDZD&expires=5183998', 'Douglas', 'Santos', 'dodo.canalha@hotmail.com'),
-(100002241529666, 'AAADUkCMlzxoBANhYHcoplsCAAR4l2rkR7aDXL9i3wUdxZAuWYv8nIloZCmSZBgVQcIs3X6g9ppK1AwoIN9RtzZB7VvkZCXdknQT7EM05JRla2reOUyQNZB', 'Filipe', 'Raiz', 'filiperaiz@gmail.com'),
-(100002296771053, 'AAADUkCMlzxoBAO23EpGcrJLkZC42756445WequXSwTZBFzshAarjpO6NcEZA4JXnEfn8YmNrimCtRNwzaXogaUk1e4WrWNmXerjJcaYzwZDZD&expires=5183998', 'Roney', 'Lira', 'roneylira@hotmail.com'),
-(100002305103714, 'AAADUkCMlzxoBAA5cGRHjyE6jqM7T9MiyiX7di7vHl01yx2hCLVoIhByIZBMOlcmwbU1YGGTW912ydlPqpjRKh7dRDac8ZB7r6KCt0WU0xASjxPmlWM', 'Carlos Eduardo', 'Silva Araujo', 'carloseduardo.araujo@hotmail.com'),
-(100002322151330, 'AAADUkCMlzxoBAHkGunyNt0VHw9R3mcGZCablPVkRQpUmbVnc09cUAf9Vqn4b6GwJZCYIWKFgHbZABjDiETF1UGz0aewwBeUM9Edabp4mAZDZD&expires=5183999', 'Tales', 'Noronha', 'taleshnoronha@hotmail.com'),
-(100002402880745, 'AAADUkCMlzxoBACZB6YGPZCSlrtKQGVcYfQZBEZBOZA5o2ELJUITM4E2t85zLvioDCZAgcwHvr4c1oBuMKgRLZCnO6IkZAVcGZCZC9GfwTiyDcrxwZDZD&expires=5183998', 'Jardson', 'Gadelha Nobre', 'jardsongadelha@hotmail.com'),
-(100002427769999, 'AAADUkCMlzxoBAEvQFQVuHZBZA1xqqUZC7TZBUZAkQmUIp6MXwr8q9hnpq6obM7NXa4XuRfICSXH5hp1zC10s9ZCiKEqk3KbwbueyTYSuO0jNDq6on20h1S', 'Willames', 'Silva', 'willames_silva_ribeiro@hotmail.com'),
-(100002428967554, 'AAADUkCMlzxoBAIhA9W6Ag0HVjJiqZBFj2QLdBJxfgz9A44ZAwhbJfZADPsSVYWDTFZBodaAveUzvCYbpbCNt5HZCeMBdmfi383uxrmsLJgQZDZD&expires=5183999', 'Jo√£o', 'Pedro', 'joaopedro201141@hotmail.com'),
-(100002450230439, 'AAADUkCMlzxoBADZBaBmZBZCPWLkJoZAwty7zJPTIZAqPBaDufps7a0fWD6Dxy9n6lwUgKjBmWpqMpoGu7L9GLG7yr4mZB0LMKIA1weZCIfbQQZDZD&expires=5183999', 'Higor', 'Santos', 'higor_saopaulino@hotmail.com'),
-(100002526182567, 'AAADUkCMlzxoBAPQnViPTkZA5pxLJYOia4wi01pVdO9Ta5yMaOU2bnqcaOs6I8tWk3e8rxCE1iRh6F3vilZA8AkSUTZBHwbwXDDAE3VfWba8SN179vJm', 'Paulo', 'Machado', 'paulohigachi@hotmail.com'),
-(100002531003680, 'AAADUkCMlzxoBAHJLR2IWTRwHW28ZB8ntkz695JGLogHttGElAbx456MZBYCZC2HsQ2TcrbFFlXLsD9hYvh9KbVihqxSeknlZBASEVVQqBAZDZD&expires=5183999', 'Juan', 'Robaina', 'juan-robaina@hotmail.com'),
-(100002540438249, 'AAADUkCMlzxoBAIZBfhXgLs2JnDNvRRQLc75OIuNmTfzZASKBf965uyGD4H5OpNzc2ltZCZBgcUeCm2jFiHHBdPTWszVNfbGOXvyaTrXqEwZDZD&expires=5183998', 'Davi', 'Alvarenga', 'davialvarenga@hotmail.com'),
-(100002561910346, 'AAADUkCMlzxoBAA5Q3dKdvFYqSMKOZBV6vpLZAZALx5CnxSwZCdjZC0vyMl7ZBzohWBsqQGrcND5ZBq8VL7GurEBQu2gepvhKKbnM11pHsZBIhAZDZD&expires=5183997', 'Yuri', 'Peixoto', 'yurigostozao@hotmail.com'),
-(100002575172443, 'AAADUkCMlzxoBAJnkYtuZAU431TCBrmnWcWxQhkwp0wqI96RCBBFi3s6bXHZCVSlkSGOivX8HljdTcyQ42aUAzse872cpzgDmlNQEwENQZDZD&expires=5183998', 'Venancio', 'Castro', 'ven-ancio@hotmail.com'),
-(100002645401521, 'AAADUkCMlzxoBAFrUKegfk2DuGmZAHjlzEL798wzAWZARGe20RupV5810nWjodhB9tG9bamnhkpL3ij7Rb9kWCUv4x5Jbf7RbJTA1vcIQZDZD&expires=5183998', 'Ramon', 'De Oliveira Silva', 'ramonpalestrino@hotmail.com'),
-(100002647094215, 'AAADUkCMlzxoBAM63V6xNv1Kj3j8ZCuiTz3ccUegNJxW2AYgns4XNRDExiGOMo5rMuVCntNwuPHiZBseN7Rz3sWkDPvcgiiMhlcJkuKDAZDZD&expires=5183998', 'Lauro', 'Amaral', 'lauro-gatinho16@hotmail.com'),
-(100002667370452, 'AAADUkCMlzxoBAFZALc91cxjm7jq7pQkljtXijM279kZAWZA9cDQxEdZAKka1mjdRjOTyVRTz7BW2KjgrGLI2bhqgZCay98X5LQ2CaRCHZA0gZDZD&expires=5183999', 'Guiga', 'Oliveira', 'guilhermeratinho.oliveira@hotmail.com'),
-(100002739440357, 'AAADUkCMlzxoBANMpr81antW2JG8go7tMESIIGiqQtyN4w57ENDXh520CtDZAHCspusmxSL5FIwAeIGlZAGh7nhXWVpHX5iPyZBkK85lKgZDZD&expires=5183999', 'Marcos', 'Vinicios', 'marquinhos_vasco2011@hotmail.com'),
-(100002755402115, 'AAADUkCMlzxoBAJoHKtYCsi3kHAWmzj4BOeiKAlWnFHBVP0A8ffIPDKkdVFGYfxMGdxwAGV0E6GXEBtOj74LOsqq9EKHnHLNScJwdwQZDZD&expires=5183999', 'Saray', 'Villalobos', 'sarayvilla09@hotmail.com'),
-(100002821308942, 'AAADUkCMlzxoBAFFJZBgYJ704sJSgZAxxN4qjaDBUjxtjRXfaw04QzrWLbAziqQRSpXKAg3gSAcfjR1dSJ0pFoEtQZC4XvGc6Dwm11z3BwZDZD&expires=5183993', 'Mateus', 'Vinicius Tomazela', 'matheustomazela@gmail.com'),
-(100002859559876, 'AAADUkCMlzxoBADoDeLk6CxmloakBuMoJgaN28ZBVNKPCp7it5Q427m1FtJ6SLRykchoTNU5M5Lvw1o6z2FC1a9e26aZCqbqyh1MLo5ZCAZDZD&expires=5183998', 'Renato', 'Calle Arredondo', 'renabacan@hotmail.com'),
-(100002911831338, 'AAADUkCMlzxoBAN9dogDxDvM8ypu2mnZCWRHAfCtdJFZBXsmrfna2yXfZA76it3bgqxGvFDgVWMTmfLlZCaHZAOsFQM7SfBySWSYKLgxl3NwZDZD&expires=5183998', 'Elton', 'Junior', 'eltonsjunior@hotmail.com'),
-(100002950669625, 'AAADUkCMlzxoBAN3Do2wwY6zd6sl6myEqGZBrS2gBG25Bd4rHVA0SdM4ZCA7Ww6NtTvw1H1UY3bJhEyxEhiRZBwFAwHye5X2hlCAWWOXlgZDZD&expires=5183999', 'Vitor', 'Morais', 'joaovictor97_vieira@hotmail.com'),
-(100003026521581, 'AAADUkCMlzxoBAF2artYogsNtMEiBSaM8UGc1qlqSMDPuvCi1FmpP0YHMl1ZBfeN5KKcrvSooImEkiQwRQTjeinYUoIswN6kpgHkgzRAZDZD&expires=5183998', 'Mateus', 'Rodrigues', 'romat_pereira@hotmail.com'),
-(100003039426484, 'AAADUkCMlzxoBALjhow02wZCQUfXAK8sjphXvNvjZATeAGtFQImYHocXZCZBFB60ZCR674wqZAT7ZBYytU8ZCI2i3PDCIIB6CXivnfVWWAYuLAQZDZD&expires=5183998', 'Talisson', 'Ferreira', 'su.baza@hotmail.com'),
-(100003137584745, 'AAADUkCMlzxoBAOjZAfOZAcfd9kqYqy04jARZBu8M16y7q8BSzeZCbNKC1xZAPdSyygjH6T7ZB1kJDZBzx8CJ6ay1c7qKZADIKJFgXlkxjGZAlZAwZDZD&expires=5125820', 'Allan', 'Santana', 'allan_os2@hotmail.com'),
-(100003200405633, 'AAADUkCMlzxoBADN7FNQuLrzIXwI6tvgUcOAuEZAYIrgsAp5cAOqsSYinpyf5N9nVPezpcv1X9gyIiM0VMQVuljcbouRtVAXZA8r4gAGgZDZD&expires=5183999', 'Eduardo', 'Moraes', 'eduardo_moraes_@live.com'),
-(100003221698105, 'AAADUkCMlzxoBAEopmjvODr9QQgttTCFeN3FL12G4I313NIMVGi67XAiT0BMlRwssAe0A7wrnQdjOmI1sLzm749nwVXZAxilYdqx7w5AZDZD&expires=5183998', 'Clecio', 'Sousa', 'clecio_css@hotmail.com'),
-(100003243261927, 'AAADUkCMlzxoBAADHaY5pDSRr3woZCHi5dePCVORyCUo3ao2RV1xZAyvIiAT7QdJimHZAk57D5EZCHHCXEQBq0Lay6D24mixAZCiiZAQHL63wZDZD&expires=5183998', 'Lucas Isaac', 'Amaral Moreira', 'lucasisaac_10@hotmail.com'),
-(100003339146992, 'AAADUkCMlzxoBAKZCn7BOzsyocLtw2yl2fIj7fZAyaxxYPwqKZAH3ozIpAWZC4GfCWRoS7939PpelNJKZAZB4dkjhRZAVMh0Hxja5BSCl1aQTgZDZD&expires=5183998', 'Izah', 'Santos', 'soizahan@hotmail.com'),
-(100003377283426, 'AAADUkCMlzxoBAPnXRthNMJJk0Uex9tDJynwaA4hINUoftNABeEkOAkZCETLZCSk1rIJorvi5AJEVRZCskWNZAv5fB4hzWNWSB4ZBXy8kWWAZDZD&expires=5183998', 'Gabriel', 'Martins', 'biel.city@hotmail.com.br'),
-(100003450831660, 'AAADUkCMlzxoBAP0qKMHxliE4dT5uIMgNXQA3LQOxImMEu8jLcKJBtQyYPCMErzUy339ZBhfOXJGJsDySKMYCIb34Bdw3RGAbcVmnYeAZDZD&expires=5183997', 'Caio', 'Vinicius', 'caio.10.vinicius.ilha@hotmail.com'),
-(100003467166654, 'AAADUkCMlzxoBACY6RBqxMpZCdmcdyxPvbVvCi09ayoOkEmMEBRKYwlEvvQfTFHPQgZAbVUXyCrwfqekDepGZBthHCmFj38OLhn86PpEmgZDZD&expires=5183998', 'Leonardo', 'Silveira', 'leonardoaugustussilveirakuhnen@hotmail.com'),
-(100003476093190, 'AAADUkCMlzxoBALCcSFiiYl8svM4xOE7sSWJOmKhNXBoIzB9tZBgKNs4T2vZBNiuLPZA4ODtswRE4sQqZC8974Yr4O4Mxs2415qHZCGSBCtAZDZD&expires=5183999', 'Thiago', 'Santos', 'thiagruts@hotmail.com'),
-(100003489131091, 'AAADUkCMlzxoBAE3M4ZCZCYQovhBLK4aJ6QuvWzP21H8zrnHS115ljdbGw8TjKnVUyA1y3vxoMvjpS4MLfshZAaJzjikZBtnk4SywhfqNigZDZD&expires=5107960', 'Daniel', 'Santos', 'daniel.jago@hotmail.com'),
-(100003493015109, 'AAADUkCMlzxoBAFFi48ZBkVZCvMC7kUTFMLz8QSxkejQ75IuTI2CJ00sx5yxrvIeTHGvtiM1W6fLiV7s2PsDzSVwhZARZCRBiiCqRZARcrFAZDZD&expires=5183998', 'Jardel', 'Barbosa', 'jardellbarbosa@hotmail.com'),
-(100003527600324, 'AAADUkCMlzxoBAFsXq8bwujjF6P51Mj6sdgYyMZBlinoGQz1QS8FAa482f7hSk0ceNRJ5btSBWtZBuwg6EVZCZBWVkyN7lIlyjsyo7ZCjBIAZDZD&expires=5183997', 'R√¥mulo', 'Noronha', 'r-noronha@hotmail.com'),
-(100003537970612, 'AAADUkCMlzxoBAN3MAGxN8g0UZAEBJqRFL0RR12Tk0cXHG7P2UCDQSE8fPZBFGr6Kwz5NgsfqqLlBw8d3uQGSeKCyoZCSlUS7nyOYZC8XqAZDZD&expires=5183998', 'Richard Marks', 'Silva', 'richardmarksjp@hotmail.com'),
-(100003558519211, 'AAADUkCMlzxoBANTaJ301VuYMfuFEoZBeRYd3Rn8e0egf017cwPtCQxehL8XCuMci66946nmLldQZC8DZCgu7UozLqnDF3X0ZCqRVTJRsDQZDZD&expires=5183998', 'Atos', 'Borges', 'atosapolo@hotmail.com'),
-(100003560743021, 'AAADUkCMlzxoBAPV4vbkaHwoFFwzJOZC8I6Q0nMDbkv0RwjBcEbDKUTFEtuGgLqJZAAL1pandmCSY1CSVpHSmaANu95AouhQRlB9dLv0gZDZD&expires=5183998', 'Luiz', 'Felipe', 'fel.pe.buiu@gmail.com'),
-(100003563078838, 'AAADUkCMlzxoBAC9zJ3kbLaSi2ZB4pF7SP1wYrdyKcAEwIfUpSV6V4Vc2ZBX858KCmZAHZA6At7mZC6MMQOW3BZCqpXd6sqfs1iwic0oZCdZABwZDZD&expires=5183998', 'Tiago', 'Tavares de Melo', 'tiago.melo190@hotmail.com'),
-(100003616428848, 'AAADUkCMlzxoBAIL5xGe4dFZAu9vmi9McAd8BBVsI4aMZBGSgRR9ZC3mPPvD4VV8RHcnvqLkBx2arGSfgJmVmRIGE8q85SBEhJfY1ZCZBa9QZDZD&expires=5183978', 'Rondinele', 'de Castro', 'rondineledecastro@gmail.com'),
-(100003654227143, 'AAADUkCMlzxoBAJAZBprTe2TE1mZC93LYLwMDr6JKIq3Rl685T65IoCam7toqiGYTl4URZAl7SmogpuTfZCbKKLzbHQE0Cy00KV2zHyvaiwZDZD&expires=5183998', 'Ryan', 'Danilo', 'ryandanilo07@hotmail.com'),
-(100003660012064, 'AAADUkCMlzxoBAApw0Ok631PYCDqYxtN0I66ZB7lVTHZByG4Hmo8VPG2GKBwH5ZA2tSwwjk5MVXIHR4TTqCVEvDmoBndO8azUeHaeON6LCVe7RQJx1qo', 'Auth', 'User', NULL),
-(100003700180063, 'AAADUkCMlzxoBADraN3gMyOQJpVVu1yoaRnBvaLPsGjZBR915wUvMo6pTqZBCn93wWtvB9ZAFkd0UTZB3poivZA2rxPcIKoBYJBms1mGVZCkwZDZD&expires=5183998', 'Danilo', 'Jord√£o', 'danilojordao1@gmail.com'),
-(100003715017558, 'AAADUkCMlzxoBALHWtkDk39ITzgKdTsWIbBH7LknmYFbdWVRtccsYk2NF2JejZByMC60qnbo0vsog4EtrbJXdxxcP7VISfu0gKL3GulXH3bw7iyhjE&expires=4246', 'Daniel', 'Alves De Sousa Neto', 'danielneto_sjj@hotmail.com'),
-(100003722117751, 'AAADUkCMlzxoBAMQcZAYiVMjZCKtRz3koYdpqks21g7dwfPeYjJFLYGgI0ZAyZCeuBn5ZCE77YS0OsDHZApP5jBLiqBDjj1XayhM3FRc2ZA1bwZDZD&expires=5183999', 'Julio', 'Lima', 'juliomanoloko@hotmail.com'),
-(100003733881875, 'AAADUkCMlzxoBAEx5ZCxkhhQ17EydK2AU8JQfwKUZBPwqP2KrwPXByKUEYZB4eXDBzoXbewwdNz1xoY95ASqXu23Pq8oZAof9qMViqWHhEgZDZD&expires=5183998', 'Ruhan', 'Hulk', 'ruhanilda@hotmail.com'),
-(100003738584069, 'AAADUkCMlzxoBAAlVIIZAsfJen2HegHFo8sB35CnUcJZCZClix1k22M7XWZAWlsGbj8PMqdF5xkHiX7fc24E3M2FPjqXQ7iomMbjNz4cs1wZDZD&expires=5183999', 'Andre', 'Luiz', 'jurubeba.andre@hotmail.com'),
-(100003765722157, 'AAADUkCMlzxoBACya454ZB012c0OlNZArNBRvqXBud3hgfZCyUU7CfstkZCIkTKZAokPZB6BVIwEiMSrvAM6SdlVJbdG0JquZBJgJ9kO6GS0qAZDZD&expires=5113730', 'Everson', 'Alves', 'everson_alves98@hotmail.com'),
-(100003771295205, 'AAADUkCMlzxoBAPKqLyFLcBEKGvJZAYhf2XIjSazNpvQzMckJDHyVIqmEMIN7rwQZC9mFA8oY6TuC7CO1nw9CbRfd2SDrkjAxUDkpgBlQZDZD&expires=5183985', 'Erick', 'Moreira', 'erickmcr@hotmail.com'),
-(100003779970287, 'AAADUkCMlzxoBACE4zN2dMAikjiv62p2Bq4HslJgOPIW94KZAwZBV5DJTzLC6KL06pggNzf3fRXVMXKjZCwoL7sV1MBVc45NUVOPdJ2kSQZDZD&expires=5183998', 'Feernando', 'Rafael', 'fernandorafaell11@hotmail.com'),
-(100003808389507, 'AAADUkCMlzxoBAOhZAopni8vQedEFigBsfU4pgVndDUmy02IQ4qMMWZBv7WGlW0VLdZAlp715OzthIe1FfUjIojZC8lqoEAWtJ8RfG9mZCcwZDZD&expires=5183998', 'Jo√£o Marcos', 'Santos', 'j.marcosdafielpv@gmail.com'),
-(100003813769940, 'AAADUkCMlzxoBAEE3j8PbZAR8UZAbk09zjieuXVS2BxPVhHLnxKmQ5ZAqos3VavZC99ZA3F0I9FfCDTTQxJQmltY9ENexWpYOOV7bdFTbAwQZDZD&expires=5183999', 'Israel', 'Araujo', 'araujo_israel@ymail.com'),
-(100003844397409, 'AAADUkCMlzxoBAATHCcWN5qDK5fjKYCWdrXlgXWHffO5054TmyTuXfb2o3vyLaFqsaxFe7ALhi36v0MHrZAzaHZAA57ZCPiLVXXID5v3lgZDZD&expires=5183998', 'Matheus', 'Dos Santos Lopes', 'lojinhadomatheus@gmail.com'),
-(100003885405841, 'AAADUkCMlzxoBAJhvZCDQMrCybriABeti2hywo7dtNpj6bYluqwvVskGEKuKHY2kfd8lZBb7pIwv5CrjrkpmfDB11WrZAa1mok7hKGqMyAZDZD&expires=5183998', 'Breno', 'Serra', 'breno.serra@bol.com.br'),
-(100003896785794, 'AAADUkCMlzxoBADxlYdqKvhqBemrdQ2MuxrmW9vBZCOIfIG1ppx4ddMlyjPY4XzpmygWnnbZApA1cjs4GVJUm26DLek0QfYPt1SsmlfVQW07a2nSxIk', 'J√∫lio C√©sar', 'da Silva', 'juliocesar.silva00@gmail.com'),
-(100003923322140, 'AAADUkCMlzxoBABTBHcBtZAohFVZBFEF0Q8exJEo8dEnWwZAIR2G61Td3xn93QZA3HnRuxgHXhMhy2wCCAWE0PZCF5zAyQQwt4lvQSA6wCwQZDZD&expires=5183999', 'Brandon', 'Juarez', 'gorrion_brann@hotmail.com'),
-(100003946673571, 'AAADUkCMlzxoBAIEVRLMBFQG3cXrUDflIo1XOFgBQJk2g91ZAy3xBcY8kOLbO8V1ONHcV5Push4s2d3MfStgZA7L4AnNgCfBFn2hKOtNwZDZD&expires=5183998', 'Mesut', 'Ozil', 'mesutozil.ozil@hotmail.com'),
-(100004005918354, 'AAADUkCMlzxoBAGlC1QFrxTAqaChDavmkQ0cRZBDNcnZBu1XqrrFNZBsshykCc6OeThqQInRTXOHg5bsBtTAEclW19R8jVlJvzZBmRCuxKQZDZD&expires=5155834', 'Jo√£o', 'Pedro', 'menegaverdao@hotmail.com'),
-(100004013875958, 'AAADUkCMlzxoBANzf1z1QbQV1Dm8PTlrNBxN8J8NKOJDZAQHPW1wQ8jMQAhBZCjNyPmUxKd6AV2UCtkz1QpfCdEZBPhviFNb7KWRqrNlJwZDZD&expires=5183998', 'Juan Felipe', 'Marin Molina', 'marinmotors@hotmail.com'),
-(100004020859628, 'AAADUkCMlzxoBAOuzZCaeqwZAgrGYkElH1BJiS7qS01uZCgQtFYVneb2NlhaTTj1IneWRV76pzNqAebsdv2xFys46RNKfbsk1xzAyNEZCywZDZD&expires=5183998', 'Marcio Cesar Simonatto Juninho', 'J√É¬∫nior', 'mc_simonatto@gmail.com'),
-(100004046302666, 'AAADUkCMlzxoBAK5SMLtq2zwHTSMZAcCr23tOjVzzWNWowe0ZB88ngriZCR6Eto3eGev1479l8KmycIrXlxJduQynVUYBP0ZAFCY7rZAkknAZDZD&expires=5183997', 'Fernando', 'Dantas', 'fernando_dantass@hotmail.com'),
-(100004069275214, 'AAADUkCMlzxoBAL1slhjnI3P16C1ZCoS8k7D9ZB9oUMTl188O2uMAC5XVzTtEsoZAMeGg2hTw4ZCXLdxLUczfZB3F4pFoyoVqOnwaKbiqZA8QZDZD&expires=5183998', 'Lucas Alves De', 'Lima', '_lucaslima33@hotmail.com'),
-(100004078609786, 'AAADUkCMlzxoBALXHSCgzpBMt4HrmK8Ynto9o1LbEfElGHEiL1vVjXeZBKhx1kTHc8XEN7wckcsZBZA8LHYJdXEyrjTdjAqFOIxkfaspk4rImgo5aICW', 'Harry', 'Fallerman', NULL),
-(100004099369679, 'AAADUkCMlzxoBACWFky3T6dzzhU6PbJkze1OoL4TpKnlsTttMe7ISJUnryP7NUinol3xDIgGNYfcbN0TI3oIwnZB9WC46IsZAzhTrdecZAqsoltX7Fsv', 'Bob', 'Valtchanovman', NULL),
-(100004101589014, 'AAADUkCMlzxoBACSxrCTiZC8ZB0ELBOTh5Sdq7X3GooQO8kWyrt8akcvB01qhtn7m08G4ZAf2ibK11mimfGdKHvsHbRp5cqeKz2jQVs46QZDZD&expires=5183999', 'Jarlison', 'Silva', 'jarlison.manoel141@gmail.com'),
-(100004132051229, 'AAADUkCMlzxoBANaLgsIqu6rpdpXXyZCp7Se7QZB4BppMIcMPPk1UmqAct9zuieckom9O5PZBbaDN9sZByDTs9YunmqlPT2hwFVho4YV0PQZDZD&expires=5183998', 'Igor', 'Pazza', 'manoiigorgato@hotmail.com'),
-(100004162299409, 'AAADUkCMlzxoBAFpqZB1D8djLztBOSIUitvYKk1wGEdZBPdoZAk81AcDlnXPiCO6dqBtGsZAFIyOqEdUmVHEjZC5dkyt324ZB6iNZBHooEgRoUyJhHZAZAMzIH&expires=5038', 'Teylor', 'Luis', 'teylorluis@hotmail.com'),
-(100004166701503, 'AAADUkCMlzxoBALZCqmBrxFWpX0vxqJDAyxmLjgvpv80IoxIWlEGQb1rMN5jSEI9pRLw2bYRA4w5LLIXjDSqZCZAqFHhtFyiR0GyG6zmsQZDZD&expires=5183823', 'Leonardo', 'Severo', 'leonardo.severo2001@hotmail.com');
-
---
--- Restri√ß√µes para as tabelas dumpadas
---
-
---
--- Restri√ß√µes para a tabela `aposta`
---
-ALTER TABLE `aposta`
-  ADD CONSTRAINT `FK_aposta_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_aposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_aposta_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
-
---
--- Restri√ß√µes para a tabela `contadoraposta`
---
-ALTER TABLE `contadoraposta`
-  ADD CONSTRAINT `FK_contadoraposta_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_contadoraposta_jogo` FOREIGN KEY (`jogo_id`) REFERENCES `jogo` (`id`) ON DELETE CASCADE;
-
---
--- Restri√ß√µes para a tabela `jogo`
---
-ALTER TABLE `jogo`
-  ADD CONSTRAINT `FK_jogo_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_jogo_rodada` FOREIGN KEY (`rodada_id`, `campeonato_id`) REFERENCES `rodada` (`id`, `campeonato_id`) ON DELETE CASCADE;
-
---
--- Restri√ß√µes para a tabela `pontuacaogeral`
---
-ALTER TABLE `pontuacaogeral`
-  ADD CONSTRAINT `FK_pontuacaogeral_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
-
---
--- Restri√ß√µes para a tabela `pontuacaorodada`
---
-ALTER TABLE `pontuacaorodada`
-  ADD CONSTRAINT `FK_pontuacaoRodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_pontuacaoRodada_rodada` FOREIGN KEY (`rodada_id`, `campeonato_id`) REFERENCES `rodada` (`id`, `campeonato_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_pontuacaoRodada_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
-
---
--- Restri√ß√µes para a tabela `premiosusuario`
---
-ALTER TABLE `premiosusuario`
-  ADD CONSTRAINT `FK_premiosusuario_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_premiosusuario_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
-
---
--- Restri√ß√µes para a tabela `rendimentotime`
---
-ALTER TABLE `rendimentotime`
-  ADD CONSTRAINT `FK_rendimentotime_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_rendimentotime_time` FOREIGN KEY (`time_id`) REFERENCES `time` (`id`) ON DELETE CASCADE;
-
---
--- Restri√ß√µes para a tabela `rodada`
---
-ALTER TABLE `rodada`
-  ADD CONSTRAINT `FK_rodada_campeonato` FOREIGN KEY (`campeonato_id`) REFERENCES `campeonato` (`id`) ON DELETE CASCADE;
-
---
--- Restri√ß√µes para a tabela `time`
---
-ALTER TABLE `time`
-  ADD CONSTRAINT `FK_time_pais` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`) ON DELETE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

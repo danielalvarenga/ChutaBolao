@@ -11,18 +11,18 @@ Class Rodada{
 	private $status;
 	
 	/**
-	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rodadas", cascade={"persist"})
+	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rodadas")
 	 */
 	protected $campeonato;
 	
 	/**
-	 * @OneToMany(targetEntity="Jogo", mappedBy="rodada", cascade={"persist"})
+	 * @OneToMany(targetEntity="Jogo", mappedBy="rodada", cascade={"persist", "remove"})
 	 * @var Jogo[]
 	 */
 	protected $jogosRodada;
 	
 	/**
-	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="rodada", cascade={"persist"})
+	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="rodada", cascade={"persist", "remove"})
 	 * @var PontuacaoRodada[]
 	 */
 	protected $pontuacaoRodadas;
