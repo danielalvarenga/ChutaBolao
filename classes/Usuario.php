@@ -21,25 +21,25 @@ class Usuario{
 	private $emailUsuario;
 	
 	/**
-	 * @OneToOne(targetEntity="PontuacaoGeral", mappedBy="usuario", cascade={"persist"})
+	 * @OneToOne(targetEntity="PontuacaoGeral", mappedBy="usuario", cascade={"persist", "remove"})
 	 * @var PontuacaoGeral
 	 */
 	protected $pontuacaoGeral;
 	
 	/**
-	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="usuario", cascade={"persist"})
+	 * @OneToMany(targetEntity="PontuacaoRodada", mappedBy="usuario", cascade={"persist", "remove"})
 	 * @var PontuacaoRodada[]
 	 */
 	protected $pontuacaoRodadas;
 	
 	/**
-	 * @OneToMany(targetEntity="Aposta", mappedBy="usuario", cascade={"persist"})
+	 * @OneToMany(targetEntity="Aposta", mappedBy="usuario", cascade={"persist", "remove"})
 	 * @var Aposta[]
 	 */
 	protected $apostasUsuario;
 	
 	/**
-	 * @OneToMany(targetEntity="PremiosUsuario", mappedBy="usuario", cascade={"persist"}) 
+	 * @OneToMany(targetEntity="PremiosUsuario", mappedBy="usuario", cascade={"persist", "remove"}) 
 	 * @var PremiosUsuario[]
 	 */
 	protected $premiacoesUsuario;

@@ -4,12 +4,12 @@
 class RendimentoTime{
 	
 	/**
-	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rendimentosTimes", cascade={"persist"})
+	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rendimentosTimes")
 	 */
 	protected $campeonato;
 	
 	/**
-	 * @Id @ManyToOne(targetEntity="Time", inversedBy="rendimentosCampeonatos", cascade={"persist"})
+	 * @Id @ManyToOne(targetEntity="Time", inversedBy="rendimentosCampeonatos")
 	 */
 	protected $time;
 	
