@@ -13,7 +13,7 @@ class RendimentoTime{
 	 */
 	protected $time;
 	
-	/** @Column(type="integer") */
+	/** @Column(type="integer", nullable=true) */
 	private $classificacao;
 	/** @Column(type="integer") */
 	private $vitorias;

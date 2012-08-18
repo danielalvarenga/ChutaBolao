@@ -23,7 +23,7 @@ class ContadorAposta{
 		$this->opcaoCadastrada=$opcaoCadastrada;
 		$this->campeonato=$campeonato;
 		$this->jogo=$jogo;
-		$this->quantidadeApostas=1;
+		$this->quantidadeApostas = 1;
 	}
 	
 	function incrementaQuantidadeApostas(){

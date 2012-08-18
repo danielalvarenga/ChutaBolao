@@ -2,7 +2,7 @@
 /** @Entity @Table(name="premiosusuario")*/
 class PremiosUsuario{
 	
-	/** @Column(type="integer") */
+	/** @Column(type="integer", nullable=true) */
 	private $codTimeFavorito; // Time para o qual o usuário torce no campeonato
 	
 	/** @Column(type="integer") */

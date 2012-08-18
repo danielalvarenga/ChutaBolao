@@ -27,9 +27,9 @@ class Aposta{
 	*/
 	protected $campeonato;
 
-	function __construct($usuario,$campeonato,$jogo){
-		$this->apostaGolsTime1 = NULL;
-		$this->apostaGolsTime2 = NULL;
+	function __construct($usuario,$campeonato,$jogo, $apostaGolsTime1, $apostaGolsTime2){
+		$this->apostaGolsTime1 = $apostaGolsTime1;
+		$this->apostaGolsTime2 = $apostaGolsTime2;
 		$this->pontosAposta = 0;
 		$this->usuario=$usuario;
 		$this->campeonato=$campeonato;

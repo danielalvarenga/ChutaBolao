@@ -16,13 +16,13 @@ class Time{
 	private $escudo;
 	
 	/**
-	 * @OneToMany(targetEntity="RendimentoTime", mappedBy="time", cascade={"persist"})
+	 * @OneToMany(targetEntity="RendimentoTime", mappedBy="time", cascade={"persist", "remove"})
 	 * @var RendimentoTime[]
 	 */
 	protected $rendimentosCampeonatos;
 	
 	/**
-	 * @ManyToOne(targetEntity="Pais", inversedBy="times", cascade={"persist"})
+	 * @ManyToOne(targetEntity="Pais", inversedBy="times")
 	 */
 	protected $pais;
 

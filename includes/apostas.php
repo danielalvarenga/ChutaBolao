@@ -133,10 +133,8 @@ if(isset($_POST[0])){
 				}
 				else{
 					if (($palpite_time1_jogo<>'') && ($palpite_time2_jogo<>'')){
-						$apostaNova = new Aposta($usuario, $campeonato, $jogo);
+						$apostaNova = new Aposta($usuario, $campeonato, $jogo, $palpite_time1_jogo, $palpite_time2_jogo);
 						$atualizacaoContadorAposta=$palpite_time1_jogo."  X  ".$palpite_time2_jogo;
-						$apostaNova->setApostaGolsTime1($palpite_time1_jogo);
-						$apostaNova->setApostaGolsTime2($palpite_time2_jogo);
 						salvaBancoDados($apostaNova);
 						$publica = true;
 						$contador++;

@@ -39,7 +39,7 @@ Class PontuacaoGeral {
 	/** @Column(type="integer") */
 	private $trofeus;
 
-	/** @Id @OneToOne(targetEntity="Usuario", inversedBy="pontuacaoGeral", cascade={"persist"})
+	/** @Id @OneToOne(targetEntity="Usuario", inversedBy="pontuacaoGeral", cascade={"persist", "remove"})
 	 * @var Usuario
 	 * */
 	protected $usuario;

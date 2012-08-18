@@ -67,9 +67,9 @@ class Campeonato {
 	
 	
 	function __construct($nomeCampeonato, $anoCampeonato, $qtdRodadas, $urlLogo){
-			$this->nomeCampeonato = $nomeCampeonato;
-			$this->anoCampeonato = $anoCampeonato;
-			$this->status = "ativo";
+			$this->setNomeCampeonato($nomeCampeonato);
+			$this->setAnoCampeonato($anoCampeonato);
+			$this->ativaStatus();
 			$this->setQuantidadeRodadas($qtdRodadas);
 			$this->setUrlLogo($urlLogo);
 			$this->apostasCampeonato = new ArrayCollection();

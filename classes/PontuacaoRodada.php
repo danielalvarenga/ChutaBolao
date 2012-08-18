@@ -26,7 +26,7 @@ Class PontuacaoRodada {
 	
 	function __construct($rodada, $campeonato, $usuario){
 		$this->pontosRodada = 0;
-		$this->classificacaoRodada = NULL;
+		$this->classificacaoRodada = 0;
 		$this->rodada = $rodada;
 		$this->campeonato = $campeonato;
 		$this->usuario = $usuario;

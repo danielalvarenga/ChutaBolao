@@ -28,7 +28,7 @@ Class Rodada{
 	protected $pontuacaoRodadas;
 	
 	function __construct($numRodada, $campeonato){
-		$this->status = "ativa";
+		$this->ativaStatus();
 		$this->setNumRodada($numRodada);
 		$this->setCampeonato($campeonato);
 		$this->jogosRodada = new ArrayCollection();
