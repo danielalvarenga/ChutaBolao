@@ -17,7 +17,11 @@ require 'metodos-bd.php';
 			$armazenaPontos[0]=null;
 			$armazenaPosicao[0]=null;
 				
-			$dql = "SELECT p FROM PontuacaoGeral p GROUP BY p.pontosGeral ORDER BY p.pontosGeral DESC";
+			$dql = "SELECT p FROM PontuacaoGeral p WHERE p.usuario <> '1130122019'
+			AND p.usuario <> '100000885523518'
+			AND p.usuario <> '100003489131091'
+			AND p.usuario <> '100001984735537'
+			GROUP BY p.pontosGeral ORDER BY p.pontosGeral DESC";
 			$pontuacoesGerais = consultaDql($dql);
 			
 			foreach ($pontuacoesGerais as $pontuacaoGeral){
@@ -28,27 +32,33 @@ require 'metodos-bd.php';
 				}
 			}
 			for ($i=0 ; $i < $contador ; $i++){
-			$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosGeral=".$armazenaPontos[$i] ;
-			$pontuacoesGerais = consultaDql($dql);
-			
-			foreach ($pontuacoesGerais as $pontuacaoGeral){
-				if($pontuacaoGeral instanceof PontuacaoGeral){
-					$pontuacaoGeral->setClassificacaoGeral($armazenaPosicao[$i]);
-					atualizaBancoDados($pontuacaoGeral);
-						
-							}
-						
-				 	  }
-			     }
-			}		
+				$dql = "SELECT p FROM PontuacaoGeral p WHERE p.usuario <> '1130122019'
+				AND p.usuario <> '100000885523518'
+				AND p.usuario <> '100003489131091'
+				AND p.usuario <> '100001984735537'
+				AND p.pontosGeral= '$armazenaPontos[$i]'";
+				$pontuacoesGerais = consultaDql($dql);
+				
+				foreach ($pontuacoesGerais as $pontuacaoGeral){
+					if($pontuacaoGeral instanceof PontuacaoGeral){
+						$pontuacaoGeral->setClassificacaoGeral($armazenaPosicao[$i]);
+						atualizaBancoDados($pontuacaoGeral);
+							
+					}
+				}
+			}
+		}	
 		function atualizaClassificacaoPontosCampeonato($jogo){
 			
 			$contador=0;
 			$armazenaPontos[0]=null;
 			$armazenaPosicao[0]=null;
 				
-			$dql = "SELECT p FROM PremiosUsuario p WHERE
-					p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+			$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> '1130122019'
+					AND p.usuario <> '100000885523518'
+					AND p.usuario <> '100003489131091'
+					AND p.usuario <> '100001984735537'
+					AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
 					GROUP BY p.pontosCampeonato ORDER BY p.pontosCampeonato DESC";
 			$premiosUsuarios = consultaDql($dql);
 			
@@ -61,8 +71,11 @@ require 'metodos-bd.php';
 						}
 					}
 			for ($i=0 ; $i < $contador ; $i++){
-				$dql = "SELECT p FROM PremiosUsuario p WHERE
-						p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+				$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> '1130122019'
+						AND p.usuario <> '100000885523518'
+						AND p.usuario <> '100003489131091'
+						AND p.usuario <> '100001984735537'
+						AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
 						AND p.pontosCampeonato=".$armazenaPontos[$i] ;
 				$premiosUsuarios = consultaDql($dql);
 
@@ -80,11 +93,15 @@ require 'metodos-bd.php';
 			$contador=0;
 			$armazenaPontos[0]=null;
 			$armazenaPosicao[0]=null;
-			$dql = 'SELECT p FROM PontuacaoRodada p WHERE
-					p.rodada = '.$numRodada.'
-					AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
+			$campeonato = $jogo->getCampeonato()->getCodCampeonato();
+			$dql = "SELECT p FROM PontuacaoRodada p WHERE p.usuario <> '1130122019'
+					AND p.usuario <> '100000885523518'
+					AND p.usuario <> '100003489131091'
+					AND p.usuario <> '100001984735537'
+					AND p.rodada = '$numRodada'
+					AND p.campeonato = '$campeonato'
 					GROUP BY p.pontosRodada
-					ORDER BY p.pontosRodada DESC';
+					ORDER BY p.pontosRodada DESC";
 			$pontuacoesRodada=consultaDql($dql);
 			
 			foreach ($pontuacoesRodada as $pontuacaoRodada){
@@ -95,10 +112,13 @@ require 'metodos-bd.php';
 					}
 				}
 				for($i=0 ; $i < $contador ; $i++){
-					$dql = 'SELECT p FROM PontuacaoRodada p WHERE
-							p.rodada = '.$numRodada.'
-							AND p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
-						    AND p.pontosRodada='.$armazenaPontos[$i];
+					$dql = "SELECT p FROM PontuacaoRodada p WHERE p.usuario <> '1130122019'
+							AND p.usuario <> '100000885523518'
+							AND p.usuario <> '100003489131091'
+							AND p.usuario <> '100001984735537'
+							AND p.rodada = '.$numRodada.'
+							AND p.campeonato ='$campeonato'
+						    AND p.pontosRodada='$armazenaPontos[$i]'";
 					$pontuacoesRodada=consultaDql($dql);
 
 					foreach ($pontuacoesRodada as $pontuacaoRodada){
@@ -185,10 +205,13 @@ require 'metodos-bd.php';
 			$armazenaPontos[0]=null;
 			$armazenaPosicao[0]=null;
 			
-						$dql = "SELECT p FROM PremiosUsuario p WHERE
-								p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
-								GROUP BY p.pontosMedalhas
-								ORDER BY p.pontosMedalhas DESC";
+			$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> '1130122019'
+					AND p.usuario <> '100000885523518'
+					AND p.usuario <> '100003489131091'
+					AND p.usuario <> '100001984735537'
+					AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+					GROUP BY p.pontosMedalhas
+					ORDER BY p.pontosMedalhas DESC";
 			$premiosUsuarios = consultaDql($dql);
 			
 			foreach ($premiosUsuarios as $premiosUsuario){
@@ -201,8 +224,11 @@ require 'metodos-bd.php';
 				}
 			
 			for ($i=0 ; $i < $contador ; $i++){
-				$dql = "SELECT p FROM PremiosUsuario p WHERE
-									p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+				$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> '1130122019'
+									AND p.usuario <> '100000885523518'
+									AND p.usuario <> '100003489131091'
+									AND p.usuario <> '100001984735537'
+									AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
 									AND p.pontosMedalhas=".$armazenaPontos[$i] ;
 				$premiosUsuarios = consultaDql($dql);
 			
@@ -222,7 +248,12 @@ require 'metodos-bd.php';
 			$armazenaPontos[0]=null;
 			$armazenaPosicao[0]=null;
 			
-			$dql = "SELECT p FROM PontuacaoGeral p GROUP BY p.pontosMedalhasGeral ORDER BY p.pontosMedalhasGeral DESC";
+			$dql = "SELECT p FROM PontuacaoGeral p WHERE p.usuario <> '1130122019'
+									AND p.usuario <> '100000885523518'
+									AND p.usuario <> '100003489131091'
+									AND p.usuario <> '100001984735537'
+									GROUP BY p.pontosMedalhasGeral
+									ORDER BY p.pontosMedalhasGeral DESC";
 			$pontuacoesGerais = consultaDql($dql);
 			
 			foreach ($pontuacoesGerais as $pontuacaoGeral){
@@ -233,7 +264,11 @@ require 'metodos-bd.php';
 				}
 			}
 			for ($i = 0 ;$i < $contador ; $i++){
-				$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosMedalhasGeral=".$armazenaPontos[$i];
+				$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosMedalhasGeral= '$armazenaPontos[$i]'
+						AND p.usuario <> '1130122019'
+						AND p.usuario <> '100000885523518'
+						AND p.usuario <> '100003489131091'
+						AND p.usuario <> '100001984735537'";
 				$pontuacoesGerais = consultaDql($dql);
 	
 				foreach ($pontuacoesGerais as $pontuacaoGeral){
@@ -270,9 +305,13 @@ require 'metodos-bd.php';
 		}
 				
 		function atualizaChuteirasCampeonato($jogo){
-			$dql = 'SELECT p FROM PremiosUsuario p WHERE
-					p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
-					AND p.classificacaoMedalhas >= 1 AND p.classificacaoMedalhas <= 3';
+			$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> '1130122019'
+					AND p.usuario <> '100000885523518'
+					AND p.usuario <> '100003489131091'
+					AND p.usuario <> '100001984735537'
+					AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+					AND p.classificacaoMedalhas >= 1
+					AND p.classificacaoMedalhas <= 3";
 			$premiosUsuarios = consultaDql($dql);
 			foreach ($premiosUsuarios as $premiosUsuario){
 				if($premiosUsuario instanceof PremiosUsuario){
@@ -292,10 +331,14 @@ require 'metodos-bd.php';
 		}
 			
 		function atribuiTrofeuCampeonato($jogo){
-			$dql = 'SELECT p FROM PremiosUsuario p WHERE
-					p.campeonato ='.$jogo->getCampeonato()->getCodCampeonato().'
-					AND p.classificacaoCampeonato = 1 ORDER BY p.acertosPlacar DESC,
-					p.acertosTimeGanhador DESC, p.acertosPlacarInvertido DESC, p.pontosMedalhas DESC';
+			$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> '1130122019'
+					AND p.usuario <> '100000885523518'
+					AND p.usuario <> '100003489131091'
+					AND p.usuario <> '100001984735537'
+					AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+					AND p.classificacaoCampeonato = 1
+					ORDER BY p.acertosPlacar DESC, p.acertosTimeGanhador DESC,
+						p.acertosPlacarInvertido DESC, p.pontosMedalhas DESC";
 			
 			//essa parte abaixo e se quiser listar tambem a quantidade de erros
 			//e so tirar a aspas simples e o ponto e virgula acima 
@@ -350,5 +393,5 @@ require 'metodos-bd.php';
 			$campeonato = $jogo->getCampeonato();
 			$campeonato->finalizaStatus();
 			atualizaBancoDados($campeonato);
-			}
+		}
 ?>
