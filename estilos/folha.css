@@ -2042,49 +2042,6 @@ img.muralImg{
 	padding-left: 0px;
 }
 
-#homeTimesFavoritos{
-	clear: both;
-	width: 750px;
-	
-	background-color: #ffffff;
-	background: #ffffff;
-	
-	text-align: center;
-	vertical-align: middle;
-	
-	border:solid 0px #000000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	
-	-moz-box-shadow: 0px 0px 12px #000000;
-	-webkit-box-shadow: 0px 0px 12px #000000;
-	box-shadow: 0px 0px 12px #000000;
-	
-	margin-top: 10px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-	margin-left: 5px;
-	
-	padding-top: 0px;
-	padding-right: 0px;
-	padding-bottom: 0px;
-	padding-left: 0px;
-}
-
-img.timeFavorito{
-	width: 25px;
-	height: 25px;
-	
-	text-align: center;
-	vertical-align: middle;
-	
-	margin-top: 3px;
-	margin-right: 3px;
-	margin-bottom: 3px;
-	margin-left: 3px;
-}
-
 /* TOP Torcidas */
 
 #boxTopTorcidas{
@@ -2252,9 +2209,259 @@ img.timeFanpage{
 	padding-left: 0px;
 }
 
+/* TIME FAVORITO */
 
+#homeTimesFavoritos{
+	clear: both;
+	width: 750px;
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	text-align: center;
+	vertical-align: middle;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 0px 0px 12px #000000;
+	-webkit-box-shadow: 0px 0px 12px #000000;
+	box-shadow: 0px 0px 12px #000000;
+	
+	margin-top: 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	
+	padding-top: 5px;
+	padding-right: 0px;
+	padding-bottom: 5px;
+	padding-left: 0px;
+}
 
+img.timeFavorito{
+	width: 25px;
+	height: 25px;
+	
+	text-align: center;
+	vertical-align: middle;
+}
 
+.tituloTimeFavorito{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #ff3300;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	margin-top: 5px;
+	margin-right: auto;
+	margin-bottom: 5px;
+	margin-left: auto;
+	
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}
+
+.buttonTime {
+	float: left;
+	width: 27px;
+	
+	background-color: #ffffff;
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+/*	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+*/
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	color: #ffffff;
+	font-weight: bold;
+	
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+	
+	padding-top: 2px;
+	padding-right: 1px;
+	padding-bottom: 2px;
+	padding-left: 1px;
+}
+
+.linkMaisTimes{
+	clear: both;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 10px;
+	color: #ff3300;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	margin-top: 5px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+}
+
+#escudoTimeFavorito {
+	float: left;
+	width: 47px;
+	height: 47px;
+	
+	background-color: #ffffff;
+	cursor:pointer;
+	
+	border:solid 0px #000000;
+/*	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+*/
+	
+	margin-top: 3px;
+	margin-right: 10px;
+	margin-bottom: 3px;
+	margin-left: 10px;
+	
+	padding-top: 2px;
+	padding-right: 1px;
+	padding-bottom: 2px;
+	padding-left: 1px;
+}
+#rendimentoTimeFavorito {
+	float: left;
+	width: 40%;
+	height: 100%x;
+	
+	background-color: #ffffcc;
+	background: #ffffcc;
+	
+	border:solid 1px #ff3300;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #ff3300;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	
+	margin-top: 0px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+	
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
+
+.infoTimeFavorito{
+	float: left;
+	width: 44px;
+	
+	background-color: #ffffff;
+	background: #ffffff;
+	
+	border:solid 0px #ff3300;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-moz-box-shadow: 0px 0px 1px #ff3300;
+	-webkit-box-shadow: 0px 0px 1px #ff3300;
+	box-shadow: 0px 0px 1px #ff3300;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #ff3300;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	
+	padding-top: 2px;
+	padding-right: 3px;
+	padding-bottom: 2px;
+	padding-left: 3px;	
+}
+
+.classificacaoTimeFavorito{
+	
+	border:solid 0px #000000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+/*
+	-moz-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 2px 2px 5px #000000;
+	box-shadow: 2px 2px 5px #000000;
+*/
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #ff3300;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 5px;
+	margin-left: auto;
+	
+	padding-top: 2px;
+	padding-right: 1px;
+	padding-bottom: 2px;
+	padding-left: 1px;	
+}
+
+.divisoriaTimeFavorito{
+	clear: both;
+}
 
 
 

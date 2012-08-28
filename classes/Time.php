@@ -25,12 +25,19 @@ class Time{
 	 * @ManyToOne(targetEntity="Pais", inversedBy="times")
 	 */
 	protected $pais;
+	
+	/**
+	 * @OneToMany(targetEntity="Usuario", mappedBy="time", cascade={"persist"})
+	 * @var Usuario[]
+	 */
+	protected $torcedores;
 
 	function __construct($nomeTime, $escudo, $pais){
 		$this->setNomeTime($nomeTime);
 		$this->setEscudo($escudo);
 		$this->pais = $pais;
 		$this->rendimentosCampeonatos = new ArrayCollection();
+		$this->torcedores = new ArrayCollection();
 	}
 
 	function getCodTime(){
@@ -67,6 +74,14 @@ class Time{
 	
 	function adicionaRendimentosCampeonatos($rendimentoTime){
 		$this->rendimentosCampeonatos[] = $rendimentoTime;
+	}
+	
+	function getTorcedores(){
+		return $this->torcedores;
+	}
+	
+	function adicionaTorcedor($usuario){
+		$this->torcedores[] = $usuario;
 	}
 
 }

@@ -21,6 +21,11 @@ class Usuario{
 	private $emailUsuario;
 	
 	/**
+	 * @ManyToOne(targetEntity="Time", inversedBy="torcedores")
+	 */
+	protected $time;
+	
+	/**
 	 * @OneToOne(targetEntity="PontuacaoGeral", mappedBy="usuario", cascade={"persist", "remove"})
 	 * @var PontuacaoGeral
 	 */
@@ -101,6 +106,14 @@ class Usuario{
 	
 	function setPontuacaoGeral($pontuaçãoGeral){
 		$this->pontuacaoGeral = $pontuaçãoGeral;
+	}
+	
+	function getTimeFavorito(){
+		return $this->time;
+	}
+	
+	function setTimeFavorito($timeFavorito){
+		$this->time = $timeFavorito;
 	}
 	
 	function getApostas($aposta){

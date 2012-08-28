@@ -106,7 +106,7 @@ if(isset($posicaoPontos) && isset($posicaoMedalhas)){
 									text-align:center;vertical-align:middle;background-color:#00df00;background:#00df00;
 									border:solid 0px #00df00;border-right-width:1px;border-left-width:1px;
 									margin-top: 0px;margin-bottom: 0px;padding-top: 2px;padding-bottom: 1px;">
-									<div onclick="exibeDadosUsuarioPontos(<?php echo $parametros;?>)">
+									<div onclick="exibeDadosUsuarioPontos(<?php echo $parametros;?>)" style="cursor:pointer;">
 										<img src="imagens/seta-ranking-descer.png">
 									</div>
 								</div>
@@ -182,7 +182,7 @@ if(isset($posicaoPontos) && isset($posicaoMedalhas)){
 								text-align:center;vertical-align:middle;background-color:#00df00;background:#00df00;
 								border:solid 0px #00df00;border-right-width:1px;border-left-width:1px;
 								margin-top: 0px;margin-bottom: 0px;padding-top: 2px;padding-bottom: 1px;">
-								<div onclick="exibeDadosUsuarioMedalhas(<?php echo $parametros;?>)">
+								<div onclick="exibeDadosUsuarioMedalhas(<?php echo $parametros;?>)" style="cursor:pointer;">
 									<img src="imagens/seta-ranking-descer.png">
 								</div>
 							</div>
@@ -236,7 +236,7 @@ function exibeDadosUsuarioPontos(idUsuario, qtdPontos, qtdTrofeus, qtdAcertosPlc
 	parametros = idUsuario +","+ qtdPontos +","+ qtdTrofeus +","+ qtdAcertosPlc +","+ qtdAcertosTime +","+
 					qtdAcertosInv +","+ qtdMedalO +","+ qtdMedalP +","+ qtdMedalB;
 	recolher = "<div onclick=\"ocultaDadosUsuarioPontos("
-		+parametros+")\"><img src=\"imagens/seta-ranking-subir.png\"></div>";
+		+parametros+")\" style=\"cursor:pointer;\"><img src=\"imagens/seta-ranking-subir.png\"></div>";
 		
 	medalhasOuro = "<div class=\"muralRankMedalhas\"><img class=\"muralRankImg\" src=\"" +
 					imgMedalhaOuro +
@@ -273,7 +273,7 @@ function ocultaDadosUsuarioPontos(idUsuario, qtdPontos, qtdTrofeus, qtdAcertosPl
 	parametros = idUsuario +","+ qtdPontos +","+ qtdTrofeus +","+ qtdAcertosPlc +","+ qtdAcertosTime +","+
 				qtdAcertosInv +","+ qtdMedalO +","+ qtdMedalP +","+ qtdMedalB;
 	document.getElementById(idDiv).innerHTML="<div onclick=\"exibeDadosUsuarioPontos("
-						+parametros+")\"><img src=\"imagens/seta-ranking-descer.png\"></div>";
+						+parametros+")\" style=\"cursor:pointer;\"><img src=\"imagens/seta-ranking-descer.png\"></div>";
 }
 
 function exibeDadosUsuarioMedalhas(idUsuario, qtdPontos, qtdTrofeus, qtdAcertosPlc, qtdAcertosTime, qtdAcertosInv, qtdMedalO, qtdMedalP, qtdMedalB){
@@ -291,7 +291,7 @@ function exibeDadosUsuarioMedalhas(idUsuario, qtdPontos, qtdTrofeus, qtdAcertosP
 	parametros = idUsuario +","+ qtdPontos +","+ qtdTrofeus +","+ qtdAcertosPlc +","+ qtdAcertosTime +","+
 					qtdAcertosInv +","+ qtdMedalO +","+ qtdMedalP +","+ qtdMedalB;
 	recolher = "<div onclick=\"ocultaDadosUsuarioMedalhas("
-		+parametros+")\"><img src=\"imagens/seta-ranking-subir.png\"></div>";
+		+parametros+")\" style=\"cursor:pointer;\"><img src=\"imagens/seta-ranking-subir.png\"></div>";
 		
 	medalhasOuro = "<div class=\"muralRankMedalhas\"><img class=\"muralRankImg\" src=\"" +
 					imgMedalhaOuro +
@@ -328,6 +328,6 @@ function ocultaDadosUsuarioMedalhas(idUsuario, qtdPontos, qtdTrofeus, qtdAcertos
 	parametros = idUsuario +","+ qtdPontos +","+ qtdTrofeus +","+ qtdAcertosPlc +","+ qtdAcertosTime +","+
 				qtdAcertosInv +","+ qtdMedalO +","+ qtdMedalP +","+ qtdMedalB;
 	document.getElementById(idDiv).innerHTML="<div onclick=\"exibeDadosUsuarioMedalhas("
-						+parametros+")\"><img src=\"imagens/seta-ranking-descer.png\"></div>";
+						+parametros+")\" style=\"cursor:pointer;\"><img src=\"imagens/seta-ranking-descer.png\"></div>";
 }
 </script>

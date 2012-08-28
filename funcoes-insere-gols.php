@@ -3,10 +3,7 @@ require "bootstrap.php";
 require 'metodos-bd.php';
 		
 		function atualizaRendimentoTime($jogo, $time, $golsPro, $golsContra){
-			$rendimentoTime = buscaObjeto("RendimentoTime", array(
-					"time" => $time->getCodTime(),
-					"campeonato" => $jogo->getCampeonato()->getCodCampeonato()
-			));
+			$rendimentoTime = buscaObjeto("RendimentoTime", $jogo->getCampeonato()->getCodCampeonato()."x".$time->getCodTime());
 			$rendimentoTime->calculaRendimentoTime($golsPro, $golsContra);
 			atualizaBancoDados($rendimentoTime);
 		}

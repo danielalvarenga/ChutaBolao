@@ -7,9 +7,9 @@ header('Content-type: text/html; charset='.$charset);
 require "bootstrap.php";
 require 'metodos-bd.php';
 
-$user_id = "100000885523518";			
+$user_id = "100000885523518";
+
 $usuario = buscaObjeto("Usuario", $user_id);
-	
 if($usuario instanceof Usuario){
 }
 else{
@@ -63,44 +63,47 @@ else{
 <!------------------------------------------------------------------------>
 
 </head>
-<?php 
-$conteudo = $_GET['conteudo'];
-switch ($conteudo){
-	case 'home':{
-		$idMenuBody = "tsmenu1";
-		break;
-	}
-	case 'chutes':{
-		$idMenuBody = "tsmenu2";
-		break;
-	}
-	case 'classificacao':{
-		$idMenuBody = "tsmenu3";
-		break;
-	}
-	case 'convites':{
-		$idMenuBody = "tsmenu4";
-		break;
-	}
-	case 'placares':{
-		$idMenuBody = "tsmenu5";
-		break;
-	}
-	case 'ranks':{
-		$idMenuBody = "tsmenu6";
-		break;
-	}
-	case 'encerrados':{
-		$idMenuBody = "tsmenu7";
-		break;
-	}
-	case 'como-funciona':{
-		$idMenuBody = "tsmenu8";
-		break;
-	}
-	default:{
-		$idMenuBody = "tsmenu1";
-		break;
+<?php
+if(isset($_GET['conteudo'])){
+	$conteudo = $_GET['conteudo'];
+	$idMenuBody = "tsmenu1";
+	switch ($conteudo){
+		case 'home':{
+			$idMenuBody = "tsmenu1";
+			break;
+		}
+		case 'chutes':{
+			$idMenuBody = "tsmenu2";
+			break;
+		}
+		case 'classificacao':{
+			$idMenuBody = "tsmenu3";
+			break;
+		}
+		case 'convites':{
+			$idMenuBody = "tsmenu4";
+			break;
+		}
+		case 'placares':{
+			$idMenuBody = "tsmenu5";
+			break;
+		}
+		case 'ranks':{
+			$idMenuBody = "tsmenu6";
+			break;
+		}
+		case 'encerrados':{
+			$idMenuBody = "tsmenu7";
+			break;
+		}
+		case 'como-funciona':{
+			$idMenuBody = "tsmenu8";
+			break;
+		}
+		default:{
+			$idMenuBody = "tsmenu1";
+			break;
+		}
 	}
 }
 ?>
@@ -166,8 +169,8 @@ switch ($conteudo){
 		        <ul>
 					<li id="li_tsmenu1"><a href="index-teste.php?conteudo=home" title="Home"><strong>Início</strong></a></li>
 					<li id="li_tsmenu2"><a href="index-teste.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
-					<!--  <li id="li_tsmenu3"><a href="index-teste.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
-					<!--  <li id="li_tsmenu4"><a href="index-teste.php?conteudo=convites" title="Convites"><strong>Desafie</strong></a></li>  -->
+					<li id="li_tsmenu3"><a href="index-teste.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o</strong></a></li>
+					<li id="li_tsmenu4"><a href="index-teste.php?conteudo=convites" title="Convites"><strong>Desafie</strong></a></li>
 					<li id="li_tsmenu5"><a href="index-teste.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
 					<li id="li_tsmenu6"><a href="index-teste.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>
 					<li id="li_tsmenu7"><a href="index-teste.php?conteudo=encerrados" title="Apostas Ja Realizadas"><strong>Chutes&nbsp;Feitos</strong></a></li>

@@ -1,18 +1,6 @@
-<div id="homeTimesFavoritos">
-<?php 
-$pais = buscaObjeto("Pais", 76);
-$times = $pais->getTimes();
-$qtd = 1;
-foreach($times as $time) {
-	if(($time instanceof Time) && ($qtd <=20) && ($time->getNomeTime() != "Brasil")){
-		?>
-		<img class="timeFavorito" src="<?php echo $time->getEscudo();?>">
-		<?php
-		$qtd++;
-	} 
-}
+<?php
+include "includes/time-favorito.php";
 ?>
-</div>
 <div id="colunaEsquerda">
 <?php
 $conn = $entityManager->getConnection();

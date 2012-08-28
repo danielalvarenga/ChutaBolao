@@ -15,25 +15,6 @@ elseif(empty($_GET['rodada'])){
 	</script>";
 }
 
-if(isset($_GET['excluir'])){
-	$conn = $entityManager->getConnection();
-	$conn->beginTransaction();
-	try{
-		$jogoExcluir = $entityManager->find("Jogo", $_GET['jogoExcluir']);
-		$imgJogo = $jogoExcluir->getEscudosJogo();
-		removeBancoDados($jogoExcluir);
-		unlink("$imgJogo");
-		echo "<script> alert('Jogo Excluído.')
-		location = ('cadastra-jogo.php');
-		</script>";
-		$conn->commit();
-	} catch(Exception $e) {
-		$conn->rollback();
-		echo $e->getMessage() . "<br/><font color=red>Não foi possível apagar os dados. Verifique o Banco de Dados.</font><br/>";
-	}
-	$conn->close();
-}
-
 if(isset($_GET['rodada']) && isset($_GET['campeonato'])){
 	$objCampeonato = $entityManager->find("Campeonato", $_GET['campeonato']);
 	$objRodada = $entityManager->find("Rodada", array(
@@ -226,14 +207,8 @@ if (isset($codTime1) && isset($codTime2)) {
 						
 			// Instancia um objeto RendimentoTime para cada Time deste jogo no Campeonato
 					
-				$rendimentoTime1 = $entityManager->find("RendimentoTime", array(
-						"campeonato" => $_GET['campeonato'],
-						"time" => $codTime1
-						));
-				$rendimentoTime2 = $entityManager->find("RendimentoTime", array(
-						"campeonato" => $_GET['campeonato'],
-						"time" => $codTime2
-						));
+				$rendimentoTime1 = buscaObjeto("RendimentoTime", $_GET['campeonato']."x".$codTime1);
+				$rendimentoTime2 = $entityManager->find("RendimentoTime", $_GET['campeonato']."x".$codTime2);
 					
 				if(!$rendimentoTime1 instanceof RendimentoTime){
 					$rendimentoTime1 = new RendimentoTime($objCampeonato, $time1);
@@ -556,9 +531,10 @@ else{
 									<td><?php echo $jogo->getDataLogicaInicioApostas();?></td>
 									<td><?php echo $jogo->getDataLogicaFimApostas();?></td>
 									<td>
-										<form method="GET" action="">
-										<input type="hidden" name="jogoExcluir" value="<?php echo $jogo->getCodjogo();?>">
-										<input type="submit" name="excluir" value="Excluir"><br/>
+										<form method="GET" action="edita-jogo.php">
+										<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
+										<input type="hidden" name="codJogo" value="<?php echo $jogo->getCodjogo();?>">
+										<input type="submit" name="editar" value="Alterar"><br/>
 										</form>
 									</td>
 								</tr>

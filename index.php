@@ -115,8 +115,10 @@ if($_SESSION["facebook_token"]==""){//verificamos se existe uma conexão com o fa
 	<!------------------------------------------------------------------------>
 	
 	</head>
-	<?php 
+	<?php
+if(isset($_GET['conteudo'])){
 	$conteudo = $_GET['conteudo'];
+	$idMenuBody = "tsmenu1";
 	switch ($conteudo){
 		case 'home':{
 			$idMenuBody = "tsmenu1";
@@ -155,7 +157,8 @@ if($_SESSION["facebook_token"]==""){//verificamos se existe uma conexão com o fa
 			break;
 		}
 	}
-	?>
+}
+?>
 	
 	<body background="imagens/campo-futebol.png" id="<?php echo $idMenuBody;?>">
 			

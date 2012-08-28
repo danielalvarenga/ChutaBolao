@@ -3,13 +3,16 @@
 /** @Entity @Table(name="rendimentotime")*/
 class RendimentoTime{
 	
+	/** @Id @Column(type="string") */
+	protected $id;
+	
 	/**
-	 * @Id @ManyToOne(targetEntity="Campeonato", inversedBy="rendimentosTimes")
+	 * @ManyToOne(targetEntity="Campeonato", inversedBy="rendimentosTimes")
 	 */
 	protected $campeonato;
 	
 	/**
-	 * @Id @ManyToOne(targetEntity="Time", inversedBy="rendimentosCampeonatos")
+	 * @ManyToOne(targetEntity="Time", inversedBy="rendimentosCampeonatos")
 	 */
 	protected $time;
 	
@@ -31,6 +34,7 @@ class RendimentoTime{
 	private $saldoGols;
 	
 	function __construct($campeonato, $time){
+		$this->id = $campeonato->getCodCampeonato()."x".$time->getCodTime();
 		$this->classificacao = NULL;
 		$this->vitorias = 0;
 		$this->derrotas = 0;
@@ -41,6 +45,9 @@ class RendimentoTime{
 		$this->saldoGols = 0;
 		$this->campeonato = $campeonato;
 		$this->time = $time;
+	}
+	function getId(){
+		return $this->id;
 	}
 	function getCampeonato(){
 		return $this->campeonato;
@@ -73,7 +80,7 @@ class RendimentoTime{
 		return $this->pontos;
 	}
 	//retorna o saldo de gols do time no campeonato (saldo de gols = gols pro - gols contra)
-	function getSaldoDeGols(){
+	function getSaldoGols(){
 		return $this->saldoGols;
 	}
 	function setCampeonato($campeonato){

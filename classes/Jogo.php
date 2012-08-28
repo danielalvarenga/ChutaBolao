@@ -60,12 +60,12 @@ class Jogo {
 		if ($codTime1===$codTime2){
 			echo "ERRO CODIGO DOS DOIS TIMES SAO IGUAIS";
 		}
-		elseif (($dataJogo <= $dataAtual)){
+/*		elseif (($dataJogo <= $dataAtual)){
 			echo "ERRO DATA DO JOGO MENOR QUE DATA ATUAL";
 		}
-		else{
+*/		else{
 
-			$this->dataJogo=$dataJogo;
+			$this->setDataJogo($dataJogo);
 			$this->rodada = $rodada;
 			$this->codTime1=$codTime1;
 			$this->codTime2=$codTime2;
@@ -74,12 +74,23 @@ class Jogo {
 			$this->apostasJogo = new ArrayCollection();
 			$this->contadorJogo= new ArrayCollection();
 			$this->campeonato = $campeonato;
-			$this->dataInicioApostas = $this->calculaDataInicioAposta($dataJogo);
-			$this->dataFimApostas = $this->calculaDataFimAposta($dataJogo);
 			$this->setEscudosJogo($urlEscudosJogo);
 
 		}
 	}
+	
+	function setDataJogo($dataJogo){
+/*		$dataAtual= $this->calculaDataAtual();
+		if (($dataJogo <= $dataAtual)){
+			echo "ERRO DATA DO JOGO MENOR QUE DATA ATUAL";
+		}
+		else{
+*/			$this->dataJogo = $dataJogo;
+			$this->dataInicioApostas = $this->calculaDataInicioAposta($dataJogo);
+			$this->dataFimApostas = $this->calculaDataFimAposta($dataJogo);
+//		}
+	}
+	
 	function getContadorJogo(){
 		return $this->contadorJogo;
 	}

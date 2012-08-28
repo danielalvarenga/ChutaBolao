@@ -15,6 +15,7 @@ Painel Chuta Bolão
 	<p align="center"><a href="cadastra-campeonato.php">Cadastrar Campeonato</a></p>
 	<p align="center"><a href="cadastra-jogo.php">Cadastrar Jogo</a></p>
 	<p align="center"><a href="cadastra-jogo.php">Cadastrar Resultado de Jogo</a></p>
+	<p align="center"><a href="monitor-classificacao.php">Atualizar Classificação dos Campeonatos</a></p>
 	<p align="center"><a target="_blank" href="index.php">Ir para aplicativo</a></p>
 	<p align="center"><a target="_blank" href="index-teste.php">Ir para index de Teste</a></p>
 	<p align="center"><a href="logout.php">SAIR</a></p>
