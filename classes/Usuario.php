@@ -104,8 +104,8 @@ class Usuario{
 		return $this->pontuacaoGeral;
 	}
 	
-	function setPontuacaoGeral($pontuaçãoGeral){
-		$this->pontuacaoGeral = $pontuaçãoGeral;
+	function setPontuacaoGeral($pontuacaoGeral){
+		$this->pontuacaoGeral = $pontuacaoGeral;
 	}
 	
 	function getTimeFavorito(){
