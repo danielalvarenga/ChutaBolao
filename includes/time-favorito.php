@@ -52,12 +52,12 @@ else{
 		<div id="rendimentoTimeFavorito">
 			<div class="classificacaoTimeFavorito"><?php echo $rendimentoTime->getClassificacao()."º no ".$rendimentoTime->getCampeonato()->getNomeCampeonato()." ".$rendimentoTime->getCampeonato()->getAnoCampeonato();?></div>
 			<div class="divisoriaTimeFavorito"></div>
-			<div class="infoTimeFavorito"><?php echo "V ".$rendimentoTime->getVitorias();?></div>
-			<div class="infoTimeFavorito"><?php echo "E ".$rendimentoTime->getEmpates();?></div>
-			<div class="infoTimeFavorito"><?php echo "D ".$rendimentoTime->getDerrotas();?></div>
-			<div class="infoTimeFavorito"><?php echo "GP ".$rendimentoTime->getGolsPro();?></div>
-			<div class="infoTimeFavorito"><?php echo "GC ".$rendimentoTime->getGolsContra();?></div>
-			<div class="infoTimeFavorito"><?php echo "SG ".$rendimentoTime->getSaldoGols();?></div>
+			<div class="infoTimeFavorito" title="Vitórias"><?php echo "V ".$rendimentoTime->getVitorias();?></div>
+			<div class="infoTimeFavorito" title="Empates"><?php echo "E ".$rendimentoTime->getEmpates();?></div>
+			<div class="infoTimeFavorito" title="Derrotas"><?php echo "D ".$rendimentoTime->getDerrotas();?></div>
+			<div class="infoTimeFavorito" title="Gols Pró"><?php echo "GP ".$rendimentoTime->getGolsPro();?></div>
+			<div class="infoTimeFavorito" title="Gols Contra"><?php echo "GC ".$rendimentoTime->getGolsContra();?></div>
+			<div class="infoTimeFavorito" title="Saldo de Gols"><?php echo "SG ".$rendimentoTime->getSaldoGols();?></div>
 		</div>
 		<div class="divisoriaTimeFavorito"></div>
 	<?php
