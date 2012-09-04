@@ -472,7 +472,7 @@ else{
 				foreach($jogos as $jogo) {
 				
 					if($jogo instanceof Jogo){
-						if($jogo->getCampeonato()->getStatus() != "finalizado"){
+						//if($jogo->getCampeonato()->getStatus() != "finalizado"){
 							
 							$time1 = $entityManager->find("Time", $jogo->getCodtime1());
 							$time2 = $entityManager->find("Time", $jogo->getCodtime2());
@@ -525,7 +525,14 @@ else{
 										else{
 											echo $time1->getNomeTime().' '.$jogo->getGolstime1().' X '.
 												$jogo->getGolstime2().' '.$time2->getNomeTime();
-										}
+											?>
+											<form action="desfaz-insere-gols.php" method ="get">
+											<input type="hidden" name="tipo" value="<?php echo $_GET['tipo'];?>">
+											<input type="hidden" name="jogo" value="<?php echo $jogo->getCodjogo();?>">
+											<input type="submit" name="desfazer" value="Desfazer Resultado">
+											</form>
+											<?php 
+									//	}
 										?>
 									</td>
 									<td><?php echo $jogo->getDataLogicaInicioApostas();?></td>

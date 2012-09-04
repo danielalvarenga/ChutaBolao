@@ -88,13 +88,13 @@ Class PontuacaoGeral {
 		$this->classificacaoGeral = $classificacaoGeral;
 	}
 	function getMedalhasOuroGeral(){
-		return $this->medalhasOuroGeral++;
+		return $this->medalhasOuroGeral;
 	}
 	function getMedalhasPrataGeral(){
-		return $this->medalhasPrataGeral++;
+		return $this->medalhasPrataGeral;
 	}
 	function getMedalhasBronzeGeral(){
-		return $this->medalhasBronzeGeral++;
+		return $this->medalhasBronzeGeral;
 	}
 	function ganhaMedalhasOuroGeral(){
 		$this->medalhasOuroGeral++;
@@ -150,5 +150,75 @@ Class PontuacaoGeral {
 		}
 		$this->pontosGeral += $pontosAposta;
 	}
+	
+	/* Decrementa em +1 o atributo acertosPlacar */
+	function subtraiAcertaPlacarGeral(){
+		$this->acertosPlacarGeral--;
+		$this->pontosGeral-=10;
+	}
+	/* Decrementa em +1 o atributo acertosTimeGanhador */
+	function subtraiAcertaTimeGanhadorGeral(){
+		$this->acertosTimeGanhadorGeral--;
+		$this->pontosGeral-=5;
+	}
+	/* Decrementa em +1 o atributo acertosPlacarInvertido */
+	function subtraiAcertaPlacarInvertidoGeral(){
+		$this->acertosPlacarInvertidoGeral--;
+		$this->pontosGeral-=2;
+	}
+	function subtraiErroPlacarGeral(){
+		$this->errosPlacarGeral--;
+	}
+	
+	function subtraiMedalhaOuroGeral(){
+		$this->medalhasOuroGeral--;
+		$this->calculaPontosMedalhasGeral();
+	}
+	function subtraiMedalhaPrataGeral(){
+		$this->medalhasPrataGeral--;
+		$this->calculaPontosMedalhasGeral();
+	}
+	function subtraiMedalhaBronzeGeral(){
+		$this->medalhasBronzeGeral--;
+		$this->calculaPontosMedalhasGeral();
+	}
+	function subtraiTrofeus(){
+		$this->trofeus--;
+	}
+	/* Decrementa em +1 o atributo chuteirasOuro */
+	function subtraiChuteiraOuroGeral(){
+		$this->chuteirasOuroGeral--;
+	}
+	/* Decrementa em +1 o atributo chuteirasPrata */
+	function subtraiChuteiraPrataGeral(){
+		$this->chuteirasPrataGeral--;
+	}
+	/* Decrementa em +1 o atributo chuteirasBronze */
+	function subtraiChuteiraBronzeGeral(){
+		$this->chuteirasBronzeGeral--;
+	}
+	function subtraiPontosGeral($pontosAposta){
+		switch($pontosAposta){
+			case 10 : {
+				$this->subtraiAcertaPlacarGeral();
+				break;
+			}
+			case 5 : {
+				$this->subtraiAcertaTimeGanhadorGeral();
+				break;
+			}
+			case 2 : {
+				$this->subtraiAcertaPlacarInvertidoGeral();
+				break;
+			}
+			case 0 : {
+				$this->subtraiErroPlacarGeral();
+				break;
+			}
+		}
+	
+	}
+	
+	
 }
 ?>

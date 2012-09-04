@@ -62,4 +62,9 @@ Class PontuacaoRodada {
 	function calculaPontosRodada($pontosAposta){
 		$this->pontosRodada += $pontosAposta;
 	}
+	
+	function subtraiPontosRodada($pontosAposta){
+		$this->pontosRodada-=$pontosAposta;
+	}
+	
 }

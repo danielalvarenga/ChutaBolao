@@ -102,5 +102,10 @@ class Aposta{
 	function getPontosAposta(){
 		return $this->pontosAposta;
 	}
+	
+	function desfazPontosAposta(){
+		$this->pontosAposta=0;
+	}
+	
 }
 ?>
