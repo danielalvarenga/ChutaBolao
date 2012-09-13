@@ -27,7 +27,6 @@ foreach ($campeonatos as $campeonato){
 		<center>
 		<table
 			style="
-			width: 90%%;
 			
 			background-color: #00df00;
 			background: #00df00;
@@ -43,6 +42,9 @@ foreach ($campeonatos as $campeonato){
 			color: #006600;
 			text-align: center;
 			vertical-align: middle;
+			
+			margin-left: 10px;
+			margin-right: 10px;
 			
 			padding-top: 3px;
 			padding-bottom: 10px;
