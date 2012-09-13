@@ -72,7 +72,7 @@ try{
 						$conn = $entityManager->getConnection();
 						$conn->beginTransaction();
 						try{
-							$camp = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.nomeCampeonato DESC";
+							$camp = "SELECT c FROM Campeonato c  ORDER BY c.nomeCampeonato DESC";
 							$campeonatos = consultaDql($camp);
 							foreach($campeonatos as $campeonato) {
 								if($campeonato instanceof Campeonato){

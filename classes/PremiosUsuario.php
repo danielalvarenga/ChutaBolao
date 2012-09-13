@@ -227,5 +227,72 @@ class PremiosUsuario{
 	function calculaPontosMedalhas(){
 		$this->pontosMedalhas=($this->medalhasOuro <<13) +($this->medalhasPrata<<7)+($this->medalhasBronze<<1) ;
 	}
+	
+	/* Decrementa em +1 o atributo acertosPlacar */
+	function subtraiAcertaPlacar(){
+		$this->acertosPlacar--;
+		$this->pontosCampeonato-=10;
+	}
+	/* Decrementa em +1 o atributo acertosTimeGanhador */
+	function subtraiAcertaTimeGanhador(){
+		$this->acertosTimeGanhador--;
+		$this->pontosCampeonato-=5;
+	}
+	/* Decrementa em +1 o atributo acertosPlacarInvertido */
+	function subtraiAcertaPlacarInvertido(){
+		$this->acertosPlacarInvertido--;
+		$this->pontosCampeonato-=2;
+	}
+	function subtraiErroPlacar(){
+		$this->errosPlacar--;
+	}
+	
+	function subtraiMedalhaOuro(){
+		$this->medalhasOuro--;
+	}
+	function subtraiMedalhaPrata(){
+		$this->medalhasPrata--;
+	}
+	function subtraiMedalhaBronze(){
+		$this->medalhasBronze--;
+	}
+	function subtraiTrofeu(){
+		$this->trofeu=0;
+	}
+	/* Decrementa em +1 o atributo chuteirasOuro */
+	function subtraiChuteiraOuro(){
+		$this->chuteirasOuro=0;
+	}
+	/* Decrementa em +1 o atributo chuteirasPrata */
+	function subtraiChuteiraPrata(){
+		$this->chuteirasPrata=0;
+	}
+	/* Decrementa em +1 o atributo chuteirasBronze */
+	function subtraiChuteiraBronze(){
+		$this->chuteirasBronze=0;
+	}
+	function subtraiCalculaPontos($pontosAposta){
+		switch($pontosAposta){
+			case 10 : {
+				$this->subtraiAcertaPlacar();
+				break;
+			}
+			case 5 : {
+				$this->subtraiAcertaTimeGanhador();
+				break;
+			}
+			case 2 : {
+				$this->subtraiAcertaPlacarInvertido();
+				break;
+			}
+			case 0 : {
+				$this->subtraiErroPlacar();
+				break;
+			}
+		}
+	
+	}
+	
+	
 }
 ?>

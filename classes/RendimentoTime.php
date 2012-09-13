@@ -133,4 +133,35 @@ class RendimentoTime{
 		$this->calculaPontos();
 		$this->calculaSaldoDeGols();
 	}
+	
+	function subtraiGolsPro($golsPro){
+		$this->golsPro-=$golsPro;
+	}
+	function subtraiGolsContra($golsContra){
+		$this->golsContra -= $golsContra;
+	}
+	function decrementaVitorias(){
+		$this->vitorias--;
+	}
+	function decrementaDerrotas(){
+		$this->derrotas--;
+	}
+	function decrementaEmpates(){
+		$this->empates--;
+	}
+	
+	function desfazCalculaRendimentoTime($golsPro, $golsContra){
+		$this->subtraiGolsPro($golsPro);
+		$this->subtraiGolsContra($golsContra);
+		if($golsPro > $golsContra){
+			$this->decrementaVitorias();
+		} elseif ($golsPro < $golsContra){
+			$this->decrementaDerrotas();
+		} else {
+			$this->decrementaEmpates();
+		}
+		$this->calculaPontos();
+		$this->calculaSaldoDeGols();
+	}
+	
 }
