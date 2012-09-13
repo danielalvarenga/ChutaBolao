@@ -21,5 +21,5 @@ $classes = array(
 		
 );
 $tool->dropSchema($classes); // remove banco de dados
-$tool->createSchema($classes); // cria novo banco de dados
+//$tool->createSchema($classes); // cria novo banco de dados
 //$tool->updateSchema($classes); // atualiza o banco de dados

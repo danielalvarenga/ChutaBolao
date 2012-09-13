@@ -52,12 +52,13 @@ if(isset($_POST[0])){
 				));
 					
 				//Cria um objeto PontuacaoRodada para o Usuario na Rodada do Jogo que apostou se ainda nÃ£o existir
-					
+				
 				$pontuacaoRodada = buscaObjeto("PontuacaoRodada", array(
 						"campeonato" =>	$jogo_campeonato,
 						"rodada" => $jogo->getRodada()->getNumRodada(),
 						"usuario" => $user_id
 				));
+				
 				if(!($pontuacaoRodada instanceof PontuacaoRodada)){
 					$rodada = $jogo->getRodada();
 					$pontuacaoRodada = new PontuacaoRodada($rodada, $campeonato, $usuario);
@@ -75,7 +76,7 @@ if(isset($_POST[0])){
 					$premiosUsuario = new PremiosUsuario($usuario, $campeonato);
 					salvaBancoDados($premiosUsuario);
 					}
-					
+				
 				//Cria nova aposta se ainda nÃ£o existir
 				$publica = false;
 				if ($apostaCadastrada instanceof Aposta){
@@ -90,7 +91,7 @@ if(isset($_POST[0])){
 						$contador1++;
 						$indice++;
 					}
-						
+					
 					if($apostaCadastrada->getApostaGolsTime2()<>$palpite_time2_jogo){
 						$auxContadorAposta[$indice]=$apostaCadastrada->getApostaGolsTime1()."  X  ".$apostaCadastrada->getApostaGolsTime2();
 						$apostaCadastrada->setApostaGolsTime2($palpite_time2_jogo);
@@ -100,6 +101,7 @@ if(isset($_POST[0])){
 						$publica = true;
 						$contador1++;
 					}
+					
 					if($auxContadorAposta[0]<>NULL){
 						$contadorAposta = buscaObjeto("ContadorAposta", array (
 								"campeonato"=>$jogo_campeonato,
@@ -125,10 +127,11 @@ if(isset($_POST[0])){
 							
 						}
 						else{
-							$novoContadorAposta= new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
+							$novoContadorAposta = new ContadorAposta($atualizacaoContadorAposta,$campeonato,$jogo);
 							salvaBancoDados($novoContadorAposta);
-								
+							//echo "CHUTA BOL�O";
 						}
+						
 					}
 				}
 				else{
@@ -160,14 +163,16 @@ if(isset($_POST[0])){
 					}
 				}
 			}
+			
 			$time1 = buscaObjeto("Time", $jogo->getCodtime1());
 			$time2 = buscaObjeto("Time", $jogo->getCodtime2());
-			if(($time1->getNomeTime() == "Brasil") || ($time2->getNomeTime() == "Brasil")){
-				if($contadorPublicacoesMural > 3){
-					$contadorPublicacoesMural = 3;
-				}
+			if(($time1 === $usuario->getTimeFavorito()) || ($time2 === $usuario->getTimeFavorito())){
+				$contadorPublicacoesMural--;
 			}
-			if($publica && $contadorPublicacoesMural <= 3){
+			if(($time1->getNomeTime() == "Brasil") || ($time2->getNomeTime() == "Brasil")){
+				$contadorPublicacoesMural--;
+			}
+			if(($publica) && ($contadorPublicacoesMural <= 3) && (!$teste)){
 				if($palpite_time1_jogo > $palpite_time2_jogo){
 					$name = $usuario->getPrimeiroNomeUsuario().'
 					chuta '.$palpite_time1_jogo.'

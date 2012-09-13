@@ -8,7 +8,7 @@ require "bootstrap.php";
 require 'metodos-bd.php';
 
 $user_id = "100000885523518";
-
+$teste = true;
 $usuario = buscaObjeto("Usuario", $user_id);
 if($usuario instanceof Usuario){
 }

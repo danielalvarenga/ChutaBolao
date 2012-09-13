@@ -156,9 +156,13 @@ require 'metodos-bd.php';
 				echo 'Campeonato: '.$rodada->getCampeonato()->getNomeCampeonato().'<br/>';
 				echo 'Status: '.$rodada->getStatus().'<br/>';
 				
+				echo "medal rodada";
 				atribuiMedalhasRodada($numRodada, $jogo);
+				echo "medal Camp";
 				atualizaClassificacaoMedalhasCampeonato($jogo);
+				echo "medal geral";
 				atualizaClassificacaoMedalhasGeral();
+				echo "dentro";
 			}
 		}
 			
@@ -202,10 +206,10 @@ require 'metodos-bd.php';
 			$armazenaPontos[0]=null;
 			$armazenaPosicao[0]=null;
 			
-			$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> '1130122019'
-					AND p.usuario <> '100000885523518'
-					AND p.usuario <> '100003489131091'
-					AND p.usuario <> '100001984735537'
+			$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> 1130122019
+					AND p.usuario <> 100000885523518
+					AND p.usuario <> 100003489131091
+					AND p.usuario <> 100001984735537
 					AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
 					GROUP BY p.pontosMedalhas
 					ORDER BY p.pontosMedalhas DESC";
@@ -216,23 +220,22 @@ require 'metodos-bd.php';
 					$armazenaPontos[$contador]=$premiosUsuario->getPontosMedalhas();
 					$armazenaPosicao[$contador]=$contador+1;
 					$contador++;
-						
-					}	
+					}
 				}
 			
-			for ($i=0 ; $i < $contador ; $i++){
-				$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> '1130122019'
-									AND p.usuario <> '100000885523518'
-									AND p.usuario <> '100003489131091'
-									AND p.usuario <> '100001984735537'
-									AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
-									AND p.pontosMedalhas=".$armazenaPontos[$i] ;
-				$premiosUsuarios = consultaDql($dql);
-			
-				foreach ($premiosUsuarios as $premiosUsuario){
-					if($premiosUsuario instanceof PremiosUsuario){
-						$premiosUsuario->setClassificacaoMedalhas($armazenaPosicao[$i]);
-						atualizaBancoDados($premiosUsuario);
+				for ($i=0 ; $i < $contador ; $i++){
+					$dql = "SELECT p FROM PremiosUsuario p WHERE p.usuario <> 1130122019
+										AND p.usuario <> 100000885523518
+										AND p.usuario <> 100003489131091
+										AND p.usuario <> 100001984735537
+										AND p.campeonato =".$jogo->getCampeonato()->getCodCampeonato()."
+										AND p.pontosMedalhas=".$armazenaPontos[$i] ;
+					$premiosUsuarios = consultaDql($dql);
+				
+					foreach ($premiosUsuarios as $premiosUsuario){
+						if($premiosUsuario instanceof PremiosUsuario){
+							$premiosUsuario->setClassificacaoMedalhas($armazenaPosicao[$i]);
+							atualizaBancoDados($premiosUsuario);
 							
 							}
 						}
@@ -245,10 +248,10 @@ require 'metodos-bd.php';
 			$armazenaPontos[0]=null;
 			$armazenaPosicao[0]=null;
 			
-			$dql = "SELECT p FROM PontuacaoGeral p WHERE p.usuario <> '1130122019'
-									AND p.usuario <> '100000885523518'
-									AND p.usuario <> '100003489131091'
-									AND p.usuario <> '100001984735537'
+			$dql = "SELECT p FROM PontuacaoGeral p WHERE p.usuario <> 1130122019
+									AND p.usuario <> 100000885523518
+									AND p.usuario <> 100003489131091
+									AND p.usuario <> 100001984735537
 									GROUP BY p.pontosMedalhasGeral
 									ORDER BY p.pontosMedalhasGeral DESC";
 			$pontuacoesGerais = consultaDql($dql);
@@ -257,15 +260,15 @@ require 'metodos-bd.php';
 				if($pontuacaoGeral instanceof PontuacaoGeral){
 					$armazenaPontos[$contador]=$pontuacaoGeral->getPontosMedalhasGeral();
 					$armazenaPosicao[$contador]=$contador+1;
-					$contador++;	
+					$contador++;
 				}
 			}
 			for ($i = 0 ;$i < $contador ; $i++){
-				$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosMedalhasGeral= '$armazenaPontos[$i]'
-						AND p.usuario <> '1130122019'
-						AND p.usuario <> '100000885523518'
-						AND p.usuario <> '100003489131091'
-						AND p.usuario <> '100001984735537'";
+				$dql = "SELECT p FROM PontuacaoGeral p WHERE p.pontosMedalhasGeral= $armazenaPontos[$i]
+						AND p.usuario <> 1130122019
+						AND p.usuario <> 100000885523518
+						AND p.usuario <> 100003489131091
+						AND p.usuario <> 100001984735537";
 				$pontuacoesGerais = consultaDql($dql);
 	
 				foreach ($pontuacoesGerais as $pontuacaoGeral){

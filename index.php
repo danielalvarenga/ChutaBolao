@@ -8,7 +8,7 @@ require "bootstrap.php";
 require 'metodos-bd.php';
 require_once 'FacebookApi/facebook.php';
 
-
+$teste = false; // para não tentar publicar no mural quando for teste
 
 @session_start();//iniciamos uma seção se nao existir
 if($_SESSION["facebook_token"]==""){//verificamos se existe uma conexão com o face.

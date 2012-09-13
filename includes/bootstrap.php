@@ -39,3 +39,4 @@ $config = Setup::createAnnotationMetadataConfiguration($path, $debug);
 
 // Obtendo uma instancia do Entity Manager
 $entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
+set_time_limit(300);
