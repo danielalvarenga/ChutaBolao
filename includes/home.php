@@ -140,7 +140,7 @@ $conn->close();
 <div id="menuCampeonatos">
 		<h3 class="titulo">Dê seus Chutes</h3>
 		<?php
-		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato DESC";
+		$dql = "SELECT c FROM Campeonato c WHERE c.status = 'ativo' ORDER BY c.codCampeonato ASC";
 		$campeonatos = consultaDql($dql);
 		foreach($campeonatos as $campeonato) {
 			if($campeonato instanceof Campeonato){

@@ -221,7 +221,7 @@ if(isset($_GET['conteudo'])){
 			        <ul>
 						<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Início</strong></a></li>
 						<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
-						<!--  <li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o</strong></a></li>  -->
+						<li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o</strong></a></li>
 						<!--  <li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Desafie</strong></a></li>  -->
 						<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
 						<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>

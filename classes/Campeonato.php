@@ -11,7 +11,7 @@ class Campeonato {
 	/** @Column(type="string")*/
 	private $nomeCampeonato;
 	
-	/** @Column(type="integer")*/
+	/** @Column(type="string")*/
 	private $anoCampeonato;
 	
 	/** @Column(type="string")*/
