@@ -89,7 +89,6 @@ if (isset($_GET['jogo'])) {
 			atualizaClassificacaoPontosCampeonato($jogo);
 			atualizaClassificacaoPontosRodada($numRodada, $jogo);
 			verificaFimRodada($numRodada, $jogo);
-			echo "PASSOU AQUI";
 			verificaFinalCampeonato($numRodada, $jogo);
 			
 			$conn->commit();

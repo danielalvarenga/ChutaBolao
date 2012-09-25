@@ -176,10 +176,20 @@ cadastro de time
 	
 	<form action="" method="POST" enctype="multipart/form-data">
 			
-			<p>Nome do campeonato:<input type="text" name="nome" size="60" maxlength="30"></p>
-            <p>Ano:<input type="text" name="ano" size="60" maxlength="4"></p>
-            <p>Quantidade de rodadas:<input type="text" name="quant" size="60" maxlength="2"></p>
-            <p>Logo do Campeonato: <input type="file" name="logo"/></p>
+			<p>
+				<label for="nome">Nome do campeonato:</label>
+				<input type="text" name="nome" id="nome" size="60" maxlength="30">
+			</p>
+            <p>
+	            <label for="ano">Ano:</label>
+	            <input type="text" name="ano" id="ano" size="60" maxlength="4"></p>
+            <p>
+	            <label for="rodadas">Quantidade de rodadas:</label>
+	            <input type="text" name="quant" id="rodadas" size="60" maxlength="2"></p>
+            <p>
+	            <label for="logo">Logo do Campeonato:</label>
+	            <input type="file" name="logo" id="logo"/>
+	        </p>
             <p><input type="submit" name="salvar" value="Salvar" /></p>
     </form>
 		

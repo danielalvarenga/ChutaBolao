@@ -45,6 +45,7 @@ else{
 <?php echo '<meta http-equiv="Content-Type" content="text/html; charset='.$charset.'" />'; ?>
 <title>Chuta Bolão</title>
 <link href="estilos/folha.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery.js"></script>
 
 <!---------------------------Google Analytics---------------------------->
 <script type="text/javascript">

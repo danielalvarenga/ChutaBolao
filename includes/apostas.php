@@ -284,11 +284,13 @@ try{
 						
 					//Aqui esta buscando os nomes dos times do jogo
 					$time = buscaObjeto("Time", $jogo->getCodtime1());
+					$rendimentoTime1 = buscaObjeto("RendimentoTime", $codCampeonato."x".$jogo->getCodtime1());
 					$time1 = $time->getNomeTime();
 					$escudo1 = $time->getEscudo();
 
 					//Aqui esta buscando os nomes dos times do jogo
 					$time = buscaObjeto("Time", $jogo->getCodtime2());
+					$rendimentoTime2 = buscaObjeto("RendimentoTime", $codCampeonato."x".$jogo->getCodtime2());
 					$time2 = $time->getNomeTime();
 					$escudo2 = $time->getEscudo();
 
@@ -323,8 +325,37 @@ try{
 							<img class="escudoTime" src="<?php echo $escudo2;?>">
 							<span class="nomeTimeChutes"><?php echo $time2?></span>
 							<button class="okChutes" type="submit" value="salvar">OK</button>
-							<div class="divisoria"></div>
 							</div>
+							<div class="rendimentos">
+								<div class="rendimentoTimeChute">
+									<?php if(substr_count($campeonato->getNomeCampeonato(), 'Brasileirão') > 0) {?>
+										<div class="classificacaoTimeFavorito"><?php echo $rendimentoTime1->getClassificacao()."º no Campeonato";?></div>
+									<?php }?>
+									<div class="divisoriaTimeFavorito"></div>
+									<div class="infoRendimento" title="Vitórias"><?php echo "V ".$rendimentoTime1->getVitorias();?></div>
+									<div class="infoRendimento" title="Empates"><?php echo "E ".$rendimentoTime1->getEmpates();?></div>
+									<div class="infoRendimento" title="Derrotas"><?php echo "D ".$rendimentoTime1->getDerrotas();?></div>
+									<div style="clear: both;"></div>
+									<div class="infoRendimento" title="Gols Pró"><?php echo "GP ".$rendimentoTime1->getGolsPro();?></div>
+									<div class="infoRendimento" title="Gols Contra"><?php echo "GC ".$rendimentoTime1->getGolsContra();?></div>
+									<div class="infoRendimento" title="Saldo de Gols"><?php echo "SG ".$rendimentoTime1->getSaldoGols();?></div>
+								</div>
+								<div class="divisoriaRendimentoTime"></div>
+								<div class="rendimentoTimeChute">
+									<?php if(substr_count($campeonato->getNomeCampeonato(), 'Brasileirão') > 0) {?>
+										<div class="classificacaoTimeFavorito"><?php echo $rendimentoTime2->getClassificacao()."º no Campeonato";?></div>
+									<?php }?>
+									<div class="divisoriaTimeFavorito"></div>
+									<div class="infoRendimento" title="Vitórias"><?php echo "V ".$rendimentoTime2->getVitorias();?></div>
+									<div class="infoRendimento" title="Empates"><?php echo "E ".$rendimentoTime2->getEmpates();?></div>
+									<div class="infoRendimento" title="Derrotas"><?php echo "D ".$rendimentoTime2->getDerrotas();?></div>
+									<div style="clear: both;"></div>
+									<div class="infoRendimento" title="Gols Pró"><?php echo "GP ".$rendimentoTime2->getGolsPro();?></div>
+									<div class="infoRendimento" title="Gols Contra"><?php echo "GC ".$rendimentoTime2->getGolsContra();?></div>
+									<div class="infoRendimento" title="Saldo de Gols"><?php echo "SG ".$rendimentoTime2->getSaldoGols();?></div>
+								</div>
+							</div>
+							<div class="divisoria"></div>
 						
 						<?php
 						
@@ -357,8 +388,37 @@ try{
 							<img class="escudoTime" src="<?php echo $escudo2;?>">
 							<span class="nomeTimeChutes"><?php echo $time2?></span>
 							<button class="okChutes" type="submit" value="salvar">OK</button>
-							<div class="divisoria"></div>
 						</div>
+						<div class="rendimentos">
+								<div class="rendimentoTimeChute">
+									<?php if(substr_count($campeonato->getNomeCampeonato(), 'Brasileirão') > 0) {?>
+										<div class="classificacaoTimeFavorito"><?php echo $rendimentoTime1->getClassificacao()."º no Campeonato";?></div>
+									<?php }?>
+									<div class="divisoriaTimeFavorito"></div>
+									<div class="infoRendimento" title="Vitórias"><?php echo "V ".$rendimentoTime1->getVitorias();?></div>
+									<div class="infoRendimento" title="Empates"><?php echo "E ".$rendimentoTime1->getEmpates();?></div>
+									<div class="infoRendimento" title="Derrotas"><?php echo "D ".$rendimentoTime1->getDerrotas();?></div>
+									<div style="clear: both;"></div>
+									<div class="infoRendimento" title="Gols Pró"><?php echo "GP ".$rendimentoTime1->getGolsPro();?></div>
+									<div class="infoRendimento" title="Gols Contra"><?php echo "GC ".$rendimentoTime1->getGolsContra();?></div>
+									<div class="infoRendimento" title="Saldo de Gols"><?php echo "SG ".$rendimentoTime1->getSaldoGols();?></div>
+								</div>
+								<div class="divisoriaRendimentoTime"></div>
+								<div class="rendimentoTimeChute">
+									<?php if(substr_count($campeonato->getNomeCampeonato(), 'Brasileirão') > 0) {?>
+										<div class="classificacaoTimeFavorito"><?php echo $rendimentoTime2->getClassificacao()."º no Campeonato";?></div>
+									<?php }?>
+									<div class="divisoriaTimeFavorito"></div>
+									<div class="infoRendimento" title="Vitórias"><?php echo "V ".$rendimentoTime2->getVitorias();?></div>
+									<div class="infoRendimento" title="Empates"><?php echo "E ".$rendimentoTime2->getEmpates();?></div>
+									<div class="infoRendimento" title="Derrotas"><?php echo "D ".$rendimentoTime2->getDerrotas();?></div>
+									<div style="clear: both;"></div>
+									<div class="infoRendimento" title="Gols Pró"><?php echo "GP ".$rendimentoTime2->getGolsPro();?></div>
+									<div class="infoRendimento" title="Gols Contra"><?php echo "GC ".$rendimentoTime2->getGolsContra();?></div>
+									<div class="infoRendimento" title="Saldo de Gols"><?php echo "SG ".$rendimentoTime2->getSaldoGols();?></div>
+								</div>
+							</div>
+							<div class="divisoria"></div>
 						
 						<?php
 							
@@ -405,3 +465,12 @@ if(isset($contador) || isset($contador1)){
 	}
 }
 ?>
+
+<script>
+	$('.rendimentos').hide();
+
+	$('.jogoLiberado').hover(function() {
+		$(this).next().toggle("speed");
+	});
+
+</script>
