@@ -325,40 +325,8 @@ try{
 							<img class="escudoTime" src="<?php echo $escudo2;?>">
 							<span class="nomeTimeChutes"><?php echo $time2?></span>
 							<button class="okChutes" type="submit" value="salvar">OK</button>
-							</div>
-							<div class="botaoRendimento" style="height: 10px;">
-								<span class="classificacaoTimeFavorito" style="font-size: 10px;">ver rendimentos dos times</span>
-							</div>
-							<div class="rendimentos">
-								<div class="rendimentoTimeChute">
-									<?php if(substr_count($campeonato->getNomeCampeonato(), 'Brasileirão') > 0) {?>
-										<div class="classificacaoTimeFavorito"><?php echo $rendimentoTime1->getClassificacao()."º no Campeonato";?></div>
-									<?php }?>
-									<div class="divisoriaTimeFavorito"></div>
-									<div class="infoRendimento" title="Vitórias"><?php echo "V ".$rendimentoTime1->getVitorias();?></div>
-									<div class="infoRendimento" title="Empates"><?php echo "E ".$rendimentoTime1->getEmpates();?></div>
-									<div class="infoRendimento" title="Derrotas"><?php echo "D ".$rendimentoTime1->getDerrotas();?></div>
-									<div style="clear: both;"></div>
-									<div class="infoRendimento" title="Gols Pró"><?php echo "GP ".$rendimentoTime1->getGolsPro();?></div>
-									<div class="infoRendimento" title="Gols Contra"><?php echo "GC ".$rendimentoTime1->getGolsContra();?></div>
-									<div class="infoRendimento" title="Saldo de Gols"><?php echo "SG ".$rendimentoTime1->getSaldoGols();?></div>
-								</div>
-								<div class="divisoriaRendimentoTime"></div>
-								<div class="rendimentoTimeChute">
-									<?php if(substr_count($campeonato->getNomeCampeonato(), 'Brasileirão') > 0) {?>
-										<div class="classificacaoTimeFavorito"><?php echo $rendimentoTime2->getClassificacao()."º no Campeonato";?></div>
-									<?php }?>
-									<div class="divisoriaTimeFavorito"></div>
-									<div class="infoRendimento" title="Vitórias"><?php echo "V ".$rendimentoTime2->getVitorias();?></div>
-									<div class="infoRendimento" title="Empates"><?php echo "E ".$rendimentoTime2->getEmpates();?></div>
-									<div class="infoRendimento" title="Derrotas"><?php echo "D ".$rendimentoTime2->getDerrotas();?></div>
-									<div style="clear: both;"></div>
-									<div class="infoRendimento" title="Gols Pró"><?php echo "GP ".$rendimentoTime2->getGolsPro();?></div>
-									<div class="infoRendimento" title="Gols Contra"><?php echo "GC ".$rendimentoTime2->getGolsContra();?></div>
-									<div class="infoRendimento" title="Saldo de Gols"><?php echo "SG ".$rendimentoTime2->getSaldoGols();?></div>
-								</div>
-							</div>
 							<div class="divisoria"></div>
+							</div>
 						
 						<?php
 						
@@ -391,9 +359,6 @@ try{
 							<img class="escudoTime" src="<?php echo $escudo2;?>">
 							<span class="nomeTimeChutes"><?php echo $time2?></span>
 							<button class="okChutes" type="submit" value="salvar">OK</button>
-						</div>
-						<div class="botaoRendimento" style="height: 10px;">
-							<span class="classificacaoTimeFavorito" style="font-size: 10px;">ver rendimentos dos times</span>
 						</div>
 						<div class="rendimentos">
 								<div class="rendimentoTimeChute">
@@ -435,12 +400,9 @@ try{
 				<p><button class="salvarChutes" type="submit" value="salvar">Salvar Todos</button></p>
 				</form>
 				</div>
-				
+				<div class="divisoriaCampeonatos"></div>
 				<?php
 			}
-			?>
-			<div class="divisoriaCampeonatos"></div>
-			<?php
 			if($semChutes){
 				?>
 				<p class="aviso">
@@ -474,43 +436,12 @@ if(isset($contador) || isset($contador1)){
 	}
 }
 ?>
-<div id="fundoOpaco" style="position: absolute; top:0px; left: 0px; width: 100%; height: 100%; z-index:5; background-image: url('imagens/fundo-black-85opaco.png');">
-<div id="espera" style="width: 100px; height: 120px; margin-left: -50px; margin-top: -60px;position: fixed; top: 50%; left: 50%; z-index:; background-color: #ffffff; border:solid 0px #000000; -moz-border-radius: 10px; -webkit-border-radius: 10px;border-radius: 10px;">
-<img style="margin-top: 25px; margin-left: 25px; margin-right: 25px;" src="imagens/espera.gif" />
-<p class="aviso" style="background-color: #ffffff;">salvando...</p>
-</div>
-</div>
 
 <script>
 	$('.rendimentos').hide();
-	$('#fundoOpaco').hide();
-	$('#espera').hide();
-	
-	$('.salvarChutes').click(function() {
-		$('html, body').animate({ scrollTop: 0 }, 0);
-		$('#fundoOpaco').show();
-		$('#espera').show();
-	});
 
-	$('.okChutes').click(function() {
-		$('html, body').animate({ scrollTop: 0 }, 0);
-		$('#fundoOpaco').show();
-		$('#espera').show();
-	});
-
-	$('.jogoLiberado').click(function() {
-		$(this).next().toggle("speed");
-		$(this).next().next().toggle("speed");
-	});
-
-	$('.botaoRendimento').click(function() {
-		$(this).toggle("speed");
-		$(this).next().toggle("speed");
-	});
-
-	$('.rendimentos').click(function() {
-		$('.botaoRendimento').show("speed");
-		$(this).toggle("speed");
+	$('.jogoLiberado').hover(function() {
+		$(this).next().slideToggle('speed');
 	});
 
 </script>

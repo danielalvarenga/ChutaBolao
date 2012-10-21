@@ -232,10 +232,8 @@ try{
 		$premiosUsuario1 = new PremiosUsuario($usuario1, $campeonato);
 		salvaBancoDados($premiosUsuario1);
 		
-		$aposta1 = new Aposta($usuario1, $campeonato, $jogo);
+		$aposta1 = new Aposta($usuario1, $campeonato, $jogo, $palpite_time1_jogo, $palpite_time2_jogo);
 		$placarApostado1 = $palpite_time1_jogo."  X  ".$palpite_time2_jogo;
-		$aposta1->setApostaGolsTime1($palpite_time1_jogo);
-		$aposta1->setApostaGolsTime2($palpite_time2_jogo);
 		salvaBancoDados($aposta1);
 		
 		$contadorAposta1= new ContadorAposta($placarApostado1, $campeonato, $jogo);
@@ -249,10 +247,8 @@ try{
 		$premiosUsuario2 = new PremiosUsuario($usuario2, $campeonato);
 		salvaBancoDados($premiosUsuario2);
 		
-		$aposta2 = new Aposta($usuario2, $campeonato, $jogo);
+		$aposta2 = new Aposta($usuario2, $campeonato, $jogo, $palpite_time1_jogo+2, $palpite_time2_jogo+2);
 		$placarApostado2 = 2+$palpite_time1_jogo."  X  ".$palpite_time2_jogo+2;
-		$aposta2->setApostaGolsTime1($palpite_time1_jogo+2);
-		$aposta2->setApostaGolsTime2($palpite_time2_jogo+2);
 		salvaBancoDados($aposta2);
 		
 		$contadorAposta2= new ContadorAposta($placarApostado2, $campeonato, $jogo);
@@ -266,10 +262,8 @@ try{
 		$premiosUsuario3 = new PremiosUsuario($usuario3, $campeonato);
 		salvaBancoDados($premiosUsuario3);
 		
-		$aposta3 = new Aposta($usuario3, $campeonato, $jogo);
+		$aposta3 = new Aposta($usuario3, $campeonato, $jogo, $palpite_time2_jogo, $palpite_time1_jogo);
 		$placarApostado3 = $palpite_time2_jogo."  X  ".$palpite_time1_jogo;
-		$aposta3->setApostaGolsTime1($palpite_time2_jogo);
-		$aposta3->setApostaGolsTime2($palpite_time1_jogo);
 		salvaBancoDados($aposta3);
 		
 		$contadorAposta3= new ContadorAposta($placarApostado3, $campeonato, $jogo);
@@ -283,12 +277,10 @@ try{
 		$premiosUsuario4 = new PremiosUsuario($usuario4, $campeonato);
 		salvaBancoDados($premiosUsuario4);
 		
-		$aposta4 = new Aposta($usuario4, $campeonato, $jogo);
 		$golsErrados1 = $palpite_time1_jogo-2;
 		$golsErrados2 = $palpite_time2_jogo-2;
+		$aposta4 = new Aposta($usuario4, $campeonato, $jogo, $golsErrados1, $golsErrados2);
 		$placarApostado4 = $golsErrados2."  X  ".$golsErrados1;
-		$aposta4->setApostaGolsTime1($golsErrados2);
-		$aposta4->setApostaGolsTime2($golsErrados1);
 		salvaBancoDados($aposta4);
 		
 		$contadorAposta4= new ContadorAposta($placarApostado4, $campeonato, $jogo);

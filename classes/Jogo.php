@@ -165,9 +165,9 @@ class Jogo {
 		
 	}
 
-	function verificaPeriodoapostas($dataDaAposta){
+	function verificaPeriodoapostas($dataAposta){
 		
-		if (($dataDaAposta>=$this->dataInicioApostas)&&($dataDaAposta<=$this->dataFimApostas)) {
+		if (($dataAposta>=$this->dataInicioApostas)&&($dataAposta<=$this->dataFimApostas)) {
 			return true;
 		}
 		else {

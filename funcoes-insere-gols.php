@@ -113,7 +113,7 @@ require 'metodos-bd.php';
 							AND p.usuario <> '100000885523518'
 							AND p.usuario <> '100003489131091'
 							AND p.usuario <> '100001984735537'
-							AND p.rodada = '.$numRodada.'
+							AND p.rodada = '$numRodada'
 							AND p.campeonato ='$campeonato'
 						    AND p.pontosRodada='$armazenaPontos[$i]'";
 					$pontuacoesRodada=consultaDql($dql);

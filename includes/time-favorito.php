@@ -59,10 +59,10 @@ else{
 			<div class="infoTimeFavorito" title="Gols Contra"><?php echo "GC ".$rendimentoTime->getGolsContra();?></div>
 			<div class="infoTimeFavorito" title="Saldo de Gols"><?php echo "SG ".$rendimentoTime->getSaldoGols();?></div>
 		</div>
-		<div class="divisoriaTimeFavorito"></div>
 	<?php
 	}
 	?>
+	<div class="divisoriaTimeFavorito"></div>
 	<?php
 }
 ?>

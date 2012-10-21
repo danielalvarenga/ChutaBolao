@@ -195,8 +195,8 @@ if(isset($_GET['conteudo'])){
 				</div>
 				<div id="banner">
 					<p>
-					<a target="_blank" href="https://www.facebook.com/parabensironico">
-						<img src="imagens/banners/parabens-ironico.png">
+					<a target="_blank" href="https://www.facebook.com/querocarona">
+						<img src="imagens/banners/quero-carona.png">
 					</a>
 					</p>
 					<div id="curtir">
@@ -222,7 +222,7 @@ if(isset($_GET['conteudo'])){
 			        <ul>
 						<li id="li_tsmenu1"><a href="index.php?conteudo=home" title="Home"><strong>Início</strong></a></li>
 						<li id="li_tsmenu2"><a href="index.php?conteudo=chutes" title="Chutes"><strong>Jogos&nbsp;Liberados</strong></a></li>
-						<li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o<img style="border: 0px; width: 25px" src="imagens/novo.gif"></strong></a></li>
+						<li id="li_tsmenu3"><a href="index.php?conteudo=classificacao" title="Classificação"><strong>Classifica&ccedil;&atilde;o<!-- <img style="border: 0px; width: 25px" src="imagens/novo.gif"> --></strong></a></li>
 						<!--  <li id="li_tsmenu4"><a href="index.php?conteudo=convites" title="Convites"><strong>Desafie</strong></a></li>  -->
 						<li id="li_tsmenu5"><a href="index.php?conteudo=placares" title="placares"><strong>TOP&nbsp;3&nbsp;Placares</strong></a></li>
 						<li id="li_tsmenu6"><a href="index.php?conteudo=ranks" title="Ranks"><strong>Rankings</strong></a></li>

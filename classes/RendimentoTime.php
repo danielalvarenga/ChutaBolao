@@ -117,7 +117,7 @@ class RendimentoTime{
 		$this->pontos = $this->vitorias * 3 + $this->empates;
 	}
 	//retorna o saldo de gols do time no campeonato (saldo de gols = gols pro - gols contra)
-	function calculaSaldoDeGols(){
+	function calculaSaldoGols(){
 		$this->saldoGols = $this->golsPro - $this->golsContra;
 	}
 	function calculaRendimentoTime($golsPro, $golsContra){
@@ -131,7 +131,7 @@ class RendimentoTime{
 			$this->incrementaEmpates();
 		}
 		$this->calculaPontos();
-		$this->calculaSaldoDeGols();
+		$this->calculaSaldoGols();
 	}
 	
 	function subtraiGolsPro($golsPro){
@@ -161,7 +161,7 @@ class RendimentoTime{
 			$this->decrementaEmpates();
 		}
 		$this->calculaPontos();
-		$this->calculaSaldoDeGols();
+		$this->calculaSaldoGols();
 	}
 	
 }
